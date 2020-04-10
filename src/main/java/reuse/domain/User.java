@@ -16,6 +16,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Size(min = 1, max = 40)
+    private String socialTokenId;
+
     @Email
     private String email;
 
@@ -28,24 +31,25 @@ public class User {
     private List<Favorite> favorites = new ArrayList<>();
 
     @Builder
-    public User(Long id, String email, String name, String password, List<Favorite> favorites) {
+    public User(Long id, String socialTokenId, String email, String name, String password, List<Favorite> favorites) {
         this.id = id;
+        this.socialTokenId = socialTokenId;
         this.email = email;
         this.name = name;
         this.password = password;
         this.favorites = favorites;
     }
 
-    public User(Long id, String email, String name, String password) {
-        this(id, email, name, password, new ArrayList<>());
+    public User(Long id, String socialTokenId, String email, String name, String password) {
+        this(id, socialTokenId, email, name, password, new ArrayList<>());
     }
 
     public User(Long id, String email, String name) {
         this(id, email, name, null, new ArrayList<>());
     }
 
-    public static User of(Long id, String email, String name, String password) {
-        return new User(null, email, name, password, new ArrayList<>());
+    public static User of(Long id, String socialTokenId, String email, String name, String password) {
+        return new User(null, socialTokenId, email, name, password, new ArrayList<>());
     }
 
 
