@@ -7,13 +7,11 @@ import lombok.Setter;
 @Setter
 public class LoginUserRequestView {
     private String socialTokenId;
-    private String password;
 
     public LoginUserRequestView() {
     }
 
-    public LoginUserRequestView(String socialTokenId, String password) {
+    public LoginUserRequestView(String socialTokenId) {
         this.socialTokenId = socialTokenId;
-        this.password = password;
     }
 }
