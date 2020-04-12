@@ -21,12 +21,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/sigh-up")
-    public ResponseEntity signUp(@RequestBody CreateUserRequestView user) {
-        CreateUserResponseView savedUser = userService.singUp(user);
-        return ResponseEntity.created(URI.create("/users/" + savedUser.getId())).body(savedUser);
-    }
-
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginUserRequestView loginUser) {
         return ResponseEntity.ok().body(userService.login(loginUser));
