@@ -1,17 +1,26 @@
 package reuse.dto.user;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import reuse.domain.User;
 
 @Getter
 @Setter
 public class LoginUserRequestView {
     private String socialTokenId;
+    private String socialType;
 
-    public LoginUserRequestView() {
+    @Builder
+    public LoginUserRequestView(String socialTokenId, String socialType) {
+        this.socialTokenId = socialTokenId;
+        this.socialType = socialType;
     }
 
-    public LoginUserRequestView(String socialTokenId) {
-        this.socialTokenId = socialTokenId;
+    public static User toEntity(LoginUserRequestView newUser) {
+        return User.builder()
+                .socialTokenId(newUser.socialTokenId)
+                .socialType(newUser.socialType)
+                .build();
     }
 }
