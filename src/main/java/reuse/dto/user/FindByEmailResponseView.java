@@ -26,12 +26,4 @@ public class FindByEmailResponseView {
         return new FindByEmailResponseView();
     }
 
-    public User toEntity() {
-        return User.builder()
-                .id(id)
-                .name(name)
-                .email(email)
-                .build();
-    }
-
 }
