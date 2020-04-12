@@ -3,7 +3,6 @@ package reuse.service;
 import org.springframework.stereotype.Service;
 import reuse.domain.User;
 import reuse.dto.user.*;
-import reuse.exception.ExistUserException;
 import reuse.exception.NotExistUserException;
 import reuse.repository.UserRepository;
 import reuse.security.TokenAuthenticationService;
@@ -19,23 +18,17 @@ public class UserService {
     }
 
     public CreateUserResponseView singUp(CreateUserRequestView newUser) {
-        FindByEmailResponseView user = userRepository.findByEmail(newUser.getEmail());
-
-        if (!isExistUser(user)) {
-            throw new ExistUserException();
-        }
-
         return CreateUserResponseView.toDto(userRepository.save(CreateUserRequestView.toEntity(newUser)));
     }
 
     public LoginUserResponseView login(LoginUserRequestView newUser) {
-        FindByEmailResponseView user = userRepository.findByEmail(newUser.getEmail());
+        FindBySocialTokenIdResponseView user = userRepository.findBySocialTokenId(newUser.getSocialTokenId());
 
         if (isExistUser(user)) {
-            throw new NotExistUserException();
+            userRepository.save(LoginUserRequestView.toEntity(newUser));
         }
 
-        String jwt = tokenAuthenticationService.toJwtByEmail(user.getEmail());
+        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(user.getSocialTokenId());
         return LoginUserResponseView.toDto(jwt, tokenAuthenticationService.getTokenTypeByJwt(jwt));
     }
 
@@ -43,8 +36,8 @@ public class UserService {
         userRepository.deleteById(user.getId());
     }
 
-    private boolean isExistUser(FindByEmailResponseView user) {
-        return user.getId() == null;
+    private boolean isExistUser(FindBySocialTokenIdResponseView user) {
+        return user.getIdx() == null;
     }
 
     public FindByEmailResponseView findById(Long id) {
