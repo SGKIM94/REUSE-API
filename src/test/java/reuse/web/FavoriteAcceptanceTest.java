@@ -134,6 +134,6 @@ public class FavoriteAcceptanceTest extends AbstractAcceptanceTest {
     }
 
     private String getJwt() {
-        return tokenAuthenticationService.toJwtByEmail(KIM_EMAIL);
+        return tokenAuthenticationService.toJwtBySocialTokenId(KIM_EMAIL);
     }
 }

@@ -46,7 +46,7 @@ public class JwtAuthInterceptorTest {
     }
 
     private MockHttpServletRequest jwtAuthHttpRequest(String email) {
-        String jwt = tokenAuthenticationService.toJwtByEmail(email);
+        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(email);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader(HttpHeaders.AUTHORIZATION, jwt);
