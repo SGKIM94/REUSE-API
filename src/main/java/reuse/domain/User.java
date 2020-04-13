@@ -44,4 +44,7 @@ public class User {
         return name;
     }
 
+    public String getSocialTokenId() {
+        return socialTokenId;
+    }
 }
