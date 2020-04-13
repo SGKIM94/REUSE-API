@@ -1,26 +1,26 @@
 package reuse.dto.user;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class LoginUserResponseView {
-    private String accessToken;
-    private String tokenType;
+    private String socialTokenId;
+    private String socialType;
 
-    public LoginUserResponseView() {
+    @Builder
+    public LoginUserResponseView(String socialTokenId, String socialType) {
+        this.socialTokenId = socialTokenId;
+        this.socialType = socialType;
     }
 
-    public LoginUserResponseView(String accessToken, String tokenType) {
-        this.accessToken = accessToken;
-        this.tokenType = tokenType;
-    }
-
-    public static LoginUserResponseView toDto(String accessToken, String tokenType) {
-        return new LoginUserResponseView(accessToken, tokenType);
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public String getTokenType() {
-        return tokenType;
+    public static LoginUserResponseView toDto(String jwt, String tokenTypeByJwt) {
+        return LoginUserResponseView.builder()
+                .socialTokenId(jwt)
+                .socialType
     }
 }
