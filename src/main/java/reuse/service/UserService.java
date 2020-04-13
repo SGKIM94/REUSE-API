@@ -3,7 +3,6 @@ package reuse.service;
 import org.springframework.stereotype.Service;
 import reuse.domain.User;
 import reuse.dto.user.*;
-import reuse.exception.NotExistUserException;
 import reuse.repository.UserRepository;
 import reuse.security.TokenAuthenticationService;
 
@@ -25,10 +24,15 @@ public class UserService {
         FindBySocialTokenIdResponseView user = userRepository.findBySocialTokenId(newUser.getSocialTokenId());
 
         if (isExistUser(user)) {
-            userRepository.save(LoginUserRequestView.toEntity(newUser));
+            User save = userRepository.save(LoginUserRequestView.toEntity(newUser));
+            return toDtoWithJWt(save.getSocialTokenId());
         }
 
-        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(user.getSocialTokenId());
+        return toDtoWithJWt(user.getSocialTokenId());
+    }
+
+    LoginUserResponseView toDtoWithJWt(String socialTokenId) {
+        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
         return LoginUserResponseView.toDto(jwt, tokenAuthenticationService.getTokenTypeByJwt(jwt));
     }
 
