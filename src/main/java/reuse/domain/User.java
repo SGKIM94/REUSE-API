@@ -36,6 +36,14 @@ public class User {
         this.favorites = favorites;
     }
 
+    public User(Long id, String socialTokenId, String name, String socialType) {
+        this.id = id;
+        this.socialTokenId = socialTokenId;
+        this.name = name;
+        this.socialType = socialType;
+        this.favorites = new ArrayList<>();
+    }
+
     public Long getId() {
         return id;
     }
