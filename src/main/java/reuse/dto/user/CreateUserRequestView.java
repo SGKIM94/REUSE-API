@@ -24,20 +24,12 @@ public class CreateUserRequestView {
         return new User();
     }
 
-    public User toUser() {
-        return new User(id, socialTokenId, email, password, name);
-    }
-
     public Long getId() {
         return id;
     }
 
     public String getEmail() {
         return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public String getName() {
