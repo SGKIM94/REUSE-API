@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
+import reuse.domain.Product;
 import reuse.domain.User;
 import reuse.security.TokenAuthenticationService;
 
@@ -30,19 +31,14 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
     @Test
     public void createProduct(SoftAssertions softly) {
         //when
-        EntityExchangeResult<User> expectResponse
-                = restWebClientTest.postMethodAcceptance(PRODUCT_BASE_URL, KIM_INPUT_JSON, User.class);
+        EntityExchangeResult<Product> expectResponse
+                = restWebClientTest.postMethodAcceptance(PRODUCT_BASE_URL, KIM_INPUT_JSON, Product.class);
 
         //then
         HttpHeaders responseHeaders = expectResponse.getResponseHeaders();
-        User responseBody = expectResponse.getResponseBody();
+        Product responseBody = expectResponse.getResponseBody();
 
         //then
         softly.assertThat(responseHeaders.getLocation()).isNotNull();
-        softly.assertThat(responseBody.getName()).isEqualTo(KIM_NAME);
-    }
-
-    private String getJwt() {
-        return tokenAuthenticationService.toJwtBySocialTokenId(KIM_EMAIL);
     }
 }
