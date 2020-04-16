@@ -21,6 +21,7 @@ public class LoginUserResponseView {
     public static LoginUserResponseView toDto(String jwt, String tokenTypeByJwt) {
         return LoginUserResponseView.builder()
                 .socialTokenId(jwt)
-                .socialType
+                .socialType(tokenTypeByJwt)
+                .build();
     }
 }
