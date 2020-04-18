@@ -49,7 +49,7 @@ public class FavoriteDocumentationTest extends AbstractDocumentationTest {
 
         //when
         this.mockMvc.perform(post(FAVORITE_BASE_URL)
-                .content(getContentWithView(STATION_FAVORITE_CREATE_REQUEST_VIEW))
+                .content(getContentWithView(FAVORITE_CREATE_REQUEST_VIEW))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andDo(document("favorites/create", getAuthorizationHeaderSnippet()
@@ -65,7 +65,7 @@ public class FavoriteDocumentationTest extends AbstractDocumentationTest {
 
         //when
         this.mockMvc.perform(get(FAVORITE_BASE_URL)
-                .content(getContentWithView(STATION_FAVORITE_CREATE_REQUEST_VIEW))
+                .content(getContentWithView(FAVORITE_CREATE_REQUEST_VIEW))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andDo(document("favorites/findByUser", getAuthorizationHeaderSnippet(),
@@ -81,7 +81,7 @@ public class FavoriteDocumentationTest extends AbstractDocumentationTest {
 
         //when
         this.mockMvc.perform(delete(FAVORITE_BASE_URL + FAVORITE_ID)
-                .content(getContentWithView(STATION_FAVORITE_CREATE_REQUEST_VIEW))
+                .content(getContentWithView(FAVORITE_CREATE_REQUEST_VIEW))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andDo(document("favorites/deleteItem", getAuthorizationHeaderSnippet(),

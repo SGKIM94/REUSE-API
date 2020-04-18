@@ -12,7 +12,7 @@ import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.FavoriteFixture.EDGE_FAVORITE_CREATE_REQUEST_VIEW;
-import static reuse.fixture.FavoriteFixture.STATION_FAVORITE_CREATE_REQUEST_VIEW;
+import static reuse.fixture.FavoriteFixture.FAVORITE_CREATE_REQUEST_VIEW;
 import static reuse.fixture.UserFixture.KIM_EMAIL;
 
 public class FavoriteAcceptanceTest extends AbstractAcceptanceTest {
@@ -35,7 +35,7 @@ public class FavoriteAcceptanceTest extends AbstractAcceptanceTest {
 
         //when
         WebTestClient.BodyContentSpec expectResponse = restWebClientTest.postMethodWithAuthAcceptance
-                (FAVORITE_BASE_URL, STATION_FAVORITE_CREATE_REQUEST_VIEW, getJwt());
+                (FAVORITE_BASE_URL, FAVORITE_CREATE_REQUEST_VIEW, getJwt());
 
         expectResponse.jsonPath("$.item.name").isEqualTo("");
     }
@@ -125,7 +125,7 @@ public class FavoriteAcceptanceTest extends AbstractAcceptanceTest {
 
         //when
         EntityExchangeResult<FavoriteCreateResponseView> expectResponse = restWebClientTest.postMethodWithAuthAcceptance
-                (FAVORITE_BASE_URL, STATION_FAVORITE_CREATE_REQUEST_VIEW, FavoriteCreateResponseView.class, getJwt());
+                (FAVORITE_BASE_URL, FAVORITE_CREATE_REQUEST_VIEW, FavoriteCreateResponseView.class, getJwt());
 
         return expectResponse
                 .getResponseHeaders()
