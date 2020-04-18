@@ -1,45 +1,33 @@
 package reuse.dto.user;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import reuse.domain.User;
 
-
+@Getter
+@Setter
+@NoArgsConstructor
 public class CreateUserResponseView {
     private Long id;
-    private String email;
-    private String password;
+    private String socialTokenId;
+    private String socialType;
     private String name;
 
-    public CreateUserResponseView() {
-    }
-
-    public CreateUserResponseView(Long id, String email, String password, String name) {
+    @Builder
+    public CreateUserResponseView(Long id, String socialTokenId, String socialType, String name) {
         this.id = id;
-        this.email = email;
-        this.password = password;
+        this.socialTokenId = socialTokenId;
+        this.socialType = socialType;
         this.name = name;
     }
 
     public static CreateUserResponseView toDto(User user) {
-        return new CreateUserResponseView(user.getId(), user.getEmail(), user.getPassword(), user.getName());
-    }
-
-    public User toUser() {
-        return new User(id, email, password, name);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getName() {
-        return name;
+        return CreateUserResponseView.builder()
+                .socialTokenId(user.getSocialTokenId())
+                .socialType(user.getSocialType())
+                .name(user.getName())
+                .build();
     }
 }
