@@ -5,5 +5,5 @@ import reuse.domain.User;
 import reuse.dto.user.FindBySocialTokenIdResponseView;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    FindBySocialTokenIdResponseView findBySocialTokenId(String socialTokenId);
+    User findBySocialTokenId(String socialTokenId);
 }
