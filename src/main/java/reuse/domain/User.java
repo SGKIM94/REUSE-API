@@ -55,4 +55,12 @@ public class User {
     public String getSocialTokenId() {
         return socialTokenId;
     }
+
+    public String getSocialType() {
+        return socialType;
+    }
+
+    public List<Favorite> getFavorites() {
+        return favorites;
+    }
 }
