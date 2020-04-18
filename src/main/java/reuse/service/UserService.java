@@ -25,15 +25,15 @@ public class UserService {
 
         if (isExistUser(user)) {
             User save = userRepository.save(LoginUserRequestView.toEntity(newUser));
-            return toDtoWithJWt(save.getSocialTokenId());
+            return toDtoWithJWt(save);
         }
 
-        return toDtoWithJWt(user.getSocialTokenId());
+        return toDtoWithJWt(user);
     }
 
-    LoginUserResponseView toDtoWithJWt(String socialTokenId) {
-        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
-        return LoginUserResponseView.toDto(jwt, tokenAuthenticationService.getTokenTypeByJwt(jwt));
+    LoginUserResponseView toDtoWithJWt(User user) {
+        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(user.getSocialTokenId());
+        return LoginUserResponseView.toDto(jwt, user.getSocialType());
     }
 
     private boolean isExistUser(User user) {
