@@ -26,12 +26,6 @@ public class UserController {
         return ResponseEntity.ok().body(userService.login(loginUser));
     }
 
-    @DeleteMapping("")
-    public ResponseEntity delete(@LoginUser User user) {
-        userService.delete(user);
-        return ResponseEntity.ok().build();
-    }
-
     @GetMapping("")
     public ResponseEntity detail(@LoginUser User user) {
         return ResponseEntity.ok().body(userService.findById(user.getId()));
