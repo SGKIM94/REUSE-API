@@ -38,8 +38,8 @@ public class UserAcceptanceTest extends AbstractAcceptanceTest {
         LoginUserResponseView responseBody = expectResponse.getResponseBody();
 
         //then
-        softly.assertThat(responseBody.getAccessToken()).isNotNull();
-        softly.assertThat(responseBody.getTokenType()).isEqualTo("Bearer");
+        softly.assertThat(responseBody.getSocialTokenId()).isNotNull();
+        softly.assertThat(responseBody.getSocialType()).isEqualTo(NAVER_SOCIAL_TYPE);
     }
 
     @DisplayName("사용자가_로그인한_상태에서_본인_정보를_조회할수_있는지")

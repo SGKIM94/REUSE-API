@@ -21,7 +21,7 @@ public class UserService {
     }
 
     public LoginUserResponseView login(LoginUserRequestView newUser) {
-        FindBySocialTokenIdResponseView user = userRepository.findBySocialTokenId(newUser.getSocialTokenId());
+        User user = userRepository.findBySocialTokenId(newUser.getSocialTokenId());
 
         if (isExistUser(user)) {
             User save = userRepository.save(LoginUserRequestView.toEntity(newUser));
@@ -36,12 +36,8 @@ public class UserService {
         return LoginUserResponseView.toDto(jwt, tokenAuthenticationService.getTokenTypeByJwt(jwt));
     }
 
-    public void delete(User user) {
-        userRepository.deleteById(user.getId());
-    }
-
-    private boolean isExistUser(FindBySocialTokenIdResponseView user) {
-        return user.getIdx() == null;
+    private boolean isExistUser(User user) {
+        return user.getSocialTokenId() == null;
     }
 
     public FindByEmailResponseView findById(Long id) {

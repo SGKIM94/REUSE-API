@@ -39,7 +39,7 @@ public class UserServiceTest {
     @DisplayName("회원이 로그인이 성공하여 토큰을 리턴하는지")
     @Test
     public void login(SoftAssertions softly) {
-        when(userRepository.findBySocialTokenId(any())).thenReturn(FIND_BY_SOCIAL_TOKEN_ID_RESPONSE_VIEW);
+        when(userRepository.findBySocialTokenId(any())).thenReturn(TEST_USER);
 
         LoginUserResponseView user = userService.login(USER_LOGIN_REQUEST_DTO);
 
