@@ -23,13 +23,4 @@ public class FavoriteService {
     public FavoriteCreateResponseView save(User loginUser, FavoriteCreateRequestView favorite) {
         return FavoriteCreateResponseView.toDtoEntity(favoriteRepository.save(favorite.toEntity(loginUser)));
     }
-
-    @Transactional(readOnly = true)
-    public FavoriteListResponseView findByUser(User loginUser, String type) {
-        return FavoriteListResponseView.toDtoEntity(findStationByUserAndType(loginUser));
-    }
-
-    private List<Favorite> findStationByUserAndType(User loginUser) {
-        return favoriteRepository.findEdgeByUser(loginUser);
-    }
 }
