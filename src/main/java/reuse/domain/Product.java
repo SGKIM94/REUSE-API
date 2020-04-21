@@ -33,12 +33,20 @@ public class Product {
     private Boolean isUsed;
     private Boolean isSold;
 
-    private String sellId;
     private String categoryId;
 
     @Builder
-    public Product(Long id) {
-        this.id = id;
+    public Product(String name, String explanation, String price, String tax, LocalDateTime registerDate,
+                   LocalDateTime updateDate, Boolean isUsed, Boolean isSold, String categoryId) {
+        this.name = name;
+        this.explanation = explanation;
+        this.price = price;
+        this.tax = tax;
+        this.registerDate = registerDate;
+        this.updateDate = updateDate;
+        this.isUsed = isUsed;
+        this.isSold = isSold;
+        this.categoryId = categoryId;
     }
 
     public Long getId() {
