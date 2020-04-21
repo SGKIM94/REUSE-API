@@ -10,20 +10,20 @@ import reuse.domain.User;
 @Getter
 @Builder
 @NoArgsConstructor
-public class FavoriteCreateResponseView {
+public class CreateFavoriteResponseView {
     private Long id;
     private User user;
     private Item item;
 
     @Builder
-    public FavoriteCreateResponseView(Long id, User user, Item item) {
+    public CreateFavoriteResponseView(Long id, User user, Item item) {
         this.id = id;
         this.user = user;
         this.item = item;
     }
 
-    public static FavoriteCreateResponseView toDtoEntity(Favorite favorite) {
-        return FavoriteCreateResponseView.builder()
+    public static CreateFavoriteResponseView toDtoEntity(Favorite favorite) {
+        return CreateFavoriteResponseView.builder()
                 .id(favorite.getId())
                 .user(favorite.getUser())
                 .item(favorite.getItem())

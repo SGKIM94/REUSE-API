@@ -8,11 +8,11 @@ import reuse.domain.User;
 
 @Getter
 @NoArgsConstructor
-public class FavoriteCreateRequestView {
+public class CreateFavoriteRequestView {
     private Item item;
     private String type;
 
-    public FavoriteCreateRequestView(Item item, String type) {
+    public CreateFavoriteRequestView(Item item, String type) {
         this.item = item;
         this.type = type;
     }
