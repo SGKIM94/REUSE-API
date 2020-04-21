@@ -2,14 +2,10 @@ package reuse.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import reuse.domain.Favorite;
 import reuse.domain.User;
-import reuse.dto.favorite.FavoriteCreateRequestView;
-import reuse.dto.favorite.FavoriteCreateResponseView;
-import reuse.dto.favorite.FavoriteListResponseView;
+import reuse.dto.favorite.CreateFavoriteRequestView;
+import reuse.dto.favorite.CreateFavoriteResponseView;
 import reuse.repository.FavoriteRepository;
-
-import java.util.List;
 
 @Service
 public class FavoriteService {
@@ -20,7 +16,7 @@ public class FavoriteService {
     }
 
     @Transactional
-    public FavoriteCreateResponseView save(User loginUser, FavoriteCreateRequestView favorite) {
-        return FavoriteCreateResponseView.toDtoEntity(favoriteRepository.save(favorite.toEntity(loginUser)));
+    public CreateFavoriteResponseView save(User loginUser, CreateFavoriteRequestView favorite) {
+        return CreateFavoriteResponseView.toDtoEntity(favoriteRepository.save(favorite.toEntity(loginUser)));
     }
 }

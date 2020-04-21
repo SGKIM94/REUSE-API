@@ -1,8 +1,8 @@
 package reuse.fixture;
 
 import reuse.domain.Item;
-import reuse.dto.favorite.FavoriteCreateRequestView;
-import reuse.dto.favorite.FavoriteCreateResponseView;
+import reuse.dto.favorite.CreateFavoriteRequestView;
+import reuse.dto.favorite.CreateFavoriteResponseView;
 
 import static reuse.fixture.UserFixture.TEST_USER;
 
@@ -11,11 +11,11 @@ public class FavoriteFixture {
 
     public static final Item TEST_ITEM = new Item(1L);
 
-    public static final FavoriteCreateRequestView FAVORITE_CREATE_REQUEST_VIEW
-            = new FavoriteCreateRequestView(TEST_ITEM, "");
-    public static final FavoriteCreateRequestView EDGE_FAVORITE_CREATE_REQUEST_VIEW
-            = new FavoriteCreateRequestView(TEST_ITEM, "");
+    public static final CreateFavoriteRequestView FAVORITE_CREATE_REQUEST_VIEW
+            = new CreateFavoriteRequestView(TEST_ITEM, "");
+    public static final CreateFavoriteRequestView EDGE_FAVORITE_CREATE_REQUEST_VIEW
+            = new CreateFavoriteRequestView(TEST_ITEM, "");
 
-    public static final FavoriteCreateResponseView FAVORITE_CREATE_RESPONSE_VIEW
-            = new FavoriteCreateResponseView(FAVORITE_ID, TEST_USER, TEST_ITEM);
+    public static final CreateFavoriteResponseView FAVORITE_CREATE_RESPONSE_VIEW
+            = new CreateFavoriteResponseView(FAVORITE_ID, TEST_USER, TEST_ITEM);
 }

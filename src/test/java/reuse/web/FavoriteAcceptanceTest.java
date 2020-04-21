@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reuse.AbstractAcceptanceTest;
-import reuse.dto.favorite.FavoriteCreateResponseView;
+import reuse.dto.favorite.CreateFavoriteResponseView;
 import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -110,8 +110,8 @@ public class FavoriteAcceptanceTest extends AbstractAcceptanceTest {
         restWebClientTest.createUser();
 
         //when
-        EntityExchangeResult<FavoriteCreateResponseView> expectResponse = restWebClientTest.postMethodWithAuthAcceptance
-                (FAVORITE_BASE_URL, EDGE_FAVORITE_CREATE_REQUEST_VIEW, FavoriteCreateResponseView.class, getJwt());
+        EntityExchangeResult<CreateFavoriteResponseView> expectResponse = restWebClientTest.postMethodWithAuthAcceptance
+                (FAVORITE_BASE_URL, EDGE_FAVORITE_CREATE_REQUEST_VIEW, CreateFavoriteResponseView.class, getJwt());
 
         return expectResponse
                 .getResponseHeaders()
@@ -124,8 +124,8 @@ public class FavoriteAcceptanceTest extends AbstractAcceptanceTest {
         restWebClientTest.createUser();
 
         //when
-        EntityExchangeResult<FavoriteCreateResponseView> expectResponse = restWebClientTest.postMethodWithAuthAcceptance
-                (FAVORITE_BASE_URL, FAVORITE_CREATE_REQUEST_VIEW, FavoriteCreateResponseView.class, getJwt());
+        EntityExchangeResult<CreateFavoriteResponseView> expectResponse = restWebClientTest.postMethodWithAuthAcceptance
+                (FAVORITE_BASE_URL, FAVORITE_CREATE_REQUEST_VIEW, CreateFavoriteResponseView.class, getJwt());
 
         return expectResponse
                 .getResponseHeaders()

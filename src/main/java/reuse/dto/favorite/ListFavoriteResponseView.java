@@ -4,23 +4,22 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import reuse.domain.Favorite;
-import reuse.domain.Item;
 
 import java.util.List;
 
 @Getter
 @Builder
 @NoArgsConstructor
-public class FavoriteListResponseView {
+public class ListFavoriteResponseView {
     private List<Favorite> favorites;
 
     @Builder
-    public FavoriteListResponseView(List<Favorite> favorites) {
+    public ListFavoriteResponseView(List<Favorite> favorites) {
         this.favorites = favorites;
     }
 
-    public static FavoriteListResponseView toDtoEntity(List<Favorite> favorites) {
-        return FavoriteListResponseView.builder()
+    public static ListFavoriteResponseView toDtoEntity(List<Favorite> favorites) {
+        return ListFavoriteResponseView.builder()
                 .favorites(favorites)
                 .build();
     }
