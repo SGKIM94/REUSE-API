@@ -1,11 +1,13 @@
 package reuse.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reuse.domain.User;
 import reuse.dto.user.*;
 import reuse.repository.UserRepository;
 import reuse.security.TokenAuthenticationService;
 
+@Slf4j
 @Service
 public class UserService {
     private UserRepository userRepository;
@@ -24,6 +26,7 @@ public class UserService {
         User user = userRepository.findBySocialTokenId(newUser.getSocialTokenId());
 
         if (isExistUser(user)) {
+            log.debug("User 가 존재하지 않으므로 새로운 User 추가");
             User save = userRepository.save(LoginUserRequestView.toEntity(newUser));
             return toDtoWithJWt(save);
         }
@@ -37,7 +40,7 @@ public class UserService {
     }
 
     private boolean isExistUser(User user) {
-        return user.getSocialTokenId() == null;
+        return user == null;
     }
 
     public FindByEmailResponseView findById(Long id) {
