@@ -1,10 +1,12 @@
 package reuse.web;
 
 import org.springframework.test.web.reactive.server.WebTestClient;
+import reuse.domain.Product;
 import reuse.domain.User;
 
 import java.util.Objects;
 
+import static reuse.web.ProductAcceptanceTest.PRODUCT_BASE_URL;
 import static reuse.web.UserAcceptanceTest.KIM_INPUT_JSON;
 import static reuse.web.UserAcceptanceTest.USER_BASE_URL;
 
@@ -20,5 +22,13 @@ public class CreateWebClientTest extends RestWebClientTest {
                 .getResponseHeaders()
                 .getLocation()
                 .getPath());
+    }
+
+    String createProduct() {
+        return Objects.requireNonNull(
+                postMethodAcceptance(PRODUCT_BASE_URL, KIM_INPUT_JSON, Product.class)
+                        .getResponseHeaders()
+                        .getLocation()
+                        .getPath());
     }
 }
