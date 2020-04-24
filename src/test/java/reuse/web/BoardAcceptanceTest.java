@@ -13,7 +13,7 @@ import reuse.security.TokenAuthenticationService;
 import static reuse.fixture.BoardFixture.CREATE_BOARD_REQUEST_VIEW;
 
 public class BoardAcceptanceTest extends AbstractAcceptanceTest {
-    public static final String PRODUCT_BASE_URL = "/boards";
+    public static final String BOARD_BASE_URL = "/boards";
 
     private CreateWebClientTest restWebClientTest;
     private TokenAuthenticationService tokenAuthenticationService;
@@ -29,9 +29,11 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     @Test
     public void createBoard(SoftAssertions softly) {
         // product 를 주입하는 logic 필요
+        restWebClientTest.createProduct();
+
         //when
         EntityExchangeResult<Board> expectResponse
-                = restWebClientTest.postMethodAcceptance(PRODUCT_BASE_URL, CREATE_BOARD_REQUEST_VIEW, Board.class);
+                = restWebClientTest.postMethodAcceptance(BOARD_BASE_URL, CREATE_BOARD_REQUEST_VIEW, Board.class);
 
         //then
         HttpHeaders responseHeaders = expectResponse.getResponseHeaders();
