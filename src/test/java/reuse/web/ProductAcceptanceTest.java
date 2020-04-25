@@ -7,14 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
-import reuse.domain.Product;
-import reuse.domain.User;
+import reuse.dto.product.CreateProductResponseView;
 import reuse.security.TokenAuthenticationService;
 
-import static reuse.fixture.UserFixture.*;
+import static reuse.fixture.ProductFixture.CREATE_PRODUCT_REQUEST_DTO;
 
 public class ProductAcceptanceTest extends AbstractAcceptanceTest {
-    public static final String KIM_INPUT_JSON = "{\"email\":\"" + KIM_EMAIL + "\",\"password\":\"" + KIM_PASSWORD + "\",\"name\":\"" + KIM_NAME + "\"}";;
     public static final String PRODUCT_BASE_URL = "/products";
 
     private CreateWebClientTest restWebClientTest;
@@ -22,7 +20,6 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
 
     @BeforeEach
     void setUp() {
-        cleanAllDatabases();
         this.restWebClientTest = new CreateWebClientTest(this.webTestClient);
         this.tokenAuthenticationService = new TokenAuthenticationService();
     }
@@ -31,12 +28,11 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
     @Test
     public void createProduct(SoftAssertions softly) {
         //when
-        EntityExchangeResult<Product> expectResponse
-                = restWebClientTest.postMethodAcceptance(PRODUCT_BASE_URL, KIM_INPUT_JSON, Product.class);
+        EntityExchangeResult<CreateProductResponseView> expectResponse = restWebClientTest.postMethodAcceptance
+                (PRODUCT_BASE_URL, CREATE_PRODUCT_REQUEST_DTO, CreateProductResponseView.class);
 
         //then
         HttpHeaders responseHeaders = expectResponse.getResponseHeaders();
-        Product responseBody = expectResponse.getResponseBody();
 
         //then
         softly.assertThat(responseHeaders.getLocation()).isNotNull();
