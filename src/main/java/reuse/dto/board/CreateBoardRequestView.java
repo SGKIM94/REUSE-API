@@ -4,8 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
-import reuse.domain.*;
+import reuse.domain.Board;
+import reuse.domain.Product;
 
 @Getter
 @Setter
@@ -18,12 +18,12 @@ public class CreateBoardRequestView {
     private String sellerAddress;
 
     @Builder
-    public CreateBoardRequestView(Long id, String title, String content, Product product, String sellerAddress) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.product = product;
-        this.sellerAddress = sellerAddress;
+    public CreateBoardRequestView(Board board) {
+        this.id = board.getId();
+        this.title = board.getTitle();
+        this.content = board.getContent();
+        this.product = board.getProduct();
+        this.sellerAddress = board.getSellerAddress();
     }
 
     public static Board toEntity(CreateBoardRequestView board) {
