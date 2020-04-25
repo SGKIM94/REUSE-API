@@ -3,16 +3,15 @@ package reuse.domain;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 
 @Entity
 @NoArgsConstructor
-public class Favorite {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Favorite extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -22,23 +21,19 @@ public class Favorite {
 
     @Builder
     public Favorite(Long id, User user, Item item) {
-        this.id = id;
+        super(id);
         this.user = user;
         this.item = item;
     }
 
     public Favorite(User user, Item item) {
-        this.id = 0L;
+        super(1L);
         this.user = user;
         this.item = item;
     }
 
     public User getUser() {
         return user;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public Item getItem() {
