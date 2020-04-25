@@ -5,11 +5,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
-public class Board {
+public class Board extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,23 +29,14 @@ public class Board {
 
     private String sellerAddress;
 
-    private LocalDateTime registerDate;
-    private LocalDateTime updateDate;
-
     @Builder
-    public Board(String title, String content, Product product, User seller
-            , String sellerAddress, LocalDateTime registerDate, LocalDateTime updateDate) {
+    public Board(Long id, String title, String content, Product product, User seller, String sellerAddress) {
+        super(id);
         this.title = title;
         this.content = content;
         this.product = product;
         this.seller = seller;
         this.sellerAddress = sellerAddress;
-        this.registerDate = registerDate;
-        this.updateDate = updateDate;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getTitle() {
@@ -67,13 +57,5 @@ public class Board {
 
     public String getSellerAddress() {
         return sellerAddress;
-    }
-
-    public LocalDateTime getRegisterDate() {
-        return registerDate;
-    }
-
-    public LocalDateTime getUpdateDate() {
-        return updateDate;
     }
 }
