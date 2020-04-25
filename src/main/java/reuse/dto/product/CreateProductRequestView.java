@@ -10,6 +10,7 @@ import reuse.domain.Product;
 @Setter
 @NoArgsConstructor
 public class CreateProductRequestView {
+    private Long id;
     private String name;
     private String explanation;
     private String price;
@@ -22,6 +23,7 @@ public class CreateProductRequestView {
 
     @Builder
     public CreateProductRequestView(Product product) {
+        this.id = product.getId();
         this.name = product.getName();
         this.explanation = product.getExplanation();
         this.price = product.getPrice();
@@ -31,5 +33,18 @@ public class CreateProductRequestView {
         this.categoryId = product.getCategoryId();
         this.createAt = product.getFormattedCreateDate();
         this.updateAt = product.getFormattedModifyDate();
+    }
+
+    public Product toEntity(CreateProductRequestView product) {
+        return Product.builder()
+                .id(product.getId())
+                .explanation(product.getExplanation())
+                .isSold(product.getIsSold())
+                .isUsed(product.getIsUsed())
+                .name(product.getName())
+                .price(product.getPrice())
+                .tax(product.getTax())
+                .categoryId(product.getCategoryId())
+                .build();
     }
 }

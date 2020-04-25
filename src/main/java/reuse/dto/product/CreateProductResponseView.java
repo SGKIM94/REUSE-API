@@ -10,6 +10,7 @@ import reuse.domain.Product;
 @Setter
 @NoArgsConstructor
 public class CreateProductResponseView {
+    private Long id;
     private String name;
     private String explanation;
     private String price;
@@ -22,6 +23,7 @@ public class CreateProductResponseView {
 
     @Builder
     public CreateProductResponseView(Product product) {
+        this.id = product.getId();
         this.name = product.getName();
         this.explanation = product.getExplanation();
         this.price = product.getPrice();
@@ -31,5 +33,11 @@ public class CreateProductResponseView {
         this.categoryId = product.getCategoryId();
         this.createAt = product.getFormattedCreateDate();
         this.updateAt = product.getFormattedModifyDate();
+    }
+
+    public static CreateProductResponseView toDto(Product savedProduct) {
+        return CreateProductResponseView.builder()
+                .product(savedProduct)
+                .build();
     }
 }
