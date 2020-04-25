@@ -20,7 +20,6 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
 
     @BeforeEach
     void setUp() {
-        cleanAllDatabases();
         this.restWebClientTest = new CreateWebClientTest(this.webTestClient);
         this.tokenAuthenticationService = new TokenAuthenticationService();
     }

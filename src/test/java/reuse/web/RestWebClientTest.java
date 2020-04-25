@@ -14,27 +14,27 @@ public class RestWebClientTest {
         this.webTestClient = webTestClient;
     }
 
-    <T> EntityExchangeResult<T> postMethodAcceptance(String uri, Object requestBody, Class<T> bodyClass) {
-        return postMethodWithAuthAcceptance(uri, requestBody, bodyClass, NO_AUTHORIZATION);
+    <T> EntityExchangeResult<T> postMethodAcceptance(String uri, Object requestBody, Class<T> responseBodyClass) {
+        return postMethodWithAuthAcceptance(uri, requestBody, responseBodyClass, NO_AUTHORIZATION);
     }
 
-    <T> EntityExchangeResult<T> getMethodWithAuthAcceptance(String uri, Class<T> bodyClass, String jwt) {
+    <T> EntityExchangeResult<T> getMethodWithAuthAcceptance(String uri, Class<T> responseBodyClass, String jwt) {
         return this.webTestClient.get().uri(uri)
                 .header(HttpHeaders.AUTHORIZATION, jwt)
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                .expectBody(bodyClass)
+                .expectBody(responseBodyClass)
                 .returnResult();
     }
 
-    <T> EntityExchangeResult<T> postMethodWithAuthAcceptance(String uri, Object requestBody, Class<T> bodyClass, String jwt) {
+    <T> EntityExchangeResult<T> postMethodWithAuthAcceptance(String uri, Object requestBody, Class<T> responseBodyClass, String jwt) {
         return webTestClient.post().uri(uri)
                 .header(HttpHeaders.AUTHORIZATION, jwt)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(requestBody), requestBody.getClass())
                 .exchange()
-                .expectBody(bodyClass)
+                .expectBody(responseBodyClass)
                 .returnResult();
     }
 

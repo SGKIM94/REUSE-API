@@ -23,7 +23,6 @@ public class FavoriteAcceptanceTest extends AbstractAcceptanceTest {
 
     @BeforeEach
     void setUp() {
-        cleanAllDatabases();
         this.restWebClientTest = new CreateWebClientTest(this.webTestClient);
         this.tokenAuthenticationService = new TokenAuthenticationService();
     }
