@@ -33,6 +33,11 @@ public class AbstractEntity {
         return id;
     }
 
+    public AbstractEntity setId(long id) {
+        this.id = id;
+        return this;
+    }
+
     public String getFormattedCreateDate() {
         return getFormattedDate(createAt, "yyyy.MM.dd HH:mm:ss");
     }
@@ -47,6 +52,14 @@ public class AbstractEntity {
         }
 
         return dateTime.format(DateTimeFormatter.ofPattern(format));
+    }
+
+    public LocalDateTime getCreateAt() {
+        return createAt;
+    }
+
+    public LocalDateTime getUpdateAt() {
+        return updateAt;
     }
 
     @Override
