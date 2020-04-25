@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.Size;
 
@@ -17,12 +18,16 @@ public class Product extends AbstractEntity {
     @Size(min = 1, max = 200)
     private String explanation;
 
+    @Column(nullable = false)
     private String price;
 
+    @Column(nullable = false)
     private String tax;
 
+    @Column(nullable = false)
     private Boolean isUsed;
 
+    @Column(nullable = false)
     private Boolean isSold;
 
     private String categoryId;
