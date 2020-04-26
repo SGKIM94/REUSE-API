@@ -18,6 +18,10 @@ public class RestWebClientTest {
         return postMethodWithAuthAcceptance(uri, requestBody, responseBodyClass, NO_AUTHORIZATION);
     }
 
+    <T> EntityExchangeResult<T> getMethodAcceptance(String uri, Class<T> responseBodyClass) {
+        return getMethodWithAuthAcceptance(uri, responseBodyClass, NO_AUTHORIZATION);
+    }
+
     <T> EntityExchangeResult<T> getMethodWithAuthAcceptance(String uri, Class<T> responseBodyClass, String jwt) {
         return this.webTestClient.get().uri(uri)
                 .header(HttpHeaders.AUTHORIZATION, jwt)

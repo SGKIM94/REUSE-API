@@ -1,6 +1,5 @@
 package reuse.web;
 
-import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,9 @@ import reuse.AbstractAcceptanceTest;
 import reuse.domain.Board;
 import reuse.security.TokenAuthenticationService;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.BoardFixture.CREATE_BOARD_REQUEST_VIEW;
+import static reuse.fixture.ProductFixture.CREATE_PRODUCT_REQUEST_DTO;
 
 public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     public static final String BOARD_BASE_URL = "/boards";
@@ -26,9 +27,9 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
 
     @DisplayName("게사판 추가가 가능한지")
     @Test
-    public void createBoard(SoftAssertions softly) {
+    public void createBoard() {
         // product 를 주입하는 logic 필요
-        restWebClientTest.createProduct();
+        restWebClientTest.createProduct(CREATE_PRODUCT_REQUEST_DTO);
 
         //when
         EntityExchangeResult<Board> expectResponse
@@ -38,6 +39,6 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         HttpHeaders responseHeaders = expectResponse.getResponseHeaders();
 
         //then
-        softly.assertThat(responseHeaders.getLocation().toString()).isEqualTo("/boards/1");
+        assertThat(responseHeaders.getLocation()).isNotNull();
     }
 }
