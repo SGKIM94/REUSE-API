@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import reuse.dto.product.CreateProductResponseView;
+import reuse.dto.product.FindProductResponseView;
+import reuse.dto.product.ListProductResponseView;
 import reuse.repository.ProductRepository;
 import reuse.security.TokenAuthenticationService;
 
@@ -51,5 +53,27 @@ public class ProductServiceTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             productService.create(CREATE_PRODUCT_REQUEST_DTO);
         });
+    }
+
+    @DisplayName("품목들이 조회되는지")
+    @Test
+    public void list() {
+        when(productRepository.findAll()).thenReturn(LIST_PRODUCT_RESPONSE_VIEW);
+
+        ListProductResponseView products = productService.list();
+
+        assertThat(products.getSize()).isGreaterThan(1);
+        verify(productRepository).findAll();
+    }
+
+    @DisplayName("품목 상세 내역이 조회되는지")
+    @Test
+    public void find() {
+        when(productRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_PRODUCT));
+
+        FindProductResponseView product = productService.findById(DEFAULT_ID);
+
+        assertThat(product.getName()).isEqualTo(TEST_PRODUCT_NAME);
+        verify(productRepository).findById(any());
     }
 }
