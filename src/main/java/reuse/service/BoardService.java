@@ -16,6 +16,10 @@ public class BoardService {
 
     public CreateBoardResponseView create(CreateBoardRequestView board) {
         Board savedBoard = boardRepository.save(CreateBoardRequestView.toEntity(board));
+        if (savedBoard == null) {
+            throw new IllegalArgumentException("Fail create board!");
+        }
+
         return CreateBoardResponseView.toDto(savedBoard);
     }
 }
