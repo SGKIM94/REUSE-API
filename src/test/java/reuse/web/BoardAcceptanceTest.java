@@ -41,4 +41,23 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         //then
         assertThat(responseHeaders.getLocation()).isNotNull();
     }
+
+    @DisplayName("게시판 리스트 조회가 가능한지")
+    @Test
+    public void listBoard() {
+        restWebClientTest.createProduct(CREATE_PRODUCT_REQUEST_DTO);
+        restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW);
+
+        //when
+        EntityExchangeResult<Board> expectResponse
+                = restWebClientTest.postMethodAcceptance(BOARD_BASE_URL, CREATE_BOARD_REQUEST_VIEW, Board.class);
+
+        //then
+        HttpHeaders responseHeaders = expectResponse.getResponseHeaders();
+        BoardListResponseDto boards = expectResponse.getResponseBody();
+
+        //then
+        assertThat(boards.getSize()).isGreaterThan(2);
+    }
+
 }
