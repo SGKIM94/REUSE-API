@@ -2,10 +2,7 @@ package reuse.web;
 
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reuse.dto.board.CreateBoardRequestView;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.service.BoardService;
@@ -25,5 +22,10 @@ public class BoardController {
     public ResponseEntity create(@RequestBody CreateBoardRequestView board) {
         CreateBoardResponseView savedBoard = boardService.create(board);
         return ResponseEntity.created(URI.create("/boards/" + savedBoard.getId())).build();
+    }
+
+    @GetMapping("")
+    public ResponseEntity list() {
+        return ResponseEntity.ok().build();
     }
 }
