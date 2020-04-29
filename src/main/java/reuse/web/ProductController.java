@@ -3,7 +3,6 @@ package reuse.web;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import reuse.domain.Product;
 import reuse.dto.product.CreateProductRequestView;
 import reuse.dto.product.CreateProductResponseView;
 import reuse.service.ProductService;
@@ -26,7 +25,12 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity list(@RequestBody Product product) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity list() {
+        return ResponseEntity.ok().body(productService.list());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity findById(@PathVariable long id) {
+        return ResponseEntity.ok().body(productService.findById(id));
     }
 }
