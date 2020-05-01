@@ -4,27 +4,21 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import reuse.domain.Product;
-import reuse.domain.User;
+
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class ListBoardResponseView {
-    private Long id;
-    private String title;
-    private String content;
-    private Product product;
-    private User seller;
-    private String sellerAddress;
+    private List<FindBoardResponseView> boards;
 
     @Builder
-    public ListBoardResponseView(Long id, String title, String content, Product product, User seller, String sellerAddress) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.product = product;
-        this.seller = seller;
-        this.sellerAddress = sellerAddress;
+    public ListBoardResponseView(List<FindBoardResponseView> boards) {
+        this.boards = boards;
+    }
+
+    public int getSize() {
+        return this.boards.size();
     }
 }
