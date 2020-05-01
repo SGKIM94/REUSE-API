@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import reuse.dto.board.CreateBoardResponseView;
+import reuse.dto.board.ListBoardResponseView;
 import reuse.repository.BoardRepository;
 import reuse.security.TokenAuthenticationService;
 
@@ -42,5 +43,15 @@ public class BoardServiceTest {
         assertThat(board.getContent()).isEqualTo(TEST_BOARD_CONTENT);
         assertThat(board.getProduct()).isNotNull();
         assertThat(board.getSellerAddress()).isEqualTo(TEST_SELLER_ADDRESS);
+    }
+
+    @DisplayName("게시물 리스트르 조회하는지")
+    @Test
+    public void list() {
+        when(boardRepository.findAll()).thenReturn(TEST_BOARDS);
+
+        ListBoardResponseView boards = boardService.list();
+
+        assertThat(boards.getSize()).isNotNull(2);
     }
 }
