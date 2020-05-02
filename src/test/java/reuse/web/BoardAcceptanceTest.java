@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
 import reuse.domain.Board;
+import reuse.dto.board.ListBoardResponseView;
 import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,12 +50,12 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW);
 
         //when
-        EntityExchangeResult<Board> expectResponse
-                = restWebClientTest.postMethodAcceptance(BOARD_BASE_URL, CREATE_BOARD_REQUEST_VIEW, Board.class);
+        EntityExchangeResult<ListBoardResponseView> expectResponse
+                = restWebClientTest.getMethodAcceptance(BOARD_BASE_URL, ListBoardResponseView.class);
 
         //then
         HttpHeaders responseHeaders = expectResponse.getResponseHeaders();
-        BoardListResponseDto boards = expectResponse.getResponseBody();
+        ListBoardResponseView boards = expectResponse.getResponseBody();
 
         //then
         assertThat(boards.getSize()).isGreaterThan(2);
