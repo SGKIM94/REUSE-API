@@ -28,6 +28,7 @@ public class CreateBoardRequestView {
 
     public static Board toEntity(CreateBoardRequestView board) {
         return Board.builder()
+                .id(board.getId())
                 .title(board.getTitle())
                 .content(board.getContent())
                 .product(board.getProduct())
