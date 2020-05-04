@@ -1,15 +1,18 @@
 package reuse.dto.user;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import reuse.domain.User;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class CreateUserRequestView {
     private Long id;
     private String socialTokenId;
     private String email;
     private String name;
-
-    public CreateUserRequestView() {
-    }
 
     public CreateUserRequestView(Long id, String socialTokenId, String email, String name) {
         this.id = id;
@@ -20,17 +23,5 @@ public class CreateUserRequestView {
 
     public static User toEntity(CreateUserRequestView newUser) {
         return new User();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getName() {
-        return name;
     }
 }

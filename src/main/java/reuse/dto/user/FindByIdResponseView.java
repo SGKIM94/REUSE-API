@@ -10,20 +10,20 @@ import java.util.Optional;
 @Getter
 @Builder
 @NoArgsConstructor
-public class FindByEmailResponseView {
+public class FindByIdResponseView {
     private Long id;
     private String email;
     private String name;
 
     @Builder
-    public FindByEmailResponseView(Long id, String email, String name) {
+    public FindByIdResponseView(Long id, String email, String name) {
         this.id = id;
         this.email = email;
         this.name = name;
     }
 
-    public static FindByEmailResponseView toDtoEntity(Optional<User> byId) {
-        return new FindByEmailResponseView();
+    public static FindByIdResponseView toDtoEntity(Optional<User> byId) {
+        return new FindByIdResponseView();
     }
 
 }
