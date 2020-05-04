@@ -12,6 +12,4 @@ pluginManagement {
 		}
 	}
 }
-
-version = '0.0.1'
 rootProject.name = 'reuse'
