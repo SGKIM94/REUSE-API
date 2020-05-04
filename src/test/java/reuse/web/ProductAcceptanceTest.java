@@ -69,6 +69,7 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
     public void findProduct() {
         //given
         restWebClientTest.createProduct(CREATE_PRODUCT_REQUEST_DTO);
+
         //when
         EntityExchangeResult<FindProductResponseView> response = restWebClientTest.getMethodAcceptance
                 (PRODUCT_BASE_URL + "/" + DEFAULT_ID, FindProductResponseView.class);
