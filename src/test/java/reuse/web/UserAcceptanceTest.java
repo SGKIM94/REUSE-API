@@ -2,17 +2,18 @@ package reuse.web;
 
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
-import reuse.domain.User;
+import reuse.dto.user.FindByIdResponseView;
 import reuse.dto.user.LoginUserResponseView;
 import reuse.security.TokenAuthenticationService;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.UserFixture.*;
 
+@Disabled
 public class UserAcceptanceTest extends AbstractAcceptanceTest {
     public static final String KIM_INPUT_JSON = "{\"email\":\"" + KIM_EMAIL + "\",\"password\":\"" + KIM_PASSWORD + "\",\"name\":\"" + KIM_NAME + "\"}";;
     public static final String USER_BASE_URL = "/users";
@@ -48,10 +49,10 @@ public class UserAcceptanceTest extends AbstractAcceptanceTest {
         restWebClientTest.createUser();
 
         //when
-        EntityExchangeResult<User> expectResponse
-                = restWebClientTest.getMethodWithAuthAcceptance(USER_BASE_URL, User.class, getJwt());
+        EntityExchangeResult<FindByIdResponseView> expectResponse
+                = restWebClientTest.getMethodWithAuthAcceptance(USER_BASE_URL + "/1", FindByIdResponseView.class, getJwt());
 
-        User responseBody = expectResponse.getResponseBody();
+        FindByIdResponseView responseBody = expectResponse.getResponseBody();
 
         //then
         softly.assertThat(responseBody.getName()).isEqualTo(KIM_NAME);
