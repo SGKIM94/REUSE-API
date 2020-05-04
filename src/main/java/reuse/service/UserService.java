@@ -26,7 +26,7 @@ public class UserService {
         User user = userRepository.findBySocialTokenId(newUser.getSocialTokenId());
 
         if (isExistUser(user)) {
-            log.debug("User 가 존재하지 않으므로 새로운 User 추가");
+            log.error("User 가 존재하지 않으므로 새로운 User 추가");
             User save = userRepository.save(LoginUserRequestView.toEntity(newUser));
             return toDtoWithJWt(save);
         }
