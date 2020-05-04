@@ -17,7 +17,7 @@ public class UserFixture {
     public static final String NAVER_SOCIAL_TYPE = "naver";
 
     public static final CreateUserRequestView USER_SIGH_UP_REQUEST_DTO = new CreateUserRequestView(1L, SOCIAL_TOKEN_ID, KIM_EMAIL, KIM_NAME);
-    public static final LoginUserRequestView USER_LOGIN_REQUEST_DTO = new LoginUserRequestView(KIM_EMAIL, KIM_PASSWORD);
+    public static final LoginUserRequestView USER_LOGIN_REQUEST_DTO = new LoginUserRequestView(KIM_ID, KIM_EMAIL, KIM_PASSWORD);
     public static final FindByIdResponseView FIND_BY_EMAIL_RESPONSE_VIEW = new FindByIdResponseView(KIM_ID, KIM_EMAIL, KIM_PASSWORD);
     public static final FindBySocialTokenIdResponseView FIND_BY_SOCIAL_TOKEN_ID_RESPONSE_VIEW = new FindBySocialTokenIdResponseView(KIM_ID, SOCIAL_TOKEN_ID, NAVER_SOCIAL_TYPE);
 
@@ -26,7 +26,7 @@ public class UserFixture {
     }
 
     public static LoginUserRequestView getLoginUserRequestView(User user) {
-        return new LoginUserRequestView(user.getSocialTokenId(), NAVER_SOCIAL_TYPE);
+        return new LoginUserRequestView(KIM_ID, user.getSocialTokenId(), NAVER_SOCIAL_TYPE);
     }
 
     public static final User TEST_USER = new User(KIM_ID, SOCIAL_TOKEN_ID, KIM_NAME, NAVER_SOCIAL_TYPE);
