@@ -43,7 +43,7 @@ public class UserService {
         return user == null;
     }
 
-    public FindByEmailResponseView findById(Long id) {
-        return FindByEmailResponseView.toDtoEntity(userRepository.findById(id));
+    public FindByIdResponseView findById(Long id) {
+        return FindByIdResponseView.toDtoEntity(userRepository.findById(id));
     }
 }
