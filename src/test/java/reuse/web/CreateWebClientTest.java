@@ -9,9 +9,9 @@ import reuse.dto.product.CreateProductResponseView;
 
 import java.util.Objects;
 
+import static reuse.fixture.UserFixture.USER_SIGH_UP_REQUEST_DTO;
 import static reuse.web.BoardAcceptanceTest.BOARD_BASE_URL;
 import static reuse.web.ProductAcceptanceTest.PRODUCT_BASE_URL;
-import static reuse.web.UserAcceptanceTest.KIM_INPUT_JSON;
 import static reuse.web.UserAcceptanceTest.USER_BASE_URL;
 
 public class CreateWebClientTest extends RestWebClientTest {
@@ -22,7 +22,7 @@ public class CreateWebClientTest extends RestWebClientTest {
 
     String createUser() {
         return Objects.requireNonNull(
-                postMethodAcceptance(USER_BASE_URL + "/sigh-up", KIM_INPUT_JSON, User.class)
+                postMethodAcceptance(USER_BASE_URL, USER_SIGH_UP_REQUEST_DTO, User.class)
                 .getResponseHeaders()
                 .getLocation()
                 .getPath());
