@@ -52,6 +52,6 @@ public class BoardServiceTest {
 
         ListBoardResponseView boards = boardService.list();
 
-        assertThat(boards.getSize()).isNotNull(2);
+        assertThat(boards.getSize()).isEqualTo(2);
     }
 }
