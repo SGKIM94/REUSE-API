@@ -10,19 +10,22 @@ import reuse.domain.User;
 @Setter
 @NoArgsConstructor
 public class LoginUserRequestView {
+    private Long id;
     private String socialTokenId;
     private String socialType;
 
     @Builder
-    public LoginUserRequestView(String socialTokenId, String socialType) {
+    public LoginUserRequestView(Long id, String socialTokenId, String socialType) {
+        this.id = id;
         this.socialTokenId = socialTokenId;
         this.socialType = socialType;
     }
 
     public static User toEntity(LoginUserRequestView newUser) {
         return User.builder()
-                .socialTokenId(newUser.socialTokenId)
-                .socialType(newUser.socialType)
+                .id(newUser.getId())
+                .socialTokenId(newUser.getSocialTokenId())
+                .socialType(newUser.getSocialType())
                 .build();
     }
 }
