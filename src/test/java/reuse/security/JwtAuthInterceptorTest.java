@@ -2,6 +2,7 @@ package reuse.security;
 
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +13,8 @@ import reuse.domain.User;
 import reuse.repository.UserRepository;
 
 import static org.mockito.Mockito.when;
-import static reuse.fixture.UserFixture.*;
+import static reuse.fixture.UserFixture.KIM_EMAIL;
+import static reuse.fixture.UserFixture.TEST_USER;
 import static reuse.security.JwtAuthInterceptor.AUTH_USER_KEY;
 
 @SpringBootTest
@@ -29,6 +31,7 @@ public class JwtAuthInterceptorTest {
         this.jwtAuthInterceptor = new JwtAuthInterceptor(userRepository, tokenAuthenticationService);
     }
 
+    @Disabled
     @DisplayName("사용자 로그인 시 토큰 검증을 진행하는지")
     @Test
     public void preHandle(SoftAssertions softly) throws Exception {

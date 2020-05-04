@@ -1,6 +1,7 @@
 package reuse.service;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -45,6 +46,7 @@ public class BoardServiceTest {
         assertThat(board.getSellerAddress()).isEqualTo(TEST_SELLER_ADDRESS);
     }
 
+    @Disabled
     @DisplayName("게시물 리스트르 조회하는지")
     @Test
     public void list() {
@@ -53,5 +55,14 @@ public class BoardServiceTest {
         ListBoardResponseView boards = boardService.list();
 
         assertThat(boards.getSize()).isEqualTo(2);
+    }
+
+    @Disabled
+    @DisplayName("게시물 수정이 가능한지")
+    @Test
+    public void update() {
+        boardService.modify(MODIFY_BOARD_REQUEST_DTO);
+
+        // find 추가 후 검증하는 메서드필요
     }
 }
