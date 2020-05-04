@@ -28,4 +28,10 @@ public class BoardController {
     public ResponseEntity list() {
         return ResponseEntity.ok().body(boardService.list());
     }
+
+    @PostMapping("{id}")
+    public ResponseEntity modify(@PathVariable Long id) {
+        return ResponseEntity.ok().build();
+    }
+
 }
