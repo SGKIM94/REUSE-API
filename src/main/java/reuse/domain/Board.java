@@ -2,6 +2,7 @@ package reuse.domain;
 
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import reuse.dto.board.ModifyBoardRequestView;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -57,5 +58,16 @@ public class Board extends AbstractEntity {
 
     public String getSellerAddress() {
         return sellerAddress;
+    }
+
+    public void modify(ModifyBoardRequestView modify) {
+        if (modify == null) {
+            return;
+        }
+
+        this.title = modify.getTitle();
+        this.content = modify.getContent();
+        this.product = modify.getProduct();
+        this.sellerAddress = modify.getSellerAddress();
     }
 }
