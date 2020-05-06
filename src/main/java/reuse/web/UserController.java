@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reuse.dto.user.CreateUserRequestView;
 import reuse.dto.user.CreateUserResponseView;
-import reuse.dto.user.FindByIdResponseView;
 import reuse.dto.user.LoginUserRequestView;
 import reuse.service.UserService;
 
@@ -33,7 +32,6 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity detail(@PathVariable long id) {
-        FindByIdResponseView byId = userService.findById(id);
         return ResponseEntity.ok().body(userService.findById(id));
     }
 }
