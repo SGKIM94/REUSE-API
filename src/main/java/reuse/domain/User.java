@@ -27,16 +27,14 @@ public class User extends AbstractEntity {
 
 
     @Builder
-    public User(Long id, String socialTokenId, String name, String socialType, List<Favorite> favorites) {
-        super(id);
+    public User(String socialTokenId, String name, String socialType, List<Favorite> favorites) {
         this.socialTokenId = socialTokenId;
         this.name = name;
         this.socialType = socialType;
         this.favorites = favorites;
     }
 
-    public User(Long id, String socialTokenId, String name, String socialType) {
-        super(id);
+    public User(String socialTokenId, String name, String socialType) {
         this.socialTokenId = socialTokenId;
         this.name = name;
         this.socialType = socialType;

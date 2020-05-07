@@ -23,7 +23,6 @@ public class LoginUserRequestView {
 
     public static User toEntity(LoginUserRequestView newUser) {
         return User.builder()
-                .id(newUser.getId())
                 .socialTokenId(newUser.getSocialTokenId())
                 .socialType(newUser.getSocialType())
                 .build();
