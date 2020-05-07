@@ -38,8 +38,9 @@ public class UserServiceTest {
 
         LoginUserResponseView user = userService.login(USER_LOGIN_REQUEST_DTO);
 
-        assertThat(user.getSocialTokenId()).isNotNull();
+        assertThat(user.getSocialTokenId()).isNotBlank();
         assertThat(user.getSocialType()).isEqualTo(NAVER_SOCIAL_TYPE);
+        assertThat(user.getJwt()).isNotBlank();
     }
 
     @DisplayName("회원의 ID 로 상세정보가 되는지")
