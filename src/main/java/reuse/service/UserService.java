@@ -36,7 +36,7 @@ public class UserService {
 
     LoginUserResponseView toDtoWithJWt(User user) {
         String jwt = tokenAuthenticationService.toJwtBySocialTokenId(user.getSocialTokenId());
-        return LoginUserResponseView.toDto(jwt, user.getSocialType());
+        return LoginUserResponseView.toDto(jwt, user);
     }
 
     private boolean isExistUser(User user) {
