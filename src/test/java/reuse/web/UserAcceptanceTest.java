@@ -34,10 +34,9 @@ public class UserAcceptanceTest extends AbstractAcceptanceTest {
     @DisplayName("한번도 로그인 경험이 없는 사용자가 로그인")
     @Test
     public void createUser() {
-        //when
         EntityExchangeResult<CreateUserResponseView> expectResponse
                 = restWebClientTest.postMethodAcceptance(USER_BASE_URL, USER_SIGH_UP_REQUEST_DTO, CreateUserResponseView.class);
-
+        //when
         HttpHeaders responseHeaders = expectResponse.getResponseHeaders();
 
         //then

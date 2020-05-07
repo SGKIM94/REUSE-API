@@ -6,8 +6,6 @@ import reuse.dto.user.FindByIdResponseView;
 import reuse.dto.user.FindBySocialTokenIdResponseView;
 import reuse.dto.user.LoginUserRequestView;
 
-import static reuse.fixture.CommonFixture.DEFAULT_ID;
-
 public class UserFixture {
     public static final Long KIM_ID = 1L;
     public static final String KIM_NAME = "김상구";
@@ -29,6 +27,6 @@ public class UserFixture {
         return new LoginUserRequestView(KIM_ID, user.getSocialTokenId(), NAVER_SOCIAL_TYPE);
     }
 
-    public static final User TEST_USER = new User(KIM_ID, SOCIAL_TOKEN_ID, KIM_NAME, NAVER_SOCIAL_TYPE);
-    public static final User LOGIN_USER = User.builder().id(DEFAULT_ID).socialTokenId(SOCIAL_TOKEN_ID).socialType(NAVER_SOCIAL_TYPE).build();
+    public static final User TEST_USER = new User(SOCIAL_TOKEN_ID, KIM_NAME, NAVER_SOCIAL_TYPE);
+    public static final User LOGIN_USER = User.builder().socialTokenId(SOCIAL_TOKEN_ID).socialType(NAVER_SOCIAL_TYPE).build();
 }
