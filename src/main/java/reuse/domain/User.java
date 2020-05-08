@@ -2,6 +2,7 @@ package reuse.domain;
 
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.apache.commons.text.RandomStringGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,6 +40,12 @@ public class User extends AbstractEntity {
         this.name = name;
         this.socialType = socialType;
         this.favorites = new ArrayList<>();
+    }
+
+    public String getRandomUserName() {
+        return new RandomStringGenerator.Builder()
+                .withinRange('a', 'z').build()
+                .generate(10);
     }
 
     public String getName() {

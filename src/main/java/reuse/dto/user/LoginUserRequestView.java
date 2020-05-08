@@ -21,10 +21,11 @@ public class LoginUserRequestView {
         this.socialType = socialType;
     }
 
-    public static User toEntity(LoginUserRequestView newUser) {
+    public static User toEntity(LoginUserRequestView newUser, String randomName) {
         return User.builder()
                 .socialTokenId(newUser.getSocialTokenId())
                 .socialType(newUser.getSocialType())
+                .name(randomName)
                 .build();
     }
 }
