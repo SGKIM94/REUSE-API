@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FileSystemStorageServiceTest {
     public static final String REUSE_LOCATION = "/Users/kimsang-gu/Workspace/sanggu/toy-project/reuse/reuse-api/";
@@ -39,11 +40,28 @@ public class FileSystemStorageServiceTest {
     @Test
     public void saveAndLoad () {
         //when
-        fileSystemStorageService.store(new MockMultipartFile("foo", "bar/../foo.txt",
+        fileSystemStorageService.store(new MockMultipartFile("foo", "foo.txt",
                 MediaType.TEXT_PLAIN_VALUE, "this is save file test".getBytes()));
 
         //then
         assertThat(fileSystemStorageService.load("foo.txt")).exists();
     }
 
+    @DisplayName("../ 의 경로를 포함된 외부 파일의 접근인 경우 예외를 던지는지 - 경로를 이용한 directory attack 방지")
+    @Test
+    public void saveNotPermitted() {
+        //when
+        assertThrows(StorageException.class, () -> {
+            fileSystemStorageService.store(new MockMultipartFile("foo", "../foo.txt",
+                    MediaType.TEXT_PLAIN_VALUE, "this is save file test".getBytes()));
+        });
+    }
+
+    @DisplayName("../ 를 중간에 포함한 경우에는 문제없이 저장 가능한지")
+    @Test
+    public void savePermitted() {
+        //when
+        fileSystemStorageService.store(new MockMultipartFile("foo", "bar/../foo.txt",
+                MediaType.TEXT_PLAIN_VALUE, "this is save file test".getBytes()));
+    }
 }
