@@ -56,6 +56,7 @@ public class UserAcceptanceTest extends AbstractAcceptanceTest {
         //then
         softly.assertThat(responseBody.getSocialTokenId()).isNotBlank();
         softly.assertThat(responseBody.getSocialType()).isEqualTo(NAVER_SOCIAL_TYPE);
+        softly.assertThat(responseBody.getName()).isNotBlank();
         softly.assertThat(responseBody.getJwt()).isNotBlank();
     }
 

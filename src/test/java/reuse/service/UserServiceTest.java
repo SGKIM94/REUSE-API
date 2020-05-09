@@ -40,6 +40,7 @@ public class UserServiceTest {
 
         assertThat(user.getSocialTokenId()).isNotBlank();
         assertThat(user.getSocialType()).isEqualTo(NAVER_SOCIAL_TYPE);
+        assertThat(user.getName()).isEqualTo(KIM_NAME);
         assertThat(user.getJwt()).isNotBlank();
     }
 
