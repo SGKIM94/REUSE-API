@@ -42,9 +42,10 @@ public class User extends AbstractEntity {
         this.favorites = new ArrayList<>();
     }
 
-    public String getRandomUserName() {
+    public static String getRandomUserName() {
         return new RandomStringGenerator.Builder()
-                .withinRange('a', 'z').build()
+                .withinRange('a', 'z')
+                .build()
                 .generate(10);
     }
 

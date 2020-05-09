@@ -27,7 +27,7 @@ public class UserService {
 
         if (isExistUser(user)) {
             log.error("User 가 존재하지 않으므로 새로운 User 추가");
-            User save = userRepository.save(LoginUserRequestView.toEntity(newUser, user.getRandomUserName()));
+            User save = userRepository.save(LoginUserRequestView.toEntity(newUser, User.getRandomUserName()));
             return toDtoWithJWt(save);
         }
 
