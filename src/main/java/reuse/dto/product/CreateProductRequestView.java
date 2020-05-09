@@ -4,7 +4,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 import reuse.domain.Product;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,9 +23,10 @@ public class CreateProductRequestView {
     private String categoryId;
     private String createAt;
     private String updateAt;
+    private List<MultipartFile> productImages;
 
     @Builder
-    public CreateProductRequestView(Product product) {
+    public CreateProductRequestView(Product product, List<MultipartFile> productImages) {
         this.id = product.getId();
         this.name = product.getName();
         this.explanation = product.getExplanation();
@@ -33,6 +37,7 @@ public class CreateProductRequestView {
         this.categoryId = product.getCategoryId();
         this.createAt = product.getFormattedCreateDate();
         this.updateAt = product.getFormattedModifyDate();
+        this.productImages = productImages;
     }
 
     public Product toEntity(CreateProductRequestView product) {
