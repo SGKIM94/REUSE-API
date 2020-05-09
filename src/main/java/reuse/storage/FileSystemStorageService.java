@@ -1,6 +1,7 @@
 package reuse.storage;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class FileSystemStorageService {
@@ -31,6 +34,11 @@ public class FileSystemStorageService {
         }
     }
 
+    public void stores(List<MultipartFile> productImages) {
+        productImages.forEach(this::store);
+    }
+
+
     public void store(MultipartFile file) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
@@ -50,5 +58,19 @@ public class FileSystemStorageService {
         } catch (IOException e) {
             throw new StorageException("Failed to store file : " + fileName, e);
         }
+    }
+
+    public Stream<Path> loadAll() {
+        try {
+            return Files.walk(this.rootLocation, 1)
+                    .filter(path -> !path.equals(this.rootLocation))
+                    .map(this.rootLocation::relativize);
+        } catch (IOException e) {
+            throw new StorageException("Failed to read stored files", e);
+        }
+    }
+
+    public void deleteAll() {
+        FileSystemUtils.deleteRecursively(rootLocation.toFile());
     }
 }
