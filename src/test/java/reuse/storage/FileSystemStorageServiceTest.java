@@ -11,6 +11,7 @@ import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static reuse.fixture.ProductFixture.TEST_IMAGE1;
 
 public class FileSystemStorageServiceTest {
     public static final String REUSE_LOCATION = "/Users/kimsang-gu/Workspace/sanggu/toy-project/reuse/reuse-api/";
@@ -40,8 +41,7 @@ public class FileSystemStorageServiceTest {
     @Test
     public void saveAndLoad () {
         //when
-        fileSystemStorageService.store(new MockMultipartFile("foo", "foo.txt",
-                MediaType.TEXT_PLAIN_VALUE, "this is save file test".getBytes()));
+        fileSystemStorageService.store(TEST_IMAGE1);
 
         //then
         assertThat(fileSystemStorageService.load("foo.txt")).exists();
