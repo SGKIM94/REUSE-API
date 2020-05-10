@@ -16,10 +16,16 @@ import java.util.stream.Stream;
 
 @Service
 public class FileSystemStorageService {
-    private final Path rootLocation;
+    private Path rootLocation;
 
     public FileSystemStorageService(StorageProperties properties) {
         this.rootLocation = Paths.get(properties.getLocation());
+    }
+
+    //TODO: Need refactoring
+    // properties 를 ENUM 으로 변경 및 동적으로 수정될 수 있도록 변경 필요
+    public void addProductIdInLocation(String productId) {
+        this.rootLocation = Paths.get(rootLocation.toString() + productId);
     }
 
     public Path load(String fileName) {
