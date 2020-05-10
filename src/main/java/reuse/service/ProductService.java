@@ -22,7 +22,7 @@ public class ProductService {
 
     @Transactional
     public CreateProductResponseView create(CreateProductRequestView product) {
-        fileSystemStorageService.stores(product.getProductImages());
+        storeProductImages(product);
 
         Product savedProduct = productRepository.save(product.toEntity(product));
         if (savedProduct == null) {
@@ -30,6 +30,13 @@ public class ProductService {
         }
 
         return CreateProductResponseView.toDto(savedProduct);
+    }
+
+    void storeProductImages(CreateProductRequestView product) {
+        // TODO: product Id 가지는 directory 생성 후 거기에 저장하는 로직 추가 필요
+        // TODO: 해당 product Id 에 저장된 images 가져오는 로직 필요
+        fileSystemStorageService.addProductIdInLocation(product.getId().toString());
+        fileSystemStorageService.stores(product.getProductImages());
     }
 
     public ListProductResponseView list() {
