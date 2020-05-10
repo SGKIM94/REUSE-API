@@ -13,4 +13,12 @@ public class ReuseApplication {
     public static void main(String[] args) {
         SpringApplication.run(ReuseApplication.class, args);
     }
+
+//    @Bean
+//    CommandLineRunner init(FileSystemStorageService storageService) {
+//        return (args) -> {
+//            storageService.deleteAll();
+//            storageService.init();
+//        };
+//    }
 }
