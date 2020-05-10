@@ -6,17 +6,21 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import reuse.dto.product.CreateProductResponseView;
 import reuse.dto.product.FindProductResponseView;
 import reuse.dto.product.ListProductResponseView;
 import reuse.repository.ProductRepository;
 import reuse.security.TokenAuthenticationService;
+import reuse.storage.FileSystemStorageService;
+import reuse.storage.StorageProperties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static reuse.fixture.ProductFixture.*;
+import static reuse.storage.FileSystemStorageServiceTest.REUSE_LOCATION;
 
 @SpringBootTest
 public class ProductServiceTest {
@@ -25,13 +29,23 @@ public class ProductServiceTest {
     @MockBean
     private ProductRepository productRepository;
 
+    @SpyBean
+    private FileSystemStorageService fileSystemStorageService;
+
+    private StorageProperties storageProperties = new StorageProperties();
+
     @MockBean
     private TokenAuthenticationService tokenAuthenticationService;
 
     @BeforeEach
     void setUp() {
         this.tokenAuthenticationService = new TokenAuthenticationService();
-        this.productService = new ProductService(productRepository);
+
+        storageProperties.setLocation(REUSE_LOCATION);
+        fileSystemStorageService = new FileSystemStorageService(storageProperties);
+        fileSystemStorageService.init();
+
+        this.productService = new ProductService(productRepository, fileSystemStorageService);
     }
 
     @DisplayName("품목이 생성되는지")
@@ -75,5 +89,14 @@ public class ProductServiceTest {
 
         assertThat(product.getName()).isEqualTo(TEST_PRODUCT_NAME);
         verify(productRepository).findById(any());
+    }
+
+    @DisplayName("품목 이미지들이 저장되는지")
+    @Test
+    public void storeProductImagesTest() {
+        productService.storeProductImages(CREATE_PRODUCT_REQUEST_DTO);
+
+        //then
+        assertThat(fileSystemStorageService.load(TEST_IMAGE_FILE_NAME1)).exists();
     }
 }
