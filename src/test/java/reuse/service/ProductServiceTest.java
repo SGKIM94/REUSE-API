@@ -15,6 +15,9 @@ import reuse.security.TokenAuthenticationService;
 import reuse.storage.FileSystemStorageService;
 import reuse.storage.StorageProperties;
 
+import java.nio.file.Path;
+import java.util.stream.Stream;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -99,4 +102,14 @@ public class ProductServiceTest {
         //then
         assertThat(fileSystemStorageService.load(TEST_IMAGE_FILE_NAME1)).exists();
     }
+
+    @DisplayName("product id directory 내의 있는 모든 파일을 가져오는지")
+    @Test
+    public void loadAllProductImagesInProductIdTest() {
+        Stream<Path> pathStream = productService.loadAllProductImagesInProductId(DEFAULT_ID);
+
+        //then
+        assertThat(pathStream).hasSize(2);
+    }
+
 }
