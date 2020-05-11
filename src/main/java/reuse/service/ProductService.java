@@ -10,6 +10,9 @@ import reuse.dto.product.ListProductResponseView;
 import reuse.repository.ProductRepository;
 import reuse.storage.FileSystemStorageService;
 
+import java.nio.file.Path;
+import java.util.stream.Stream;
+
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
@@ -35,12 +38,19 @@ public class ProductService {
     void storeProductImages(CreateProductRequestView product) {
         // TODO: product Id 가지는 directory 생성 후 거기에 저장하는 로직 추가 필요
         // TODO: 해당 product Id 에 저장된 images 가져오는 로직 필요
-        fileSystemStorageService.addProductIdInLocation(product.getId().toString());
+        fileSystemStorageService.assignRootLocationToProductId(product.getId().toString());
         fileSystemStorageService.stores(product.getProductImages());
     }
 
     public ListProductResponseView list() {
-        return ListProductResponseView.toDto(productRepository.findAll());
+        ListProductResponseView products = ListProductResponseView.toDto(productRepository.findAll());
+        products.getProducts().stream()
+                .
+    }
+
+    Stream<Path> loadAllProductImagesInProductId(Long productId) {
+        fileSystemStorageService.assignRootLocationToProductId(productId.toString());
+        return fileSystemStorageService.loadAll();
     }
 
     public FindProductResponseView findById(long id) {
