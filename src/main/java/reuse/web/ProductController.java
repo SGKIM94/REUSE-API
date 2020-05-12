@@ -19,7 +19,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody CreateProductRequestView product) {
+    public ResponseEntity create(@ModelAttribute CreateProductRequestView product) {
         CreateProductResponseView savedProduct = productService.create(product);
         return ResponseEntity.created(URI.create("/products/" + savedProduct.getId())).build();
     }
