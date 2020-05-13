@@ -24,9 +24,10 @@ public class CreateProductRequestView {
     private String createAt;
     private String updateAt;
     private List<MultipartFile> productImages;
+    private MultipartFile productImage;
 
     @Builder
-    public CreateProductRequestView(Product product, List<MultipartFile> productImages) {
+    public CreateProductRequestView(Product product, List<MultipartFile> productImages, MultipartFile productImage) {
         this.id = product.getId();
         this.name = product.getName();
         this.explanation = product.getExplanation();
@@ -38,6 +39,7 @@ public class CreateProductRequestView {
         this.createAt = product.getFormattedCreateDate();
         this.updateAt = product.getFormattedModifyDate();
         this.productImages = productImages;
+        this.productImage = productImage;
     }
 
     public Product toEntity(CreateProductRequestView product) {
