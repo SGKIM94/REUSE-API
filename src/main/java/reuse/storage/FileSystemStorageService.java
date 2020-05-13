@@ -25,7 +25,7 @@ public class FileSystemStorageService {
     //TODO: Need refactoring
     // properties 를 ENUM 으로 변경 및 동적으로 수정될 수 있도록 변경 필요
     public void assignRootLocationToProductId(String productId) {
-        this.rootLocation = Paths.get(rootLocation.toString() + productId);
+        this.rootLocation = Paths.get(rootLocation.toString() + "/" +productId);
     }
 
     public Path load(String fileName) {
