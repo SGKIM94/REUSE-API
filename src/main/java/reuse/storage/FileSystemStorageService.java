@@ -1,5 +1,7 @@
 package reuse.storage;
 
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
@@ -7,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -73,6 +76,20 @@ public class FileSystemStorageService {
                     .map(this.rootLocation::relativize);
         } catch (IOException e) {
             throw new StorageException("Failed to read stored files", e);
+        }
+    }
+
+    public Resource loadAsResource(String fileName) {
+        try {
+            Path file = load(fileName);
+            Resource resource = new UrlResource(file.toUri());
+            if (resource.exists() || resource.isReadable()) {
+                return resource;
+            } else {
+                throw new StorageException("Could not read file : " + fileName);
+            }
+        } catch (MalformedURLException e) {
+            throw new StorageException("Could not read file : " + fileName);
         }
     }
 
