@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 import reuse.domain.Product;
 
 import java.util.List;
@@ -22,9 +23,10 @@ public class FindProductResponseView {
     private String categoryId;
     private String createAt;
     private String updateAt;
+    private List<MultipartFile> productImages;
 
     @Builder
-    public FindProductResponseView(Product product) {
+    public FindProductResponseView(Product product, List<MultipartFile> productImages) {
         this.id = product.getId();
         this.name = product.getName();
         this.explanation = product.getExplanation();
@@ -35,6 +37,7 @@ public class FindProductResponseView {
         this.categoryId = product.getCategoryId();
         this.createAt = product.getFormattedCreateDate();
         this.updateAt = product.getFormattedModifyDate();
+        this.productImages = productImages;
     }
 
     public static FindProductResponseView toDto(Product product) {
