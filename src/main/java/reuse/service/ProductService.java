@@ -1,5 +1,6 @@
 package reuse.service;
 
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reuse.domain.Product;
@@ -10,9 +11,8 @@ import reuse.dto.product.ListProductResponseView;
 import reuse.repository.ProductRepository;
 import reuse.storage.FileSystemStorageService;
 
-import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -40,16 +40,19 @@ public class ProductService {
     }
 
     public ListProductResponseView list() {
-//        return ListProductResponseView.toDto(productRepository.findAll());
         List<Product> products = productRepository.findAll();
-//        products.getProducts().stream()
-//                .flatMap(product -> loadAllProductImagesInProductId(product.getId()))
-//                .map(product -> )
+        loadAllProductImagesInProductId();
+        products.stream()
+                .flatMap(product -> loadAllProductImagesInProductId(product.getId()).stream()
+                .map(resource -> new FindProductResponseView(resource))
+                .map(ListProductResponseView.toDto(products, ))
     }
 
-    Stream<Path> loadAllProductImagesInProductId(Long productId) {
+    List<Resource> loadAllProductImagesInProductId(Long productId) {
         fileSystemStorageService.assignRootLocationToProductId(productId.toString());
-        fileSystemStorageService.loadAll().map(path -> path.resolve());
+        return fileSystemStorageService.loadAll()
+                .map(path -> fileSystemStorageService.loadAsResource(path.getFileName().toString()))
+                .collect(Collectors.toList());
     }
 
     public FindProductResponseView findById(long id) {
