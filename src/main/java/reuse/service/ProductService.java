@@ -11,6 +11,7 @@ import reuse.repository.ProductRepository;
 import reuse.storage.FileSystemStorageService;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.stream.Stream;
 
 @Service
@@ -28,29 +29,27 @@ public class ProductService {
         storeProductImages(product);
 
         Product savedProduct = productRepository.save(product.toEntity(product));
-        if (savedProduct == null) {
-            throw new IllegalArgumentException("Product create fail!");
-        }
-
         return CreateProductResponseView.toDto(savedProduct);
     }
 
     void storeProductImages(CreateProductRequestView product) {
-        // TODO: product Id 가지는 directory 생성 후 거기에 저장하는 로직 추가 필요
-        // TODO: 해당 product Id 에 저장된 images 가져오는 로직 필요
         fileSystemStorageService.assignRootLocationToProductId(product.getId().toString());
-        fileSystemStorageService.stores(product.getProductImages());
+        fileSystemStorageService.init();
+        fileSystemStorageService.store(product.getProductImage());
+//        fileSystemStorageService.stores(product.getProductImages());
     }
 
     public ListProductResponseView list() {
-        ListProductResponseView products = ListProductResponseView.toDto(productRepository.findAll());
-        products.getProducts().stream()
-                .
+//        return ListProductResponseView.toDto(productRepository.findAll());
+        List<Product> products = productRepository.findAll();
+//        products.getProducts().stream()
+//                .flatMap(product -> loadAllProductImagesInProductId(product.getId()))
+//                .map(product -> )
     }
 
     Stream<Path> loadAllProductImagesInProductId(Long productId) {
         fileSystemStorageService.assignRootLocationToProductId(productId.toString());
-        return fileSystemStorageService.loadAll();
+        fileSystemStorageService.loadAll().map(path -> path.resolve());
     }
 
     public FindProductResponseView findById(long id) {
