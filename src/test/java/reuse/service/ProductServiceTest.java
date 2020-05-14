@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.core.io.Resource;
 import reuse.dto.product.CreateProductResponseView;
 import reuse.dto.product.FindProductResponseView;
 import reuse.dto.product.ListProductResponseView;
@@ -15,8 +16,7 @@ import reuse.security.TokenAuthenticationService;
 import reuse.storage.FileSystemStorageService;
 import reuse.storage.StorageProperties;
 
-import java.nio.file.Path;
-import java.util.stream.Stream;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -79,8 +79,17 @@ public class ProductServiceTest {
 
         ListProductResponseView products = productService.list();
 
+        List<FindProductResponseView> findProductResponseViews = products.getProducts();
+        FindProductResponseView findProductResponseView = findProductResponseViews.get(0);
+        List<Resource> productImages = findProductResponseView.getProductImages();
+        Resource firstResource = productImages.get(0);
+        Resource secondResource = productImages.get(1);
+
         assertThat(products.getSize()).isGreaterThan(1);
+        assertThat(firstResource.getFilename()).isGreaterThan(TEST_IMAGE_FILE_NAME1);
+        assertThat(secondResource.getFilename()).isGreaterThan(TEST_IMAGE_FILE_NAME2);
         verify(productRepository).findAll();
+
     }
 
     @DisplayName("품목 상세 내역이 조회되는지")
@@ -103,13 +112,16 @@ public class ProductServiceTest {
         assertThat(fileSystemStorageService.load(TEST_IMAGE_FILE_NAME1)).exists();
     }
 
+    //TODO : given 으로 파일 생성이 필요
     @DisplayName("product id directory 내의 있는 모든 파일을 가져오는지")
     @Test
     public void loadAllProductImagesInProductIdTest() {
-        Stream<Path> pathStream = productService.loadAllProductImagesInProductId(DEFAULT_ID);
+        List<Resource> resources = productService.loadAllProductImagesInProductId(DEFAULT_ID);
+
+        Resource firstResource = resources.get(0);
 
         //then
-        assertThat(pathStream).hasSize(2);
+        assertThat(resources).hasSize(2);
+        assertThat(firstResource).isNotNull();
     }
-
 }
