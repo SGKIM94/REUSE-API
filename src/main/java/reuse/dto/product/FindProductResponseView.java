@@ -23,10 +23,10 @@ public class FindProductResponseView {
     private String categoryId;
     private String createAt;
     private String updateAt;
-    private List<Resource> productImages;
+    private List<String> productImages;
 
     @Builder
-    public FindProductResponseView(Product product, List<Resource> productImages) {
+    public FindProductResponseView(Product product, List<String> productImages) {
         this.id = product.getId();
         this.name = product.getName();
         this.explanation = product.getExplanation();

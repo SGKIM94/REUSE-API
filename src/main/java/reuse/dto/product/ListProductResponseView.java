@@ -21,11 +21,15 @@ public class ListProductResponseView {
         this.products = products;
     }
 
-    public static ListProductResponseView toDto(List<Product> products, List<Resource> productImages) {
+    public static ListProductResponseView toDto(List<Product> products, List<String> productImages) {
         return new ListProductResponseView(
                 products.stream()
                 .map(product -> new FindProductResponseView(product, productImages))
                 .collect(Collectors.toList()));
+    }
+
+    public static ListProductResponseView toDto(List<FindProductResponseView> products) {
+        return new ListProductResponseView(products);
     }
 
     public int getSize() {
