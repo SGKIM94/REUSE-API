@@ -11,6 +11,7 @@ import reuse.dto.product.ListProductResponseView;
 import reuse.repository.ProductRepository;
 import reuse.storage.FileSystemStorageService;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,18 +42,27 @@ public class ProductService {
 
     public ListProductResponseView list() {
         List<Product> products = productRepository.findAll();
-        loadAllProductImagesInProductId();
-        products.stream()
-                .flatMap(product -> loadAllProductImagesInProductId(product.getId()).stream()
-                .map(resource -> new FindProductResponseView(resource))
-                .map(ListProductResponseView.toDto(products, ))
+        List<FindProductResponseView> productResponseViews = products.stream()
+                .map(this::toFindProductResponseViewWithFiles)
+                .collect(Collectors.toList());
+
+        return ListProductResponseView.builder().products(productResponseViews).build();
+
+    }
+
+    private FindProductResponseView toFindProductResponseViewWithFiles(Product product) {
+        return new FindProductResponseView(product, loadAllProductImagesInProductId(product.getId()));
     }
 
     List<Resource> loadAllProductImagesInProductId(Long productId) {
         fileSystemStorageService.assignRootLocationToProductId(productId.toString());
         return fileSystemStorageService.loadAll()
-                .map(path -> fileSystemStorageService.loadAsResource(path.getFileName().toString()))
+                .map(path -> fileSystemStorageService.loadAsResource(getFileNameByString(path)))
                 .collect(Collectors.toList());
+    }
+
+    private String getFileNameByString(Path path) {
+        return path.getFileName().toString();
     }
 
     public FindProductResponseView findById(long id) {
