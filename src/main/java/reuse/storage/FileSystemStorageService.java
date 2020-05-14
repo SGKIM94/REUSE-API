@@ -3,12 +3,12 @@ package reuse.storage;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,6 +16,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.stream.Stream;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Service
 public class FileSystemStorageService {
@@ -28,7 +30,7 @@ public class FileSystemStorageService {
     //TODO: Need refactoring
     // properties 를 ENUM 으로 변경 및 동적으로 수정될 수 있도록 변경 필요
     public void assignRootLocationToProductId(String productId) {
-        this.rootLocation = Paths.get(rootLocation.toString() + "/" +productId);
+        this.rootLocation = Paths.get("/Users/kimsang-gu/Workspace/kim/toyproject/REUSE-API/product-images" + "/" +productId);
     }
 
     public Path load(String fileName) {
@@ -79,6 +81,11 @@ public class FileSystemStorageService {
         }
     }
 
+    public String loadResourceAsString(String fileName) {
+        Resource resource = loadAsResource(fileName);
+        return asString(resource);
+    }
+
     public Resource loadAsResource(String fileName) {
         try {
             Path file = load(fileName);
@@ -95,5 +102,13 @@ public class FileSystemStorageService {
 
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
+    }
+
+    public static String asString(Resource resource) {
+        try (Reader reader = new InputStreamReader(resource.getInputStream(), UTF_8)) {
+            return FileCopyUtils.copyToString(reader);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 }
