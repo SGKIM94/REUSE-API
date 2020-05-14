@@ -81,13 +81,13 @@ public class ProductServiceTest {
 
         List<FindProductResponseView> findProductResponseViews = products.getProducts();
         FindProductResponseView findProductResponseView = findProductResponseViews.get(0);
-        List<Resource> productImages = findProductResponseView.getProductImages();
-        Resource firstResource = productImages.get(0);
-        Resource secondResource = productImages.get(1);
+        List<String> productImages = findProductResponseView.getProductImages();
+        String firstResource = productImages.get(0);
+        String secondResource = productImages.get(1);
 
         assertThat(products.getSize()).isGreaterThan(1);
-        assertThat(firstResource.getFilename()).isGreaterThan(TEST_IMAGE_FILE_NAME1);
-        assertThat(secondResource.getFilename()).isGreaterThan(TEST_IMAGE_FILE_NAME2);
+        assertThat(firstResource).isNotBlank();
+        assertThat(secondResource).isNotBlank();
         verify(productRepository).findAll();
 
     }
@@ -116,9 +116,9 @@ public class ProductServiceTest {
     @DisplayName("product id directory 내의 있는 모든 파일을 가져오는지")
     @Test
     public void loadAllProductImagesInProductIdTest() {
-        List<Resource> resources = productService.loadAllProductImagesInProductId(DEFAULT_ID);
+        List<String> resources = productService.loadAllProductImagesInProductId(DEFAULT_ID);
 
-        Resource firstResource = resources.get(0);
+        String firstResource = resources.get(0);
 
         //then
         assertThat(resources).hasSize(2);
