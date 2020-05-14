@@ -1,6 +1,5 @@
 package reuse.service;
 
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reuse.domain.Product;
@@ -46,18 +45,17 @@ public class ProductService {
                 .map(this::toFindProductResponseViewWithFiles)
                 .collect(Collectors.toList());
 
-        return ListProductResponseView.builder().products(productResponseViews).build();
-
+        return ListProductResponseView.toDto(productResponseViews);
     }
 
     private FindProductResponseView toFindProductResponseViewWithFiles(Product product) {
         return new FindProductResponseView(product, loadAllProductImagesInProductId(product.getId()));
     }
 
-    List<Resource> loadAllProductImagesInProductId(Long productId) {
+    List<String> loadAllProductImagesInProductId(Long productId) {
         fileSystemStorageService.assignRootLocationToProductId(productId.toString());
         return fileSystemStorageService.loadAll()
-                .map(path -> fileSystemStorageService.loadAsResource(getFileNameByString(path)))
+                .map(path -> fileSystemStorageService.loadResourceAsString(getFileNameByString(path)))
                 .collect(Collectors.toList());
     }
 
