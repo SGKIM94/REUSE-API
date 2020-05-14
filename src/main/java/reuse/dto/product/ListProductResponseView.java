@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.core.io.Resource;
 import reuse.domain.Product;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class ListProductResponseView {
         this.products = products;
     }
 
-    public static ListProductResponseView toDto(List<Product> products, List<MultipartFile> productImages) {
+    public static ListProductResponseView toDto(List<Product> products, List<Resource> productImages) {
         return new ListProductResponseView(
                 products.stream()
                 .map(product -> new FindProductResponseView(product, productImages))
