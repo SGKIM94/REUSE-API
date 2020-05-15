@@ -22,7 +22,7 @@ public class S3UploaderTest {
 
     @DisplayName("MultipartFile 을 File 타입으로 변경하는지")
     @Test
-    public void  convert() throws IOException {
+    public void convert() throws IOException {
         //when
         Optional<File> convertedFIle = s3Uploader.convert(TEST_IMAGE1);
         File file = convertedFIle.orElseThrow();
@@ -33,13 +33,27 @@ public class S3UploaderTest {
 
     @DisplayName("MultipartFile 을 S3에 업로드하는지")
     @Test
-    public void  upload() {
+    public void uploadByMultipartFile() throws IOException {
         //when
         String uploadFileName = s3Uploader.upload(TEST_IMAGE1, TEST_IMAGE_FILE_NAME1);
 
         //then
         assertThat(uploadFileName).isNotBlank();
     }
+
+    @DisplayName("File 을 S3에 업로드하는지")
+    @Test
+    public void uploadByFile() throws IOException {
+        //given
+        File file = s3Uploader.convert(TEST_IMAGE1).orElseThrow();
+
+        //when
+        String uploadFileName = s3Uploader.upload(file, TEST_IMAGE_FILE_NAME1);
+
+        //then
+        assertThat(uploadFileName).isNotBlank();
+    }
+
 
     @DisplayName("이미지를 S3 에 넣을 수 있는지")
     @Test
