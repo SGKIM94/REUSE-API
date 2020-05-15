@@ -43,12 +43,25 @@ public class S3UploaderTest {
 
     @DisplayName("이미지를 S3 에 넣을 수 있는지")
     @Test
-    public void putImageToS3() {
+    public void putImageToS3() throws IOException {
+        //given
+        File file = s3Uploader.convert(TEST_IMAGE1).orElseThrow();
+
         //when
-        String uploadFileName = s3Uploader.putImageToS3(TEST_IMAGE1);
+        String uploadFileName = s3Uploader.putImageToS3(file, TEST_IMAGE_FILE_NAME1);
 
         //then
         assertThat(uploadFileName).isNotBlank();
+    }
+
+    @DisplayName("기존 S3 에 있는 file 을 제거하는지")
+    @Test
+    public void removeNewFile() throws IOException {
+        //given
+        File file = s3Uploader.convert(TEST_IMAGE1).orElseThrow();
+
+        //when
+        s3Uploader.removeNewFile(file);
     }
 
 }
