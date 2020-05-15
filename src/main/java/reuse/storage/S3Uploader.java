@@ -43,9 +43,13 @@ public class S3Uploader {
         return Optional.empty();
     }
 
-    public String upload(MultipartFile image, String directoryName) throws IOException {
-        File uploadFile = convert(image).orElseThrow(() -> new StorageException("file is invalid"));
-        return upload(uploadFile, directoryName);
+    public String upload(MultipartFile image, String directoryName) {
+        try {
+            File uploadFile = convert(image).orElseThrow(() -> new StorageException("file is invalid"));
+            return upload(uploadFile, directoryName);
+        } catch (IOException e) {
+            throw new StorageException("file file upload!");
+        }
     }
 
     public String upload(File image, String directoryName) {
