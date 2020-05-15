@@ -1,6 +1,8 @@
 package reuse.storage;
 
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +25,6 @@ public class S3Uploader {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    public String upload() {
-    }
 
     public Optional<File> convert(MultipartFile image) throws IOException {
         if (image == null || image.isEmpty() || StringUtils.isEmpty(image.getOriginalFilename())) {
@@ -41,5 +41,33 @@ public class S3Uploader {
         }
 
         return Optional.empty();
+    }
+
+    public String upload(MultipartFile image, String directoryName) throws IOException {
+        File uploadFile = convert(image).orElseThrow(() -> new StorageException("file is invalid"));
+        return upload(uploadFile, directoryName);
+    }
+
+    public String upload(File image, String directoryName) {
+        String fileName = directoryName + "/" + image.getName();
+        String uploadImageUrl = putImageToS3(image, fileName);
+        removeNewFile(image);
+        return uploadImageUrl;
+    }
+
+    public String putImageToS3(File image, String fileName) {
+        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, image)
+                .withCannedAcl(CannedAccessControlList.PublicRead));
+
+        return amazonS3Client.getUrl(bucket, fileName).toString();
+    }
+
+    public void removeNewFile(File targetFile) {
+        if (targetFile.delete()) {
+            log.info("file is delete!");
+            return;
+        }
+
+        log.info("cant file delete");
     }
 }
