@@ -8,7 +8,7 @@ import reuse.dto.product.CreateProductResponseView;
 import reuse.dto.product.FindProductResponseView;
 import reuse.dto.product.ListProductResponseView;
 import reuse.repository.ProductRepository;
-import reuse.storage.FileSystemStorageService;
+import reuse.storage.S3Uploader;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -17,26 +17,22 @@ import java.util.stream.Collectors;
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
-    private final FileSystemStorageService fileSystemStorageService;
+    private final S3Uploader s3Uploader;
 
-    public ProductService(ProductRepository productRepository, FileSystemStorageService fileSystemStorageService) {
+    public ProductService(ProductRepository productRepository, S3Uploader s3Uploader) {
         this.productRepository = productRepository;
-        this.fileSystemStorageService = fileSystemStorageService;
+        this.s3Uploader = s3Uploader;
     }
 
     @Transactional
     public CreateProductResponseView create(CreateProductRequestView product) {
         storeProductImages(product);
-
         Product savedProduct = productRepository.save(product.toEntity(product));
         return CreateProductResponseView.toDto(savedProduct);
     }
 
     void storeProductImages(CreateProductRequestView product) {
-        fileSystemStorageService.assignRootLocationToProductId(product.getId().toString());
-        fileSystemStorageService.init();
-        fileSystemStorageService.store(product.getProductImage());
-//        fileSystemStorageService.stores(product.getProductImages());
+        s3Uploader.upload(product.getProductImage(), "products/" + product.getId());
     }
 
     public ListProductResponseView list() {
@@ -49,14 +45,7 @@ public class ProductService {
     }
 
     private FindProductResponseView toFindProductResponseViewWithFiles(Product product) {
-        return new FindProductResponseView(product, loadAllProductImagesInProductId(product.getId()));
-    }
-
-    List<String> loadAllProductImagesInProductId(Long productId) {
-        fileSystemStorageService.assignRootLocationToProductId(productId.toString());
-        return fileSystemStorageService.loadAll()
-                .map(path -> fileSystemStorageService.loadResourceAsString(getFileNameByString(path)))
-                .collect(Collectors.toList());
+        return new FindProductResponseView();
     }
 
     private String getFileNameByString(Path path) {
