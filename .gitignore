@@ -30,3 +30,5 @@ out/
 
 ### Mac ###
 *.DS_Store
+
+aws.yml
