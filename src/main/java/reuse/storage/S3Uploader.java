@@ -25,6 +25,10 @@ public class S3Uploader {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
+    public String getFileUrl(Long prudctId) {
+        return "https://" + bucket + "s3.amazonaws.com/products/" + prudctId.toString();
+    }
+
 
     public Optional<File> convert(MultipartFile image) throws IOException {
         if (image == null || image.isEmpty() || StringUtils.isEmpty(image.getOriginalFilename())) {
