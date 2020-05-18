@@ -45,7 +45,7 @@ public class ProductService {
     }
 
     private FindProductResponseView toFindProductResponseViewWithFiles(Product product) {
-        return new FindProductResponseView();
+        return new FindProductResponseView(product, s3Uploader.getFiles(product.getId()));
     }
 
     private String getFileNameByString(Path path) {
