@@ -1,12 +1,12 @@
 package reuse.storage;
 
+import com.amazonaws.services.s3.AmazonS3Client;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.ProductFixture.TEST_IMAGE1;
@@ -14,18 +14,21 @@ import static reuse.fixture.ProductFixture.TEST_IMAGE_FILE_NAME1;
 
 public class S3UploaderTest {
     private S3Uploader s3Uploader;
+    private AmazonS3Client amazonS3Client;
 
     @BeforeEach
     public void setup() {
-        this.s3Uploader = new S3Uploader();
+
+        amazonS3Client = new AmazonS3Client();
+        this.s3Uploader = new S3Uploader(amazonS3Client);
     }
 
     @DisplayName("MultipartFile 을 File 타입으로 변경하는지")
     @Test
     public void convert() throws IOException {
         //when
-        Optional<File> convertedFIle = s3Uploader.convert(TEST_IMAGE1);
-        File file = convertedFIle.orElseThrow();
+        File convertedFIle = s3Uploader.convert(TEST_IMAGE1);
+        File file = convertedFIle;
 
         //then
         assertThat(file).isFile();
@@ -45,7 +48,7 @@ public class S3UploaderTest {
     @Test
     public void uploadByFile() throws IOException {
         //given
-        File file = s3Uploader.convert(TEST_IMAGE1).orElseThrow();
+        File file = s3Uploader.convert(TEST_IMAGE1);
 
         //when
         String uploadFileName = s3Uploader.upload(file, TEST_IMAGE_FILE_NAME1);
@@ -59,7 +62,7 @@ public class S3UploaderTest {
     @Test
     public void putImageToS3() throws IOException {
         //given
-        File file = s3Uploader.convert(TEST_IMAGE1).orElseThrow();
+        File file = s3Uploader.convert(TEST_IMAGE1);
 
         //when
         String uploadFileName = s3Uploader.putImageToS3(file, TEST_IMAGE_FILE_NAME1);
@@ -72,7 +75,7 @@ public class S3UploaderTest {
     @Test
     public void removeNewFile() throws IOException {
         //given
-        File file = s3Uploader.convert(TEST_IMAGE1).orElseThrow();
+        File file = s3Uploader.convert(TEST_IMAGE1);
 
         //when
         s3Uploader.removeNewFile(file);
