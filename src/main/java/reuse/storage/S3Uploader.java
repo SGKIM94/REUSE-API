@@ -39,7 +39,6 @@ public class S3Uploader {
             .collect(Collectors.toList());
     }
 
-
     public File convert(MultipartFile image) throws IOException {
         if (image == null || image.isEmpty() || StringUtils.isEmpty(image.getOriginalFilename())) {
             throw new StorageException("file is empty when convert file!");

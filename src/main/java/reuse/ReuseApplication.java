@@ -10,7 +10,6 @@ import reuse.storage.StorageProperties;
 @EnableJpaAuditing
 @EnableConfigurationProperties(StorageProperties.class)
 public class ReuseApplication {
-
     public static final String APPLICATION_LOCATIONS = "spring.config.location="
             + "classpath:application.yml,"
             + "classpath:aws.yml";
@@ -20,11 +19,4 @@ public class ReuseApplication {
                 .profiles(APPLICATION_LOCATIONS)
                 .run(args);
     }
-//    @Bean
-//    CommandLineRunner init(FileSystemStorageService storageService) {
-//        return (args) -> {
-//            storageService.deleteAll();
-//            storageService.init();
-//        };
-//    }
 }
