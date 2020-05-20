@@ -46,14 +46,11 @@ public class S3Uploader {
 
         File convertFile = new File(image.getOriginalFilename());
 
-        if (convertFile.createNewFile()) {
-            try (FileOutputStream fos = new FileOutputStream(convertFile)) {
-                fos.write(image.getBytes());
-            }
-            return convertFile;
+        try (FileOutputStream fos = new FileOutputStream(convertFile)) {
+            fos.write(image.getBytes());
         }
 
-        throw new StorageException("Fail convert file");
+        return convertFile;
     }
 
     public String upload(MultipartFile image, String directoryName) {
@@ -73,10 +70,10 @@ public class S3Uploader {
     }
 
     public String putImageToS3(File image, String fileName) {
-        amazonS3.putObject(new PutObjectRequest(bucket, fileName, image)
+        amazonS3.putObject(new PutObjectRequest("reuse-s3", fileName, image)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
 
-        return amazonS3.getUrl(bucket, fileName).toString();
+        return amazonS3.getUrl("reuse-s3", fileName).toString();
     }
 
     public void removeNewFile(File targetFile) {
