@@ -1,26 +1,24 @@
 package reuse.storage;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.ProductFixture.TEST_IMAGE1;
 import static reuse.fixture.ProductFixture.TEST_IMAGE_FILE_NAME1;
+import static reuse.service.ProductServiceTest.S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME;
 
-@ExtendWith(SpringExtension.class)
+@SpringBootTest
 public class S3UploaderTest {
+    @Autowired
     private S3Uploader s3Uploader;
 
     @Value("${cloud.aws.s3.credentials.accessKey}")
@@ -37,13 +35,8 @@ public class S3UploaderTest {
 
     @BeforeEach
     public void setup() {
-        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
-        AmazonS3 amazonS3 = AmazonS3ClientBuilder.standard()
-                .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                .withRegion(region)
-                .build();
-
-        this.s3Uploader = new S3Uploader(amazonS3);
+        this.s3Uploader = new S3Uploader();
+        this.s3Uploader.s3SetUp();
     }
 
     @DisplayName("MultipartFile 을 File 타입으로 변경하는지")
@@ -73,7 +66,7 @@ public class S3UploaderTest {
         File file = s3Uploader.convert(TEST_IMAGE1);
 
         //when
-        String uploadFileName = s3Uploader.upload(file, TEST_IMAGE_FILE_NAME1);
+        String uploadFileName = s3Uploader.upload(file, S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME);
 
         //then
         assertThat(uploadFileName).isNotBlank();
@@ -103,4 +96,24 @@ public class S3UploaderTest {
         s3Uploader.removeNewFile(file);
     }
 
+    @DisplayName("S3 에 존재하는 모든 파일을 가져오는지")
+    @Test
+    public void getFiles() {
+        //given
+        List<String> files = s3Uploader.getFiles(1L);
+        String testFile = files.get(0);
+
+        //when
+        assertThat(testFile).isNotBlank();
+    }
+
+    @DisplayName("S3 가져온 key 를 Object URL 로 변환 가능한지")
+    @Test
+    public void makeUrlByFile() {
+        //given
+        String fileURL = s3Uploader.makeUrlByFile("products/1");
+
+        //when
+        assertThat(fileURL).isEqualTo("https://reuse-s3.s3.ap-northeast-2.amazonaws.com/products/1");
+    }
 }

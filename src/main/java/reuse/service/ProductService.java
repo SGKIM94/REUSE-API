@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
+    public static final String S3_PRODUCT_IMAGES_DIRECTORY_NAME = "products/";
     private final ProductRepository productRepository;
     private final S3Uploader s3Uploader;
 
@@ -26,13 +27,13 @@ public class ProductService {
 
     @Transactional
     public CreateProductResponseView create(CreateProductRequestView product) {
-        storeProductImages(product);
+        String imageUrl = storeProductImages(product, S3_PRODUCT_IMAGES_DIRECTORY_NAME);
         Product savedProduct = productRepository.save(product.toEntity(product));
-        return CreateProductResponseView.toDto(savedProduct);
+        return CreateProductResponseView.toDto(savedProduct, imageUrl);
     }
 
-    void storeProductImages(CreateProductRequestView product) {
-        s3Uploader.upload(product.getProductImage(), "products/" + product.getId());
+    String storeProductImages(CreateProductRequestView product, String directory) {
+        return s3Uploader.upload(product.getProductImage(), directory + product.getId());
     }
 
     public ListProductResponseView list() {
