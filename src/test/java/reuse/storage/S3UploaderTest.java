@@ -1,6 +1,5 @@
 package reuse.storage;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +31,6 @@ public class S3UploaderTest {
 
     @Value("${cloud.aws.s3.region.static}")
     private String region;
-
-    @BeforeEach
-    public void setup() {
-        this.s3Uploader = new S3Uploader();
-        this.s3Uploader.s3SetUp();
-    }
 
     @DisplayName("MultipartFile 을 File 타입으로 변경하는지")
     @Test
