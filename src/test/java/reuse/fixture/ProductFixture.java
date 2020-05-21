@@ -33,7 +33,7 @@ public class ProductFixture extends CommonFixture {
     public static final List<MultipartFile> TEST_IMAGES = Arrays.asList(TEST_IMAGE1, TEST_IMAGE2);
 
     public static final CreateProductRequestView CREATE_PRODUCT_REQUEST_DTO = CreateProductRequestView.builder()
-            .product(TEST_PRODUCT).productImages(TEST_IMAGES).build();
+            .product(TEST_PRODUCT).productImages(TEST_IMAGES).productImage(TEST_IMAGE1).build();
 
     public static final CreateProductRequestView SECOND_CREATE_PRODUCT_REQUEST_DTO = CreateProductRequestView.builder()
             .product(SECOND_TEST_PRODUCT).build();
