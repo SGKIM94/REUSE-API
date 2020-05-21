@@ -20,9 +20,10 @@ public class CreateProductResponseView {
     private String categoryId;
     private String createAt;
     private String updateAt;
+    private String productImageUrl;
 
     @Builder
-    public CreateProductResponseView(Product product) {
+    public CreateProductResponseView(Product product, String productImageUrl) {
         this.id = product.getId();
         this.name = product.getName();
         this.explanation = product.getExplanation();
@@ -33,11 +34,13 @@ public class CreateProductResponseView {
         this.categoryId = product.getCategoryId();
         this.createAt = product.getFormattedCreateDate();
         this.updateAt = product.getFormattedModifyDate();
+        this.productImageUrl = productImageUrl;
     }
 
-    public static CreateProductResponseView toDto(Product savedProduct) {
+    public static CreateProductResponseView toDto(Product savedProduct, String productImageUrl) {
         return CreateProductResponseView.builder()
                 .product(savedProduct)
+                .productImageUrl(productImageUrl)
                 .build();
     }
 }
