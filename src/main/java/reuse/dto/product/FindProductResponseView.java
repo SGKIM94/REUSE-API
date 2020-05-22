@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.core.io.Resource;
 import reuse.domain.Product;
 
 import java.util.List;
@@ -40,9 +39,10 @@ public class FindProductResponseView {
         this.productImages = productImages;
     }
 
-    public static FindProductResponseView toDto(Product product) {
+    public static FindProductResponseView toDto(Product product, List<String> productImages) {
         return FindProductResponseView.builder()
                 .product(product)
+                .productImages(productImages)
                 .build();
     }
 }
