@@ -78,8 +78,13 @@ public class ProductServiceTest {
         when(productRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_PRODUCT));
 
         FindProductResponseView product = productService.findById(DEFAULT_ID);
+        List<String> productImages = product.getProductImages();
+        String productImage = productImages.get(0);
 
         assertThat(product.getName()).isEqualTo(TEST_PRODUCT_NAME);
+        assertThat(product.getProductImages().size()).isGreaterThan(0);
+        assertThat(productImage).isNotBlank();
+
         verify(productRepository).findById(any());
     }
 
