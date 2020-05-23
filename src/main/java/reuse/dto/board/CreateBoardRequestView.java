@@ -14,7 +14,7 @@ public class CreateBoardRequestView {
     private Long id;
     private String title;
     private String content;
-    private Product product;
+    private Long productId;
     private String sellerAddress;
 
     @Builder
@@ -22,16 +22,16 @@ public class CreateBoardRequestView {
         this.id = board.getId();
         this.title = board.getTitle();
         this.content = board.getContent();
-        this.product = board.getProduct();
+        this.productId = board.getProductId();
         this.sellerAddress = board.getSellerAddress();
     }
 
-    public static Board toEntity(CreateBoardRequestView board) {
+    public static Board toEntity(CreateBoardRequestView board, Product product) {
         return Board.builder()
                 .id(board.getId())
                 .title(board.getTitle())
                 .content(board.getContent())
-                .product(board.getProduct())
+                .product(product)
                 .sellerAddress(board.getSellerAddress())
                 .build();
     }
