@@ -4,20 +4,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import reuse.domain.Product;
-import reuse.dto.product.CreateProductRequestView;
-import reuse.dto.product.CreateProductResponseView;
-import reuse.dto.product.FindProductResponseView;
-import reuse.dto.product.ListProductResponseView;
+import reuse.dto.product.*;
 import reuse.repository.ProductRepository;
 import reuse.storage.S3Uploader;
 
-import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
     public static final String S3_PRODUCT_IMAGES_DIRECTORY_NAME = "products/";
+    public static final String THUMBNAIL_DIRECTORY = "/thumbnail";
     private final ProductRepository productRepository;
     private final S3Uploader s3Uploader;
 
@@ -28,18 +26,9 @@ public class ProductService {
 
     @Transactional
     public CreateProductResponseView create(CreateProductRequestView product) {
-        String imageUrl = storeProductImages(product, S3_PRODUCT_IMAGES_DIRECTORY_NAME);
+        String imageUrl = storeProductThumbnailImage(product, S3_PRODUCT_IMAGES_DIRECTORY_NAME);
         Product savedProduct = productRepository.save(product.toEntity(product));
         return CreateProductResponseView.toDto(savedProduct, imageUrl);
-    }
-
-    String storeProductImages(CreateProductRequestView product, String directory) {
-        MultipartFile productImage = product.getProductImage();
-        if (productImage == null) {
-            return "";
-        }
-
-        return s3Uploader.upload(productImage, directory + product.getId());
     }
 
     public ListProductResponseView list() {
@@ -55,10 +44,6 @@ public class ProductService {
         return new FindProductResponseView(product, s3Uploader.getFiles(product.getId()));
     }
 
-    private String getFileNameByString(Path path) {
-        return path.getFileName().toString();
-    }
-
     public Product findById(long id) {
         return productRepository.findById(id).orElseThrow(IllegalAccessError::new);
     }
@@ -68,5 +53,30 @@ public class ProductService {
         List<String> files = s3Uploader.getFiles(id);
 
         return FindProductResponseView.toDto(product, files);
+    }
+
+    String storeProductThumbnailImage(CreateProductRequestView product, String directory) {
+        MultipartFile productImage = product.getProductThumbnailImage();
+        return storeProductImage(productImage, directory + product.getId() + THUMBNAIL_DIRECTORY);
+    }
+
+    public List<String> storeProductImages(CreateProductRequestView product, String directory) {
+        ProductImagesView productImages = product.getProductImages();
+        if (productImages == null) {
+            return new ArrayList<>();
+        }
+
+        List<MultipartFile> convertedImages = productImages.convertToList();
+        return convertedImages.stream()
+                .map(image -> storeProductImage(image, directory + product.getId()))
+                .collect(Collectors.toList());
+    }
+
+    String storeProductImage(MultipartFile productImage, String directory) {
+        if (productImage == null) {
+            return "";
+        }
+
+        return s3Uploader.upload(productImage, directory);
     }
 }
