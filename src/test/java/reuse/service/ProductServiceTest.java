@@ -99,12 +99,23 @@ public class ProductServiceTest {
         verify(productRepository).findById(any());
     }
 
-    @DisplayName("품목 이미지들이 저장되는지")
+    @DisplayName("품목의 섬네일 이미지를 저장하는지")
     @Test
-    public void storeProductImagesTest() {
-        String imageUrl = productService.storeProductImages(CREATE_PRODUCT_REQUEST_DTO, S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME);
+    public void storeProductThumbnailImage() {
+        String imageUrl = productService.storeProductThumbnailImage
+                (CREATE_PRODUCT_REQUEST_DTO, S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME);
 
         //then
         assertThat(imageUrl).isNotBlank();
     }
+
+    @DisplayName("품목의 이미지들을 저장하는지")
+    @Test
+    public void storeProductImagesTest() {
+        List<String> imageUrl = productService.storeProductImages(CREATE_PRODUCT_REQUEST_DTO, S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME);
+
+        //then
+        assertThat(imageUrl.size()).isGreaterThan(1);
+    }
+
 }
