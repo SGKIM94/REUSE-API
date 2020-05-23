@@ -1,6 +1,7 @@
 package reuse.storage;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -11,7 +12,7 @@ import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static reuse.fixture.ProductFixture.TEST_IMAGE1;
+import static reuse.fixture.ProductImagesFixture.TEST_IMAGE1;
 
 public class FileSystemStorageServiceTest {
     public static final String REUSE_LOCATION = "/Users/kimsang-gu/Workspace/sanggu/toy-project/reuse/reuse-api/";
@@ -37,6 +38,7 @@ public class FileSystemStorageServiceTest {
         assertThat(file).doesNotExist();
     }
 
+    @Disabled("사용 안함")
     @DisplayName("파일을 저장하고 불러오는지")
     @Test
     public void saveAndLoad () {

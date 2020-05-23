@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static reuse.fixture.ProductFixture.TEST_IMAGE1;
-import static reuse.fixture.ProductFixture.TEST_IMAGE_FILE_NAME1;
+import static reuse.fixture.ProductImagesFixture.TEST_IMAGE1;
+import static reuse.fixture.ProductImagesFixture.TEST_IMAGE_FILE_NAME1;
 import static reuse.service.ProductServiceTest.S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME;
 
 @SpringBootTest
