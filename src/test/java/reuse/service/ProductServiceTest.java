@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import reuse.domain.Product;
 import reuse.dto.product.CreateProductResponseView;
 import reuse.dto.product.FindProductResponseView;
 import reuse.dto.product.ListProductResponseView;
 import reuse.repository.ProductRepository;
 import reuse.security.TokenAuthenticationService;
 import reuse.storage.S3Uploader;
-import reuse.storage.StorageProperties;
 
 import java.util.List;
 
@@ -32,8 +32,6 @@ public class ProductServiceTest {
 
     @SpyBean
     private S3Uploader s3Uploader;
-
-    private StorageProperties storageProperties = new StorageProperties();
 
     @MockBean
     private TokenAuthenticationService tokenAuthenticationService;
@@ -77,7 +75,20 @@ public class ProductServiceTest {
     public void find() {
         when(productRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_PRODUCT));
 
-        FindProductResponseView product = productService.findById(DEFAULT_ID);
+        Product product = productService.findById(DEFAULT_ID);
+
+        assertThat(product.getName()).isEqualTo(TEST_PRODUCT_NAME);
+
+        verify(productRepository).findById(any());
+    }
+
+
+    @DisplayName("품목 상세 내역을 이미지들과 조회되는지")
+    @Test
+    public void findWithImages() {
+        when(productRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_PRODUCT));
+
+        FindProductResponseView product = productService.findByIdWithImages(DEFAULT_ID);
         List<String> productImages = product.getProductImages();
         String productImage = productImages.get(0);
 
