@@ -42,6 +42,16 @@ public class RestWebClientTest {
                 .returnResult();
     }
 
+    <T> EntityExchangeResult<T> postMethodWithFormData(String uri, Object requestBody, Class<T> responseBodyClass) {
+        return webTestClient.post().uri(uri)
+                .header(HttpHeaders.AUTHORIZATION, "")
+                .contentType(MediaType.MULTIPART_FORM_DATA)
+                .body(Mono.just(requestBody), requestBody.getClass())
+                .exchange()
+                .expectBody(responseBodyClass)
+                .returnResult();
+    }
+
     <T> WebTestClient.BodyContentSpec getMethodWithAuthAcceptance(String uri, String jwt) {
         return this.webTestClient.get().uri(uri)
                 .header(HttpHeaders.AUTHORIZATION, jwt)
