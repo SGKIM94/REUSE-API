@@ -12,16 +12,18 @@ public class ProductImagesFixture extends CommonFixture {
     public static final String TEST_IMAGE_FILE_NAME5 = "foo5.txt";
     public static final String TEST_IMAGE_FILE_NAME6 = "foo6.txt";
 
+    public static final String TEST_FILE_CONTENT = "test file!";
+
     public static final MultipartFile TEST_IMAGE1
-            = new MockMultipartFile("foo1", TEST_IMAGE_FILE_NAME1, MediaType.TEXT_PLAIN_VALUE, "test file".getBytes());
+            = new MockMultipartFile("foo1", TEST_IMAGE_FILE_NAME1, MediaType.TEXT_PLAIN_VALUE, TEST_FILE_CONTENT.getBytes());
     public static final MultipartFile TEST_IMAGE2
-            = new MockMultipartFile("foo2", TEST_IMAGE_FILE_NAME2, MediaType.TEXT_PLAIN_VALUE, "test file".getBytes());
+            = new MockMultipartFile("foo2", TEST_IMAGE_FILE_NAME2, MediaType.TEXT_PLAIN_VALUE, TEST_FILE_CONTENT.getBytes());
     public static final MultipartFile TEST_IMAGE3
-            = new MockMultipartFile("foo3", TEST_IMAGE_FILE_NAME3, MediaType.TEXT_PLAIN_VALUE, "test file".getBytes());
+            = new MockMultipartFile("foo3", TEST_IMAGE_FILE_NAME3, MediaType.TEXT_PLAIN_VALUE, TEST_FILE_CONTENT.getBytes());
     public static final MultipartFile TEST_IMAGE4
-            = new MockMultipartFile("foo4", TEST_IMAGE_FILE_NAME4, MediaType.TEXT_PLAIN_VALUE, "test file".getBytes());
+            = new MockMultipartFile("foo4", TEST_IMAGE_FILE_NAME4, MediaType.TEXT_PLAIN_VALUE, TEST_FILE_CONTENT.getBytes());
     public static final MultipartFile TEST_IMAGE5
-            = new MockMultipartFile("foo5", TEST_IMAGE_FILE_NAME5, MediaType.TEXT_PLAIN_VALUE, "test file".getBytes());
+            = new MockMultipartFile("foo5", TEST_IMAGE_FILE_NAME5, MediaType.TEXT_PLAIN_VALUE, TEST_FILE_CONTENT.getBytes());
     public static final MultipartFile TEST_IMAGE6
-            = new MockMultipartFile("foo6", TEST_IMAGE_FILE_NAME6, MediaType.TEXT_PLAIN_VALUE, "test file".getBytes());
+            = new MockMultipartFile("foo6", TEST_IMAGE_FILE_NAME6, MediaType.TEXT_PLAIN_VALUE, TEST_FILE_CONTENT.getBytes());
 }
