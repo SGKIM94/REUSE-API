@@ -14,12 +14,18 @@ import static reuse.fixture.UserFixture.TEST_USER;
 
 public class BoardFixture extends CommonFixture {
     public static final String TEST_BOARD_CONTENT = "테스트 판매";
+    public static final String TEST_SECOND_BOARD_CONTENT = "테스트 두번쨰 판매";
     public static final String TEST_SELLER_ADDRESS = "경기도 성남시";
     public static final String TEST_BOARD_TITLE = "테스트 판매 게시판";
+    public static final String TEST_SECOND_BOARD_TITLE = "테스트 판매 두번째 게시판";
     public static final String TEST_MODIFY_BOARD_TITLE = "수정된 판매 게시판";
 
     public static final Board TEST_BOARD
             = Board.builder().id(DEFAULT_ID).title(TEST_BOARD_TITLE).content(TEST_BOARD_CONTENT)
+            .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).build();
+
+    public static final Board TEST_SECOND_BOARD
+            = Board.builder().id(SECOND_ID).title(TEST_SECOND_BOARD_TITLE).content(TEST_SECOND_BOARD_CONTENT)
             .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).build();
 
     public static final Board MODIFY_TEST_BOARD
@@ -28,6 +34,9 @@ public class BoardFixture extends CommonFixture {
 
     public static final CreateBoardRequestView CREATE_BOARD_REQUEST_VIEW
             = CreateBoardRequestView.builder().board(TEST_BOARD).build();
+
+    public static final CreateBoardRequestView CREATE_SECOND_BOARD_REQUEST_VIEW
+            = CreateBoardRequestView.builder().board(TEST_SECOND_BOARD).build();
 
     public static final FindBoardResponseView FIND_BOARD_RESPONSE_VIEW
             = FindBoardResponseView.builder().id(DEFAULT_ID).title(TEST_BOARD_TITLE).content(TEST_BOARD_CONTENT)
