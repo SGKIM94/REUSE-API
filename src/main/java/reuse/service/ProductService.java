@@ -66,8 +66,7 @@ public class ProductService {
             return new ArrayList<>();
         }
 
-        List<MultipartFile> convertedImages = productImages.convertToList();
-        return convertedImages.stream()
+        return productImages.convertToList().stream()
                 .map(image -> storeProductImage(image, directory + product.getId()))
                 .collect(Collectors.toList());
     }
