@@ -21,10 +21,12 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static reuse.fixture.ProductFixture.*;
+import static reuse.fixture.ProductImagesFixture.TEST_IMAGE1;
 
 @SpringBootTest
 public class ProductServiceTest {
     public static final String S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME = "tests/";
+
     private ProductService productService;
 
     @MockBean
@@ -99,6 +101,16 @@ public class ProductServiceTest {
         verify(productRepository).findById(any());
     }
 
+    @DisplayName("품목 이미지를 단일로 저장 가능한지")
+    @Test
+    public void storeProductImage() {
+        String imageUrl = productService.storeProductImage
+                (TEST_IMAGE1, S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME + 3L);
+
+        //then
+        assertThat(imageUrl).isNotBlank();
+    }
+
     @DisplayName("품목의 섬네일 이미지를 저장하는지")
     @Test
     public void storeProductThumbnailImage() {
@@ -112,10 +124,10 @@ public class ProductServiceTest {
     @DisplayName("품목의 이미지들을 저장하는지")
     @Test
     public void storeProductImagesTest() {
-        List<String> imageUrl = productService.storeProductImages(CREATE_PRODUCT_REQUEST_DTO, S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME);
+        List<String> imageUrl = productService.storeProductImages
+                (CREATE_PRODUCT_REQUEST_DTO, S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME);
 
         //then
-        assertThat(imageUrl.size()).isGreaterThan(1);
+        assertThat(imageUrl.size()).isGreaterThan(4);
     }
-
 }
