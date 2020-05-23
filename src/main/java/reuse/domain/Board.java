@@ -60,6 +60,10 @@ public class Board extends AbstractEntity {
         return sellerAddress;
     }
 
+    public Long getProductId() {
+        return this.product.getId();
+    }
+
     public void modify(ModifyBoardRequestView modify) {
         if (modify == null) {
             return;
