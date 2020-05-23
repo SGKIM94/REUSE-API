@@ -1,13 +1,12 @@
 package reuse.dto.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 import reuse.domain.Product;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -23,11 +22,13 @@ public class CreateProductRequestView {
     private String categoryId;
     private String createAt;
     private String updateAt;
-    private List<MultipartFile> productImages;
-    private MultipartFile productImage;
+    @JsonIgnore
+    private ProductImagesView productImages;
+    @JsonIgnore
+    private MultipartFile productThumbnailImage;
 
     @Builder
-    public CreateProductRequestView(Product product, List<MultipartFile> productImages, MultipartFile productImage) {
+    public CreateProductRequestView(Product product, ProductImagesView productImages, MultipartFile productThumbnailImage) {
         this.id = product.getId();
         this.name = product.getName();
         this.explanation = product.getExplanation();
@@ -39,7 +40,7 @@ public class CreateProductRequestView {
         this.createAt = product.getFormattedCreateDate();
         this.updateAt = product.getFormattedModifyDate();
         this.productImages = productImages;
-        this.productImage = productImage;
+        this.productThumbnailImage = productThumbnailImage;
     }
 
     public Product toEntity(CreateProductRequestView product) {
