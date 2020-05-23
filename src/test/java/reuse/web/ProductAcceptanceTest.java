@@ -33,8 +33,8 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
     @Test
     public void createProduct() {
         //when
-        EntityExchangeResult<CreateProductResponseView> expectResponse = restWebClientTest.postMethodAcceptance
-                (PRODUCT_BASE_URL, CREATE_PRODUCT_REQUEST_DTO, CreateProductResponseView.class);
+        EntityExchangeResult<CreateProductResponseView> expectResponse = restWebClientTest.postMethodWithFormData
+                (PRODUCT_BASE_URL, getCreateProductMap(), CreateProductResponseView.class);
 
         //then
         HttpHeaders responseHeaders = expectResponse.getResponseHeaders();
@@ -47,8 +47,9 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
     @Test
     public void listProduct() {
         //given
-        restWebClientTest.createProduct(CREATE_PRODUCT_REQUEST_DTO);
-        restWebClientTest.createProduct(SECOND_CREATE_PRODUCT_REQUEST_DTO);
+        restWebClientTest.createProduct(getCreateProductMap());
+        restWebClientTest.createProduct(getSecondCreateProductMap());
+
         //when
         EntityExchangeResult<ListProductResponseView> response
                 = restWebClientTest.getMethodAcceptance(PRODUCT_BASE_URL, ListProductResponseView.class);
@@ -68,7 +69,7 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
     @Test
     public void findProduct() {
         //given
-        restWebClientTest.createProduct(CREATE_PRODUCT_REQUEST_DTO);
+        restWebClientTest.createProduct(getCreateProductMap());
 
         //when
         EntityExchangeResult<FindProductResponseView> response = restWebClientTest.getMethodAcceptance
