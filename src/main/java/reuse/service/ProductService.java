@@ -2,6 +2,7 @@ package reuse.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import reuse.domain.Product;
 import reuse.dto.product.CreateProductRequestView;
 import reuse.dto.product.CreateProductResponseView;
@@ -33,7 +34,12 @@ public class ProductService {
     }
 
     String storeProductImages(CreateProductRequestView product, String directory) {
-        return s3Uploader.upload(product.getProductImage(), directory + product.getId());
+        MultipartFile productImage = product.getProductImage();
+        if (productImage == null) {
+            return "";
+        }
+
+        return s3Uploader.upload(productImage, directory + product.getId());
     }
 
     public ListProductResponseView list() {
