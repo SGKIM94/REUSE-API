@@ -12,9 +12,8 @@ import reuse.dto.board.ListBoardResponseView;
 import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static reuse.fixture.BoardFixture.CREATE_BOARD_REQUEST_VIEW;
-import static reuse.fixture.BoardFixture.MODIFY_BOARD_REQUEST_DTO;
-import static reuse.fixture.ProductFixture.CREATE_PRODUCT_REQUEST_DTO;
+import static reuse.fixture.BoardFixture.*;
+import static reuse.fixture.ProductFixture.getCreateProductMap;
 
 public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     public static final String BOARD_BASE_URL = "/boards";
@@ -32,7 +31,7 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     @Test
     public void createBoard() {
         // product 를 주입하는 logic 필요
-        restWebClientTest.createProduct(CREATE_PRODUCT_REQUEST_DTO);
+        restWebClientTest.createProduct(getCreateProductMap());
 
         //when
         EntityExchangeResult<Board> expectResponse
@@ -49,15 +48,15 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     @DisplayName("게시판 리스트 조회가 가능한지")
     @Test
     public void listBoard() {
-        restWebClientTest.createProduct(CREATE_PRODUCT_REQUEST_DTO);
+        restWebClientTest.createProduct(getCreateProductMap());
         restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW);
+        restWebClientTest.createBoard(CREATE_SECOND_BOARD_REQUEST_VIEW);
 
         //when
         EntityExchangeResult<ListBoardResponseView> expectResponse
                 = restWebClientTest.getMethodAcceptance(BOARD_BASE_URL, ListBoardResponseView.class);
 
         //then
-        HttpHeaders responseHeaders = expectResponse.getResponseHeaders();
         ListBoardResponseView boards = expectResponse.getResponseBody();
 
         //then
@@ -68,7 +67,7 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     @DisplayName("게시판 수정이 가능한지")
     @Test
     public void updateBoard() {
-        restWebClientTest.createProduct(CREATE_PRODUCT_REQUEST_DTO);
+        restWebClientTest.createProduct(getCreateProductMap());
         restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW);
 
         //when
