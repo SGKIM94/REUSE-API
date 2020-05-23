@@ -9,12 +9,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.dto.board.ListBoardResponseView;
 import reuse.repository.BoardRepository;
+import reuse.repository.ProductRepository;
 import reuse.security.TokenAuthenticationService;
+import reuse.storage.S3Uploader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static reuse.fixture.BoardFixture.*;
+import static reuse.fixture.ProductFixture.TEST_PRODUCT;
 
 @SpringBootTest
 public class BoardServiceTest {
@@ -24,18 +27,26 @@ public class BoardServiceTest {
     private BoardRepository boardRepository;
 
     @MockBean
+    private ProductRepository productRepository;
+
+    @MockBean
+    private S3Uploader s3Uploader;
+
+    @MockBean
     private TokenAuthenticationService tokenAuthenticationService;
 
     @BeforeEach
     void setUp() {
         this.tokenAuthenticationService = new TokenAuthenticationService();
-        this.boardService = new BoardService(boardRepository);
+        ProductService productService = new ProductService(productRepository, s3Uploader);
+        this.boardService = new BoardService(boardRepository, productService);
     }
 
     @DisplayName("게시물이 생성되는지")
     @Test
     public void create() {
         when(boardRepository.save(any())).thenReturn(TEST_BOARD);
+        when(productRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_PRODUCT));
 
         CreateBoardResponseView board = boardService.create(CREATE_BOARD_REQUEST_VIEW);
 
