@@ -53,8 +53,12 @@ public class ProductService {
         return path.getFileName().toString();
     }
 
-    public FindProductResponseView findById(long id) {
-        Product product = productRepository.findById(id).orElseThrow(IllegalAccessError::new);
+    public Product findById(long id) {
+        return productRepository.findById(id).orElseThrow(IllegalAccessError::new);
+    }
+
+    public FindProductResponseView findByIdWithImages(long id) {
+        Product product = findById(id);
         List<String> files = s3Uploader.getFiles(id);
 
         return FindProductResponseView.toDto(product, files);
