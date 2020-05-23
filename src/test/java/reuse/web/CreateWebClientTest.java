@@ -1,10 +1,10 @@
 package reuse.web;
 
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.util.MultiValueMap;
 import reuse.domain.Board;
 import reuse.domain.User;
 import reuse.dto.board.CreateBoardRequestView;
-import reuse.dto.product.CreateProductRequestView;
 import reuse.dto.product.CreateProductResponseView;
 
 import java.util.Objects;
@@ -28,9 +28,9 @@ public class CreateWebClientTest extends RestWebClientTest {
                 .getPath());
     }
 
-    String createProduct(CreateProductRequestView product) {
+    String createProduct(MultiValueMap<String, Object> product) {
         return Objects.requireNonNull(
-                postMethodAcceptance(PRODUCT_BASE_URL, product, CreateProductResponseView.class)
+                postMethodWithFormData(PRODUCT_BASE_URL, product, CreateProductResponseView.class)
                         .getResponseHeaders()
                         .getLocation()
                         .getPath());
