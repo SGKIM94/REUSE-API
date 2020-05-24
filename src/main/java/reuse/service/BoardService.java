@@ -3,10 +3,7 @@ package reuse.service;
 import org.springframework.stereotype.Service;
 import reuse.domain.Board;
 import reuse.domain.Product;
-import reuse.dto.board.CreateBoardRequestView;
-import reuse.dto.board.CreateBoardResponseView;
-import reuse.dto.board.ListBoardResponseView;
-import reuse.dto.board.ModifyBoardRequestView;
+import reuse.dto.board.*;
 import reuse.repository.BoardRepository;
 
 @Service
@@ -31,6 +28,14 @@ public class BoardService {
 
     public void modify(ModifyBoardRequestView modify) {
         Board board = modify.toEntity();
-//        board.modify();
+        board.modify(modify);
+    }
+
+    public Board findById(Long id) {
+        return boardRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+    }
+
+    public FindBoardResponseView retrieve(Long id) {
+        return FindBoardResponseView.toDto(findById(id));
     }
 }
