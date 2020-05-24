@@ -11,6 +11,7 @@ import reuse.domain.Product;
 @Setter
 @NoArgsConstructor
 public class ModifyBoardRequestView {
+    private Long id;
     private String title;
     private String content;
     private Product product;
@@ -18,6 +19,7 @@ public class ModifyBoardRequestView {
 
     @Builder
     public ModifyBoardRequestView(Board board) {
+        this.id = board.getId();
         this.title = board.getTitle();
         this.content = board.getContent();
         this.product = board.getProduct();
@@ -26,8 +28,9 @@ public class ModifyBoardRequestView {
 
     public Board toEntity() {
         return Board.builder()
-                .content(this.content)
-                .product(this.product)
+                .id(id)
+                .content(content)
+                .product(product)
                 .sellerAddress(sellerAddress)
                 .build();
     }
