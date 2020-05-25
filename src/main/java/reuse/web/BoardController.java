@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reuse.dto.board.CreateBoardRequestView;
 import reuse.dto.board.CreateBoardResponseView;
+import reuse.dto.board.ModifyBoardRequestView;
 import reuse.service.BoardService;
 
 import java.net.URI;
@@ -29,8 +30,9 @@ public class BoardController {
         return ResponseEntity.ok().body(boardService.list());
     }
 
-    @PostMapping("{id}")
-    public ResponseEntity modify(@PathVariable Long id) {
+    @PutMapping
+    public ResponseEntity modify(@RequestBody ModifyBoardRequestView modify) {
+        boardService.modify(modify);
         return ResponseEntity.ok().build();
     }
 
