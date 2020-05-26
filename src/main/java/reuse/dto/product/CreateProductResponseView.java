@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import reuse.domain.Product;
+import reuse.domain.ProductImages;
 
 @Getter
 @Setter
@@ -20,10 +21,11 @@ public class CreateProductResponseView {
     private String categoryId;
     private String createAt;
     private String updateAt;
-    private String productImage;
+    private String productThumbnailImage;
+    private ProductImages productImages;
 
     @Builder
-    public CreateProductResponseView(Product product, String productImage) {
+    public CreateProductResponseView(Product product, String productThumbnailImage, ProductImages productImages) {
         this.id = product.getId();
         this.name = product.getName();
         this.explanation = product.getExplanation();
@@ -34,13 +36,15 @@ public class CreateProductResponseView {
         this.categoryId = product.getCategoryId();
         this.createAt = product.getFormattedCreateDate();
         this.updateAt = product.getFormattedModifyDate();
-        this.productImage = productImage;
+        this.productThumbnailImage = productThumbnailImage;
+        this.productImages = productImages;
     }
 
-    public static CreateProductResponseView toDto(Product savedProduct, String productImage) {
+    public static CreateProductResponseView toDto(Product savedProduct, String productThumbnailImage, ProductImages productImages) {
         return CreateProductResponseView.builder()
                 .product(savedProduct)
-                .productImage(productImage)
+                .productThumbnailImage(productThumbnailImage)
+                .productImages(productImages)
                 .build();
     }
 }
