@@ -10,6 +10,7 @@ import reuse.domain.Product;
 import reuse.dto.product.CreateProductResponseView;
 import reuse.dto.product.FindProductResponseView;
 import reuse.dto.product.ListProductResponseView;
+import reuse.repository.ProductImagesRepository;
 import reuse.repository.ProductRepository;
 import reuse.security.TokenAuthenticationService;
 import reuse.storage.S3Uploader;
@@ -32,6 +33,9 @@ public class ProductServiceTest {
     @MockBean
     private ProductRepository productRepository;
 
+    @MockBean
+    private ProductImagesRepository productImagesRepository;
+
     @SpyBean
     private S3Uploader s3Uploader;
 
@@ -41,7 +45,7 @@ public class ProductServiceTest {
     @BeforeEach
     void setUp() {
         this.tokenAuthenticationService = new TokenAuthenticationService();
-        this.productService = new ProductService(productRepository, s3Uploader);
+        this.productService = new ProductService(productRepository, productImagesRepository, s3Uploader);
     }
 
     @DisplayName("품목이 생성되는지")
@@ -53,6 +57,7 @@ public class ProductServiceTest {
 
         assertThat(product.getName()).isEqualTo(TEST_PRODUCT_NAME);
         verify(productRepository).save(any());
+        verify(productImagesRepository).save(any());
     }
 
     @DisplayName("품목들이 조회되는지")
