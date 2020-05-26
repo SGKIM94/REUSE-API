@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -31,6 +33,12 @@ public class Product extends AbstractEntity {
     private Boolean isSold;
 
     private String categoryId;
+
+    private String productThumbnailImage;
+
+    @OneToOne
+    @JoinColumn(name = "product_images_id")
+    private String productImagesId;
 
     @Builder
     public Product(Long id, String name, String explanation, String price, String tax, Boolean isUsed,
