@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -33,5 +34,15 @@ public class ProductImages extends AbstractEntity {
         this.fourthImage = fourthImage;
         this.fifthImage = fifthImage;
         this.sixImage = sixImage;
+    }
+
+    public static ProductImages toEntity(List<String> imageUrls) {
+        return ProductImages.builder()
+                .firstImage(imageUrls.get(0))
+                .secondImage(imageUrls.get(1))
+                .thirdImage(imageUrls.get(2))
+                .fourthImage(imageUrls.get(3))
+                .fourthImage(imageUrls.get(4))
+                .build();
     }
 }
