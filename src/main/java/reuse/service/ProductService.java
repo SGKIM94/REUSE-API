@@ -4,7 +4,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import reuse.domain.Product;
+import reuse.domain.ProductImages;
 import reuse.dto.product.*;
+import reuse.repository.ProductImagesRepository;
 import reuse.repository.ProductRepository;
 import reuse.storage.S3Uploader;
 
@@ -17,18 +19,24 @@ public class ProductService {
     public static final String S3_PRODUCT_IMAGES_DIRECTORY_NAME = "products/";
     public static final String THUMBNAIL_DIRECTORY = "/thumbnail";
     private final ProductRepository productRepository;
+    private final ProductImagesRepository productImagesRepository;
     private final S3Uploader s3Uploader;
 
-    public ProductService(ProductRepository productRepository, S3Uploader s3Uploader) {
+    public ProductService(ProductRepository productRepository, ProductImagesRepository productImagesRepository, S3Uploader s3Uploader) {
         this.productRepository = productRepository;
+        this.productImagesRepository = productImagesRepository;
         this.s3Uploader = s3Uploader;
     }
 
     @Transactional
     public CreateProductResponseView create(CreateProductRequestView product) {
         String imageUrl = storeProductThumbnailImage(product, S3_PRODUCT_IMAGES_DIRECTORY_NAME);
+        List<String> imagesUrl = storeProductImages(product, S3_PRODUCT_IMAGES_DIRECTORY_NAME);
+
+        ProductImages savedProductImages = productImagesRepository.save(ProductImages.toEntity(imagesUrl));
+
         Product savedProduct = productRepository.save(product.toEntity(product));
-        return CreateProductResponseView.toDto(savedProduct, imageUrl);
+        return CreateProductResponseView.toDto(savedProduct, imageUrl, savedProductImages);
     }
 
     public ListProductResponseView list() {
