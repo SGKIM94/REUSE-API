@@ -24,7 +24,7 @@ public class ListProductResponseView {
     public static ListProductResponseView toDto(List<Product> products, List<String> productImages) {
         return new ListProductResponseView(
                 products.stream()
-                .map(product -> new FindProductResponseView(product, productImages))
+                .map(FindProductResponseView::new)
                 .collect(Collectors.toList()));
     }
 
