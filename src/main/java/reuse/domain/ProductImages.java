@@ -19,14 +19,14 @@ public class ProductImages extends AbstractEntity {
 
     private String fourthImage;
 
-    private Boolean fifthImage;
+    private String fifthImage;
 
-    private Boolean sixImage;
+    private String sixImage;
 
 
     @Builder
     public ProductImages(long id, String firstImage, String secondImage, String thirdImage, String fourthImage,
-                         Boolean fifthImage, Boolean sixImage) {
+                         String fifthImage, String sixImage) {
         super(id);
         this.firstImage = firstImage;
         this.secondImage = secondImage;
