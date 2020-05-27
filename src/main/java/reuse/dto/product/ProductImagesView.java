@@ -13,27 +13,27 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class ProductImagesView {
-    private MultipartFile productImage1;
-    private MultipartFile productImage2;
-    private MultipartFile productImage3;
-    private MultipartFile productImage4;
-    private MultipartFile productImage5;
-    private MultipartFile productImage6;
+    private MultipartFile firstImage;
+    private MultipartFile secondImage;
+    private MultipartFile thirdImage;
+    private MultipartFile fourthImage;
+    private MultipartFile fifthImage;
+    private MultipartFile sixImage;
 
     @Builder
-    public ProductImagesView(MultipartFile productImage1, MultipartFile productImage2, MultipartFile productImage3,
-                             MultipartFile productImage4, MultipartFile productImage5, MultipartFile productImage6) {
-        this.productImage1 = productImage1;
-        this.productImage2 = productImage2;
-        this.productImage3 = productImage3;
-        this.productImage4 = productImage4;
-        this.productImage5 = productImage5;
-        this.productImage6 = productImage6;
+    public ProductImagesView(MultipartFile firstImage, MultipartFile secondImage, MultipartFile thirdImage,
+                             MultipartFile fourthImage, MultipartFile fifthImage, MultipartFile sixImage) {
+        this.firstImage = firstImage;
+        this.secondImage = secondImage;
+        this.thirdImage = thirdImage;
+        this.fourthImage = fourthImage;
+        this.fifthImage = fifthImage;
+        this.sixImage = sixImage;
     }
 
     public List<MultipartFile> convertToList() {
         // null 체크가 필요할지?
         return Arrays.asList
-                (productImage1, productImage2, productImage3, productImage4, productImage5, productImage6);
+                (firstImage, secondImage, thirdImage, fourthImage, fifthImage, sixImage);
     }
 }
