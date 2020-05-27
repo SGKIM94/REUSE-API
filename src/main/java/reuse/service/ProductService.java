@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class ProductService {
     public static final String S3_PRODUCT_IMAGES_DIRECTORY_NAME = "products/";
     public static final String THUMBNAIL_DIRECTORY = "/thumbnail";
+
     private final ProductRepository productRepository;
     private final ProductImagesRepository productImagesRepository;
     private final S3Uploader s3Uploader;
@@ -34,8 +35,8 @@ public class ProductService {
         List<String> imagesUrl = storeProductImages(product, S3_PRODUCT_IMAGES_DIRECTORY_NAME);
 
         ProductImages savedProductImages = productImagesRepository.save(ProductImages.toEntity(imagesUrl));
-
         Product savedProduct = productRepository.save(product.toEntity(product));
+
         return CreateProductResponseView.toDto(savedProduct, imageUrl, savedProductImages);
     }
 
@@ -48,8 +49,8 @@ public class ProductService {
         return ListProductResponseView.toDto(productResponseViews);
     }
 
-    private FindProductResponseView toFindProductResponseViewWithFiles(Product product) {
-        return new FindProductResponseView(product, s3Uploader.getFiles(product.getId()));
+    FindProductResponseView toFindProductResponseViewWithFiles(Product product) {
+        return new FindProductResponseView(product);
     }
 
     public Product findById(long id) {
@@ -57,10 +58,7 @@ public class ProductService {
     }
 
     public FindProductResponseView findByIdWithImages(long id) {
-        Product product = findById(id);
-        List<String> files = s3Uploader.getFiles(id);
-
-        return FindProductResponseView.toDto(product, files);
+        return FindProductResponseView.toDto(findById(id));
     }
 
     String storeProductThumbnailImage(CreateProductRequestView product, String directory) {
