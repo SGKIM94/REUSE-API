@@ -10,6 +10,7 @@ import reuse.dto.board.CreateBoardResponseView;
 import reuse.dto.board.FindBoardResponseView;
 import reuse.dto.board.ListBoardResponseView;
 import reuse.repository.BoardRepository;
+import reuse.repository.ProductImagesRepository;
 import reuse.repository.ProductRepository;
 import reuse.security.TokenAuthenticationService;
 import reuse.storage.S3Uploader;
@@ -33,6 +34,9 @@ public class BoardServiceTest {
     private ProductRepository productRepository;
 
     @MockBean
+    private ProductImagesRepository productImagesRepository;
+
+    @MockBean
     private S3Uploader s3Uploader;
 
     @MockBean
@@ -41,7 +45,7 @@ public class BoardServiceTest {
     @BeforeEach
     void setUp() {
         this.tokenAuthenticationService = new TokenAuthenticationService();
-        ProductService productService = new ProductService(productRepository, s3Uploader);
+        ProductService productService = new ProductService(productRepository, productImagesRepository, s3Uploader);
         this.boardService = new BoardService(boardRepository, productService);
     }
 
