@@ -38,11 +38,11 @@ public class Product extends AbstractEntity {
 
     @OneToOne
     @JoinColumn(name = "product_images_id")
-    private String productImagesId;
+    private ProductImages productImages;
 
     @Builder
-    public Product(Long id, String name, String explanation, String price, String tax, Boolean isUsed,
-                   Boolean isSold, String categoryId) {
+    public Product(long id, String name, String explanation, String price, String tax, Boolean isUsed, Boolean isSold,
+                   String categoryId, String productThumbnailImage, ProductImages productImages) {
         super(id);
         this.name = name;
         this.explanation = explanation;
@@ -51,5 +51,7 @@ public class Product extends AbstractEntity {
         this.isUsed = isUsed;
         this.isSold = isSold;
         this.categoryId = categoryId;
+        this.productThumbnailImage = productThumbnailImage;
+        this.productImages = productImages;
     }
 }
