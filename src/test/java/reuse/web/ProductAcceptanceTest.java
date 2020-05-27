@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
+import reuse.domain.ProductImages;
 import reuse.dto.product.CreateProductResponseView;
 import reuse.dto.product.FindProductResponseView;
 import reuse.dto.product.ListProductResponseView;
