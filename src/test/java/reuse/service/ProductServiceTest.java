@@ -65,7 +65,7 @@ public class ProductServiceTest {
         assertThat(productImages.getThirdImage()).isEqualTo(THIRD_IMAGE_URL);
         assertThat(productImages.getFourthImage()).isEqualTo(FOURTH_IMAGE_URL);
         assertThat(productImages.getFifthImage()).isEqualTo(FIFTH_IMAGE_URL);
-        assertThat(productImages.getSixImage()).isEqualTo(SIX_IMAGE_URL);
+        assertThat(productImages.getSixthImage()).isEqualTo(SIX_IMAGE_URL);
 
         verify(productRepository).save(any());
         verify(productImagesRepository).save(any());
@@ -94,7 +94,7 @@ public class ProductServiceTest {
 
         Product product = productService.findById(DEFAULT_ID);
         ProductImages productImages = product.getProductImages();
-        String thumbnailImage = product.getProductThumbnailImage();
+        String thumbnailImage = product.getThumbnailImage();
 
         assertThat(product.getName()).isEqualTo(TEST_PRODUCT_NAME);
         assertThat(productImages.getFirstImage()).isEqualTo(FIRST_IMAGE_URL);
@@ -130,8 +130,8 @@ public class ProductServiceTest {
 
     @DisplayName("품목의 섬네일 이미지를 저장하는지")
     @Test
-    public void storeProductThumbnailImage() {
-        String imageUrl = productService.storeProductThumbnailImage
+    public void storeThumbnailImage() {
+        String imageUrl = productService.storeThumbnailImage
                 (CREATE_PRODUCT_REQUEST_DTO, S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME);
 
         //then
@@ -156,7 +156,7 @@ public class ProductServiceTest {
 
         //then
         assertThat(response.getName()).isEqualTo(TEST_PRODUCT_NAME);
-        assertThat(response.getProductThumbnailImage()).isNotBlank();
+        assertThat(response.getThumbnailImage()).isNotBlank();
         assertThat(productImages.getFirstImage()).isEqualTo(FIRST_IMAGE_URL);
     }
 }
