@@ -4,10 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -23,8 +20,7 @@ public class Product extends AbstractEntity {
     @Column(nullable = false)
     private String price;
 
-    @Column(nullable = false)
-    private String tax;
+    private String tax = "0";
 
     @Column(nullable = false)
     private Boolean isUsed;
@@ -34,16 +30,15 @@ public class Product extends AbstractEntity {
 
     private String categoryId;
 
-    private String productThumbnailImage;
+    private String thumbnailImage;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_images_id")
     private ProductImages productImages;
 
     @Builder
-    public Product(long id, String name, String explanation, String price, String tax, Boolean isUsed, Boolean isSold,
-                   String categoryId, String productThumbnailImage, ProductImages productImages) {
-        super(id);
+    public Product(String name, String explanation, String price, String tax, Boolean isUsed, Boolean isSold,
+                   String categoryId, String thumbnailImage, ProductImages productImages) {
         this.name = name;
         this.explanation = explanation;
         this.price = price;
@@ -51,7 +46,7 @@ public class Product extends AbstractEntity {
         this.isUsed = isUsed;
         this.isSold = isSold;
         this.categoryId = categoryId;
-        this.productThumbnailImage = productThumbnailImage;
+        this.thumbnailImage = thumbnailImage;
         this.productImages = productImages;
     }
 }
