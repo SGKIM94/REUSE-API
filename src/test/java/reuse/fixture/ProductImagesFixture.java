@@ -37,5 +37,5 @@ public class ProductImagesFixture extends CommonFixture {
 
     public static final ProductImages TEST_PRODUCT_IMAGES = ProductImages.builder()
             .firstImage(FIRST_IMAGE_URL).secondImage(SECOND_IMAGE_URL).thirdImage(THIRD_IMAGE_URL)
-            .fourthImage(FOURTH_IMAGE_URL).fifthImage(FIFTH_IMAGE_URL).sixImage(SIX_IMAGE_URL).build();
+            .fourthImage(FOURTH_IMAGE_URL).fifthImage(FIFTH_IMAGE_URL).sixthImage(SIX_IMAGE_URL).build();
 }

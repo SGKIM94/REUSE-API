@@ -18,22 +18,33 @@ public class ProductImagesView {
     private MultipartFile thirdImage;
     private MultipartFile fourthImage;
     private MultipartFile fifthImage;
-    private MultipartFile sixImage;
+    private MultipartFile sixthImage;
 
     @Builder
     public ProductImagesView(MultipartFile firstImage, MultipartFile secondImage, MultipartFile thirdImage,
-                             MultipartFile fourthImage, MultipartFile fifthImage, MultipartFile sixImage) {
+                             MultipartFile fourthImage, MultipartFile fifthImage, MultipartFile sixthImage) {
         this.firstImage = firstImage;
         this.secondImage = secondImage;
         this.thirdImage = thirdImage;
         this.fourthImage = fourthImage;
         this.fifthImage = fifthImage;
-        this.sixImage = sixImage;
+        this.sixthImage = sixthImage;
+    }
+
+    public static ProductImagesView toDtoByCreate(CreateProductRequestView product) {
+        return ProductImagesView.builder()
+                .fifthImage(product.getFirstImage())
+                .secondImage(product.getSecondImage())
+                .thirdImage(product.getThirdImage())
+                .fourthImage(product.getFourthImage())
+                .fifthImage(product.getFifthImage())
+                .sixthImage(product.getSixthImage())
+                .build();
     }
 
     public List<MultipartFile> convertToList() {
         // null 체크가 필요할지?
         return Arrays.asList
-                (firstImage, secondImage, thirdImage, fourthImage, fifthImage, sixImage);
+                (firstImage, secondImage, thirdImage, fourthImage, fifthImage, sixthImage);
     }
 }
