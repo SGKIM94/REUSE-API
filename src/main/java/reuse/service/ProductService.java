@@ -31,13 +31,13 @@ public class ProductService {
 
     @Transactional
     public CreateProductResponseView create(CreateProductRequestView product) {
-        String imageUrl = storeProductThumbnailImage(product, S3_PRODUCT_IMAGES_DIRECTORY_NAME);
+        String imageUrl = storeThumbnailImage(product, S3_PRODUCT_IMAGES_DIRECTORY_NAME);
         List<String> imagesUrl = storeProductImages(product, S3_PRODUCT_IMAGES_DIRECTORY_NAME);
 
         ProductImages savedProductImages = productImagesRepository.save(ProductImages.toEntity(imagesUrl));
-        Product savedProduct = productRepository.save(product.toEntity(product));
+        Product savedProduct = productRepository.save(product.toEntity(product, imageUrl, imagesUrl));
 
-        return CreateProductResponseView.toDto(savedProduct, imageUrl, savedProductImages);
+        return CreateProductResponseView.toDto(savedProduct, savedProductImages);
     }
 
     public ListProductResponseView list() {
@@ -61,13 +61,13 @@ public class ProductService {
         return FindProductResponseView.toDto(findById(id));
     }
 
-    String storeProductThumbnailImage(CreateProductRequestView product, String directory) {
-        MultipartFile productImage = product.getProductThumbnailImage();
+    String storeThumbnailImage(CreateProductRequestView product, String directory) {
+        MultipartFile productImage = product.getThumbnailImage();
         return storeProductImage(productImage, directory + product.getId() + THUMBNAIL_DIRECTORY);
     }
 
     public List<String> storeProductImages(CreateProductRequestView product, String directory) {
-        ProductImagesView productImages = product.getProductImages();
+        ProductImagesView productImages = ProductImagesView.toDtoByCreate(product);
         if (productImages == null) {
             return new ArrayList<>();
         }
