@@ -30,6 +30,8 @@ public class Board extends AbstractEntity {
 
     private String sellerAddress;
 
+    private Boolean isDeleted;
+
     @Builder
     public Board(Long id, String title, String content, Product product, User seller, String sellerAddress) {
         super(id);

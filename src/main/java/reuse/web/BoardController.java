@@ -36,4 +36,9 @@ public class BoardController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/{id}")
+    public ResponseEntity delete(@PathVariable long id) {
+        return ResponseEntity.ok().build();
+    }
+
 }
