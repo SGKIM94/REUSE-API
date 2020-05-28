@@ -19,25 +19,23 @@ public class ProductFixture extends CommonFixture {
     public static final String TEST_TAX = "200";
 
     public static final Product TEST_PRODUCT = Product.builder()
-            .id(DEFAULT_ID).name(TEST_PRODUCT_NAME).explanation(TEST_PRODUCT_EXPLANATION)
+            .name(TEST_PRODUCT_NAME).explanation(TEST_PRODUCT_EXPLANATION)
             .price(TEST_PRICE).tax(TEST_TAX).isSold(false).isUsed(true).productImages(TEST_PRODUCT_IMAGES)
-            .productThumbnailImage(FIRST_IMAGE_URL).build();
+            .thumbnailImage(FIRST_IMAGE_URL).build();
 
     public static final Product SECOND_TEST_PRODUCT = Product.builder()
-            .id(SECOND_ID).name(TEST_PRODUCT_NAME).explanation(TEST_PRODUCT_EXPLANATION)
+            .name(TEST_PRODUCT_NAME).explanation(TEST_PRODUCT_EXPLANATION)
             .price(TEST_PRICE).tax(TEST_TAX).isSold(false).isUsed(true).build();
 
     public static final List<MultipartFile> TEST_IMAGES = Arrays.asList(TEST_IMAGE1, TEST_IMAGE2);
 
     public static final ProductImagesView TEST_PRODUCT_IMAGES_VIEW = ProductImagesView.builder()
             .firstImage(TEST_IMAGE1).secondImage(TEST_IMAGE2).thirdImage(TEST_IMAGE3).fourthImage(TEST_IMAGE4)
-            .fifthImage(TEST_IMAGE5).sixImage(TEST_IMAGE6).build();
+            .fifthImage(TEST_IMAGE5).sixthImage(TEST_IMAGE6).build();
 
     public static final CreateProductRequestView CREATE_PRODUCT_REQUEST_DTO = CreateProductRequestView.builder()
-            .product(TEST_PRODUCT).productThumbnailImage(TEST_IMAGE1).productImages(TEST_PRODUCT_IMAGES_VIEW).build();
-
-    public static final CreateProductRequestView SECOND_CREATE_PRODUCT_REQUEST_DTO = CreateProductRequestView.builder()
-            .product(SECOND_TEST_PRODUCT).build();
+            .firstImage(TEST_IMAGE1).secondImage(TEST_IMAGE2).thirdImage(TEST_IMAGE3).fourthImage(TEST_IMAGE4)
+            .fifthImage(TEST_IMAGE5).sixthImage(TEST_IMAGE6).thumbnailImage(TEST_IMAGE1).build();
 
     public static final List<Product> LIST_PRODUCT_RESPONSE_VIEW
             = Arrays.asList(TEST_PRODUCT, SECOND_TEST_PRODUCT);
