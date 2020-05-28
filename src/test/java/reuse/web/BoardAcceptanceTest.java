@@ -5,7 +5,10 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
+import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import reuse.AbstractAcceptanceTest;
 import reuse.domain.Board;
 import reuse.dto.board.ListBoardResponseView;
@@ -74,4 +77,23 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         EntityExchangeResult<ListBoardResponseView> expectResponse
                 = restWebClientTest.postMethodAcceptance(BOARD_BASE_URL + "/2", MODIFY_BOARD_REQUEST_DTO, ListBoardResponseView.class);
     }
+
+    @Disabled
+    @DisplayName("Board 가 삭제가 되는지")
+    @Test
+    public void deleteBoard() {
+        restWebClientTest.createProduct(getCreateProductMap());
+        restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW);
+
+        //when
+        FluxExchangeResult<Void> response = this.webTestClient.get().uri(BOARD_BASE_URL + "/1")
+                .exchange()
+                .expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .returnResult(Void.class);
+
+        HttpStatus status = response.getStatus();
+        assertThat(status).isEqualByComparingTo(HttpStatus.OK);
+    }
+
 }
