@@ -56,16 +56,7 @@ public class ProductServiceTest {
         when(productImagesRepository.save(any())).thenReturn(TEST_PRODUCT_IMAGES);
 
         CreateProductResponseView product = productService.create(CREATE_PRODUCT_REQUEST_DTO);
-        ProductImages productImages = product.getProductImages();
-
-        assertThat(product.getName()).isEqualTo(TEST_PRODUCT_NAME);
-
-        assertThat(productImages.getFirstImage()).isEqualTo(FIRST_IMAGE_URL);
-        assertThat(productImages.getSecondImage()).isEqualTo(SECOND_IMAGE_URL);
-        assertThat(productImages.getThirdImage()).isEqualTo(THIRD_IMAGE_URL);
-        assertThat(productImages.getFourthImage()).isEqualTo(FOURTH_IMAGE_URL);
-        assertThat(productImages.getFifthImage()).isEqualTo(FIFTH_IMAGE_URL);
-        assertThat(productImages.getSixthImage()).isEqualTo(SIX_IMAGE_URL);
+        assertThat(product.getId()).isNotNull();
 
         verify(productRepository).save(any());
         verify(productImagesRepository).save(any());
@@ -151,7 +142,7 @@ public class ProductServiceTest {
     @DisplayName("ProductResponseView 를 이미지 url 들과 같이 생성하는지")
     @Test
     public void toFindProductResponseViewWithFiles() {
-        FindProductResponseView response = productService.toFindProductResponseViewWithFiles(TEST_PRODUCT);
+        FindProductResponseView response = ListProductResponseView.toFindProductResponseViewWithFiles(TEST_PRODUCT);
         ProductImages productImages = response.getProductImages();
 
         //then
