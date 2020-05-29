@@ -10,6 +10,7 @@ import reuse.repository.ProductImagesRepository;
 import reuse.repository.ProductRepository;
 import reuse.storage.S3Uploader;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -63,7 +64,7 @@ public class ProductService {
 
     String storeThumbnailImage(CreateProductRequestView product, String directory) {
         MultipartFile productImage = product.getThumbnailImage();
-        return storeProductImage(productImage, directory + product.getId() + THUMBNAIL_DIRECTORY);
+        return storeProductImage(productImage, directory + getNowDateTime() + THUMBNAIL_DIRECTORY);
     }
 
     public List<String> storeProductImages(CreateProductRequestView product, String directory) {
@@ -73,8 +74,12 @@ public class ProductService {
         }
 
         return productImages.convertToList().stream()
-                .map(image -> storeProductImage(image, directory + product.getId()))
+                .map(image -> storeProductImage(image, directory + getNowDateTime()))
                 .collect(Collectors.toList());
+    }
+
+    private LocalDateTime getNowDateTime() {
+        return LocalDateTime.now();
     }
 
     String storeProductImage(MultipartFile productImage, String directory) {
