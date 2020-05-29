@@ -33,7 +33,7 @@ public class ProductImagesView {
 
     public static ProductImagesView toDtoByCreate(CreateProductRequestView product) {
         return ProductImagesView.builder()
-                .fifthImage(product.getFirstImage())
+                .firstImage(product.getFirstImage())
                 .secondImage(product.getSecondImage())
                 .thirdImage(product.getThirdImage())
                 .fourthImage(product.getFourthImage())
@@ -44,7 +44,6 @@ public class ProductImagesView {
 
     public List<MultipartFile> convertToList() {
         // null 체크가 필요할지?
-        return Arrays.asList
-                (firstImage, secondImage, thirdImage, fourthImage, fifthImage, sixthImage);
+        return Arrays.asList(firstImage, secondImage, thirdImage, fourthImage, fifthImage, sixthImage);
     }
 }
