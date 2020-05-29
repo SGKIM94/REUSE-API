@@ -28,8 +28,16 @@ public class ListProductResponseView {
                 .collect(Collectors.toList()));
     }
 
-    public static ListProductResponseView toDto(List<FindProductResponseView> products) {
-        return new ListProductResponseView(products);
+    public static ListProductResponseView toDtoByProducts(List<Product> products) {
+        List<FindProductResponseView> findProductViews = products.stream()
+                .map(ListProductResponseView::toFindProductResponseViewWithFiles)
+                .collect(Collectors.toList());
+
+        return new ListProductResponseView(findProductViews);
+    }
+
+    public static FindProductResponseView toFindProductResponseViewWithFiles(Product product) {
+        return new FindProductResponseView(product);
     }
 
     public int getSize() {
