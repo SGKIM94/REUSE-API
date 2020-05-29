@@ -20,11 +20,11 @@ public class Board extends AbstractEntity {
     @Size(min = 1, max = 1000)
     private String content;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="product_id")
     private Product product;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
     private User seller;
 
@@ -34,7 +34,6 @@ public class Board extends AbstractEntity {
 
     @Builder
     public Board(Long id, String title, String content, Product product, User seller, String sellerAddress) {
-        super(id);
         this.title = title;
         this.content = content;
         this.product = product;
