@@ -58,10 +58,6 @@ public class BoardServiceTest {
         CreateBoardResponseView board = boardService.create(CREATE_BOARD_REQUEST_VIEW);
 
         assertThat(board.getId()).isNotNull();
-        assertThat(board.getTitle()).isEqualTo(TEST_BOARD_TITLE);
-        assertThat(board.getContent()).isEqualTo(TEST_BOARD_CONTENT);
-        assertThat(board.getProduct()).isNotNull();
-        assertThat(board.getSellerAddress()).isEqualTo(TEST_SELLER_ADDRESS);
     }
 
     @DisplayName("게시물 리스트르 조회하는지")
