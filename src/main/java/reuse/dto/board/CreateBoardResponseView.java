@@ -12,27 +12,15 @@ import reuse.domain.Product;
 @NoArgsConstructor
 public class CreateBoardResponseView {
     private Long id;
-    private String title;
-    private String content;
-    private Product product;
-    private String sellerAddress;
 
     @Builder
-    public CreateBoardResponseView(Long id, String title, String content, Product product, String sellerAddress) {
+    public CreateBoardResponseView(Long id) {
         this.id = id;
-        this.title = title;
-        this.content = content;
-        this.product = product;
-        this.sellerAddress = sellerAddress;
     }
 
     public static CreateBoardResponseView toDto(Board savedBoard) {
         return CreateBoardResponseView.builder()
                 .id(savedBoard.getId())
-                .title(savedBoard.getTitle())
-                .content(savedBoard.getContent())
-                .product(savedBoard.getProduct())
-                .sellerAddress(savedBoard.getSellerAddress())
                 .build();
     }
 }
