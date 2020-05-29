@@ -32,26 +32,20 @@ public class ProductService {
 
     @Transactional
     public CreateProductResponseView create(CreateProductRequestView product) {
-        String imageUrl = storeThumbnailImage(product, S3_PRODUCT_IMAGES_DIRECTORY_NAME);
-        List<String> imagesUrl = storeProductImages(product, S3_PRODUCT_IMAGES_DIRECTORY_NAME);
+        String imageDirectory = getImageDirectory();
 
-        ProductImages savedProductImages = productImagesRepository.save(ProductImages.toEntity(imagesUrl));
+        String imageUrl = storeThumbnailImage(product, imageDirectory);
+        List<String> imagesUrl = storeProductImages(product, imageDirectory);
+
+        productImagesRepository.save(ProductImages.toEntity(imagesUrl));
         Product savedProduct = productRepository.save(product.toEntity(product, imageUrl, imagesUrl));
 
-        return CreateProductResponseView.toDto(savedProduct, savedProductImages);
+        return CreateProductResponseView.toDto(savedProduct);
     }
 
     public ListProductResponseView list() {
         List<Product> products = productRepository.findAll();
-        List<FindProductResponseView> productResponseViews = products.stream()
-                .map(this::toFindProductResponseViewWithFiles)
-                .collect(Collectors.toList());
-
-        return ListProductResponseView.toDto(productResponseViews);
-    }
-
-    FindProductResponseView toFindProductResponseViewWithFiles(Product product) {
-        return new FindProductResponseView(product);
+        return ListProductResponseView.toDtoByProducts(products);
     }
 
     public Product findById(long id) {
@@ -64,7 +58,7 @@ public class ProductService {
 
     String storeThumbnailImage(CreateProductRequestView product, String directory) {
         MultipartFile productImage = product.getThumbnailImage();
-        return storeProductImage(productImage, directory + getNowDateTime() + THUMBNAIL_DIRECTORY);
+        return storeProductImage(productImage, directory + THUMBNAIL_DIRECTORY);
     }
 
     public List<String> storeProductImages(CreateProductRequestView product, String directory) {
@@ -73,10 +67,20 @@ public class ProductService {
             return new ArrayList<>();
         }
 
+        return storeProductImageByProductImagesView(productImages, directory);
+    }
+
+    public List<String> storeProductImageByProductImagesView(ProductImagesView productImages, String directory) {
         return productImages.convertToList().stream()
-                .map(image -> storeProductImage(image, directory + getNowDateTime()))
+                .map(image -> storeProductImage(image, directory))
                 .collect(Collectors.toList());
     }
+
+    // TODO : need to write test code
+    private String getImageDirectory() {
+        return S3_PRODUCT_IMAGES_DIRECTORY_NAME + getNowDateTime();
+    }
+
 
     private LocalDateTime getNowDateTime() {
         return LocalDateTime.now();
