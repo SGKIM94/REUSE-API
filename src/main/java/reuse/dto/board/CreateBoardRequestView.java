@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import reuse.domain.Board;
 import reuse.domain.Product;
+import reuse.domain.User;
 
 @Getter
 @Setter
@@ -15,6 +16,7 @@ public class CreateBoardRequestView {
     private String title;
     private String content;
     private Long productId;
+    private Long userId;
     private String sellerAddress;
 
     @Builder
@@ -23,15 +25,17 @@ public class CreateBoardRequestView {
         this.title = board.getTitle();
         this.content = board.getContent();
         this.productId = board.getProductId();
+        this.userId = board.getSeller().getId();
         this.sellerAddress = board.getSellerAddress();
     }
 
-    public static Board toEntity(CreateBoardRequestView board, Product product) {
+    public static Board toEntity(CreateBoardRequestView board, Product product, User seller) {
         return Board.builder()
                 .id(board.getId())
                 .title(board.getTitle())
                 .content(board.getContent())
                 .product(product)
+                .seller(seller)
                 .sellerAddress(board.getSellerAddress())
                 .build();
     }
