@@ -11,10 +11,10 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Getter
 public class Product extends AbstractEntity {
-    @Size(min = 1, max = 20)
+    @Size(max = 20, message = "이름은 최대 20자리입니다.")
     private String name;
 
-    @Size(min = 1, max = 200)
+    @Size(max = 200, message = "품목 설명은 최대 200자리입니다.")
     private String explanation;
 
     @Column(nullable = false)
