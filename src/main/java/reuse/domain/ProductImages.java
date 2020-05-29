@@ -41,7 +41,8 @@ public class ProductImages extends AbstractEntity {
                 .secondImage(imageUrls.get(1))
                 .thirdImage(imageUrls.get(2))
                 .fourthImage(imageUrls.get(3))
-                .fourthImage(imageUrls.get(4))
+                .fifthImage(imageUrls.get(4))
+                .sixthImage(imageUrls.get(5))
                 .build();
     }
 }
