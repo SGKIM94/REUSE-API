@@ -12,24 +12,21 @@ import reuse.domain.User;
 @Setter
 @NoArgsConstructor
 public class CreateBoardRequestView {
-    private Long id;
     private String title;
     private String content;
     private Long productId;
     private String sellerAddress;
 
     @Builder
-    public CreateBoardRequestView(Board board) {
-        this.id = board.getId();
-        this.title = board.getTitle();
-        this.content = board.getContent();
-        this.productId = board.getProductId();
-        this.sellerAddress = board.getSellerAddress();
+    public CreateBoardRequestView(String title, String content, Long productId, String sellerAddress) {
+        this.title = title;
+        this.content = content;
+        this.productId = productId;
+        this.sellerAddress = sellerAddress;
     }
 
     public static Board toEntity(CreateBoardRequestView board, Product product, User seller) {
         return Board.builder()
-                .id(board.getId())
                 .title(board.getTitle())
                 .content(board.getContent())
                 .product(product)
