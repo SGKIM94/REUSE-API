@@ -3,12 +3,11 @@ package reuse.web;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reuse.domain.User;
 import reuse.dto.board.CreateBoardRequestView;
-import reuse.dto.board.CreateBoardResponseView;
 import reuse.dto.board.ModifyBoardRequestView;
+import reuse.security.LoginUser;
 import reuse.service.BoardService;
-
-import java.net.URI;
 
 @RestController
 @RequestMapping("/boards")
@@ -20,8 +19,8 @@ public class BoardController {
     }
 
     @PostMapping("")
-    public ResponseEntity create(@RequestBody CreateBoardRequestView board) {
-        return ResponseEntity.ok().body(boardService.create(board));
+    public ResponseEntity create(@RequestBody CreateBoardRequestView board, @LoginUser User seller) {
+        return ResponseEntity.ok().body(boardService.create(board, seller));
     }
 
     @GetMapping("")
