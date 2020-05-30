@@ -20,6 +20,19 @@ public class BoardTest {
         //then
         assertThat(board.getTitle()).isEqualTo(TEST_MODIFY_BOARD_TITLE);
     }
+
+    @DisplayName("게시글이 삭제가 되는지")
+    @Test
+    public void delete() {
+        //given
+        Board board = TEST_BOARD;
+
+        //when
+        board.delete();
+
+        //then
+        assertThat(board.getIsDeleted()).isTrue();
+    }
 }
 
 
