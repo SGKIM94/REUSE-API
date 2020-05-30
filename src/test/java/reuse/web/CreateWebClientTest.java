@@ -28,9 +28,9 @@ public class CreateWebClientTest extends RestWebClientTest {
                 .getPath());
     }
 
-    String createProduct(MultiValueMap<String, Object> product) {
+    String createProduct(MultiValueMap<String, Object> product, String jwt) {
         return Objects.requireNonNull(
-                postMethodWithFormData(PRODUCT_BASE_URL, product, CreateProductResponseView.class)
+                postMethodWithFormData(PRODUCT_BASE_URL, product, CreateProductResponseView.class, jwt)
                         .getResponseHeaders()
                         .getLocation()
                         .getPath());
