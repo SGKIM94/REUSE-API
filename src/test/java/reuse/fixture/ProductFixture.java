@@ -14,7 +14,8 @@ import static reuse.fixture.ProductImagesFixture.*;
 
 public class ProductFixture extends CommonFixture {
     public static final Long TEST_PRODUCT_ID = 9999999999L;
-    public static final String TEST_PRODUCT_NAME = "핸드폰";
+    public static final String TEST_PRODUCT_NAME = "테스트 품목";
+    public static final String TEST_SECOND_PRODUCT_NAME = "테스트 품목2";
     public static final String TEST_PRODUCT_EXPLANATION = "테스트 상품";
     public static final String TEST_PRICE = "20000";
     public static final String TEST_TAX = "200";
