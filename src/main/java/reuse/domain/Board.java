@@ -24,7 +24,7 @@ public class Board extends AbstractEntity {
     @JoinColumn(name="product_id")
     private Product product;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="user_id")
     private User seller;
 
@@ -33,7 +33,7 @@ public class Board extends AbstractEntity {
     private Boolean isDeleted;
 
     @Builder
-    public Board(Long id, String title, String content, Product product, User seller, String sellerAddress) {
+    public Board(String title, String content, Product product, User seller, String sellerAddress) {
         this.title = title;
         this.content = content;
         this.product = product;
