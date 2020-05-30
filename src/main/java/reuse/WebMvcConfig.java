@@ -17,7 +17,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private UserRepository userRepository;
 
     private static String[] INTERCEPTOR_WITHE_LIST = {
-            "/**"
+            "/users/**",
+            "/*",
     };
 
     public WebMvcConfig(UserRepository userRepository) {
