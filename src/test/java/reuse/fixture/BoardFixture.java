@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static reuse.fixture.ProductFixture.TEST_PRODUCT;
+import static reuse.fixture.ProductFixture.TEST_PRODUCT_ID;
 import static reuse.fixture.UserFixture.TEST_USER;
 
 public class BoardFixture extends CommonFixture {
@@ -21,22 +22,20 @@ public class BoardFixture extends CommonFixture {
     public static final String TEST_MODIFY_BOARD_TITLE = "수정된 판매 게시판";
 
     public static final Board TEST_BOARD
-            = Board.builder().id(DEFAULT_ID).title(TEST_BOARD_TITLE).content(TEST_BOARD_CONTENT)
-            .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).build();
-
-    public static final Board TEST_SECOND_BOARD
-            = Board.builder().id(SECOND_ID).title(TEST_SECOND_BOARD_TITLE).content(TEST_SECOND_BOARD_CONTENT)
+            = Board.builder().title(TEST_BOARD_TITLE).content(TEST_BOARD_CONTENT)
             .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).build();
 
     public static final Board MODIFY_TEST_BOARD
-            = Board.builder().id(DEFAULT_ID).title(TEST_MODIFY_BOARD_TITLE).content(TEST_BOARD_CONTENT)
+            = Board.builder().title(TEST_MODIFY_BOARD_TITLE).content(TEST_BOARD_CONTENT)
             .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).build();
 
     public static final CreateBoardRequestView CREATE_BOARD_REQUEST_VIEW
-            = CreateBoardRequestView.builder().board(TEST_BOARD).build();
+            = CreateBoardRequestView.builder().content(TEST_BOARD_CONTENT).title(TEST_BOARD_TITLE)
+            .sellerAddress(TEST_SELLER_ADDRESS).productId(TEST_PRODUCT_ID).build();
 
     public static final CreateBoardRequestView CREATE_SECOND_BOARD_REQUEST_VIEW
-            = CreateBoardRequestView.builder().board(TEST_SECOND_BOARD).build();
+            = CreateBoardRequestView.builder().content(TEST_SECOND_BOARD_CONTENT).title(TEST_SECOND_BOARD_TITLE)
+            .sellerAddress(TEST_SELLER_ADDRESS).productId(TEST_PRODUCT_ID).build();
 
     public static final FindBoardResponseView FIND_BOARD_RESPONSE_VIEW
             = FindBoardResponseView.builder().id(DEFAULT_ID).title(TEST_BOARD_TITLE).content(TEST_BOARD_CONTENT)
