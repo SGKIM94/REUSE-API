@@ -22,6 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static reuse.fixture.BoardFixture.*;
 import static reuse.fixture.ProductFixture.TEST_PRODUCT;
+import static reuse.fixture.UserFixture.TEST_USER;
 
 @SpringBootTest
 public class BoardServiceTest {
@@ -55,7 +56,7 @@ public class BoardServiceTest {
         when(boardRepository.save(any())).thenReturn(TEST_BOARD);
         when(productRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_PRODUCT));
 
-        CreateBoardResponseView board = boardService.create(CREATE_BOARD_REQUEST_VIEW);
+        CreateBoardResponseView board = boardService.create(CREATE_BOARD_REQUEST_VIEW, TEST_USER);
 
         assertThat(board.getId()).isNotNull();
     }
