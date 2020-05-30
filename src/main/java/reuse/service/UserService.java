@@ -19,7 +19,8 @@ public class UserService {
     }
 
     public CreateUserResponseView singUp(CreateUserRequestView newUser) {
-        return CreateUserResponseView.toDto(userRepository.save(CreateUserRequestView.toEntity(newUser)));
+        User save = userRepository.save(CreateUserRequestView.toEntity(newUser));
+        return CreateUserResponseView.toDto(save);
     }
 
     public LoginUserResponseView login(LoginUserRequestView newUser) {
