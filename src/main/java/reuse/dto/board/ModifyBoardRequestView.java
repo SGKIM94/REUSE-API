@@ -28,7 +28,6 @@ public class ModifyBoardRequestView {
 
     public Board toEntity() {
         return Board.builder()
-                .id(id)
                 .content(content)
                 .product(product)
                 .sellerAddress(sellerAddress)

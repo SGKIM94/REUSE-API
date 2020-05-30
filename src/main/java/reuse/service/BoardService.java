@@ -27,16 +27,23 @@ public class BoardService {
         return ListBoardResponseView.toDto(boardRepository.findAll());
     }
 
-    public void modify(ModifyBoardRequestView modify) {
+    public Board modify(ModifyBoardRequestView modify) {
         Board board = modify.toEntity();
         board.modify(modify);
+        return board;
     }
 
     public Board findById(Long id) {
-        return boardRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        return boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("게시물이 존재하지 않습니다."));
     }
 
     public FindBoardResponseView retrieve(Long id) {
         return FindBoardResponseView.toDto(findById(id));
+    }
+
+    public void delete(Long id) {
+        Board board = findById(id);
+        board.delete();
     }
 }
