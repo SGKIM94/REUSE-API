@@ -4,20 +4,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import reuse.AbstractAcceptanceTest;
-import reuse.domain.Board;
+import reuse.dto.board.CreateBoardResponseView;
 import reuse.dto.board.ListBoardResponseView;
 import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.BoardFixture.*;
-import static reuse.fixture.ProductFixture.getCreateProductMap;
 
 public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     public static final String BOARD_BASE_URL = "/boards";
@@ -38,15 +36,15 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     @Sql(scripts = {"/insert-products.sql"})
     public void createBoard() {
         //when
-        EntityExchangeResult<Board> expectResponse
+        EntityExchangeResult<CreateBoardResponseView> expectResponse
                 = restWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL, CREATE_BOARD_REQUEST_VIEW, Board.class, getJwt(socialTokenId));
+                (BOARD_BASE_URL, CREATE_BOARD_REQUEST_VIEW, CreateBoardResponseView.class, getJwt(socialTokenId));
 
         //then
-        HttpHeaders responseHeaders = expectResponse.getResponseHeaders();
+        CreateBoardResponseView responseBody = expectResponse.getResponseBody();
 
         //then
-        assertThat(responseHeaders.getLocation()).isNotNull();
+        assertThat(responseBody.getId()).isNotNull();
     }
 
     @Disabled
