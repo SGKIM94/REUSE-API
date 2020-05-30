@@ -3,7 +3,6 @@ package reuse.web;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
@@ -41,16 +40,15 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
                 (PRODUCT_BASE_URL, getCreateProductMap(), CreateProductResponseView.class, getJwt());
 
         //then
-        HttpHeaders responseHeaders = expectResponse.getResponseHeaders();
+        CreateProductResponseView product = expectResponse.getResponseBody();
 
         //then
-        assertThat(responseHeaders.getLocation()).isNotNull();
+        assertThat(product.getId()).isNotNull();
     }
-
 
     @DisplayName("품목 리스트를 조회 가능한지")
     @Test
-    @Sql(scripts = {"/insert-products.sql"})
+    @Sql(scripts = {"/clean-all.sql", "/insert-products.sql"})
     public void listProduct() {
         //when
         EntityExchangeResult<ListProductResponseView> response
@@ -65,23 +63,23 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
         assertThat(responseBody.getSize()).isEqualTo(2);
         assertThat(products.get(0).getName()).isEqualTo(TEST_PRODUCT_NAME);
-        assertThat(products.get(1).getName()).isEqualTo(TEST_PRODUCT_NAME);
+        assertThat(products.get(1).getName()).isEqualTo(TEST_SECOND_PRODUCT_NAME);
     }
 
     @DisplayName("품목 상세를 조회 가능한지")
     @Test
-    @Sql(scripts = {"/insert-products.sql"})
+    @Sql(scripts = {"/clean-all.sql", "/insert-products.sql"})
     public void findProduct() {
         //when
         EntityExchangeResult<FindProductResponseView> response = createWebClientTest.getMethodWithAuthAcceptance
-                (PRODUCT_BASE_URL + "/" + DEFAULT_ID, FindProductResponseView.class, getJwt());
+                (PRODUCT_BASE_URL + "/" + TEST_PRODUCT_ID, FindProductResponseView.class, getJwt());
 
         //then
         HttpStatus status = response.getStatus();
         FindProductResponseView responseBody = response.getResponseBody();
 
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
-        assertThat(responseBody.getName()).isEqualTo(TEST_PRODUCT_NAME);
+        assertThat(responseBody.getName()).isEqualTo(TEST_SECOND_PRODUCT_NAME);
     }
 
     public String getJwt() {
