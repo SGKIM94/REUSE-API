@@ -12,6 +12,7 @@ import java.util.Objects;
 import static reuse.fixture.UserFixture.USER_SIGH_UP_REQUEST_DTO;
 import static reuse.web.BoardAcceptanceTest.BOARD_BASE_URL;
 import static reuse.web.ProductAcceptanceTest.PRODUCT_BASE_URL;
+import static reuse.web.UserAcceptanceTest.LOGIN_API_URL;
 import static reuse.web.UserAcceptanceTest.USER_BASE_URL;
 
 public class CreateWebClientTest extends RestWebClientTest {
@@ -22,10 +23,9 @@ public class CreateWebClientTest extends RestWebClientTest {
 
     String createUser() {
         return Objects.requireNonNull(
-                postMethodAcceptance(USER_BASE_URL, USER_SIGH_UP_REQUEST_DTO, User.class)
-                .getResponseHeaders()
-                .getLocation()
-                .getPath());
+                postMethodAcceptance(USER_BASE_URL + LOGIN_API_URL, USER_SIGH_UP_REQUEST_DTO, User.class)
+                .getResponseBody()
+                .getSocialTokenId());
     }
 
     String createProduct(MultiValueMap<String, Object> product, String jwt) {
