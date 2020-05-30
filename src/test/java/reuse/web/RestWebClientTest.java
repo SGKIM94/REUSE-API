@@ -78,4 +78,15 @@ public class RestWebClientTest {
                 .expectBody(Void.class)
                 .returnResult();
     }
+
+    <T> EntityExchangeResult<T> putMethodWithAuthAcceptance(String uri, Object requestBody, Class<T> responseBodyClass, String jwt) {
+        return webTestClient.put().uri(uri)
+                .header(HttpHeaders.AUTHORIZATION, jwt)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(Mono.just(requestBody), requestBody.getClass())
+                .exchange()
+                .expectBody(responseBodyClass)
+                .returnResult();
+    }
+
 }
