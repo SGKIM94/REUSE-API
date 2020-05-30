@@ -14,13 +14,15 @@ public class UserFixture {
     public static final String SOCIAL_TOKEN_ID = "tokenId";
     public static final String NAVER_SOCIAL_TYPE = "naver";
 
-    public static final CreateUserRequestView USER_SIGH_UP_REQUEST_DTO = new CreateUserRequestView(1L, SOCIAL_TOKEN_ID, KIM_EMAIL, KIM_NAME);
-    public static final LoginUserRequestView USER_LOGIN_REQUEST_DTO = new LoginUserRequestView(KIM_ID, KIM_EMAIL, KIM_PASSWORD);
+    public static final CreateUserRequestView USER_SIGH_UP_REQUEST_DTO = CreateUserRequestView.builder()
+            .name(KIM_NAME).socialTokenId(SOCIAL_TOKEN_ID).build();
+    public static final LoginUserRequestView USER_LOGIN_REQUEST_DTO = LoginUserRequestView.builder().id(KIM_ID)
+            .socialTokenId(SOCIAL_TOKEN_ID).socialType(NAVER_SOCIAL_TYPE).build();
     public static final FindByIdResponseView FIND_BY_EMAIL_RESPONSE_VIEW = new FindByIdResponseView(KIM_ID, KIM_EMAIL, KIM_PASSWORD);
     public static final FindBySocialTokenIdResponseView FIND_BY_SOCIAL_TOKEN_ID_RESPONSE_VIEW = new FindBySocialTokenIdResponseView(KIM_ID, SOCIAL_TOKEN_ID, NAVER_SOCIAL_TYPE);
 
     public static CreateUserRequestView getCreateUserRequestView(User user) {
-        return new CreateUserRequestView(1L, SOCIAL_TOKEN_ID, NAVER_SOCIAL_TYPE, user.getName());
+        return CreateUserRequestView.builder().name(user.getName()).socialTokenId(user.getSocialTokenId()).build();
     }
 
     public static LoginUserRequestView getLoginUserRequestView(User user) {
