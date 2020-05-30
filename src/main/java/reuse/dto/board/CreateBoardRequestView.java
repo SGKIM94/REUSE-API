@@ -16,7 +16,6 @@ public class CreateBoardRequestView {
     private String title;
     private String content;
     private Long productId;
-    private Long userId;
     private String sellerAddress;
 
     @Builder
@@ -25,7 +24,6 @@ public class CreateBoardRequestView {
         this.title = board.getTitle();
         this.content = board.getContent();
         this.productId = board.getProductId();
-        this.userId = board.getSeller().getId();
         this.sellerAddress = board.getSellerAddress();
     }
 
