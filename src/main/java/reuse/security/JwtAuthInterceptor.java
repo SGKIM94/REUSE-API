@@ -2,6 +2,7 @@ package reuse.security;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import reuse.domain.User;
 import reuse.repository.UserRepository;
 
 import javax.naming.AuthenticationException;
@@ -31,10 +32,11 @@ public class JwtAuthInterceptor extends HandlerInterceptorAdapter {
             throw new AuthenticationException("Not invalid Token!");
         }
 
-        String email = tokenAuthenticationService.getEmailByJwt(authorization);
+        String socialToken = tokenAuthenticationService.getSocialTokenByJwt(authorization);
 
+        User user = userRepository.findBySocialTokenId(socialToken);
+        request.setAttribute(AUTH_USER_KEY, user);
 
-
-        return email != null;
+        return user != null;
     }
 }
