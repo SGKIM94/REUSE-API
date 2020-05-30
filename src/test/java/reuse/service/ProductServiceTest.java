@@ -8,11 +8,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import reuse.domain.Product;
 import reuse.domain.ProductImages;
-import reuse.dto.product.CreateProductResponseView;
-import reuse.dto.product.FindProductResponseView;
-import reuse.dto.product.ListProductResponseView;
-import reuse.repository.ProductRepository;
+import reuse.dto.product.*;
 import reuse.repository.ProductImagesRepository;
+import reuse.repository.ProductRepository;
 import reuse.security.TokenAuthenticationService;
 import reuse.storage.S3Uploader;
 

@@ -13,12 +13,14 @@ import java.util.List;
 import static reuse.fixture.ProductImagesFixture.*;
 
 public class ProductFixture extends CommonFixture {
+    public static final Long TEST_PRODUCT_ID = 9999999999L;
     public static final String TEST_PRODUCT_NAME = "핸드폰";
     public static final String TEST_PRODUCT_EXPLANATION = "테스트 상품";
     public static final String TEST_PRICE = "20000";
     public static final String TEST_TAX = "200";
 
-    public static final Product TEST_PRODUCT = Product.builder()
+    public static final Product TEST_PRODUCT = Product.testBuilder()
+            .id(TEST_PRODUCT_ID)
             .name(TEST_PRODUCT_NAME).explanation(TEST_PRODUCT_EXPLANATION)
             .price(TEST_PRICE).tax(TEST_TAX).isSold(false).isUsed(true).productImages(TEST_PRODUCT_IMAGES)
             .thumbnailImage(FIRST_IMAGE_URL).build();
