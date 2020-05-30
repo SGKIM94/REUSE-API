@@ -18,7 +18,6 @@ import static reuse.fixture.UserFixture.*;
 
 @Disabled
 public class UserAcceptanceTest extends AbstractAcceptanceTest {
-    public static final String KIM_INPUT_JSON = "{\"email\":\"" + KIM_EMAIL + "\",\"password\":\"" + KIM_PASSWORD + "\",\"name\":\"" + KIM_NAME + "\"}";;
     public static final String USER_BASE_URL = "/users";
     public static final String LOGIN_API_URL = "/login";
 
