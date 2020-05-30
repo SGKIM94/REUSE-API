@@ -98,7 +98,7 @@ public class TokenAuthenticationServiceTest {
         String jwt = tokenAuthenticationService.toJwtBySocialTokenId(KIM_EMAIL);
 
         //when
-        String email = tokenAuthenticationService.getEmailByJwt(jwt);
+        String email = tokenAuthenticationService.getSocialTokenByJwt(jwt);
 
         //then
         assertThat(email).isEqualTo(KIM_EMAIL);
