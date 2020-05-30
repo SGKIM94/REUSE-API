@@ -1,11 +1,11 @@
 package reuse.service;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import reuse.domain.Board;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.dto.board.FindBoardResponseView;
 import reuse.dto.board.ListBoardResponseView;
@@ -93,15 +93,13 @@ public class BoardServiceTest {
         });
     }
 
-    @Disabled
     @DisplayName("게시물 수정이 가능한지")
     @Test
     public void update() {
-        // TODO: 검증방법 고려하기
-        boardService.modify(MODIFY_BOARD_REQUEST_DTO);
+        when(boardRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_BOARD));
 
-//        Board modifiedBoard = boardService.findById(DEFAULT_ID);
+        Board modifiedBoard = boardService.modify(MODIFY_BOARD_REQUEST_DTO);
 
-//        assertThat(modifiedBoard.getTitle()).isEqualTo(TEST_MODIFY_BOARD_TITLE);
+        assertThat(modifiedBoard.getTitle()).isEqualTo(TEST_MODIFY_BOARD_TITLE);
     }
 }
