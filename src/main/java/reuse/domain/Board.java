@@ -10,10 +10,6 @@ import javax.validation.constraints.Size;
 @Entity
 @NoArgsConstructor
 public class Board extends AbstractEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Size(min = 1, max = 100)
     private String title;
 
@@ -30,7 +26,7 @@ public class Board extends AbstractEntity {
 
     private String sellerAddress;
 
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
 
     @Builder
     public Board(String title, String content, Product product, User seller, String sellerAddress) {
@@ -74,5 +70,9 @@ public class Board extends AbstractEntity {
         this.content = modify.getContent();
         this.product = modify.getProduct();
         this.sellerAddress = modify.getSellerAddress();
+    }
+
+    public void delete() {
+        this.isDeleted = true;
     }
 }
