@@ -49,7 +49,8 @@ public class ProductService {
     }
 
     public Product findById(long id) {
-        return productRepository.findById(id).orElseThrow(IllegalAccessError::new);
+        return productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 품목이 존재하지 않습니다."));
     }
 
     public FindProductResponseView findByIdWithImages(long id) {
