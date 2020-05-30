@@ -3,27 +3,23 @@ package reuse.service;
 import org.springframework.stereotype.Service;
 import reuse.domain.Board;
 import reuse.domain.Product;
+import reuse.domain.User;
 import reuse.dto.board.*;
-import reuse.dto.user.FindByIdResponseView;
 import reuse.repository.BoardRepository;
 
 @Service
 public class BoardService {
     private BoardRepository boardRepository;
     private ProductService productService;
-    private UserService userService;
 
-    public BoardService(BoardRepository boardRepository, ProductService productService, UserService userService) {
+    public BoardService(BoardRepository boardRepository, ProductService productService) {
         this.boardRepository = boardRepository;
         this.productService = productService;
-        this.userService = userService;
     }
 
-    public CreateBoardResponseView create(CreateBoardRequestView board) {
+    public CreateBoardResponseView create(CreateBoardRequestView board, User seller) {
         Product product = productService.findById(board.getProductId());
-        //TODO : 게시판에 사용자 정보를 저장하기 위해 조회하거나 LoginUser annotation 사용하도록 필요
-        FindByIdResponseView user = userService.findById(board.getUserId());
-        Board savedBoard = boardRepository.save(CreateBoardRequestView.toEntity(board, product, user.));
+        Board savedBoard = boardRepository.save(CreateBoardRequestView.toEntity(board, product, seller));
         return CreateBoardResponseView.toDto(savedBoard);
     }
 
