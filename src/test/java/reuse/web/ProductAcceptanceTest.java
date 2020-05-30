@@ -5,9 +5,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
-import reuse.domain.ProductImages;
 import reuse.dto.product.CreateProductResponseView;
 import reuse.dto.product.FindProductResponseView;
 import reuse.dto.product.ListProductResponseView;
@@ -21,21 +21,24 @@ import static reuse.fixture.ProductFixture.*;
 public class ProductAcceptanceTest extends AbstractAcceptanceTest {
     public static final String PRODUCT_BASE_URL = "/products";
 
-    private CreateWebClientTest restWebClientTest;
+    private CreateWebClientTest createWebClientTest;
     private TokenAuthenticationService tokenAuthenticationService;
+    private String socialTokenId;
 
     @BeforeEach
     void setUp() {
-        this.restWebClientTest = new CreateWebClientTest(this.webTestClient);
+        this.createWebClientTest = new CreateWebClientTest(this.webTestClient);
         this.tokenAuthenticationService = new TokenAuthenticationService();
+        socialTokenId = createWebClientTest.createUser();
     }
 
     @DisplayName("품목을 추가가 가능한지")
     @Test
+    // TODO : 이미지를 넣어서 테스트해볼 수 있는 환경 필요
     public void createProduct() {
         //when
-        EntityExchangeResult<CreateProductResponseView> expectResponse = restWebClientTest.postMethodWithFormData
-                (PRODUCT_BASE_URL, getCreateProductMap(), CreateProductResponseView.class);
+        EntityExchangeResult<CreateProductResponseView> expectResponse = createWebClientTest.postMethodWithFormData
+                (PRODUCT_BASE_URL, getCreateProductMap(), CreateProductResponseView.class, getJwt());
 
         //then
         HttpHeaders responseHeaders = expectResponse.getResponseHeaders();
@@ -44,16 +47,15 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(responseHeaders.getLocation()).isNotNull();
     }
 
+
     @DisplayName("품목 리스트를 조회 가능한지")
     @Test
+    @Sql(scripts = {"/insert-products.sql"})
     public void listProduct() {
-        //given
-        restWebClientTest.createProduct(getCreateProductMap());
-        restWebClientTest.createProduct(getSecondCreateProductMap());
-
         //when
         EntityExchangeResult<ListProductResponseView> response
-                = restWebClientTest.getMethodAcceptance(PRODUCT_BASE_URL, ListProductResponseView.class);
+                = createWebClientTest.getMethodWithAuthAcceptance
+                (PRODUCT_BASE_URL, ListProductResponseView.class, getJwt());
 
         //then
         HttpStatus status = response.getStatus();
@@ -68,13 +70,11 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
 
     @DisplayName("품목 상세를 조회 가능한지")
     @Test
+    @Sql(scripts = {"/insert-products.sql"})
     public void findProduct() {
-        //given
-        restWebClientTest.createProduct(getCreateProductMap());
-
         //when
-        EntityExchangeResult<FindProductResponseView> response = restWebClientTest.getMethodAcceptance
-                (PRODUCT_BASE_URL + "/" + DEFAULT_ID, FindProductResponseView.class);
+        EntityExchangeResult<FindProductResponseView> response = createWebClientTest.getMethodWithAuthAcceptance
+                (PRODUCT_BASE_URL + "/" + DEFAULT_ID, FindProductResponseView.class, getJwt());
 
         //then
         HttpStatus status = response.getStatus();
@@ -82,5 +82,9 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
 
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
         assertThat(responseBody.getName()).isEqualTo(TEST_PRODUCT_NAME);
+    }
+
+    public String getJwt() {
+        return tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
     }
 }
