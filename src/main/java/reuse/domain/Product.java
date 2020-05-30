@@ -49,4 +49,20 @@ public class Product extends AbstractEntity {
         this.thumbnailImage = thumbnailImage;
         this.productImages = productImages;
     }
+
+    @Builder(builderMethodName = "testBuilder")
+    public Product(Long id, String name, String explanation, String price, String tax, Boolean isUsed, Boolean isSold,
+                   String categoryId, String thumbnailImage, ProductImages productImages) {
+        super(id);
+        this.name = name;
+        this.explanation = explanation;
+        this.price = price;
+        this.tax = tax;
+        this.isUsed = isUsed;
+        this.isSold = isSold;
+        this.categoryId = categoryId;
+        this.thumbnailImage = thumbnailImage;
+        this.productImages = productImages;
+    }
+
 }
