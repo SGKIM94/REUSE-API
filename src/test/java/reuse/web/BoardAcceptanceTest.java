@@ -1,11 +1,10 @@
 package reuse.web;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.FluxExchangeResult;
@@ -33,12 +32,12 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
 
     @DisplayName("게사판 추가가 가능한지")
     @Test
-    @Sql(scripts = {"/insert-products.sql"})
+    @Sql(scripts = {"/clean-all.sql", "/insert-products.sql"})
     public void createBoard() {
         //when
         EntityExchangeResult<CreateBoardResponseView> expectResponse
                 = restWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL, CREATE_BOARD_REQUEST_VIEW, CreateBoardResponseView.class, getJwt(socialTokenId));
+                (BOARD_BASE_URL, CREATE_BOARD_REQUEST_VIEW, CreateBoardResponseView.class, getJwt());
 
         //then
         CreateBoardResponseView responseBody = expectResponse.getResponseBody();
@@ -47,18 +46,18 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(responseBody.getId()).isNotNull();
     }
 
-    @Disabled
     @DisplayName("게시판 리스트 조회가 가능한지")
     @Test
-    @Sql(scripts = {"/insert-products.sql"})
+    @Sql(scripts = {"/clean-all.sql", "/insert-products.sql"})
     public void listBoard() {
-        restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW);
-        restWebClientTest.createBoard(CREATE_SECOND_BOARD_REQUEST_VIEW);
+        String jwt = getJwt();
+        restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, jwt);
+        restWebClientTest.createBoard(CREATE_SECOND_BOARD_REQUEST_VIEW, jwt);
 
         //when
         EntityExchangeResult<ListBoardResponseView> expectResponse
                 = restWebClientTest.getMethodWithAuthAcceptance
-                (BOARD_BASE_URL, ListBoardResponseView.class, getJwt(socialTokenId));
+                (BOARD_BASE_URL, ListBoardResponseView.class, getJwt());
 
         //then
         ListBoardResponseView boards = expectResponse.getResponseBody();
@@ -67,38 +66,35 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(boards.getSize()).isGreaterThan(1);
     }
 
-    @Disabled
     @DisplayName("게시판 수정이 가능한지")
     @Test
-    @Sql(scripts = {"/insert-products.sql"})
+    @Sql(scripts = {"/clean-all.sql", "/insert-products.sql"})
     public void updateBoard() {
-        restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW);
+        CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
 
         //when
-        EntityExchangeResult<ListBoardResponseView> expectResponse
-                = restWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/2", MODIFY_BOARD_REQUEST_DTO, ListBoardResponseView.class, getJwt(socialTokenId));
+        restWebClientTest.putMethodWithAuthAcceptance
+                (BOARD_BASE_URL + "/" + board.getId(), MODIFY_BOARD_REQUEST_DTO, Void.class, getJwt());
     }
 
-    @Disabled
     @DisplayName("Board 가 삭제가 되는지")
     @Test
-    @Sql(scripts = {"/insert-products.sql"})
+    @Sql(scripts = {"/clean-all.sql", "/insert-products.sql"})
     public void deleteBoard() {
-        restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW);
+        CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
 
         //when
-        FluxExchangeResult<Void> response = this.webTestClient.get().uri(BOARD_BASE_URL + "/1")
+        FluxExchangeResult<Void> response = this.webTestClient.post().uri(BOARD_BASE_URL + "/" + board.getId())
+                .header(HttpHeaders.AUTHORIZATION, getJwt())
                 .exchange()
                 .expectStatus().isOk()
-                .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .returnResult(Void.class);
 
         HttpStatus status = response.getStatus();
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
     }
 
-    public String getJwt(String socialTokenId) {
+    public String getJwt() {
         return tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
     }
 }
