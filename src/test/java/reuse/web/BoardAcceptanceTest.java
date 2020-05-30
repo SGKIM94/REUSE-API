@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import reuse.AbstractAcceptanceTest;
@@ -23,22 +24,23 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
 
     private CreateWebClientTest restWebClientTest;
     private TokenAuthenticationService tokenAuthenticationService;
+    private String socialTokenId;
 
     @BeforeEach
     void setUp() {
         this.restWebClientTest = new CreateWebClientTest(this.webTestClient);
         this.tokenAuthenticationService = new TokenAuthenticationService();
+        socialTokenId = restWebClientTest.createUser();
     }
 
     @DisplayName("게사판 추가가 가능한지")
     @Test
+    @Sql(scripts = {"/insert-products.sql"})
     public void createBoard() {
-        // product 를 주입하는 logic 필요
-        restWebClientTest.createProduct(getCreateProductMap());
-
         //when
         EntityExchangeResult<Board> expectResponse
-                = restWebClientTest.postMethodAcceptance(BOARD_BASE_URL, CREATE_BOARD_REQUEST_VIEW, Board.class);
+                = restWebClientTest.postMethodWithAuthAcceptance
+                (BOARD_BASE_URL, CREATE_BOARD_REQUEST_VIEW, Board.class, getJwt(socialTokenId));
 
         //then
         HttpHeaders responseHeaders = expectResponse.getResponseHeaders();
@@ -50,14 +52,15 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     @Disabled
     @DisplayName("게시판 리스트 조회가 가능한지")
     @Test
+    @Sql(scripts = {"/insert-products.sql"})
     public void listBoard() {
-        restWebClientTest.createProduct(getCreateProductMap());
         restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW);
         restWebClientTest.createBoard(CREATE_SECOND_BOARD_REQUEST_VIEW);
 
         //when
         EntityExchangeResult<ListBoardResponseView> expectResponse
-                = restWebClientTest.getMethodAcceptance(BOARD_BASE_URL, ListBoardResponseView.class);
+                = restWebClientTest.getMethodWithAuthAcceptance
+                (BOARD_BASE_URL, ListBoardResponseView.class, getJwt(socialTokenId));
 
         //then
         ListBoardResponseView boards = expectResponse.getResponseBody();
@@ -69,20 +72,21 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     @Disabled
     @DisplayName("게시판 수정이 가능한지")
     @Test
+    @Sql(scripts = {"/insert-products.sql"})
     public void updateBoard() {
-        restWebClientTest.createProduct(getCreateProductMap());
         restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW);
 
         //when
         EntityExchangeResult<ListBoardResponseView> expectResponse
-                = restWebClientTest.postMethodAcceptance(BOARD_BASE_URL + "/2", MODIFY_BOARD_REQUEST_DTO, ListBoardResponseView.class);
+                = restWebClientTest.postMethodWithAuthAcceptance
+                (BOARD_BASE_URL + "/2", MODIFY_BOARD_REQUEST_DTO, ListBoardResponseView.class, getJwt(socialTokenId));
     }
 
     @Disabled
     @DisplayName("Board 가 삭제가 되는지")
     @Test
+    @Sql(scripts = {"/insert-products.sql"})
     public void deleteBoard() {
-        restWebClientTest.createProduct(getCreateProductMap());
         restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW);
 
         //when
@@ -96,4 +100,7 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
     }
 
+    public String getJwt(String socialTokenId) {
+        return tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
+    }
 }
