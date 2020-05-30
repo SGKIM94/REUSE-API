@@ -30,7 +30,7 @@ public class TokenAuthenticationService {
                 .compact();
     }
 
-    public String getEmailByJwt(String jwt) {
+    public String getSocialTokenByJwt(String jwt) {
         Jws<Claims> claims =  getJwtClaim(jwt);
         return getSocialTokenIdByClaims(claims);
     }
