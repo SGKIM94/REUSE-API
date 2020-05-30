@@ -57,8 +57,8 @@ public class Board extends AbstractEntity {
         return sellerAddress;
     }
 
-    public Long getProductId() {
-        return this.product.getId();
+    public Boolean getIsDeleted() {
+        return isDeleted;
     }
 
     public void modify(ModifyBoardRequestView modify) {
