@@ -2,6 +2,7 @@ package reuse.domain;
 
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 import reuse.dto.board.ModifyBoardRequestView;
 
 import javax.persistence.*;
@@ -18,10 +19,12 @@ public class Board extends AbstractEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="product_id")
+    @Where(clause = "deleted = false")
     private Product product;
 
     @ManyToOne
     @JoinColumn(name="user_id")
+    @Where(clause = "deleted = false")
     private User seller;
 
     private String sellerAddress;
