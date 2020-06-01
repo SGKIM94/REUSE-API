@@ -19,6 +19,7 @@ public class FindProductResponseView {
     private Boolean isUsed;
     private Boolean isSold;
     private String categoryId;
+    private String quality;
     private String createAt;
     private String updateAt;
     private String thumbnailImage;
@@ -33,7 +34,8 @@ public class FindProductResponseView {
         this.tax = product.getTax();
         this.isUsed = product.getIsUsed();
         this.isSold = product.getIsSold();
-        this.categoryId = product.getCategoryId();
+        this.quality = product.getQuality();
+//        this.categoryId = product.getCategoryId();
         this.createAt = product.getFormattedCreateDate();
         this.updateAt = product.getFormattedModifyDate();
         this.thumbnailImage = product.getThumbnailImage();

@@ -19,12 +19,10 @@ public class Board extends AbstractEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="product_id")
-    @Where(clause = "deleted = false")
     private Product product;
 
     @ManyToOne
     @JoinColumn(name="user_id")
-    @Where(clause = "deleted = false")
     private User seller;
 
     private String sellerAddress;
