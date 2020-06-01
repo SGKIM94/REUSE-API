@@ -23,6 +23,7 @@ public class CreateProductRequestView {
     private Boolean isUsed;
     private Boolean isSold;
     private String categoryId;
+    private String quality;
     private String createAt;
     private String updateAt;
     @JsonIgnore
@@ -42,8 +43,10 @@ public class CreateProductRequestView {
 
     @Builder
     public CreateProductRequestView(Long id, String name, String explanation, String price, String tax, Boolean isUsed,
-                                    Boolean isSold, String categoryId, String createAt, String updateAt, MultipartFile firstImage,
-                                    MultipartFile secondImage, MultipartFile thirdImage, MultipartFile fourthImage, MultipartFile fifthImage, MultipartFile sixthImage, MultipartFile thumbnailImage) {
+                                    Boolean isSold, String categoryId, String createAt, String updateAt, String quality,
+                                    MultipartFile firstImage, MultipartFile secondImage, MultipartFile thirdImage,
+                                    MultipartFile fourthImage
+            , MultipartFile fifthImage, MultipartFile sixthImage, MultipartFile thumbnailImage) {
         this.id = id;
         this.name = name;
         this.explanation = explanation;
@@ -52,6 +55,7 @@ public class CreateProductRequestView {
         this.isUsed = isUsed;
         this.isSold = isSold;
         this.categoryId = categoryId;
+        this.quality = quality;
         this.createAt = createAt;
         this.updateAt = updateAt;
         this.firstImage = firstImage;
@@ -66,6 +70,7 @@ public class CreateProductRequestView {
     public Product toEntity(CreateProductRequestView product, String thumbnailImage, List<String> imageUrls) {
         ProductImages productImages = ProductImages.toEntity(imageUrls);
 
+        //TODO : 카테고리 넣어주는 로직 추가필요
         return Product.builder()
                 .explanation(product.getExplanation())
                 .isSold(product.getIsSold())
@@ -74,8 +79,8 @@ public class CreateProductRequestView {
                 .price(product.getPrice())
                 .tax(product.getTax())
                 .thumbnailImage(thumbnailImage)
+                .quality(product.getQuality())
                 .productImages(productImages)
-                .categoryId(product.getCategoryId())
                 .build();
     }
 }
