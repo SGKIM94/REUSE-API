@@ -28,31 +28,36 @@ public class Product extends AbstractEntity {
     @Column(nullable = false)
     private Boolean isSold;
 
-    private String categoryId;
-
     private String thumbnailImage;
+
+    private String quality;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_images_id")
     private ProductImages productImages;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     @Builder
     public Product(String name, String explanation, String price, String tax, Boolean isUsed, Boolean isSold,
-                   String categoryId, String thumbnailImage, ProductImages productImages) {
+                   Category category, String thumbnailImage, String quality, ProductImages productImages) {
         this.name = name;
         this.explanation = explanation;
         this.price = price;
         this.tax = tax;
         this.isUsed = isUsed;
         this.isSold = isSold;
-        this.categoryId = categoryId;
+        this.category = category;
         this.thumbnailImage = thumbnailImage;
+        this.quality = quality;
         this.productImages = productImages;
     }
 
     @Builder(builderMethodName = "testBuilder")
     public Product(Long id, String name, String explanation, String price, String tax, Boolean isUsed, Boolean isSold,
-                   String categoryId, String thumbnailImage, ProductImages productImages) {
+                   Category category, String thumbnailImage, String quality, ProductImages productImages) {
         super(id);
         this.name = name;
         this.explanation = explanation;
@@ -60,8 +65,9 @@ public class Product extends AbstractEntity {
         this.tax = tax;
         this.isUsed = isUsed;
         this.isSold = isSold;
-        this.categoryId = categoryId;
+        this.category = category;
         this.thumbnailImage = thumbnailImage;
+        this.quality = quality;
         this.productImages = productImages;
     }
 
