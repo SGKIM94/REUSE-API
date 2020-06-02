@@ -15,6 +15,7 @@ import reuse.security.TokenAuthenticationService;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static reuse.fixture.CategoryFixture.CREATE_CATEGORY_REQUEST_VIEW;
 import static reuse.fixture.ProductFixture.*;
 
 public class ProductAcceptanceTest extends AbstractAcceptanceTest {
@@ -35,9 +36,12 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
     @Test
     // TODO : 이미지를 넣어서 테스트해볼 수 있는 환경 필요
     public void createProduct() {
+        //given
+        String categoryId = createWebClientTest.createCategory(CREATE_CATEGORY_REQUEST_VIEW, getJwt());
+
         //when
         EntityExchangeResult<CreateProductResponseView> expectResponse = createWebClientTest.postMethodWithFormData
-                (PRODUCT_BASE_URL, getCreateProductMap(), CreateProductResponseView.class, getJwt());
+                (PRODUCT_BASE_URL, getCreateProductMap(categoryId), CreateProductResponseView.class, getJwt());
 
         //then
         CreateProductResponseView product = expectResponse.getResponseBody();
