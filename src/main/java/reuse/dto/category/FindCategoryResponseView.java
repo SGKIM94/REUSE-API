@@ -9,26 +9,26 @@ import reuse.domain.Category;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CreateCategoryResponseView {
+public class FindCategoryResponseView {
     private Long id;
-    private String teleco;
+    private String telco;
     private String manufacturer;
     private String model;
 
     @Builder
-    public CreateCategoryResponseView(Long id, String teleco, String manufacturer, String model) {
+    public FindCategoryResponseView(Long id, String telco, String manufacturer, String model) {
         this.id = id;
-        this.teleco = teleco;
+        this.telco = telco;
         this.manufacturer = manufacturer;
         this.model = model;
     }
 
-    public static CreateCategoryResponseView toDto(Category category) {
-        return CreateCategoryResponseView.builder()
+    public static FindCategoryResponseView toDto(Category category) {
+        return FindCategoryResponseView.builder()
                 .id(category.getId())
-                .teleco(category.getTeleco())
                 .manufacturer(category.getManufacturer())
                 .model(category.getModel())
+                .telco(category.getTeleco())
                 .build();
     }
 }
