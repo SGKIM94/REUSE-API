@@ -1,6 +1,5 @@
 package reuse.web;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.MultiValueMap;
 import reuse.domain.User;
@@ -21,13 +20,6 @@ import static reuse.web.UserAcceptanceTest.LOGIN_API_URL;
 import static reuse.web.UserAcceptanceTest.USER_BASE_URL;
 
 public class CreateWebClientTest extends RestWebClientTest {
-    private String socialTokenId;
-
-    @BeforeEach
-    void setUp() {
-        socialTokenId = createUser();
-    }
-
     public CreateWebClientTest(WebTestClient webTestClient) {
         super(webTestClient);
     }
@@ -59,5 +51,4 @@ public class CreateWebClientTest extends RestWebClientTest {
                 (CATEGORY_BASE_URL, category, CreateCategoryResponseView.class, jwt)
                 .getResponseBody().getId().toString();
     }
-
 }
