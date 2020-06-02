@@ -9,7 +9,7 @@ public class CategoryFixture extends CommonFixture {
     public static final String TEST_MODEL = "APPLE";
 
     public static final CreateCategoryRequestView CREATE_CATEGORY_REQUEST_VIEW = CreateCategoryRequestView.builder()
-            .teleco("0").manufacturer("0").model("0").build();
+            .teleco(TEST_TELECO).manufacturer(TEST_MANUFACTURER).model(TEST_MODEL).build();
 
     public static final Category TEST_CATEGORY
             = Category.builder().teleco(TEST_TELECO).manufacturer(TEST_MANUFACTURER).model(TEST_MODEL).build();
