@@ -6,9 +6,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
+import reuse.dto.GroupResponseView;
 import reuse.dto.category.CreateCategoryRequestView;
 import reuse.dto.category.FindCategoryResponseView;
+import reuse.dto.category.ListCategoryView;
 import reuse.security.TokenAuthenticationService;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.CategoryFixture.*;
@@ -60,6 +64,28 @@ public class CategoryAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(responseBody.getTelco()).isEqualTo(TEST_TELECO);
     }
 
+
+    @DisplayName("카테고리의 모든 종류를 조회 가능한지")
+    @Test
+    public void  listCategory() {
+        //when
+        EntityExchangeResult<ListCategoryView> response
+                = createWebClientTest.getMethodWithAuthAcceptance
+                (CATEGORY_BASE_URL, ListCategoryView.class, getJwt());
+
+        //then
+        HttpStatus status = response.getStatus();
+        ListCategoryView responseBody = response.getResponseBody();
+
+        assertThat(status).isEqualByComparingTo(HttpStatus.OK);
+        List<GroupResponseView> manufacturers = responseBody.getManufacturers().getGroup();
+        List<GroupResponseView> models = responseBody.getModels().getGroup();
+        List<GroupResponseView> telecos = responseBody.getTelecos().getGroup();
+
+        assertThat(manufacturers.size()).isEqualTo(5);
+        assertThat(models.size()).isEqualTo(11);
+        assertThat(telecos.size()).isEqualTo(6);
+    }
 
     public String getJwt() {
         return tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
