@@ -4,6 +4,7 @@ package reuse.web;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reuse.dto.category.CreateCategoryRequestView;
+import reuse.dto.category.ListCategoryView;
 import reuse.service.CategoryService;
 
 @RestController
@@ -23,5 +24,10 @@ public class CategoryController {
     @GetMapping("/{id}")
     public ResponseEntity retrieve(@PathVariable long id) {
         return ResponseEntity.ok().body(categoryService.retrieve(id));
+    }
+
+    @GetMapping
+    public ResponseEntity list() {
+        return ResponseEntity.ok().body(ListCategoryView.toDto());
     }
 }
