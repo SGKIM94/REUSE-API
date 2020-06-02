@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public enum TelocoGroup {
+public enum TelecoGroup {
     SKT("1", "SKT"),
     KT("2", "KT"),
     LG("3", "LG"),
@@ -17,7 +17,7 @@ public enum TelocoGroup {
     KT_MVNO("5", "KT 알뜰폰"),
     LG_MVNO("6", "LG 알뜰폰");
 
-    TelocoGroup(String value, String name) {
+    TelecoGroup(String value, String name) {
         this.value = value;
         this.name = name;
     }
@@ -26,7 +26,7 @@ public enum TelocoGroup {
     private String name;
 
     public static GroupResponsesView toGroupDto() {
-        List<GroupResponseView> groups = Arrays.stream(TelocoGroup.values())
+        List<GroupResponseView> groups = Arrays.stream(TelecoGroup.values())
                 .map(GroupResponseView::toDtoByTeleco)
                 .collect(Collectors.toList());
 

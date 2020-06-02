@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import reuse.domain.ManufacturerGroup;
 import reuse.domain.ModelGroup;
-import reuse.domain.TelocoGroup;
+import reuse.domain.TelecoGroup;
 import reuse.dto.GroupResponsesView;
 
 @Getter
@@ -28,7 +28,7 @@ public class ListCategoryView {
         return ListCategoryView.builder()
                 .models(ModelGroup.toGroupDto())
                 .manufacturers(ManufacturerGroup.toGroupDto())
-                .telecos(TelocoGroup.toGroupDto())
+                .telecos(TelecoGroup.toGroupDto())
                 .build();
     }
 }
