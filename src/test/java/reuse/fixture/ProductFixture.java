@@ -43,13 +43,14 @@ public class ProductFixture extends CommonFixture {
     public static final List<Product> LIST_PRODUCT_RESPONSE_VIEW
             = Arrays.asList(TEST_PRODUCT, SECOND_TEST_PRODUCT);
 
-    public static MultiValueMap<String, Object> getCreateProductMap() {
+    public static MultiValueMap<String, Object> getCreateProductMap(String categoryId) {
         MultiValueMap<String, Object> product = new LinkedMultiValueMap<>();
         product.add("id", DEFAULT_ID);
         product.add("name", TEST_PRODUCT_NAME);
         product.add("explanation", TEST_PRODUCT_EXPLANATION);
         product.add("price", TEST_PRICE);
         product.add("tax", TEST_TAX);
+        product.add("categoryId", categoryId);
         product.add("isUsed", true);
         product.add("isSold", true);
 
