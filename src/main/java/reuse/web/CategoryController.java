@@ -2,18 +2,26 @@ package reuse.web;
 
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reuse.dto.category.CreateCategoryRequestView;
+import reuse.service.CategoryService;
 
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
+    private CategoryService categoryService;
+
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody CreateCategoryRequestView product) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity create(@RequestBody CreateCategoryRequestView category) {
+        return ResponseEntity.ok().body(categoryService.create(category));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity retrieve(@PathVariable long id) {
+        return ResponseEntity.ok().body(categoryService.retrieve(id));
     }
 }
