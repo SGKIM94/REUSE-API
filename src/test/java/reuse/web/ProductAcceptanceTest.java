@@ -55,8 +55,7 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
     @Sql(scripts = {"/clean-all.sql", "/insert-products.sql"})
     public void listProduct() {
         //when
-        EntityExchangeResult<ListProductResponseView> response
-                = createWebClientTest.getMethodWithAuthAcceptance
+        EntityExchangeResult<ListProductResponseView> response = createWebClientTest.getMethodWithAuthAcceptance
                 (PRODUCT_BASE_URL, ListProductResponseView.class, getJwt());
 
         //then
@@ -84,6 +83,20 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
 
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
         assertThat(responseBody.getName()).isEqualTo(TEST_SECOND_PRODUCT_NAME);
+    }
+
+    @DisplayName("품목을 특정 카테고리별로 조회 가능한지")
+    @Test
+    @Sql(scripts = {"/clean-all.sql", "/insert-products.sql"})
+    public void findAllByCategory() {
+        //when
+        EntityExchangeResult<FindProductResponseView> response = createWebClientTest.getMethodWithAuthAcceptance
+                (PRODUCT_BASE_URL + "/category", FindProductResponseView.class, getJwt());
+
+        //then
+        HttpStatus status = response.getStatus();
+
+        assertThat(status).isEqualByComparingTo(HttpStatus.OK);
     }
 
     public String getJwt() {

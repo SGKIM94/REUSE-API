@@ -3,29 +3,29 @@ package reuse.service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import reuse.domain.Category;
 import reuse.dto.category.CreateCategoryResponseView;
 import reuse.dto.category.FindCategoryResponseView;
 import reuse.repository.CategoryRepository;
 import reuse.security.TokenAuthenticationService;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static reuse.fixture.CategoryFixture.*;
-import static reuse.fixture.CommonFixture.DEFAULT_ID;
 
-@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@DataJpaTest
 public class CategoryServiceTest {
     private CategoryService categoryService;
 
-    @MockBean
+    @Autowired
     private CategoryRepository categoryRepository;
 
-    @MockBean
     private TokenAuthenticationService tokenAuthenticationService;
 
     @BeforeEach
@@ -34,25 +34,39 @@ public class CategoryServiceTest {
         categoryService = new CategoryService(categoryRepository);
     }
 
-    @DisplayName("게시물이 생성되는지")
+    @DisplayName("카테고리가 생성되는지")
     @Test
     public void create() {
-        when(categoryRepository.save(any())).thenReturn(TEST_CATEGORY);
+        categoryRepository.save(TEST_CATEGORY);
 
         CreateCategoryResponseView category = categoryService.create(CREATE_CATEGORY_REQUEST_VIEW);
 
         assertThat(category.getId()).isNotNull();
     }
 
-    @DisplayName("게시물이 조회가 되는지")
+    @DisplayName("카테고리가 조회가 되는지")
     @Test
     public void retrieve() {
-        when(categoryRepository.findById(any())).thenReturn(Optional.of(TEST_CATEGORY));
+        Category savedCategory = categoryRepository.save(TEST_CATEGORY);
 
-        FindCategoryResponseView category = categoryService.retrieve(DEFAULT_ID);
+        FindCategoryResponseView category = categoryService.retrieve(savedCategory.getId());
 
         assertThat(category.getTelco()).isEqualTo(TEST_TELECO);
         assertThat(category.getManufacturer()).isEqualTo(TEST_MANUFACTURER);
         assertThat(category.getModel()).isEqualTo(TEST_MODEL);
+    }
+
+    @DisplayName("특정 카테고리를 가진 품목을 조회하는지")
+    @Test
+    public void findAllByCategory() {
+        Category savedCategory = categoryRepository.save(TEST_CATEGORY);
+
+        when(categoryRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_CATEGORY));
+        when(categoryRepository.findAll()).thenReturn(TEST_LIST_CATEGORY);
+
+
+        Long categoryId = categoryService.findByProductCategoryId(1L);
+
+        assertThat(categoryId).isEqualTo()
     }
 }

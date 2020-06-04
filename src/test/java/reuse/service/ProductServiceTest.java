@@ -8,7 +8,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import reuse.domain.Product;
 import reuse.domain.ProductImages;
-import reuse.dto.product.*;
+import reuse.dto.product.CreateProductResponseView;
+import reuse.dto.product.FindProductResponseView;
+import reuse.dto.product.ListProductResponseView;
+import reuse.repository.CategoryRepository;
 import reuse.repository.ProductImagesRepository;
 import reuse.repository.ProductRepository;
 import reuse.security.TokenAuthenticationService;
@@ -20,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static reuse.fixture.ProductFixture.DEFAULT_ID;
 import static reuse.fixture.ProductFixture.*;
 import static reuse.fixture.ProductImagesFixture.*;
 
@@ -31,6 +35,9 @@ public class ProductServiceTest {
 
     @MockBean
     private ProductRepository productRepository;
+
+    @MockBean
+    private CategoryRepository categoryRepository;
 
     @MockBean
     private ProductImagesRepository productImagesRepository;
