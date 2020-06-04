@@ -29,4 +29,9 @@ public class ProductController {
     public ResponseEntity findById(@PathVariable long id) {
         return ResponseEntity.ok().body(productService.findById(id));
     }
+
+    @GetMapping("/category")
+    public ResponseEntity findAllByCategory() {
+        return ResponseEntity.ok().build();
+    }
 }
