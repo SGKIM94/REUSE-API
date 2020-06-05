@@ -22,4 +22,11 @@ public class Category extends AbstractEntity {
         this.manufacturer = manufacturer;
         this.model = model;
     }
+
+    public Category(Long id, String teleco, String manufacturer, String model) {
+        super(id);
+        this.teleco = teleco;
+        this.manufacturer = manufacturer;
+        this.model = model;
+    }
 }
