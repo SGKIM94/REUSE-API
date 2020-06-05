@@ -34,3 +34,5 @@ out/
 aws.yml
 
 application.yml
+
+generated
