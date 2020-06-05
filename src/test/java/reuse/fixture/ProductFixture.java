@@ -21,8 +21,7 @@ public class ProductFixture extends CommonFixture {
     public static final String TEST_TAX = "200";
 
     public static final Product TEST_PRODUCT = Product.testBuilder()
-            .id(TEST_PRODUCT_ID)
-            .name(TEST_PRODUCT_NAME).explanation(TEST_PRODUCT_EXPLANATION)
+            .id(TEST_PRODUCT_ID).name(TEST_PRODUCT_NAME).explanation(TEST_PRODUCT_EXPLANATION)
             .price(TEST_PRICE).tax(TEST_TAX).isSold(false).isUsed(true).productImages(TEST_PRODUCT_IMAGES)
             .thumbnailImage(FIRST_IMAGE_URL).build();
 
@@ -69,4 +68,6 @@ public class ProductFixture extends CommonFixture {
 
         return product;
     }
+
+
 }

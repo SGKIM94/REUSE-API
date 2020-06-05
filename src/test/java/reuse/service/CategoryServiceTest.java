@@ -14,8 +14,6 @@ import reuse.repository.CategoryRepository;
 import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static reuse.fixture.CategoryFixture.*;
 
 @ExtendWith(SpringExtension.class)
@@ -54,19 +52,5 @@ public class CategoryServiceTest {
         assertThat(category.getTelco()).isEqualTo(TEST_TELECO);
         assertThat(category.getManufacturer()).isEqualTo(TEST_MANUFACTURER);
         assertThat(category.getModel()).isEqualTo(TEST_MODEL);
-    }
-
-    @DisplayName("특정 카테고리를 가진 품목을 조회하는지")
-    @Test
-    public void findAllByCategory() {
-        Category savedCategory = categoryRepository.save(TEST_CATEGORY);
-
-        when(categoryRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_CATEGORY));
-        when(categoryRepository.findAll()).thenReturn(TEST_LIST_CATEGORY);
-
-
-        Long categoryId = categoryService.findByProductCategoryId(1L);
-
-        assertThat(categoryId).isEqualTo()
     }
 }
