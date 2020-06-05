@@ -69,8 +69,7 @@ public class CategoryAcceptanceTest extends AbstractAcceptanceTest {
     @Test
     public void  listCategory() {
         //when
-        EntityExchangeResult<ListCategoryView> response
-                = createWebClientTest.getMethodWithAuthAcceptance
+        EntityExchangeResult<ListCategoryView> response = createWebClientTest.getMethodWithAuthAcceptance
                 (CATEGORY_BASE_URL, ListCategoryView.class, getJwt());
 
         //then

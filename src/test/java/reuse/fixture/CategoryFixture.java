@@ -31,19 +31,19 @@ public class CategoryFixture extends CommonFixture {
             .teleco(TEST_TELECO).manufacturer(TEST_MANUFACTURER).model(TEST_MODEL).build();
 
     public static final Category TEST_CATEGORY
-            = Category.builder().teleco(TEST_TELECO).manufacturer(TEST_MANUFACTURER).model(TEST_MODEL).build();
+            = new Category(1L, TEST_TELECO, TEST_MANUFACTURER, TEST_MODEL);
 
     public static final Category TEST_SECOND_CATEGORY
-            = Category.builder().teleco(TEST_SECOND_TELECO).manufacturer(TEST_SECOND_MANUFACTURER).model(TEST_SECOND_MODEL).build();
+            = new Category(2L, TEST_SECOND_TELECO, TEST_SECOND_MANUFACTURER, TEST_SECOND_MODEL);
 
     public static final Category TEST_THIRD_CATEGORY
-            = Category.builder().teleco(TEST_THIRD_TELECO).manufacturer(TEST_THIRD_MANUFACTURER).model(TEST_THIRD_MODEL).build();
+            = new Category(3L, TEST_THIRD_TELECO, TEST_THIRD_MANUFACTURER, TEST_THIRD_MODEL);
 
     public static final Category TEST_FOURTH_CATEGORY
-            = Category.builder().teleco(TEST_FOURTH_TELECO).manufacturer(TEST_FOURTH_MANUFACTURER).model(TEST_FOURTH_MODEL).build();
+            = new Category(4L, TEST_FOURTH_TELECO, TEST_FOURTH_MANUFACTURER, TEST_FOURTH_MODEL);
 
     public static final Category TEST_FIFTH_CATEGORY
-            = Category.builder().teleco(TEST_FIFTH_TELECO).manufacturer(TEST_FIFTH_MANUFACTURER).model(TEST_FIFTH_MODEL).build();
+            = new Category(5L, TEST_FIFTH_TELECO, TEST_FIFTH_MANUFACTURER, TEST_FIFTH_MODEL);
 
     public static final List<Category> TEST_LIST_CATEGORY
             = Arrays.asList(TEST_CATEGORY, TEST_SECOND_CATEGORY, TEST_THIRD_CATEGORY, TEST_FOURTH_CATEGORY);
