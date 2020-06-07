@@ -47,8 +47,8 @@ public class BoardRepositorySupport extends QuerydslRepositorySupport {
                                 product.quality
                         )
                 )
-                .innerJoin(board.product, product)
-                .innerJoin(product.category, category)
+                .innerJoin(board.product, product).on(board.product.id.eq(product.id))
+                .innerJoin(product.category, category).on(product.category.id.eq(category.id))
                 .where(
                         category.teleco.eq(requestCategory.getTeleco())
                                 .or(category.manufacturer.eq(requestCategory.getManufacturer()))
