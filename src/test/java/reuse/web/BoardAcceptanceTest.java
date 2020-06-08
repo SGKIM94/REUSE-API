@@ -10,6 +10,8 @@ import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import reuse.AbstractAcceptanceTest;
 import reuse.dto.board.CreateBoardResponseView;
+import reuse.dto.board.FindAllByCategoryResponseView;
+import reuse.dto.board.ListBoardByCategoryResponseView;
 import reuse.dto.board.ListBoardResponseView;
 import reuse.security.TokenAuthenticationService;
 
@@ -93,6 +95,27 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         HttpStatus status = response.getStatus();
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
     }
+
+    @DisplayName("게시판 리스트가 카테고리별로 조회가 가능한지")
+    @Test
+    @Sql(scripts = {"/clean-all.sql", "/insert-users.sql", "/insert-categories.sql",
+            "/insert-products.sql", "/insert-boards.sql"})
+    public void listBoardByCategory() {
+        //when
+        EntityExchangeResult<ListBoardByCategoryResponseView> expectResponse
+                = restWebClientTest.getMethodWithAuthAcceptance
+                (BOARD_BASE_URL + "/category", ListBoardByCategoryResponseView.class, getJwt());
+
+        //then
+        ListBoardByCategoryResponseView boards = expectResponse.getResponseBody();
+        FindAllByCategoryResponseView firstBoard = boards.getFirstIndex();
+        FindAllByCategoryResponseView secondBoard = boards.getSecondIndex();
+
+        //then
+        assertThat(firstBoard.getId()).isEqualTo(1L);
+        assertThat(secondBoard.getId()).isEqualTo(6L);
+    }
+
 
     public String getJwt() {
         return tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
