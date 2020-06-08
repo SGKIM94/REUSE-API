@@ -2,7 +2,6 @@ package reuse.domain;
 
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Where;
 import reuse.dto.board.ModifyBoardRequestView;
 
 import javax.persistence.*;
