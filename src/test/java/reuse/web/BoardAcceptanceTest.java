@@ -10,7 +10,7 @@ import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import reuse.AbstractAcceptanceTest;
 import reuse.dto.board.CreateBoardResponseView;
-import reuse.dto.board.FindAllByCategoryResponseView;
+import reuse.dto.board.FindByCategoryResponseView;
 import reuse.dto.board.ListBoardByCategoryResponseView;
 import reuse.dto.board.ListBoardResponseView;
 import reuse.security.TokenAuthenticationService;
@@ -103,17 +103,17 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     public void listBoardByCategory() {
         //when
         EntityExchangeResult<ListBoardByCategoryResponseView> expectResponse
-                = restWebClientTest.getMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/category", ListBoardByCategoryResponseView.class, getJwt());
+                = restWebClientTest.postMethodWithAuthAcceptance
+                (BOARD_BASE_URL + "/category", LIST_BOARD_BY_CATEGORY_REQUEST_VIEW, ListBoardByCategoryResponseView.class, getJwt());
 
         //then
         ListBoardByCategoryResponseView boards = expectResponse.getResponseBody();
-        FindAllByCategoryResponseView firstBoard = boards.getFirstIndex();
-        FindAllByCategoryResponseView secondBoard = boards.getSecondIndex();
+        FindByCategoryResponseView firstBoard = boards.getFirstIndex();
+        FindByCategoryResponseView secondBoard = boards.getSecondIndex();
 
         //then
-        assertThat(firstBoard.getId()).isEqualTo(1L);
-        assertThat(secondBoard.getId()).isEqualTo(6L);
+        assertThat(firstBoard.getId()).isEqualTo(FIRST_BOARD_ID);
+        assertThat(secondBoard.getId()).isEqualTo(SIXTH_BOARD_ID);
     }
 
 
