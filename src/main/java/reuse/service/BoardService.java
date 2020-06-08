@@ -27,6 +27,10 @@ public class BoardService {
         return ListBoardResponseView.toDto(boardRepository.findAll());
     }
 
+    public ListBoardByCategoryResponseView listByCategory(ListBoardByCategoryRequestView category) {
+        return boardRepository.findAllByCategory(category.toEntity());
+    }
+
     public Board modify(ModifyBoardRequestView modify) {
         Board board = modify.toEntity();
         board.modify(modify);
