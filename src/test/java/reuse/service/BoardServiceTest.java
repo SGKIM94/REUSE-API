@@ -8,6 +8,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import reuse.domain.Board;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.dto.board.FindBoardResponseView;
+import reuse.dto.board.ListBoardByCategoryResponseView;
 import reuse.dto.board.ListBoardResponseView;
 import reuse.repository.BoardRepository;
 import reuse.repository.ProductImagesRepository;
@@ -101,5 +102,15 @@ public class BoardServiceTest {
         Board modifiedBoard = boardService.modify(MODIFY_BOARD_REQUEST_DTO);
 
         assertThat(modifiedBoard.getTitle()).isEqualTo(TEST_MODIFY_BOARD_TITLE);
+    }
+
+    @DisplayName("카테고리 별 게시물 조회가 가능한지")
+    @Test
+    public void listByCategory() {
+        when(boardRepository.findAllByCategory(any())).thenReturn(LIST_BOARD_BY_CATEGORY_RESPONSE_VIEW);
+
+        ListBoardByCategoryResponseView boards = boardService.listByCategory(LIST_BOARD_BY_CATEGORY_REQUEST_VIEW);
+
+        assertThat(boards.getSize()).isEqualTo(2);
     }
 }
