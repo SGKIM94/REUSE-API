@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import reuse.domain.User;
 import reuse.dto.board.CreateBoardRequestView;
 import reuse.dto.board.CreateBoardResponseView;
+import reuse.dto.board.ListBoardByCategoryRequestView;
 import reuse.dto.board.ModifyBoardRequestView;
 import reuse.security.LoginUser;
 import reuse.service.BoardService;
@@ -28,6 +29,11 @@ public class BoardController {
     @GetMapping("")
     public ResponseEntity list() {
         return ResponseEntity.ok().body(boardService.list());
+    }
+
+    @PostMapping("/category")
+    public ResponseEntity listByCategory(@RequestBody ListBoardByCategoryRequestView category) {
+        return ResponseEntity.ok().body(boardService.listByCategory(category));
     }
 
     @PutMapping
