@@ -37,6 +37,17 @@ public class Board extends AbstractEntity {
         this.sellerAddress = sellerAddress;
     }
 
+    @Builder
+    public Board(Long id, String title, String content, Product product, User seller, String sellerAddress) {
+        super(id);
+        this.title = title;
+        this.content = content;
+        this.product = product;
+        this.seller = seller;
+        this.sellerAddress = sellerAddress;
+    }
+
+
     public String getTitle() {
         return title;
     }
