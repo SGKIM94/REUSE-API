@@ -34,7 +34,7 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
 
     @DisplayName("게사판 추가가 가능한지")
     @Test
-    @Sql(scripts = {"/clean-all.sql", "/insert-products.sql"})
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     public void createBoard() {
         //when
         EntityExchangeResult<CreateBoardResponseView> expectResponse
@@ -50,7 +50,7 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
 
     @DisplayName("게시판 리스트 조회가 가능한지")
     @Test
-    @Sql(scripts = {"/clean-all.sql", "/insert-products.sql"})
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     public void listBoard() {
         String jwt = getJwt();
         restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, jwt);
@@ -70,7 +70,7 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
 
     @DisplayName("게시판 수정이 가능한지")
     @Test
-    @Sql(scripts = {"/clean-all.sql", "/insert-products.sql"})
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     public void updateBoard() {
         CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
 
@@ -81,7 +81,7 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
 
     @DisplayName("Board 가 삭제가 되는지")
     @Test
-    @Sql(scripts = {"/clean-all.sql", "/insert-products.sql"})
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     public void deleteBoard() {
         CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
 
@@ -98,7 +98,7 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
 
     @DisplayName("게시판 리스트가 카테고리별로 조회가 가능한지")
     @Test
-    @Sql(scripts = {"/clean-all.sql", "/insert-users.sql", "/insert-categories.sql",
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql",
             "/insert-products.sql", "/insert-boards.sql"})
     public void listBoardByCategory() {
         //when
