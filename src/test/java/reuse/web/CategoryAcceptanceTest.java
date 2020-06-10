@@ -8,6 +8,7 @@ import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
 import reuse.dto.GroupResponseView;
 import reuse.dto.category.CreateCategoryRequestView;
+import reuse.dto.category.CreateCategoryResponseView;
 import reuse.dto.category.FindCategoryResponseView;
 import reuse.dto.category.ListCategoryView;
 import reuse.security.TokenAuthenticationService;
@@ -46,12 +47,12 @@ public class CategoryAcceptanceTest extends AbstractAcceptanceTest {
     @DisplayName("카테고리 상세 조회 가능한지")
     @Test
     public void retrieveCategory() {
-        String categoryId = createWebClientTest.createCategory(CREATE_CATEGORY_REQUEST_VIEW, getJwt());
+        CreateCategoryResponseView category = createWebClientTest.createCategory(CREATE_CATEGORY_REQUEST_VIEW, getJwt());
 
         //when
         EntityExchangeResult<FindCategoryResponseView> response
                 = createWebClientTest.getMethodWithAuthAcceptance
-                (CATEGORY_BASE_URL + "/" + categoryId, FindCategoryResponseView.class, getJwt());
+                (CATEGORY_BASE_URL + "/" + category.getId(), FindCategoryResponseView.class, getJwt());
 
         //then
         HttpStatus status = response.getStatus();

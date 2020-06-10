@@ -11,7 +11,6 @@ import reuse.dto.product.CreateProductResponseView;
 
 import java.util.Objects;
 
-import static reuse.fixture.BoardFixture.CREATE_BOARD_REQUEST_VIEW;
 import static reuse.fixture.UserFixture.USER_SIGH_UP_REQUEST_DTO;
 import static reuse.web.BoardAcceptanceTest.BOARD_BASE_URL;
 import static reuse.web.CategoryAcceptanceTest.CATEGORY_BASE_URL;
@@ -42,13 +41,13 @@ public class CreateWebClientTest extends RestWebClientTest {
     CreateBoardResponseView createBoard(CreateBoardRequestView board, String jwt) {
         return Objects.requireNonNull(
                 postMethodWithAuthAcceptance
-                        (BOARD_BASE_URL, CREATE_BOARD_REQUEST_VIEW, CreateBoardResponseView.class, jwt)
+                        (BOARD_BASE_URL, board, CreateBoardResponseView.class, jwt)
                         .getResponseBody());
     }
 
-    String createCategory(CreateCategoryRequestView category, String jwt) {
+    CreateCategoryResponseView createCategory(CreateCategoryRequestView category, String jwt) {
         return postMethodWithAuthAcceptance
                 (CATEGORY_BASE_URL, category, CreateCategoryResponseView.class, jwt)
-                .getResponseBody().getId().toString();
+                .getResponseBody();
     }
 }
