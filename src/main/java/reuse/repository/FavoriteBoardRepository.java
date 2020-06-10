@@ -6,6 +6,6 @@ import reuse.domain.User;
 
 import java.util.List;
 
-public interface FavoriteRepository extends JpaRepository<FavoriteBoard, Long> {
+public interface FavoriteBoardRepository extends JpaRepository<FavoriteBoard, Long> {
     List<FavoriteBoard> findEdgeByUser(User user);
 }
