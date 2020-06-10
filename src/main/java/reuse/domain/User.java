@@ -24,22 +24,22 @@ public class User extends AbstractEntity {
     private String socialType;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private List<Favorite> favorites = new ArrayList<>();
+    private List<FavoriteBoard> favoriteBoards = new ArrayList<>();
 
 
     @Builder
-    public User(String socialTokenId, String name, String socialType, List<Favorite> favorites) {
+    public User(String socialTokenId, String name, String socialType, List<FavoriteBoard> favoriteBoards) {
         this.socialTokenId = socialTokenId;
         this.name = name;
         this.socialType = socialType;
-        this.favorites = favorites;
+        this.favoriteBoards = favoriteBoards;
     }
 
     public User(String socialTokenId, String name, String socialType) {
         this.socialTokenId = socialTokenId;
         this.name = name;
         this.socialType = socialType;
-        this.favorites = new ArrayList<>();
+        this.favoriteBoards = new ArrayList<>();
     }
 
     public static String getRandomUserName() {
