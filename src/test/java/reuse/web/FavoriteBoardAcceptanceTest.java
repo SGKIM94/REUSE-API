@@ -35,7 +35,7 @@ public class FavoriteBoardAcceptanceTest extends AbstractAcceptanceTest {
 
     @DisplayName("게사판 추가가 가능한지")
     @Test
-    @Sql(scripts = {"/clean-all.sql", "/insert-products.sql"})
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     public void createFavoriteBoard() {
         CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, jwt);
 
