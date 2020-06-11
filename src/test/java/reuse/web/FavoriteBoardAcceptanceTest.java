@@ -14,6 +14,7 @@ import reuse.security.TokenAuthenticationService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.BoardFixture.CREATE_BOARD_REQUEST_VIEW;
 import static reuse.fixture.CategoryFixture.CREATE_CATEGORY_REQUEST_VIEW;
+import static reuse.fixture.FavoriteBoardFixture.getCreateFavoriteBoardRequestView;
 
 public class FavoriteBoardAcceptanceTest extends AbstractAcceptanceTest {
     public static final String FAVORITE_BASE_URL = "/favorites/board";
@@ -21,35 +22,34 @@ public class FavoriteBoardAcceptanceTest extends AbstractAcceptanceTest {
     private CreateWebClientTest restWebClientTest;
     private TokenAuthenticationService tokenAuthenticationService;
     private String socialTokenId;
-    private String jwt;
 
     @BeforeEach
     void setUp() {
         this.restWebClientTest = new CreateWebClientTest(this.webTestClient);
         this.tokenAuthenticationService = new TokenAuthenticationService();
 
-        jwt = getJwt();
         socialTokenId = restWebClientTest.createUser();
-        restWebClientTest.createCategory(CREATE_CATEGORY_REQUEST_VIEW, jwt);
+        restWebClientTest.createCategory(CREATE_CATEGORY_REQUEST_VIEW, getJwt());
     }
 
     @DisplayName("게사판 추가가 가능한지")
     @Test
     @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     public void createFavoriteBoard() {
-        CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, jwt);
-
-        CreateFavoriteBoardRequestView favorite = CreateFavoriteBoardRequestView.builder()
-                .boardId(board.getId()).build();
+        CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
+        CreateFavoriteBoardRequestView favorite = getCreateFavoriteBoardRequestView(board.getId());
 
         //when
         EntityExchangeResult<CreateBoardResponseView> expectResponse
                 = restWebClientTest.postMethodWithAuthAcceptance
-                (FAVORITE_BASE_URL, favorite, CreateBoardResponseView.class, jwt);
+                (FAVORITE_BASE_URL, favorite, CreateBoardResponseView.class, getJwt());
 
         //then
         HttpStatus status = expectResponse.getStatus();
+        CreateBoardResponseView responseBody = expectResponse.getResponseBody();
+
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
+        assertThat(responseBody).isNotNull();
     }
 
     public String getJwt() {
