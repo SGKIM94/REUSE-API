@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import reuse.domain.Category;
 import reuse.domain.QCategory;
 import reuse.domain.QProduct;
-import reuse.dto.board.FindByCategoryResponseView;
-import reuse.dto.board.ListBoardByCategoryResponseView;
+import reuse.dto.board.FindWithProductResponseView;
+import reuse.dto.board.ListBoardWithProductResponseView;
 
 import java.util.List;
 
@@ -17,14 +17,14 @@ import static reuse.domain.QBoard.board;
 public class BoardRepositoryImpl implements BoardRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
-    public ListBoardByCategoryResponseView findAllByCategory(Category requestCategory) {
+    public ListBoardWithProductResponseView findAllByCategory(Category requestCategory) {
         QProduct product = QProduct.product;
         QCategory category = QCategory.category;
 
-        List<FindByCategoryResponseView> findAll = jpaQueryFactory
+        List<FindWithProductResponseView> findAll = jpaQueryFactory
                 .select(
                         Projections.constructor(
-                                FindByCategoryResponseView.class,
+                                FindWithProductResponseView.class,
                                 board.id,
                                 board.content,
                                 board.title,
@@ -49,6 +49,6 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                                 .or(category.model.eq(requestCategory.getModel()))
                 ).fetch();
 
-        return ListBoardByCategoryResponseView.toDto(findAll);
+        return ListBoardWithProductResponseView.toDto(findAll);
     }
 }

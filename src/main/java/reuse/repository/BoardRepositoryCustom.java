@@ -1,8 +1,8 @@
 package reuse.repository;
 
 import reuse.domain.Category;
-import reuse.dto.board.ListBoardByCategoryResponseView;
+import reuse.dto.board.ListBoardWithProductResponseView;
 
 public interface BoardRepositoryCustom {
-    ListBoardByCategoryResponseView findAllByCategory(Category requestCategory);
+    ListBoardWithProductResponseView findAllByCategory(Category requestCategory);
 }
