@@ -10,9 +10,9 @@ import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import reuse.AbstractAcceptanceTest;
 import reuse.dto.board.CreateBoardResponseView;
-import reuse.dto.board.FindByCategoryResponseView;
-import reuse.dto.board.ListBoardByCategoryResponseView;
+import reuse.dto.board.FindWithProductResponseView;
 import reuse.dto.board.ListBoardResponseView;
+import reuse.dto.board.ListBoardWithProductResponseView;
 import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -102,18 +102,18 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
             "/insert-products.sql", "/insert-boards.sql"})
     public void listBoardByCategory() {
         //when
-        EntityExchangeResult<ListBoardByCategoryResponseView> expectResponse
+        EntityExchangeResult<ListBoardWithProductResponseView> expectResponse
                 = restWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/category", LIST_BOARD_BY_CATEGORY_REQUEST_VIEW, ListBoardByCategoryResponseView.class, getJwt());
+                (BOARD_BASE_URL + "/category", LIST_BOARD_BY_CATEGORY_REQUEST_VIEW, ListBoardWithProductResponseView.class, getJwt());
 
         //then
-        ListBoardByCategoryResponseView boards = expectResponse.getResponseBody();
-        FindByCategoryResponseView firstBoard = boards.getFirstIndex();
-        FindByCategoryResponseView secondBoard = boards.getSecondIndex();
+        ListBoardWithProductResponseView boards = expectResponse.getResponseBody();
+        FindWithProductResponseView firstBoard = boards.getFirstIndex();
+        FindWithProductResponseView secondBoard = boards.getSecondIndex();
 
         //then
-        assertThat(firstBoard.getId()).isEqualTo(FIRST_BOARD_ID);
-        assertThat(secondBoard.getId()).isEqualTo(SIXTH_BOARD_ID);
+        assertThat(firstBoard.getId()).isEqualTo(TEST_FIRST_BOARD_ID);
+        assertThat(secondBoard.getId()).isEqualTo(TEST_SIXTH_BOARD_ID);
     }
 
 

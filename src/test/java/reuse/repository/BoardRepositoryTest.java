@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import reuse.dto.board.FindByCategoryResponseView;
-import reuse.dto.board.ListBoardByCategoryResponseView;
+import reuse.dto.board.FindWithProductResponseView;
+import reuse.dto.board.ListBoardWithProductResponseView;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static reuse.fixture.BoardFixture.FIRST_BOARD_ID;
-import static reuse.fixture.BoardFixture.SIXTH_BOARD_ID;
+import static reuse.fixture.BoardFixture.TEST_FIRST_BOARD_ID;
+import static reuse.fixture.BoardFixture.TEST_SIXTH_BOARD_ID;
 import static reuse.fixture.CategoryFixture.TEST_CATEGORY;
 
 @ExtendWith(SpringExtension.class)
@@ -32,12 +32,12 @@ public class BoardRepositoryTest {
             "/insert-products.sql", "/insert-boards.sql"})
     public void findAllByCategory() {
         //when
-        ListBoardByCategoryResponseView boards = boardRepository.findAllByCategory(TEST_CATEGORY);
-        FindByCategoryResponseView firstBoard = boards.getFirstIndex();
-        FindByCategoryResponseView secondBoard = boards.getSecondIndex();
+        ListBoardWithProductResponseView boards = boardRepository.findAllByCategory(TEST_CATEGORY);
+        FindWithProductResponseView firstBoard = boards.getFirstIndex();
+        FindWithProductResponseView secondBoard = boards.getSecondIndex();
 
         //then
-        assertThat(firstBoard.getId()).isEqualTo(FIRST_BOARD_ID);
-        assertThat(secondBoard.getId()).isEqualTo(SIXTH_BOARD_ID);
+        assertThat(firstBoard.getId()).isEqualTo(TEST_FIRST_BOARD_ID);
+        assertThat(secondBoard.getId()).isEqualTo(TEST_SIXTH_BOARD_ID);
     }
 }

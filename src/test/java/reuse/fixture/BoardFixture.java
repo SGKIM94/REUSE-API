@@ -19,11 +19,12 @@ public class BoardFixture extends CommonFixture {
     public static final String TEST_SECOND_BOARD_TITLE = "테스트 판매 두번째 게시판";
     public static final String TEST_MODIFY_BOARD_TITLE = "수정된 판매 게시판";
 
-    public static final long FIRST_BOARD_ID = 1L;
-    public static final long SIXTH_BOARD_ID = 6L;
+    public static final long TEST_FIRST_BOARD_ID = 1L;
+    public static final long TEST_SECOND_BOARD_ID = 2L;
+    public static final long TEST_SIXTH_BOARD_ID = 6L;
 
     public static final Board TEST_BOARD
-            = Board.builder().id(FIRST_BOARD_ID).title(TEST_BOARD_TITLE).content(TEST_BOARD_CONTENT)
+            = Board.builder().id(TEST_FIRST_BOARD_ID).title(TEST_BOARD_TITLE).content(TEST_BOARD_CONTENT)
             .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).build();
 
     public static final Board TEST_SECOND_BOARD
@@ -56,14 +57,14 @@ public class BoardFixture extends CommonFixture {
     public static final ModifyBoardRequestView MODIFY_BOARD_REQUEST_DTO
             = ModifyBoardRequestView.builder().board(MODIFY_TEST_BOARD).build();
 
-    public static final FindByCategoryResponseView FIND_BY_CATEGORY_RESPONSE_VIEW
-            = FindByCategoryResponseView.builder().board(TEST_BOARD).build();
+    public static final FindWithProductResponseView FIND_BY_CATEGORY_RESPONSE_VIEW
+            = FindWithProductResponseView.builder().board(TEST_BOARD).build();
 
-    public static final FindByCategoryResponseView SECOND_FIND_BY_CATEGORY_RESPONSE_VIEW
-            = FindByCategoryResponseView.builder().board(TEST_BOARD).build();
+    public static final FindWithProductResponseView SECOND_FIND_BY_CATEGORY_RESPONSE_VIEW
+            = FindWithProductResponseView.builder().board(TEST_BOARD).build();
 
-    public static final ListBoardByCategoryResponseView LIST_BOARD_BY_CATEGORY_RESPONSE_VIEW
-            = ListBoardByCategoryResponseView.builder()
+    public static final ListBoardWithProductResponseView LIST_BOARD_BY_CATEGORY_RESPONSE_VIEW
+            = ListBoardWithProductResponseView.builder()
             .boards(Arrays.asList(FIND_BY_CATEGORY_RESPONSE_VIEW, SECOND_FIND_BY_CATEGORY_RESPONSE_VIEW))
             .build();
 
