@@ -8,6 +8,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
 import reuse.dto.board.CreateBoardResponseView;
+import reuse.dto.board.ListBoardResponseView;
 import reuse.dto.favorite.CreateFavoriteBoardRequestView;
 import reuse.security.TokenAuthenticationService;
 
@@ -50,6 +51,23 @@ public class FavoriteBoardAcceptanceTest extends AbstractAcceptanceTest {
 
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
         assertThat(responseBody).isNotNull();
+    }
+
+    @DisplayName("게사판 추가가 가능한지")
+    @Test
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
+    public void listByUser() {
+        //given
+        restWebClientTest.createFavoriteBoard(getJwt());
+
+        //when
+        EntityExchangeResult<ListBoardResponseView> expectResponse = restWebClientTest.getMethodWithAuthAcceptance
+                (FAVORITE_BASE_URL, ListBoardResponseView.class, getJwt());
+
+        //then
+        HttpStatus status = expectResponse.getStatus();
+
+        assertThat(status).isEqualByComparingTo(HttpStatus.OK);
     }
 
     public String getJwt() {
