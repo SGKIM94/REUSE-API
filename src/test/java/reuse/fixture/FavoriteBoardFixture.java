@@ -15,4 +15,10 @@ public class FavoriteBoardFixture extends CommonFixture {
             = CreateFavoriteBoardRequestView.builder().boardId(TEST_FIRST_BOARD_ID).build();
 
 
+    public static CreateFavoriteBoardRequestView getCreateFavoriteBoardRequestView(Long boardId) {
+        return CreateFavoriteBoardRequestView.builder()
+                .boardId(boardId)
+                .build();
+
+    }
 }
