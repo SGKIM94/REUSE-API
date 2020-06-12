@@ -1,5 +1,6 @@
 package reuse.dto.board;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,10 +27,12 @@ public class ListBoardWithProductResponseView {
         return boards.size();
     }
 
+    @JsonIgnore
     public FindWithProductResponseView getFirstIndex() {
         return boards.get(0);
     }
 
+    @JsonIgnore
     public FindWithProductResponseView getSecondIndex() {
         return boards.get(1);
     }
