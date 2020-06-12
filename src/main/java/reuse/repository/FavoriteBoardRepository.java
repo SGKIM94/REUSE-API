@@ -2,10 +2,9 @@ package reuse.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import reuse.domain.FavoriteBoard;
-import reuse.domain.User;
-
-import java.util.List;
+import reuse.dto.board.ListBoardWithProductResponseView;
 
 public interface FavoriteBoardRepository extends JpaRepository<FavoriteBoard, Long>, FavoriteBoardRepositoryCustom {
-    List<FavoriteBoard> findEdgeByUser(User user);
+    @Override
+    ListBoardWithProductResponseView findAllByUserId(Long id);
 }
