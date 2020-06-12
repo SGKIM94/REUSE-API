@@ -8,8 +8,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import reuse.domain.Board;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.dto.board.FindBoardResponseView;
-import reuse.dto.board.ListBoardByCategoryResponseView;
 import reuse.dto.board.ListBoardResponseView;
+import reuse.dto.board.ListBoardWithProductResponseView;
 import reuse.repository.BoardRepository;
 import reuse.repository.ProductImagesRepository;
 import reuse.repository.ProductRepository;
@@ -109,7 +109,7 @@ public class BoardServiceTest {
     public void listByCategory() {
         when(boardRepository.findAllByCategory(any())).thenReturn(LIST_BOARD_BY_CATEGORY_RESPONSE_VIEW);
 
-        ListBoardByCategoryResponseView boards = boardService.listByCategory(LIST_BOARD_BY_CATEGORY_REQUEST_VIEW);
+        ListBoardWithProductResponseView boards = boardService.listByCategory(LIST_BOARD_BY_CATEGORY_REQUEST_VIEW);
 
         assertThat(boards.getSize()).isEqualTo(2);
     }

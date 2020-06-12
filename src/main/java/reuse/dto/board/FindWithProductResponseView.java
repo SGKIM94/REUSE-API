@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FindByCategoryResponseView {
+public class FindWithProductResponseView {
     private Long id;
     private String content;
     private String title;
@@ -30,9 +30,9 @@ public class FindByCategoryResponseView {
     private String quality;
 
     @QueryProjection
-    public FindByCategoryResponseView(Long id, String content, String title, LocalDateTime createAt,
-                                      LocalDateTime updateAt, User seller, String sellerAddress, String thumbnailImage,
-                                      Boolean isSold, Boolean isUsed, String price, String name, String quality) {
+    public FindWithProductResponseView(Long id, String content, String title, LocalDateTime createAt,
+                                       LocalDateTime updateAt, User seller, String sellerAddress, String thumbnailImage,
+                                       Boolean isSold, Boolean isUsed, String price, String name, String quality) {
         this.id = id;
         this.content = content;
         this.title = title;
@@ -49,7 +49,7 @@ public class FindByCategoryResponseView {
     }
 
     @Builder
-    public FindByCategoryResponseView(Board board) {
+    public FindWithProductResponseView(Board board) {
         Product product = board.getProduct();
 
         this.id = board.getId();

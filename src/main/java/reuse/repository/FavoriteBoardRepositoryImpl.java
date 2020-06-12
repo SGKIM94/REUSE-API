@@ -3,8 +3,6 @@ package reuse.repository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import reuse.domain.Category;
-import reuse.domain.QCategory;
 import reuse.domain.QProduct;
 import reuse.dto.board.FindWithProductResponseView;
 import reuse.dto.board.ListBoardWithProductResponseView;
@@ -12,14 +10,15 @@ import reuse.dto.board.ListBoardWithProductResponseView;
 import java.util.List;
 
 import static reuse.domain.QBoard.board;
+import static reuse.domain.QFavoriteBoard.favoriteBoard;
 
 @RequiredArgsConstructor
-public class BoardRepositoryImpl implements BoardRepositoryCustom {
+public class FavoriteBoardRepositoryImpl implements FavoriteBoardRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
-    public ListBoardWithProductResponseView findAllByCategory(Category requestCategory) {
+    @Override
+    public ListBoardWithProductResponseView findAllByUserId(Long id) {
         QProduct product = QProduct.product;
-        QCategory category = QCategory.category;
 
         List<FindWithProductResponseView> findAll = jpaQueryFactory
                 .select(
@@ -40,13 +39,11 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                                 product.quality
                         )
                 )
-                .from(board)
+                .from(favoriteBoard)
+                .innerJoin(favoriteBoard.board, board)
                 .innerJoin(board.product, product)
-                .innerJoin(product.category, category)
                 .where(
-                        category.teleco.eq(requestCategory.getTeleco())
-                                .or(category.manufacturer.eq(requestCategory.getManufacturer()))
-                                .or(category.model.eq(requestCategory.getModel()))
+                        favoriteBoard.user.id.eq(id)
                 ).fetch();
 
         return ListBoardWithProductResponseView.toDto(findAll);
