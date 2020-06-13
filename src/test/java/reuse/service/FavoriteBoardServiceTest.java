@@ -11,7 +11,6 @@ import reuse.domain.User;
 import reuse.dto.board.FindWithProductResponseView;
 import reuse.dto.board.ListBoardWithProductResponseView;
 import reuse.repository.FavoriteBoardRepository;
-import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -32,12 +31,8 @@ public class FavoriteBoardServiceTest {
     @MockBean
     private BoardService boardService;
 
-    @MockBean
-    private TokenAuthenticationService tokenAuthenticationService;
-
     @BeforeEach
     void setUp() {
-        this.tokenAuthenticationService = new TokenAuthenticationService();
         this.favoriteBoardService = new FavoriteBoardService(favoriteBoardRepository, boardService);
     }
 
