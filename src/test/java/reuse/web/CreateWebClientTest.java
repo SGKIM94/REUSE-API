@@ -27,7 +27,7 @@ public class CreateWebClientTest extends RestWebClientTest {
         super(webTestClient);
     }
 
-    String createUser() {
+    public String createUser() {
         return Objects.requireNonNull(
                 postMethodAcceptance(USER_BASE_URL + LOGIN_API_URL, USER_SIGH_UP_REQUEST_DTO, User.class)
                 .getResponseBody()
@@ -49,7 +49,7 @@ public class CreateWebClientTest extends RestWebClientTest {
                         .getResponseBody());
     }
 
-    CreateCategoryResponseView createCategory(CreateCategoryRequestView category, String jwt) {
+    public CreateCategoryResponseView createCategory(CreateCategoryRequestView category, String jwt) {
         return postMethodWithAuthAcceptance
                 (CATEGORY_BASE_URL, category, CreateCategoryResponseView.class, jwt)
                 .getResponseBody();

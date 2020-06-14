@@ -32,7 +32,7 @@ public class RestWebClientTest {
                 .returnResult();
     }
 
-    <T> EntityExchangeResult<T> postMethodWithAuthAcceptance(String uri, Object requestBody, Class<T> responseBodyClass, String jwt) {
+    public <T> EntityExchangeResult<T> postMethodWithAuthAcceptance(String uri, Object requestBody, Class<T> responseBodyClass, String jwt) {
         return webTestClient.post().uri(uri)
                 .header(HttpHeaders.AUTHORIZATION, jwt)
                 .contentType(MediaType.APPLICATION_JSON)
