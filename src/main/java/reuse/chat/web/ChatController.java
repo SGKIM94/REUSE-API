@@ -1,11 +1,11 @@
-package reuse.web;
+package reuse.chat.web;
 
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reuse.chat.service.ChatRoomService;
 import reuse.domain.User;
 import reuse.security.LoginUser;
-import reuse.service.ChatRoomService;
 
 @RestController
 @RequestMapping("/chats")
@@ -23,6 +23,6 @@ public class ChatController {
 
     @GetMapping("{id}")
     public ResponseEntity findById(@PathVariable Long id) {
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(chatRoomService.findById(id));
     }
 }
