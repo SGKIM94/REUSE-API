@@ -1,10 +1,9 @@
 package reuse.chat.domain;
 
 import reuse.domain.AbstractEntity;
+import reuse.domain.User;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class ChatMessage extends AbstractEntity {
@@ -14,7 +13,9 @@ public class ChatMessage extends AbstractEntity {
 
     private MessageType type;
 
-    private String sender;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User sender;
 
     private String message;
 
@@ -22,14 +23,14 @@ public class ChatMessage extends AbstractEntity {
     @JoinColumn(name="chat_room_id")
     private ChatRoom chatRoom;
 
-    public ChatMessage(MessageType type, String sender, String message, ChatRoom chatRoom) {
+    public ChatMessage(MessageType type, User sender, String message, ChatRoom chatRoom) {
         this.type = type;
         this.sender = sender;
         this.message = message;
         this.chatRoom = chatRoom;
     }
 
-    public ChatMessage(long id, MessageType type, String sender, String message, ChatRoom chatRoom) {
+    public ChatMessage(long id, MessageType type, User sender, String message, ChatRoom chatRoom) {
         super(id);
         this.type = type;
         this.sender = sender;
