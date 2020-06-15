@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import reuse.chat.domain.ChatRoom;
+import reuse.chat.dto.ListChatRoomsResponseView;
 import reuse.chat.repository.ChatRoomRepository;
-import reuse.service.ChatRoomService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -38,7 +38,7 @@ public class ChatRoomServiceTest {
         assertThat(savedRoom.getName()).isEqualTo(TEST_CHAT_ROOM_NAME);
     }
 
-    @DisplayName("특정 채팅방읅 조회할 수 있는지")
+    @DisplayName("특정 채팅방을 조회할 수 있는지")
     @Test
     public void findById() {
         when(chatRoomRepository.findById(DEFAULT_ID)).thenReturn(java.util.Optional.ofNullable(TEST_CHAT_ROOM));
@@ -47,5 +47,15 @@ public class ChatRoomServiceTest {
 
         assertThat(chatRoom.getId()).isNotNull();
         assertThat(chatRoom.getName()).isEqualTo(TEST_CHAT_ROOM_NAME);
+    }
+
+    @DisplayName("모든 채팅방을 조회할 수 있는지")
+    @Test
+    public void findAll() {
+        when(chatRoomRepository.findAll()).thenReturn(TEST_CHAT_ROOMS);
+
+        ListChatRoomsResponseView chatRooms = chatRoomService.findAll();
+
+        assertThat(chatRooms.getSize()).isEqualTo(3);
     }
 }
