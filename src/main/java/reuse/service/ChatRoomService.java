@@ -16,4 +16,13 @@ public class ChatRoomService {
     public ChatRoom create(String roomName, User loginUser) {
         return chatRoomRepository.save(ChatRoom.toEntity(roomName, loginUser));
     }
+
+    public ChatRoom findById(Long chatRoomId) {
+        return chatRoomRepository.findById(chatRoomId).orElseThrow(
+                () -> new IllegalArgumentException("해당 채팅방이 존재하지 않습니다."));
+    }
+
+    public ChatRoom retrieve(Long chatRoomId) {
+        return findById(chatRoomId);
+    }
 }
