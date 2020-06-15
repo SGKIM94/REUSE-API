@@ -1,7 +1,8 @@
-package reuse.service;
+package reuse.chat.service;
 
 import org.springframework.stereotype.Service;
 import reuse.chat.domain.ChatRoom;
+import reuse.chat.dto.ListChatRoomsResponseView;
 import reuse.chat.repository.ChatRoomRepository;
 import reuse.domain.User;
 
@@ -24,5 +25,9 @@ public class ChatRoomService {
 
     public ChatRoom retrieve(Long chatRoomId) {
         return findById(chatRoomId);
+    }
+
+    public ListChatRoomsResponseView findAll() {
+        return ListChatRoomsResponseView.toDto(chatRoomRepository.findAll());
     }
 }
