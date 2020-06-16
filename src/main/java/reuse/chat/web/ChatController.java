@@ -28,7 +28,6 @@ public class ChatController {
 
     @GetMapping()
     public ResponseEntity list() {
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(chatRoomService.findAll());
     }
-
 }
