@@ -1,19 +1,20 @@
 package reuse.chat.domain;
 
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import reuse.domain.AbstractEntity;
 import reuse.domain.User;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
+@NoArgsConstructor
 public class ChatRoom extends AbstractEntity {
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User owner;
 
@@ -31,8 +32,8 @@ public class ChatRoom extends AbstractEntity {
 
     public static ChatRoom toEntity(String name, User user) {
         return ChatRoom.builder()
-                .owner(user)
                 .name(name)
+                .owner(user)
                 .build();
     }
 
