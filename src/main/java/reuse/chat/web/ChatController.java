@@ -25,4 +25,10 @@ public class ChatController {
     public ResponseEntity findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(chatRoomService.findById(id));
     }
+
+    @GetMapping()
+    public ResponseEntity list() {
+        return ResponseEntity.ok().build();
+    }
+
 }
