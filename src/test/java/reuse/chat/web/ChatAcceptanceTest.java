@@ -45,7 +45,7 @@ public class ChatAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
     }
 
-    @DisplayName("생성된 채팅방을 조회 가능한지")
+    @DisplayName("생성된 채팅방을 특정 ID 로 조회 가능한지")
     @Test
     public void findById() {
         //when
@@ -58,6 +58,18 @@ public class ChatAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
     }
 
+    @DisplayName("생성된 채팅방을 모두 조회 가능한지")
+    @Test
+    public void findAll() {
+        //when
+        EntityExchangeResult<ChatRoom> expectResponse
+                = restWebClientTest.getMethodWithAuthAcceptance
+                (CHAT_BASE_URL, ChatRoom.class, getJwt());
+
+        //then
+        HttpStatus status = expectResponse.getStatus();
+        assertThat(status).isEqualByComparingTo(HttpStatus.OK);
+    }
 
     public String getJwt() {
         return tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
