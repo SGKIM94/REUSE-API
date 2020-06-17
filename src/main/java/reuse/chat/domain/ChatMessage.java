@@ -1,5 +1,6 @@
 package reuse.chat.domain;
 
+import lombok.Builder;
 import reuse.domain.AbstractEntity;
 import reuse.domain.User;
 
@@ -23,6 +24,7 @@ public class ChatMessage extends AbstractEntity {
     @JoinColumn(name="chat_room_id")
     private ChatRoom chatRoom;
 
+    @Builder
     public ChatMessage(MessageType type, User sender, String message, ChatRoom chatRoom) {
         this.type = type;
         this.sender = sender;
@@ -36,5 +38,25 @@ public class ChatMessage extends AbstractEntity {
         this.sender = sender;
         this.message = message;
         this.chatRoom = chatRoom;
+    }
+
+    public MessageType getType() {
+        return type;
+    }
+
+    public boolean isJoinMessageType() {
+        return ChatMessage.MessageType.JOIN.equals(getType());
+    }
+
+    public void publishJoinMessage() {
+        message = sender.getName() + "님이 입장하였습니다.";
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public Long getRoomId() {
+        return chatRoom.getId();
     }
 }
