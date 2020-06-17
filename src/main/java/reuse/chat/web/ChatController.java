@@ -2,7 +2,10 @@ package reuse.chat.web;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.web.bind.annotation.*;
+import reuse.chat.domain.ChatMessage;
+import reuse.chat.service.ChatMessageService;
 import reuse.chat.service.ChatRoomService;
 import reuse.domain.User;
 import reuse.security.LoginUser;
@@ -10,10 +13,12 @@ import reuse.security.LoginUser;
 @RestController
 @RequestMapping("/chats")
 public class ChatController {
-    private ChatRoomService chatRoomService;
+    private final ChatRoomService chatRoomService;
+    private final ChatMessageService chatMessageService;
 
-    public ChatController(ChatRoomService chatRoomService) {
+    public ChatController(ChatRoomService chatRoomService, ChatMessageService chatMessageService) {
         this.chatRoomService = chatRoomService;
+        this.chatMessageService = chatMessageService;
     }
 
     @PostMapping
@@ -29,5 +34,9 @@ public class ChatController {
     @GetMapping()
     public ResponseEntity list() {
         return ResponseEntity.ok().body(chatRoomService.findAll());
+    }
+
+    @MessageMapping("/message")
+    public void message(ChatMessage message) {
     }
 }
