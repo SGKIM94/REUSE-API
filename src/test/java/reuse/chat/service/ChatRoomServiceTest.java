@@ -3,8 +3,9 @@ package reuse.chat.service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reuse.chat.domain.ChatRoom;
 import reuse.chat.dto.ListChatRoomsResponseView;
 import reuse.chat.repository.ChatRoomRepository;
@@ -15,7 +16,7 @@ import static org.mockito.Mockito.when;
 import static reuse.chat.fixture.ChatFixture.*;
 import static reuse.fixture.UserFixture.TEST_USER;
 
-@SpringBootTest
+@ExtendWith(SpringExtension.class)
 public class ChatRoomServiceTest {
     private ChatRoomService chatRoomService;
 
