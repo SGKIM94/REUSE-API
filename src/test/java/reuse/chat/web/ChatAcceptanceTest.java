@@ -80,6 +80,21 @@ public class ChatAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(responseBody.getSize()).isGreaterThan(3);
     }
 
+    @DisplayName("메시지가 보내지는지")
+    @Test
+    public void publishMessage() {
+        //when
+        EntityExchangeResult<Void> expectResponse
+                = restWebClientTest.getMethodWithAuthAcceptance
+                (CHAT_BASE_URL + "/message", Void.class, getJwt());
+
+        //then
+        HttpStatus status = expectResponse.getStatus();
+
+        assertThat(status).isEqualByComparingTo(HttpStatus.OK);
+    }
+
+
     public CreateBoardResponseView createChatRoom(String name) {
         return restWebClientTest.postMethodWithAuthAcceptance
                 (CHAT_BASE_URL, name, CreateBoardResponseView.class, getJwt())
