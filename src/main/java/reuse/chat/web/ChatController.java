@@ -38,5 +38,6 @@ public class ChatController {
 
     @MessageMapping("/message")
     public void message(ChatMessage message) {
+        chatMessageService.publishMessage(message);
     }
 }
