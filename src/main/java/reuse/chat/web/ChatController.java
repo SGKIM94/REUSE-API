@@ -37,7 +37,8 @@ public class ChatController {
     }
 
     @MessageMapping("/message")
-    public void message(ChatMessage message) {
+    public ResponseEntity message(ChatMessage message) {
         chatMessageService.publishMessage(message);
+        return ResponseEntity.ok().build();
     }
 }
