@@ -87,9 +87,11 @@ public class S3Uploader {
     }
 
     public String upload(File image, String directoryName) {
+        String uploadImageUrl = putImageToS3(image, directoryName + "/" + image.getName());
+
         removeNewFile(image);
 
-        return putImageToS3(image, directoryName + "/" + image.getName());
+        return uploadImageUrl;
     }
 
     public String putImageToS3(File image, String fileName) {
