@@ -1,3 +1,4 @@
+DELETE FROM favorite_board WHERE id IS NOT NULL;
 DELETE FROM board WHERE id IS NOT NULL;
 DELETE FROM product WHERE id IS NOT NULL;
 DELETE FROM product_images WHERE id IS NOT NULL;
