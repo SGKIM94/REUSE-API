@@ -1,6 +1,5 @@
 package reuse.repository;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,13 +21,9 @@ public class BoardRepositoryTest {
     @Autowired
     private BoardRepository boardRepository;
 
-    @AfterEach
-    void setUp() {
-    }
-
     @DisplayName("특정 카테고리를 가진 품목을 조회하는지")
     @Test
-    @Sql(scripts = {"/clean-all.sql", "/insert-users.sql", "/insert-categories.sql",
+    @Sql(scripts = {"/clean-all.sql", "/clean-user.sql",  "/insert-users.sql", "/insert-categories.sql",
             "/insert-products.sql", "/insert-boards.sql"})
     public void findAllByCategory() {
         //when

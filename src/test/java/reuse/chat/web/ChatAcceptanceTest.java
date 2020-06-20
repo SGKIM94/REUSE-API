@@ -1,6 +1,7 @@
 package reuse.chat.web;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -80,6 +81,7 @@ public class ChatAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(responseBody.getSize()).isGreaterThan(3);
     }
 
+    @Disabled
     @DisplayName("메시지가 보내지는지")
     @Test
     public void publishMessage() {
