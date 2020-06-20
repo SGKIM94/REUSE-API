@@ -1,61 +1,42 @@
 package reuse.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import reuse.domain.Board;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.dto.board.FindBoardResponseView;
 import reuse.dto.board.ListBoardResponseView;
 import reuse.dto.board.ListBoardWithProductResponseView;
 import reuse.repository.BoardRepository;
-import reuse.repository.ProductImagesRepository;
-import reuse.repository.ProductRepository;
-import reuse.security.TokenAuthenticationService;
-import reuse.storage.S3Uploader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static reuse.fixture.BoardFixture.*;
 import static reuse.fixture.ProductFixture.TEST_PRODUCT;
 import static reuse.fixture.UserFixture.TEST_USER;
 
-@SpringBootTest
-public class BoardServiceTest {
-    private BoardService boardService;
-
-    @MockBean
+public class BoardServiceTest extends AbstractServiceTest {
+    @Mock
     private BoardRepository boardRepository;
 
-    @MockBean
-    private ProductRepository productRepository;
+    @Mock
+    private ProductService productService;
 
-    @MockBean
-    private ProductImagesRepository productImagesRepository;
+    @InjectMocks
+    private BoardService boardService;
 
-    @MockBean
-    private S3Uploader s3Uploader;
-
-    @MockBean
-    private TokenAuthenticationService tokenAuthenticationService;
-
-    @BeforeEach
-    void setUp() {
-        this.tokenAuthenticationService = new TokenAuthenticationService();
-        ProductService productService = new ProductService(productRepository, productImagesRepository, s3Uploader);
-        this.boardService = new BoardService(boardRepository, productService);
-    }
 
     @DisplayName("게시물이 생성되는지")
     @Test
     public void create() {
+        when(productService.findById(anyLong())).thenReturn(TEST_PRODUCT);
         when(boardRepository.save(any())).thenReturn(TEST_BOARD);
-        when(productRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_PRODUCT));
 
         CreateBoardResponseView board = boardService.create(CREATE_BOARD_REQUEST_VIEW, TEST_USER);
 
@@ -97,8 +78,6 @@ public class BoardServiceTest {
     @DisplayName("게시물 수정이 가능한지")
     @Test
     public void update() {
-        when(boardRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_BOARD));
-
         Board modifiedBoard = boardService.modify(MODIFY_BOARD_REQUEST_DTO);
 
         assertThat(modifiedBoard.getTitle()).isEqualTo(TEST_MODIFY_BOARD_TITLE);
