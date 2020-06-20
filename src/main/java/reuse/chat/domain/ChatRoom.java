@@ -40,8 +40,4 @@ public class ChatRoom extends AbstractEntity {
     public String getName() {
         return name;
     }
-
-    public User getOwner() {
-        return owner;
-    }
 }
