@@ -23,8 +23,7 @@ public class BoardRepositoryTest {
 
     @DisplayName("특정 카테고리를 가진 품목을 조회하는지")
     @Test
-    @Sql(scripts = {"/clean-all.sql", "/clean-user.sql",  "/insert-users.sql", "/insert-categories.sql",
-            "/insert-products.sql", "/insert-boards.sql"})
+    @Sql(scripts = "/before-favorite-board.sql")
     public void findAllByCategory() {
         //when
         ListBoardWithProductResponseView boards = boardRepository.findAllByCategory(TEST_CATEGORY);
