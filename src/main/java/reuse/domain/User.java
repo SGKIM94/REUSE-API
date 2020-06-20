@@ -42,6 +42,14 @@ public class User extends AbstractEntity {
         this.favoriteBoards = new ArrayList<>();
     }
 
+    public User(Long id, String socialTokenId, String name, String socialType) {
+        super(id);
+        this.socialTokenId = socialTokenId;
+        this.name = name;
+        this.socialType = socialType;
+        this.favoriteBoards = new ArrayList<>();
+    }
+
     public static String getRandomUserName() {
         return new RandomStringGenerator.Builder()
                 .withinRange('a', 'z')
