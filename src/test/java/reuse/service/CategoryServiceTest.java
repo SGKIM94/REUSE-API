@@ -1,41 +1,31 @@
 package reuse.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import reuse.domain.Category;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import reuse.dto.category.CreateCategoryResponseView;
 import reuse.dto.category.FindCategoryResponseView;
 import reuse.repository.CategoryRepository;
-import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 import static reuse.fixture.CategoryFixture.*;
 
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
-public class CategoryServiceTest {
-    private CategoryService categoryService;
-
-    @Autowired
+public class CategoryServiceTest extends AbstractServiceTest {
+    @Mock
     private CategoryRepository categoryRepository;
 
-    private TokenAuthenticationService tokenAuthenticationService;
+    @InjectMocks
+    private CategoryService categoryService;
 
-    @BeforeEach
-    void setUp() {
-        this.tokenAuthenticationService = new TokenAuthenticationService();
-        categoryService = new CategoryService(categoryRepository);
-    }
 
     @DisplayName("카테고리가 생성되는지")
     @Test
     public void create() {
-        categoryRepository.save(TEST_CATEGORY);
+        when(categoryRepository.save(any())).thenReturn(TEST_CATEGORY);
 
         CreateCategoryResponseView category = categoryService.create(CREATE_CATEGORY_REQUEST_VIEW);
 
@@ -45,9 +35,9 @@ public class CategoryServiceTest {
     @DisplayName("카테고리가 조회가 되는지")
     @Test
     public void retrieve() {
-        Category savedCategory = categoryRepository.save(TEST_CATEGORY);
+        when(categoryRepository.findById(anyLong())).thenReturn(java.util.Optional.of(TEST_CATEGORY));
 
-        FindCategoryResponseView category = categoryService.retrieve(savedCategory.getId());
+        FindCategoryResponseView category = categoryService.retrieve(DEFAULT_ID);
 
         assertThat(category.getTelco()).isEqualTo(TEST_TELECO);
         assertThat(category.getManufacturer()).isEqualTo(TEST_MANUFACTURER);
