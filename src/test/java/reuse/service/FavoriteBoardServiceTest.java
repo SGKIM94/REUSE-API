@@ -1,10 +1,9 @@
 package reuse.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import reuse.domain.Board;
 import reuse.domain.FavoriteBoard;
 import reuse.domain.User;
@@ -21,20 +20,16 @@ import static reuse.fixture.FavoriteBoardFixture.FAVORITE_BOARD;
 import static reuse.fixture.UserFixture.KIM_NAME;
 import static reuse.fixture.UserFixture.TEST_USER;
 
-@SpringBootTest
-public class FavoriteBoardServiceTest {
-    private FavoriteBoardService favoriteBoardService;
-
-    @MockBean
+public class FavoriteBoardServiceTest extends AbstractServiceTest {
+    @Mock
     private FavoriteBoardRepository favoriteBoardRepository;
 
-    @MockBean
+    @Mock
     private BoardService boardService;
 
-    @BeforeEach
-    void setUp() {
-        this.favoriteBoardService = new FavoriteBoardService(favoriteBoardRepository, boardService);
-    }
+    @InjectMocks
+    private FavoriteBoardService favoriteBoardService;
+
 
     @DisplayName("게시물애 대한 즐겨찾기가 추가되는지")
     @Test

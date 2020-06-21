@@ -45,12 +45,8 @@ public class ProductServiceTest {
     @SpyBean
     private S3Uploader s3Uploader;
 
-    @MockBean
-    private TokenAuthenticationService tokenAuthenticationService;
-
     @BeforeEach
     void setUp() {
-        this.tokenAuthenticationService = new TokenAuthenticationService();
         this.productService = new ProductService(productRepository, productImagesRepository, s3Uploader);
     }
 

@@ -44,7 +44,12 @@ public class UserService {
         return user == null;
     }
 
+    public User retrieve(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
+    }
+
     public FindByIdResponseView findById(Long id) {
-        return FindByIdResponseView.toDtoEntity(userRepository.findById(id));
+        return FindByIdResponseView.toDtoEntity(retrieve(id));
     }
 }

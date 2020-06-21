@@ -26,6 +26,8 @@ import java.util.stream.Collectors;
 @Component
 @NoArgsConstructor
 public class S3Uploader {
+    private static final String REUSE_S3_BUCKET_NAME = "reuse-s3";
+
     private AmazonS3 amazonS3;
 
     @Value("${cloud.aws.s3.bucket}")
@@ -43,18 +45,16 @@ public class S3Uploader {
     @PostConstruct
     public void s3SetUp() {
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+
         this.amazonS3 = AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
                 .withRegion(region)
                 .build();
     }
 
-    public String getFileUrl(Long productId) {
-        return "https://" + bucket + ".s3." + region + ".amazonaws.com/" + productId.toString();
-    }
-
     public List<String> getFiles(Long productId) {
-        ObjectListing files = amazonS3.listObjects("reuse-s3", "products/" + productId + "/");
+        ObjectListing files = amazonS3.listObjects(REUSE_S3_BUCKET_NAME, "products/" + productId + "/");
+
         return files.getObjectSummaries().stream()
             .map(file -> makeUrlByFile(file.getKey()))
             .collect(Collectors.toList());
@@ -80,25 +80,25 @@ public class S3Uploader {
 
     public String upload(MultipartFile image, String directoryName) {
         try {
-            File uploadFile = convert(image);
-            return upload(uploadFile, directoryName);
+            return upload(convert(image), directoryName);
         } catch (IOException e) {
             throw new StorageException("file file upload!");
         }
     }
 
     public String upload(File image, String directoryName) {
-        String fileName = directoryName + "/" + image.getName();
-        String uploadImageUrl = putImageToS3(image, fileName);
+        String uploadImageUrl = putImageToS3(image, directoryName + "/" + image.getName());
+
         removeNewFile(image);
+
         return uploadImageUrl;
     }
 
     public String putImageToS3(File image, String fileName) {
-        amazonS3.putObject(new PutObjectRequest("reuse-s3", fileName, image)
+        amazonS3.putObject(new PutObjectRequest(REUSE_S3_BUCKET_NAME, fileName, image)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
 
-        return amazonS3.getUrl("reuse-s3", fileName).toString();
+        return amazonS3.getUrl(REUSE_S3_BUCKET_NAME, fileName).toString();
     }
 
     public void removeNewFile(File targetFile) {

@@ -5,25 +5,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import reuse.domain.User;
 
-import java.util.Optional;
-
 @Getter
 @Builder
 @NoArgsConstructor
 public class FindByIdResponseView {
     private Long id;
-    private String email;
+    private String socialTokenId;
     private String name;
 
     @Builder
-    public FindByIdResponseView(Long id, String email, String name) {
+    public FindByIdResponseView(Long id, String socialTokenId, String name) {
         this.id = id;
-        this.email = email;
+        this.socialTokenId = socialTokenId;
         this.name = name;
     }
 
-    public static FindByIdResponseView toDtoEntity(Optional<User> byId) {
-        return new FindByIdResponseView();
+    public static FindByIdResponseView toDtoEntity(User user) {
+        return FindByIdResponseView.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .socialTokenId(user.getSocialTokenId())
+                .build();
     }
-
 }

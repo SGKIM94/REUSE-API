@@ -1,10 +1,10 @@
 package reuse.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
 import reuse.dto.user.FindByIdResponseView;
 import reuse.dto.user.LoginUserResponseView;
 import reuse.repository.UserRepository;
@@ -15,21 +15,15 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static reuse.fixture.UserFixture.*;
 
-@SpringBootTest
-public class UserServiceTest {
-    private UserService userService;
-
-    @MockBean
+public class UserServiceTest extends AbstractServiceTest {
+    @Mock
     private UserRepository userRepository;
 
-    @MockBean
+    @Spy
     private TokenAuthenticationService tokenAuthenticationService;
 
-    @BeforeEach
-    void setUp() {
-        this.tokenAuthenticationService = new TokenAuthenticationService();
-        this.userService = new UserService(tokenAuthenticationService, userRepository);
-    }
+    @InjectMocks
+    private UserService userService;
 
     @DisplayName("회원이 로그인이 성공하여 토큰을 리턴하는지")
     @Test
@@ -49,9 +43,9 @@ public class UserServiceTest {
     public void findById() {
         when(userRepository.findById(any())).thenReturn(java.util.Optional.of(TEST_USER));
 
-        FindByIdResponseView user = userService.findById(KIM_ID);
+        FindByIdResponseView user = userService.findById(DEFAULT_ID);
 
-//        assertThat(user.getName()).isEqualTo(KIM_NAME);
+        assertThat(user.getName()).isNotBlank();
     }
 
     @DisplayName("JWT 를 만들어 LoginUserResponseView 에 담아 만드는지")
