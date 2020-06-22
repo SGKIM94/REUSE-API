@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import reuse.exception.InvalidAccessTokenException;
 import reuse.storage.StorageException;
 
 @Slf4j
@@ -15,7 +16,6 @@ public class ErrorExceptionControllerAdvice {
     public ResponseEntity handleMethodException(Exception e) {
         e.printStackTrace();
         log.error(String.valueOf(e.getCause()));
-
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -23,7 +23,6 @@ public class ErrorExceptionControllerAdvice {
     public ResponseEntity handleStorageException(StorageException e) {
         e.printStackTrace();
         log.error(String.valueOf(e.getCause()));
-
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -32,5 +31,12 @@ public class ErrorExceptionControllerAdvice {
         String errorMessage = e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
         e.printStackTrace();
         return ResponseEntity.badRequest().body(errorMessage);
+    }
+
+    @ExceptionHandler(InvalidAccessTokenException.class)
+    public ResponseEntity handleInvalidAccessTokenException(InvalidAccessTokenException e) {
+        e.printStackTrace();
+        log.error(String.valueOf(e.getCause()));
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
