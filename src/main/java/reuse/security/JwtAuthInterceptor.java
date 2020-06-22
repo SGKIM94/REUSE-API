@@ -3,9 +3,9 @@ package reuse.security;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import reuse.domain.User;
+import reuse.exception.InvalidAccessTokenException;
 import reuse.repository.UserRepository;
 
-import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,15 +21,15 @@ public class JwtAuthInterceptor extends HandlerInterceptorAdapter {
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if (authorization == null) {
-            throw new AuthenticationException("Header 에 token 이 존재하지 않습니다.");
+            throw new InvalidAccessTokenException("Header 에 token 이 존재하지 않습니다.");
         }
 
         if (!tokenAuthenticationService.isVerifyToken(authorization)) {
-            throw new AuthenticationException("Not invalid Token!");
+            throw new InvalidAccessTokenException("Not invalid Token!");
         }
 
         String socialToken = tokenAuthenticationService.getSocialTokenByJwt(authorization);
