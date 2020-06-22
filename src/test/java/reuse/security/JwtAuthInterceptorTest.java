@@ -13,8 +13,8 @@ import reuse.domain.User;
 import reuse.repository.UserRepository;
 
 import static org.mockito.Mockito.when;
-import static reuse.fixture.UserFixture.KIM_EMAIL;
 import static reuse.fixture.UserFixture.TEST_USER;
+import static reuse.fixture.UserFixture.TEST_USER_EMAIL;
 import static reuse.security.JwtAuthInterceptor.AUTH_USER_KEY;
 
 @SpringBootTest
@@ -36,8 +36,8 @@ public class JwtAuthInterceptorTest {
     @Test
     public void preHandle(SoftAssertions softly) throws Exception {
         //given
-        when(userRepository.findBySocialTokenId(KIM_EMAIL)).thenReturn(TEST_USER);
-        MockHttpServletRequest request = jwtAuthHttpRequest(KIM_EMAIL);
+        when(userRepository.findBySocialTokenId(TEST_USER_EMAIL)).thenReturn(TEST_USER);
+        MockHttpServletRequest request = jwtAuthHttpRequest(TEST_USER_EMAIL);
 
         //when
         boolean isAuthorization = jwtAuthInterceptor.preHandle(request, null, null);

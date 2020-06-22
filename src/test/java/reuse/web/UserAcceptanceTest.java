@@ -54,7 +54,7 @@ public class UserAcceptanceTest extends AbstractAcceptanceTest {
 
         //then
         softly.assertThat(responseBody.getSocialTokenId()).isNotBlank();
-        softly.assertThat(responseBody.getSocialType()).isEqualTo(NAVER_SOCIAL_TYPE);
+        softly.assertThat(responseBody.getSocialType()).isEqualTo(TEST_NAVER_SOCIAL_TYPE);
         softly.assertThat(responseBody.getName()).isNotBlank();
         softly.assertThat(responseBody.getJwt()).isNotBlank();
     }
@@ -72,10 +72,10 @@ public class UserAcceptanceTest extends AbstractAcceptanceTest {
         FindByIdResponseView responseBody = expectResponse.getResponseBody();
 
         //then
-        softly.assertThat(responseBody.getName()).isEqualTo(KIM_NAME);
+        softly.assertThat(responseBody.getName()).isEqualTo(TEST_USER_NAME);
     }
 
     private String getJwt() {
-        return tokenAuthenticationService.toJwtBySocialTokenId(KIM_EMAIL);
+        return tokenAuthenticationService.toJwtBySocialTokenId(TEST_USER_EMAIL);
     }
 }

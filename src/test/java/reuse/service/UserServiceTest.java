@@ -33,8 +33,8 @@ public class UserServiceTest extends AbstractServiceTest {
         LoginUserResponseView user = userService.login(USER_LOGIN_REQUEST_DTO);
 
         assertThat(user.getSocialTokenId()).isNotBlank();
-        assertThat(user.getSocialType()).isEqualTo(NAVER_SOCIAL_TYPE);
-        assertThat(user.getName()).isEqualTo(KIM_NAME);
+        assertThat(user.getSocialType()).isEqualTo(TEST_NAVER_SOCIAL_TYPE);
+        assertThat(user.getName()).isEqualTo(TEST_USER_NAME);
         assertThat(user.getJwt()).isNotBlank();
     }
 
@@ -54,6 +54,6 @@ public class UserServiceTest extends AbstractServiceTest {
         LoginUserResponseView loginUserResponseView = userService.toDtoWithJWt(TEST_USER);
 
         assertThat(loginUserResponseView.getSocialTokenId()).isNotBlank();
-        assertThat(loginUserResponseView.getSocialType()).isEqualTo(NAVER_SOCIAL_TYPE);
+        assertThat(loginUserResponseView.getSocialType()).isEqualTo(TEST_NAVER_SOCIAL_TYPE);
     }
 }

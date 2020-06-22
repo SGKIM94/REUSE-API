@@ -8,7 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static reuse.fixture.UserFixture.KIM_EMAIL;
+import static reuse.fixture.UserFixture.TEST_USER_EMAIL;
 import static reuse.security.TokenAuthenticationService.BEARER_TOKEN_TYPE;
 
 public class TokenAuthenticationServiceTest {
@@ -36,7 +36,7 @@ public class TokenAuthenticationServiceTest {
     @Test
     public void toJwtByEmail() {
         //when
-        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(KIM_EMAIL);
+        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(TEST_USER_EMAIL);
 
         //then
         assertThat(jwt).isNotEmpty();
@@ -46,32 +46,32 @@ public class TokenAuthenticationServiceTest {
     @DisplayName("JWT 에서 Claim 을 가져오는지")
     @Test
     public void getJwtClaim() {
-        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(KIM_EMAIL);
+        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(TEST_USER_EMAIL);
 
         //when
         Jws<Claims> claims = tokenAuthenticationService.getJwtClaim(jwt);
 
         //then
-        assertThat(claims.getBody().get(EMAIL_KEY)).isEqualTo(KIM_EMAIL);
+        assertThat(claims.getBody().get(EMAIL_KEY)).isEqualTo(TEST_USER_EMAIL);
     }
 
     @DisplayName("Claims 에서 email 을 가져오는지")
     @Test
     public void getEmailByClaim() {
-        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(KIM_EMAIL);
+        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(TEST_USER_EMAIL);
         Jws<Claims> claims = tokenAuthenticationService.getJwtClaim(jwt);
 
         //when
         String email = tokenAuthenticationService.getSocialTokenIdByClaims(claims);
 
         //then
-        assertThat(email).isEqualTo(KIM_EMAIL);
+        assertThat(email).isEqualTo(TEST_USER_EMAIL);
     }
 
     @DisplayName("Claims 에서 tokenType 을 가져오는지")
     @Test
     public void getTokenType() {
-        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(KIM_EMAIL);
+        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(TEST_USER_EMAIL);
 
         //when
         String tokenType = tokenAuthenticationService.getTokenTypeByJwt(jwt);
@@ -83,7 +83,7 @@ public class TokenAuthenticationServiceTest {
     @DisplayName("jwt 가 검증된 토큰인지 확인")
     @Test
     public void isVerifyToken() {
-        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(KIM_EMAIL);
+        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(TEST_USER_EMAIL);
 
         //when
         boolean isVerify = tokenAuthenticationService.isVerifyToken(jwt);
@@ -95,13 +95,13 @@ public class TokenAuthenticationServiceTest {
     @DisplayName("jwt 로 email 을 가져오는지")
     @Test
     public void getEmailByJwt() {
-        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(KIM_EMAIL);
+        String jwt = tokenAuthenticationService.toJwtBySocialTokenId(TEST_USER_EMAIL);
 
         //when
         String email = tokenAuthenticationService.getSocialTokenByJwt(jwt);
 
         //then
-        assertThat(email).isEqualTo(KIM_EMAIL);
+        assertThat(email).isEqualTo(TEST_USER_EMAIL);
     }
 
 }

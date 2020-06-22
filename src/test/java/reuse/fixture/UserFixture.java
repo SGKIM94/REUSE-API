@@ -7,28 +7,28 @@ import reuse.dto.user.FindBySocialTokenIdResponseView;
 import reuse.dto.user.LoginUserRequestView;
 
 public class UserFixture extends CommonFixture {
-    public static final Long KIM_ID = 1L;
-    public static final String KIM_NAME = "김상구";
-    public static final String KIM_EMAIL = "sgkim94@github.com";
-    public static final String KIM_PASSWORD = "password";
-    public static final String SOCIAL_TOKEN_ID = "tokenId";
-    public static final String NAVER_SOCIAL_TYPE = "naver";
+    public static final Long TEST_USER_ID = 1L;
+    public static final String TEST_USER_NAME = "김상구";
+    public static final String TEST_USER_EMAIL = "sgkim94@github.com";
+    public static final String TEST_USER_PASSWORD = "password";
+    public static final String TEST_SOCIAL_TOKEN_ID = "tokenId";
+    public static final String TEST_NAVER_SOCIAL_TYPE = "naver";
 
     public static final CreateUserRequestView USER_SIGH_UP_REQUEST_DTO = CreateUserRequestView.builder()
-            .name(KIM_NAME).socialTokenId(SOCIAL_TOKEN_ID).build();
-    public static final LoginUserRequestView USER_LOGIN_REQUEST_DTO = LoginUserRequestView.builder().id(KIM_ID)
-            .socialTokenId(SOCIAL_TOKEN_ID).socialType(NAVER_SOCIAL_TYPE).build();
-    public static final FindByIdResponseView FIND_BY_EMAIL_RESPONSE_VIEW = new FindByIdResponseView(KIM_ID, KIM_EMAIL, KIM_PASSWORD);
-    public static final FindBySocialTokenIdResponseView FIND_BY_SOCIAL_TOKEN_ID_RESPONSE_VIEW = new FindBySocialTokenIdResponseView(KIM_ID, SOCIAL_TOKEN_ID, NAVER_SOCIAL_TYPE);
+            .name(TEST_USER_NAME).socialTokenId(TEST_SOCIAL_TOKEN_ID).build();
+    public static final LoginUserRequestView USER_LOGIN_REQUEST_DTO = LoginUserRequestView.builder().id(TEST_USER_ID)
+            .socialTokenId(TEST_SOCIAL_TOKEN_ID).socialType(TEST_NAVER_SOCIAL_TYPE).build();
+    public static final FindByIdResponseView FIND_BY_EMAIL_RESPONSE_VIEW = new FindByIdResponseView(TEST_USER_ID, TEST_USER_EMAIL, TEST_USER_PASSWORD);
+    public static final FindBySocialTokenIdResponseView FIND_BY_SOCIAL_TOKEN_ID_RESPONSE_VIEW = new FindBySocialTokenIdResponseView(TEST_USER_ID, TEST_SOCIAL_TOKEN_ID, TEST_NAVER_SOCIAL_TYPE);
 
     public static CreateUserRequestView getCreateUserRequestView(User user) {
         return CreateUserRequestView.builder().name(user.getName()).socialTokenId(user.getSocialTokenId()).build();
     }
 
     public static LoginUserRequestView getLoginUserRequestView(User user) {
-        return new LoginUserRequestView(KIM_ID, user.getSocialTokenId(), NAVER_SOCIAL_TYPE);
+        return new LoginUserRequestView(TEST_USER_ID, user.getSocialTokenId(), TEST_NAVER_SOCIAL_TYPE);
     }
 
-    public static final User TEST_USER = new User(DEFAULT_ID, SOCIAL_TOKEN_ID, KIM_NAME, NAVER_SOCIAL_TYPE);
-    public static final User LOGIN_USER = User.builder().socialTokenId(SOCIAL_TOKEN_ID).socialType(NAVER_SOCIAL_TYPE).build();
+    public static final User TEST_USER = new User(DEFAULT_ID, TEST_SOCIAL_TOKEN_ID, TEST_USER_NAME, TEST_NAVER_SOCIAL_TYPE);
+    public static final User LOGIN_USER = User.builder().socialTokenId(TEST_SOCIAL_TOKEN_ID).socialType(TEST_NAVER_SOCIAL_TYPE).build();
 }
