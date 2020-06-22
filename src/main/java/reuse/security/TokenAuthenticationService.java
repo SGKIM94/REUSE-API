@@ -1,10 +1,8 @@
 package reuse.security;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.stereotype.Component;
+import reuse.exception.InvalidAccessTokenException;
 
 import java.util.Date;
 
@@ -31,8 +29,13 @@ public class TokenAuthenticationService {
     }
 
     public String getSocialTokenByJwt(String jwt) {
-        Jws<Claims> claims =  getJwtClaim(jwt);
-        return getSocialTokenIdByClaims(claims);
+        try {
+            Jws<Claims> claims =  getJwtClaim(jwt);
+            return getSocialTokenIdByClaims(claims);
+
+        } catch (ExpiredJwtException e) {
+            throw new InvalidAccessTokenException("Token is expired!");
+        }
     }
 
 
