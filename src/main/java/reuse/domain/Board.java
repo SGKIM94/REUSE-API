@@ -24,29 +24,34 @@ public class Board extends AbstractEntity {
     @JoinColumn(name="user_id")
     private User seller;
 
+    @OneToOne
+    @JoinColumn(name="buyer_review_id")
+    private BuyerReview buyerReview;
+
     private String sellerAddress;
 
     private Boolean isDeleted = false;
 
     @Builder
-    public Board(String title, String content, Product product, User seller, String sellerAddress) {
+    public Board(String title, String content, Product product, User seller, String sellerAddress, BuyerReview buyerReview) {
         this.title = title;
         this.content = content;
         this.product = product;
         this.seller = seller;
         this.sellerAddress = sellerAddress;
+        this.buyerReview = buyerReview;
     }
 
     @Builder
-    public Board(Long id, String title, String content, Product product, User seller, String sellerAddress) {
+    public Board(Long id, String title, String content, Product product, User seller, String sellerAddress, BuyerReview buyerReview) {
         super(id);
         this.title = title;
         this.content = content;
         this.product = product;
         this.seller = seller;
         this.sellerAddress = sellerAddress;
+        this.buyerReview = buyerReview;
     }
-
 
     public String getTitle() {
         return title;
