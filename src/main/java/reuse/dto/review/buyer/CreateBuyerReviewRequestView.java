@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import reuse.domain.BuyerReview;
+import reuse.domain.User;
 
 @Getter
 @Setter
@@ -20,5 +22,14 @@ public class CreateBuyerReviewRequestView {
         this.content = content;
         this.rating = rating;
         this.boardId = boardId;
+    }
+
+    public BuyerReview toEntity(User buyer) {
+        return BuyerReview.builder()
+                .content(content)
+                .rating(rating)
+                .title(title)
+                .buyer(buyer)
+                .build();
     }
 }
