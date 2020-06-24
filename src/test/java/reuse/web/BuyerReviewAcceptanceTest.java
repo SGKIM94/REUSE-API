@@ -10,7 +10,7 @@ import reuse.dto.review.buyer.CreateBuyerReviewRequestView;
 import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static reuse.fixture.CategoryFixture.DEFAULT_ID;
+import static reuse.fixture.BuyerReviewFixture.CREATE_BUYER_REVIEW_REQUEST_VIEW;
 
 public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
     public static final String BUYER_REVIEW_BASE_URL = "/review/buyer";
@@ -29,13 +29,9 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
     @DisplayName("구매자가 구매한 게시판에 구매평을 남기는지")
     @Test
     public void createBuyerReview() {
-        //given
-        CreateBuyerReviewRequestView review = CreateBuyerReviewRequestView.builder()
-                .content("리뷰입니다.").rating("10").title("제목입니다.").boardId(DEFAULT_ID).build();
-
         //when
         EntityExchangeResult<CreateBuyerReviewRequestView> expectResponse = createWebClientTest.postMethodWithAuthAcceptance
-                (BUYER_REVIEW_BASE_URL, review, CreateBuyerReviewRequestView.class, getJwt());
+                (BUYER_REVIEW_BASE_URL, CREATE_BUYER_REVIEW_REQUEST_VIEW, CreateBuyerReviewRequestView.class, getJwt());
 
         HttpStatus status = expectResponse.getStatus();
 
