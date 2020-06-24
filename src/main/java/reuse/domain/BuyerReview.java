@@ -25,14 +25,14 @@ public class BuyerReview extends AbstractEntity {
     private String content;
 
     @Builder
-    public BuyerReview(User buyer, Board board, String rating, String title, String content) {
+    public BuyerReview(User buyer, String rating, String title, String content) {
         this.buyer = buyer;
         this.rating = rating;
         this.title = title;
         this.content = content;
     }
 
-    public BuyerReview(Long id, Board board, User buyer, String rating, String title, String content) {
+    public BuyerReview(Long id, User buyer, String rating, String title, String content) {
         super(id);
         this.buyer = buyer;
         this.rating = rating;
