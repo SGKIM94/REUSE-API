@@ -9,4 +9,14 @@ public class BuyerReviewFixture extends CommonFixture {
 
     public static final CreateBuyerReviewRequestView CREATE_BUYER_REVIEW_REQUEST_VIEW = CreateBuyerReviewRequestView.builder()
             .content(TEST_CONTENT).rating(TEST_RATING).title(TEST_TITLE).boardId(DEFAULT_ID).build();
+
+
+    public static CreateBuyerReviewRequestView getCreateBuyerReviewRequestView(Long boardId) {
+        return CreateBuyerReviewRequestView.builder()
+                .boardId(boardId)
+                .content(TEST_CONTENT)
+                .rating(TEST_RATING)
+                .title(TEST_TITLE)
+                .build();
+    }
 }
