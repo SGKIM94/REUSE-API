@@ -99,4 +99,8 @@ public class Board extends AbstractEntity {
     public void delete() {
         this.isDeleted = true;
     }
+
+    public BuyerReview getBuyerReview() {
+        return this.buyerReview;
+    }
 }
