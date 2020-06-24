@@ -24,7 +24,7 @@ public class Board extends AbstractEntity {
     @JoinColumn(name="user_id")
     private User seller;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="buyer_review_id")
     private BuyerReview buyerReview;
 
@@ -86,6 +86,14 @@ public class Board extends AbstractEntity {
         this.content = modify.getContent();
         this.product = modify.getProduct();
         this.sellerAddress = modify.getSellerAddress();
+    }
+
+    public void mappingBuyerReview(BuyerReview buyerReview) {
+        if (buyerReview == null) {
+            throw new IllegalArgumentException("Empty buyerReview when mapping to the Board!");
+        }
+
+        this.buyerReview = buyerReview;
     }
 
     public void delete() {
