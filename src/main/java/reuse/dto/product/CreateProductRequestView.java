@@ -45,8 +45,8 @@ public class CreateProductRequestView {
     public CreateProductRequestView(Long id, String name, String explanation, String price, String tax, Boolean isUsed,
                                     Boolean isSold, String categoryId, String createAt, String updateAt, String quality,
                                     MultipartFile firstImage, MultipartFile secondImage, MultipartFile thirdImage,
-                                    MultipartFile fourthImage
-            , MultipartFile fifthImage, MultipartFile sixthImage, MultipartFile thumbnailImage) {
+                                    MultipartFile fourthImage, MultipartFile fifthImage, MultipartFile sixthImage,
+                                    MultipartFile thumbnailImage) {
         this.id = id;
         this.name = name;
         this.explanation = explanation;
