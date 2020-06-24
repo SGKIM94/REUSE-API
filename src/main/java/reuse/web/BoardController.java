@@ -31,6 +31,11 @@ public class BoardController {
         return ResponseEntity.ok().body(boardService.list());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity findById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(boardService.findById(id));
+    }
+
     @PostMapping("/category")
     public ResponseEntity listByCategory(@RequestBody ListBoardByCategoryRequestView category) {
         return ResponseEntity.ok().body(boardService.listByCategory(category));
