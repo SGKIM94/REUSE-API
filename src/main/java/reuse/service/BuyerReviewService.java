@@ -25,4 +25,11 @@ public class BuyerReviewService {
 
         return buyerReviewRepository.save(buyerReview.toEntity(buyer));
     }
+
+    public BuyerReview findBySeller(Long sellerId) {
+        // 판매자의 아이디로 해당 판매자가 게시한 게시글의 모든 리뷰를 가져오는지
+        // 판매자 -> 판매자 게시글 -> 게시글의 리뷰
+
+        return new BuyerReview();
+    }
 }
