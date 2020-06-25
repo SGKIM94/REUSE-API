@@ -96,6 +96,10 @@ public class Board extends AbstractEntity {
         this.buyerReview = buyerReview;
     }
 
+    public long getBuyerReviewId() {
+        return this.buyerReview.getId();
+    }
+
     public void delete() {
         this.isDeleted = true;
     }
