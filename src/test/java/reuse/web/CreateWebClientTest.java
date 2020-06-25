@@ -2,6 +2,7 @@ package reuse.web;
 
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.MultiValueMap;
+import reuse.domain.BuyerReview;
 import reuse.domain.User;
 import reuse.dto.board.CreateBoardRequestView;
 import reuse.dto.board.CreateBoardResponseView;
@@ -13,9 +14,11 @@ import reuse.dto.product.CreateProductResponseView;
 import java.util.Objects;
 
 import static reuse.fixture.BoardFixture.CREATE_BOARD_REQUEST_VIEW;
+import static reuse.fixture.BuyerReviewFixture.getCreateBuyerReviewRequestView;
 import static reuse.fixture.FavoriteBoardFixture.getCreateFavoriteBoardRequestView;
 import static reuse.fixture.UserFixture.USER_SIGH_UP_REQUEST_DTO;
 import static reuse.web.BoardAcceptanceTest.BOARD_BASE_URL;
+import static reuse.web.BuyerReviewAcceptanceTest.BUYER_REVIEW_BASE_URL;
 import static reuse.web.CategoryAcceptanceTest.CATEGORY_BASE_URL;
 import static reuse.web.FavoriteBoardAcceptanceTest.FAVORITE_BASE_URL;
 import static reuse.web.ProductAcceptanceTest.PRODUCT_BASE_URL;
@@ -61,5 +64,12 @@ public class CreateWebClientTest extends RestWebClientTest {
 
         return postMethodWithAuthAcceptance(FAVORITE_BASE_URL, favorite, CreateBoardResponseView.class, jwt)
                 .getResponseBody();
+    }
+
+    public BuyerReview createBuyerReview(Long boardId, String jwt) {
+        return postMethodWithAuthAcceptance
+                (BUYER_REVIEW_BASE_URL, getCreateBuyerReviewRequestView(boardId), BuyerReview.class, jwt)
+                .getResponseBody();
+
     }
 }
