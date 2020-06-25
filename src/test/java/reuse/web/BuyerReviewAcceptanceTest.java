@@ -12,6 +12,8 @@ import reuse.domain.BuyerReview;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.security.TokenAuthenticationService;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.BoardFixture.CREATE_BOARD_REQUEST_VIEW;
 import static reuse.fixture.BuyerReviewFixture.getCreateBuyerReviewRequestView;
@@ -52,6 +54,26 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(status).isEqualTo(HttpStatus.OK);
         assertThat(foundBoard.getBuyerReview()).isNotNull();
     }
+
+    @DisplayName("판매자에 연결된 모든 리뷰가 조회되는지")
+    @Test
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
+    public void findBySeller() {
+        //given
+        CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
+        Long boardId = board.getId();
+        createWebClientTest.createBuyerReview(boardId, getJwt());
+
+        //when
+        EntityExchangeResult<List> expectResponse
+                = createWebClientTest.getMethodWithAuthAcceptance(BUYER_REVIEW_BASE_URL + "1L", List.class, getJwt());
+
+        //then
+        HttpStatus status = expectResponse.getStatus();
+
+        assertThat(status).isEqualTo(HttpStatus.OK);
+    }
+
 
     public Board findBoardById(Long boardId) {
         return createWebClientTest.getMethodWithAuthAcceptance(BOARD_BASE_URL + "/" + boardId, Board.class, getJwt())
