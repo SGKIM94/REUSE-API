@@ -5,6 +5,7 @@ import reuse.domain.Board;
 import reuse.domain.BuyerReview;
 import reuse.domain.User;
 import reuse.dto.review.buyer.CreateBuyerReviewRequestView;
+import reuse.dto.review.buyer.ListBuyerReviewRequestView;
 import reuse.repository.BuyerReviewRepository;
 
 @Service
@@ -26,10 +27,7 @@ public class BuyerReviewService {
         return buyerReviewRepository.save(buyerReview.toEntity(buyer));
     }
 
-    public BuyerReview findBySeller(Long sellerId) {
-        // 판매자의 아이디로 해당 판매자가 게시한 게시글의 모든 리뷰를 가져오는지
-        // 판매자 -> 판매자 게시글 -> 게시글의 리뷰
-
-        return new BuyerReview();
+    public ListBuyerReviewRequestView findBySeller(Long sellerId) {
+        return buyerReviewRepository.findBySeller(sellerId);
     }
 }
