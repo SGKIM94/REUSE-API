@@ -1,19 +1,41 @@
 package reuse.repository;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import reuse.domain.BuyerReview;
+import reuse.domain.QBoard;
+import reuse.dto.review.buyer.FindBuyerReviewRequestView;
+import reuse.dto.review.buyer.ListBuyerReviewRequestView;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static reuse.domain.QBuyerReview.buyerReview;
 
 @RequiredArgsConstructor
 public class BuyerReviewRepositoryImpl implements BuyerReviewRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
-    // TODO : 테스트 코드 우선 작성
     @Override
-    public List<BuyerReview> findBySeller(Long sellerId) {
-        return new ArrayList<>();
+    public ListBuyerReviewRequestView findBySeller(Long sellerId) {
+        QBoard board = QBoard.board;
+
+        List<FindBuyerReviewRequestView> findAll = jpaQueryFactory
+                .select(
+                        Projections.constructor(
+                                FindBuyerReviewRequestView.class,
+                                buyerReview.buyer,
+                                buyerReview.rating,
+                                buyerReview.title,
+                                buyerReview.content,
+                                board
+                        )
+                )
+                .from(board)
+                .innerJoin(board.buyerReview, buyerReview)
+                .where(
+                        board.seller.id.eq(sellerId)
+                ).fetch();
+
+        return ListBuyerReviewRequestView.toDto(findAll);
     }
 }
