@@ -10,13 +10,13 @@ import reuse.AbstractAcceptanceTest;
 import reuse.domain.Board;
 import reuse.domain.BuyerReview;
 import reuse.dto.board.CreateBoardResponseView;
+import reuse.dto.review.buyer.ListBuyerReviewRequestView;
 import reuse.security.TokenAuthenticationService;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.BoardFixture.CREATE_BOARD_REQUEST_VIEW;
 import static reuse.fixture.BuyerReviewFixture.getCreateBuyerReviewRequestView;
+import static reuse.fixture.CommonFixture.DEFAULT_ID;
 import static reuse.web.BoardAcceptanceTest.BOARD_BASE_URL;
 
 public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
@@ -65,15 +65,17 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
         createWebClientTest.createBuyerReview(boardId, getJwt());
 
         //when
-        EntityExchangeResult<List> expectResponse
-                = createWebClientTest.getMethodWithAuthAcceptance(BUYER_REVIEW_BASE_URL + "1L", List.class, getJwt());
+        EntityExchangeResult<ListBuyerReviewRequestView> expectResponse
+                = createWebClientTest.getMethodWithAuthAcceptance
+                (BUYER_REVIEW_BASE_URL + "/" + DEFAULT_ID, ListBuyerReviewRequestView.class, getJwt());
 
         //then
         HttpStatus status = expectResponse.getStatus();
+        ListBuyerReviewRequestView buyerReviews = expectResponse.getResponseBody();
 
         assertThat(status).isEqualTo(HttpStatus.OK);
+        assertThat(buyerReviews.getSize()).isEqualTo(1);
     }
-
 
     public Board findBoardById(Long boardId) {
         return createWebClientTest.getMethodWithAuthAcceptance(BOARD_BASE_URL + "/" + boardId, Board.class, getJwt())
