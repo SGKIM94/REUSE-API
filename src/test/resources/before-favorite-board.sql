@@ -4,7 +4,8 @@ DELETE FROM board WHERE id IS NOT NULL;
 DELETE FROM product WHERE id IS NOT NULL;
 DELETE FROM product_images WHERE id IS NOT NULL;
 DELETE FROM category WHERE id IS NOT NULL;
-
+DELETE FROM chat_room WHERE id IS NOT NULL;
+DELETE FROM buyer_review WHERE id IS NOT NULL;
 -- clean user
 DELETE FROM user WHERE id IS NOT NULL;
 
