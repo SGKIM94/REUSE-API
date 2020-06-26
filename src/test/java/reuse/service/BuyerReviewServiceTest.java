@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import reuse.domain.BuyerReview;
+import reuse.dto.review.buyer.ListBuyerReviewRequestView;
 import reuse.repository.BuyerReviewRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,6 +13,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static reuse.fixture.BoardFixture.TEST_BOARD;
 import static reuse.fixture.BuyerReviewFixture.CREATE_BUYER_REVIEW_REQUEST_VIEW;
+import static reuse.fixture.BuyerReviewFixture.LIST_BUYER_REVIEW_REQUEST_VIEW;
+import static reuse.fixture.CommonFixture.DEFAULT_ID;
 import static reuse.fixture.UserFixture.TEST_USER;
 
 public class BuyerReviewServiceTest extends AbstractServiceTest {
@@ -35,5 +38,15 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
 
         // TODO: 해당 게시글을 조회해서 해당 게시글에 리뷰에 대한 key 가 저장되는지 확인 필요
         assertThat(buyerReview.getId()).isNotNull();
+    }
+
+    @DisplayName("판매자에 연결되어 있는 게시글 후기를 모두 가져오는지")
+    @Test
+    public void findBySeller() {
+        when(buyerReviewRepository.findBySeller(any())).thenReturn(LIST_BUYER_REVIEW_REQUEST_VIEW);
+
+        ListBuyerReviewRequestView buyerReviews = buyerReviewService.findBySeller(DEFAULT_ID);
+
+        assertThat(buyerReviews.getSize()).isEqualTo(2);
     }
 }
