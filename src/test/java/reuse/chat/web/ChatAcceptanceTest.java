@@ -78,7 +78,7 @@ public class ChatAcceptanceTest extends AbstractAcceptanceTest {
         ListChatRoomsResponseView responseBody = expectResponse.getResponseBody();
 
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
-        assertThat(responseBody.getSize()).isGreaterThan(3);
+        assertThat(responseBody.getSize()).isEqualTo(3);
     }
 
     @Disabled

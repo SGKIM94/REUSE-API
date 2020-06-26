@@ -12,8 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static reuse.fixture.BoardFixture.TEST_BOARD;
-import static reuse.fixture.BuyerReviewFixture.CREATE_BUYER_REVIEW_REQUEST_VIEW;
-import static reuse.fixture.BuyerReviewFixture.LIST_BUYER_REVIEW_REQUEST_VIEW;
+import static reuse.fixture.BuyerReviewFixture.*;
 import static reuse.fixture.CommonFixture.DEFAULT_ID;
 import static reuse.fixture.UserFixture.TEST_USER;
 
@@ -31,7 +30,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     @DisplayName("게시물이 생성되는지")
     @Test
     public void create() {
-        when(buyerReviewRepository.save(any())).thenReturn(CREATE_BUYER_REVIEW_REQUEST_VIEW);
+        when(buyerReviewRepository.save(any())).thenReturn(TEST_BUYER_REVIEW);
         when(boardService.findById(any())).thenReturn(TEST_BOARD);
 
         BuyerReview buyerReview = buyerReviewService.create(CREATE_BUYER_REVIEW_REQUEST_VIEW, TEST_USER);
