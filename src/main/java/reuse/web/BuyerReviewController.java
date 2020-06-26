@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import reuse.domain.BuyerReview;
 import reuse.domain.User;
 import reuse.dto.review.buyer.CreateBuyerReviewRequestView;
+import reuse.dto.review.buyer.ListBuyerReviewRequestView;
 import reuse.security.LoginUser;
 import reuse.service.BuyerReviewService;
 
@@ -26,6 +27,7 @@ public class BuyerReviewController {
 
     @GetMapping("{id}")
     public ResponseEntity findBySeller(@PathVariable Long id) {
-        return ResponseEntity.ok().build();
+        ListBuyerReviewRequestView buyerReviews = buyerReviewService.findBySeller(id);
+        return ResponseEntity.ok().body(buyerReviews);
     }
 }
