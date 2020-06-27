@@ -77,6 +77,28 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(buyerReviews.getSize()).isEqualTo(1);
     }
 
+    @DisplayName("모든 구매후기를 가져오는지")
+    @Test
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
+    public void list() {
+        //given
+        CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
+        Long boardId = board.getId();
+        createWebClientTest.createBuyerReview(boardId, getJwt());
+
+        //when
+        EntityExchangeResult<ListBuyerReviewRequestView> expectResponse
+                = createWebClientTest.getMethodWithAuthAcceptance
+                (BUYER_REVIEW_BASE_URL, ListBuyerReviewRequestView.class, getJwt());
+
+        //then
+        HttpStatus status = expectResponse.getStatus();
+        ListBuyerReviewRequestView buyerReviews = expectResponse.getResponseBody();
+
+        assertThat(status).isEqualTo(HttpStatus.OK);
+        assertThat(buyerReviews.getSize()).isEqualTo(1);
+    }
+
     public Board findBoardById(Long boardId) {
         return createWebClientTest.getMethodWithAuthAcceptance(BOARD_BASE_URL + "/" + boardId, Board.class, getJwt())
                 .getResponseBody();
