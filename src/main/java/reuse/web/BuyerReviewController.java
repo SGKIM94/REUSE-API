@@ -30,4 +30,10 @@ public class BuyerReviewController {
         ListBuyerReviewRequestView buyerReviews = buyerReviewService.findBySeller(id);
         return ResponseEntity.ok().body(buyerReviews);
     }
+
+    @GetMapping
+    public ResponseEntity list() {
+        return ResponseEntity.ok().build();
+    }
+
 }
