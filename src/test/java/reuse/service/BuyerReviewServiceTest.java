@@ -48,4 +48,15 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
 
         assertThat(buyerReviews.getSize()).isEqualTo(2);
     }
+
+    @DisplayName("모든 구매후기를 조회 가능한지")
+    @Test
+    public void list() {
+        when(buyerReviewRepository.findAll()).thenReturn(TEST_BUYER_REVIEWS);
+
+        ListBuyerReviewRequestView buyerReviews = buyerReviewService.list();
+
+        assertThat(buyerReviews.getSize()).isEqualTo(2);
+    }
+
 }
