@@ -96,7 +96,7 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
         ListBuyerReviewResponseView buyerReviews = expectResponse.getResponseBody();
 
         assertThat(status).isEqualTo(HttpStatus.OK);
-        assertThat(buyerReviews.getSize()).isEqualTo(3);
+        assertThat(buyerReviews.getSize()).isEqualTo(2);
     }
 
     public Board findBoardById(Long boardId) {
