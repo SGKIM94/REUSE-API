@@ -5,7 +5,7 @@ import reuse.domain.Board;
 import reuse.domain.BuyerReview;
 import reuse.domain.User;
 import reuse.dto.review.buyer.CreateBuyerReviewRequestView;
-import reuse.dto.review.buyer.ListBuyerReviewRequestView;
+import reuse.dto.review.buyer.ListBuyerReviewResponseView;
 import reuse.repository.BuyerReviewRepository;
 
 @Service
@@ -27,7 +27,11 @@ public class BuyerReviewService {
         return buyerReviewRepository.save(buyerReview.toEntity(buyer));
     }
 
-    public ListBuyerReviewRequestView findBySeller(Long sellerId) {
+    public ListBuyerReviewResponseView findBySeller(Long sellerId) {
         return buyerReviewRepository.findBySeller(sellerId);
+    }
+
+    public ListBuyerReviewResponseView list() {
+        return ListBuyerReviewResponseView.toDtoByEntity(buyerReviewRepository.findAll());
     }
 }
