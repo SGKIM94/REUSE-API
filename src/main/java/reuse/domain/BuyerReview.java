@@ -38,4 +38,20 @@ public class BuyerReview extends AbstractEntity {
         this.title = title;
         this.content = content;
     }
+
+    public User getBuyer() {
+        return buyer;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
 }
