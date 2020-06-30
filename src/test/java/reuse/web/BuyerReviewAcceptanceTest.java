@@ -10,7 +10,7 @@ import reuse.AbstractAcceptanceTest;
 import reuse.domain.Board;
 import reuse.domain.BuyerReview;
 import reuse.dto.board.CreateBoardResponseView;
-import reuse.dto.review.buyer.ListBuyerReviewRequestView;
+import reuse.dto.review.buyer.ListBuyerReviewResponseView;
 import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -65,13 +65,13 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
         createWebClientTest.createBuyerReview(boardId, getJwt());
 
         //when
-        EntityExchangeResult<ListBuyerReviewRequestView> expectResponse
+        EntityExchangeResult<ListBuyerReviewResponseView> expectResponse
                 = createWebClientTest.getMethodWithAuthAcceptance
-                (BUYER_REVIEW_BASE_URL + "/" + DEFAULT_ID, ListBuyerReviewRequestView.class, getJwt());
+                (BUYER_REVIEW_BASE_URL + "/" + DEFAULT_ID, ListBuyerReviewResponseView.class, getJwt());
 
         //then
         HttpStatus status = expectResponse.getStatus();
-        ListBuyerReviewRequestView buyerReviews = expectResponse.getResponseBody();
+        ListBuyerReviewResponseView buyerReviews = expectResponse.getResponseBody();
 
         assertThat(status).isEqualTo(HttpStatus.OK);
         assertThat(buyerReviews.getSize()).isEqualTo(1);
@@ -87,16 +87,16 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
         createWebClientTest.createBuyerReview(boardId, getJwt());
 
         //when
-        EntityExchangeResult<ListBuyerReviewRequestView> expectResponse
+        EntityExchangeResult<ListBuyerReviewResponseView> expectResponse
                 = createWebClientTest.getMethodWithAuthAcceptance
-                (BUYER_REVIEW_BASE_URL, ListBuyerReviewRequestView.class, getJwt());
+                (BUYER_REVIEW_BASE_URL, ListBuyerReviewResponseView.class, getJwt());
 
         //then
         HttpStatus status = expectResponse.getStatus();
-        ListBuyerReviewRequestView buyerReviews = expectResponse.getResponseBody();
+        ListBuyerReviewResponseView buyerReviews = expectResponse.getResponseBody();
 
         assertThat(status).isEqualTo(HttpStatus.OK);
-        assertThat(buyerReviews.getSize()).isEqualTo(1);
+        assertThat(buyerReviews.getSize()).isEqualTo(3);
     }
 
     public Board findBoardById(Long boardId) {

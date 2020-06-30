@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import reuse.domain.BuyerReview;
-import reuse.dto.review.buyer.ListBuyerReviewRequestView;
+import reuse.dto.review.buyer.ListBuyerReviewResponseView;
 import reuse.repository.BuyerReviewRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,7 +44,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     public void findBySeller() {
         when(buyerReviewRepository.findBySeller(any())).thenReturn(LIST_BUYER_REVIEW_REQUEST_VIEW);
 
-        ListBuyerReviewRequestView buyerReviews = buyerReviewService.findBySeller(DEFAULT_ID);
+        ListBuyerReviewResponseView buyerReviews = buyerReviewService.findBySeller(DEFAULT_ID);
 
         assertThat(buyerReviews.getSize()).isEqualTo(2);
     }
@@ -54,9 +54,8 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     public void list() {
         when(buyerReviewRepository.findAll()).thenReturn(TEST_BUYER_REVIEWS);
 
-        ListBuyerReviewRequestView buyerReviews = buyerReviewService.list();
+        ListBuyerReviewResponseView buyerReviews = buyerReviewService.list();
 
-        assertThat(buyerReviews.getSize()).isEqualTo(2);
+        assertThat(buyerReviews.getSize()).isEqualTo(3);
     }
-
 }

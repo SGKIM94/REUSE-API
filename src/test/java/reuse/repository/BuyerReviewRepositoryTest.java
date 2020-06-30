@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import reuse.dto.review.buyer.ListBuyerReviewRequestView;
+import reuse.dto.review.buyer.ListBuyerReviewResponseView;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.CommonFixture.DEFAULT_ID;
@@ -23,7 +23,7 @@ public class BuyerReviewRepositoryTest {
     @Sql(scripts = {"/before-favorite-board.sql", "/insert-buyer-review.sql"})
     public void findBySeller() {
         //when
-        ListBuyerReviewRequestView reviews = buyerReviewRepository.findBySeller(DEFAULT_ID);
+        ListBuyerReviewResponseView reviews = buyerReviewRepository.findBySeller(DEFAULT_ID);
 
         assertThat(reviews.getSize()).isEqualTo(3);
     }
