@@ -5,7 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import reuse.domain.QBoard;
 import reuse.dto.review.buyer.FindBuyerReviewRequestView;
-import reuse.dto.review.buyer.ListBuyerReviewRequestView;
+import reuse.dto.review.buyer.ListBuyerReviewResponseView;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class BuyerReviewRepositoryImpl implements BuyerReviewRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public ListBuyerReviewRequestView findBySeller(Long sellerId) {
+    public ListBuyerReviewResponseView findBySeller(Long sellerId) {
         QBoard board = QBoard.board;
 
         List<FindBuyerReviewRequestView> findAll = jpaQueryFactory
@@ -36,6 +36,6 @@ public class BuyerReviewRepositoryImpl implements BuyerReviewRepositoryCustom {
                         board.seller.id.eq(sellerId)
                 ).fetch();
 
-        return ListBuyerReviewRequestView.toDto(findAll);
+        return ListBuyerReviewResponseView.toDto(findAll);
     }
 }

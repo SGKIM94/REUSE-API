@@ -1,7 +1,7 @@
 package reuse.repository;
 
-import reuse.dto.review.buyer.ListBuyerReviewRequestView;
+import reuse.dto.review.buyer.ListBuyerReviewResponseView;
 
 public interface BuyerReviewRepositoryCustom {
-    ListBuyerReviewRequestView findBySeller(Long sellerId);
+    ListBuyerReviewResponseView findBySeller(Long sellerId);
 }
