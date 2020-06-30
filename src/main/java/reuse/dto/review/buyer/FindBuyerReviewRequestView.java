@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import reuse.domain.Board;
+import reuse.domain.BuyerReview;
 import reuse.domain.User;
 
 @Getter
@@ -24,5 +25,14 @@ public class FindBuyerReviewRequestView {
         this.title = title;
         this.content = content;
         this.board = board;
+    }
+
+    public static FindBuyerReviewRequestView toDto(BuyerReview buyerReview) {
+        return FindBuyerReviewRequestView.builder()
+                .buyer(buyerReview.getBuyer())
+                .content(buyerReview.getContent())
+                .rating(buyerReview.getRating())
+                .title(buyerReview.getTitle())
+                .build();
     }
 }
