@@ -15,6 +15,7 @@ import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.BoardFixture.CREATE_BOARD_REQUEST_VIEW;
+import static reuse.fixture.BuyerReviewFixture.TEST_BUYER_REVIEW;
 import static reuse.fixture.BuyerReviewFixture.getCreateBuyerReviewRequestView;
 import static reuse.fixture.CommonFixture.DEFAULT_ID;
 import static reuse.web.BoardAcceptanceTest.BOARD_BASE_URL;
@@ -98,6 +99,27 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(status).isEqualTo(HttpStatus.OK);
         assertThat(buyerReviews.getSize()).isEqualTo(2);
     }
+
+    @DisplayName("구매후기를 수정 가능한지")
+    @Test
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
+    public void modify() {
+        //given
+        CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
+        Long boardId = board.getId();
+        createWebClientTest.createBuyerReview(boardId, getJwt());
+
+        //when
+        EntityExchangeResult<Void> expectResponse
+                = createWebClientTest.putMethodWithAuthAcceptance
+                (BUYER_REVIEW_BASE_URL, TEST_BUYER_REVIEW, Void.class, getJwt());
+
+        //then
+        HttpStatus status = expectResponse.getStatus();
+
+        assertThat(status).isEqualTo(HttpStatus.OK);
+    }
+
 
     public Board findBoardById(Long boardId) {
         return createWebClientTest.getMethodWithAuthAcceptance(BOARD_BASE_URL + "/" + boardId, Board.class, getJwt())
