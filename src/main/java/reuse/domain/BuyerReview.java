@@ -54,4 +54,14 @@ public class BuyerReview extends AbstractEntity {
     public String getContent() {
         return content;
     }
+
+    public void modify(BuyerReview buyerReview) {
+        if (buyerReview == null) {
+            return;
+        }
+
+        this.rating = buyerReview.getRating();
+        this.title = buyerReview.getTitle();
+        this.content = buyerReview.getContent();
+    }
 }
