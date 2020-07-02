@@ -17,6 +17,6 @@ public class ChatMessageService {
             message.publishJoinMessage();
         }
 
-        messageSendingOperations.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
+        messageSendingOperations.convertAndSend("/sub/chats/" + message.getRoomId(), message);
     }
 }
