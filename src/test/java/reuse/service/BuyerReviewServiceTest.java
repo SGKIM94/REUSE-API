@@ -65,8 +65,5 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
         BuyerReview buyerReview = TEST_BUYER_REVIEW;
 
         buyerReviewService.modify(buyerReview);
-
-        assertThat(buyerReviews.getSize()).isEqualTo(3);
     }
-
 }

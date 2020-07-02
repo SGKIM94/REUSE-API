@@ -34,4 +34,8 @@ public class BuyerReviewService {
     public ListBuyerReviewResponseView list() {
         return ListBuyerReviewResponseView.toDtoByEntity(buyerReviewRepository.findAll());
     }
+
+    public void modify(BuyerReview buyerReview) {
+
+    }
 }
