@@ -58,4 +58,15 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
 
         assertThat(buyerReviews.getSize()).isEqualTo(3);
     }
+
+    @DisplayName("구매후기를 저장 가능한지")
+    @Test
+    public void modify() {
+        BuyerReview buyerReview = TEST_BUYER_REVIEW;
+
+        buyerReviewService.modify(buyerReview);
+
+        assertThat(buyerReviews.getSize()).isEqualTo(3);
+    }
+
 }
