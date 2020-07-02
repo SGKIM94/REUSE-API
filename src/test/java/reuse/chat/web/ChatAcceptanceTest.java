@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
 import reuse.chat.domain.ChatRoom;
+import reuse.chat.dto.CreateChatRequestView;
 import reuse.chat.dto.ListChatRoomsResponseView;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.security.TokenAuthenticationService;
@@ -39,7 +40,7 @@ public class ChatAcceptanceTest extends AbstractAcceptanceTest {
         //when
         EntityExchangeResult<CreateBoardResponseView> expectResponse
                 = restWebClientTest.postMethodWithAuthAcceptance
-                (CHAT_BASE_URL, TEST_CHAT_ROOM_NAME, CreateBoardResponseView.class, getJwt());
+                (CHAT_BASE_URL, CREATE_CHAT_REQUEST_VIEW, CreateBoardResponseView.class, getJwt());
 
         //then
         HttpStatus status = expectResponse.getStatus();
@@ -49,7 +50,7 @@ public class ChatAcceptanceTest extends AbstractAcceptanceTest {
     @DisplayName("생성된 채팅방을 특정 ID 로 조회 가능한지")
     @Test
     public void findById() {
-        CreateBoardResponseView chatRoom = createChatRoom(TEST_CHAT_ROOM_NAME);
+        CreateBoardResponseView chatRoom = createChatRoom(CREATE_CHAT_REQUEST_VIEW);
 
         //when
         EntityExchangeResult<ChatRoom> expectResponse
@@ -64,9 +65,9 @@ public class ChatAcceptanceTest extends AbstractAcceptanceTest {
     @DisplayName("생성된 채팅방을 모두 조회 가능한지")
     @Test
     public void findAll() {
-        createChatRoom(TEST_CHAT_ROOM_NAME);
-        createChatRoom(TEST_SECOND_CHAT_ROOM_NAME);
-        createChatRoom(TEST_THIRD_CHAT_ROOM_NAME);
+        createChatRoom(CREATE_CHAT_REQUEST_VIEW);
+        createChatRoom(SECOND_CREATE_CHAT_REQUEST_VIEW);
+        createChatRoom(THIRD_CREATE_CHAT_REQUEST_VIEW);
 
         //when
         EntityExchangeResult<ListChatRoomsResponseView> expectResponse
@@ -97,7 +98,7 @@ public class ChatAcceptanceTest extends AbstractAcceptanceTest {
     }
 
 
-    public CreateBoardResponseView createChatRoom(String name) {
+    public CreateBoardResponseView createChatRoom(CreateChatRequestView name) {
         return restWebClientTest.postMethodWithAuthAcceptance
                 (CHAT_BASE_URL, name, CreateBoardResponseView.class, getJwt())
                 .getResponseBody();

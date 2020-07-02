@@ -33,7 +33,7 @@ public class ChatRoomServiceTest {
     public void create() {
         when(chatRoomRepository.save(any())).thenReturn(TEST_CHAT_ROOM);
 
-        ChatRoom savedRoom = chatRoomService.create(TEST_CHAT_ROOM_NAME, TEST_USER);
+        ChatRoom savedRoom = chatRoomService.create(CREATE_CHAT_REQUEST_VIEW, TEST_USER);
 
         assertThat(savedRoom.getId()).isNotNull();
         assertThat(savedRoom.getName()).isEqualTo(TEST_CHAT_ROOM_NAME);

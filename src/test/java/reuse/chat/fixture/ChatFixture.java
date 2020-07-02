@@ -2,6 +2,7 @@ package reuse.chat.fixture;
 
 import reuse.chat.domain.ChatMessage;
 import reuse.chat.domain.ChatRoom;
+import reuse.chat.dto.CreateChatRequestView;
 import reuse.fixture.CommonFixture;
 
 import java.util.Arrays;
@@ -16,6 +17,14 @@ public class ChatFixture extends CommonFixture {
 
     public static final String TEST_MESSAGE = "테스트 메시지입니다.!";
 
+    public static final CreateChatRequestView CREATE_CHAT_REQUEST_VIEW = CreateChatRequestView.builder()
+            .name(TEST_CHAT_ROOM_NAME).build();
+
+    public static final CreateChatRequestView SECOND_CREATE_CHAT_REQUEST_VIEW = CreateChatRequestView.builder()
+            .name(TEST_SECOND_CHAT_ROOM_NAME).build();
+
+    public static final CreateChatRequestView THIRD_CREATE_CHAT_REQUEST_VIEW = CreateChatRequestView.builder()
+            .name(TEST_THIRD_CHAT_ROOM_NAME).build();
 
     public static final ChatRoom TEST_CHAT_ROOM = ChatRoom.builder()
             .name(TEST_CHAT_ROOM_NAME).owner(TEST_USER).build();
