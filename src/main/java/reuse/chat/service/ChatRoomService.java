@@ -2,6 +2,7 @@ package reuse.chat.service;
 
 import org.springframework.stereotype.Service;
 import reuse.chat.domain.ChatRoom;
+import reuse.chat.dto.CreateChatRequestView;
 import reuse.chat.dto.ListChatRoomsResponseView;
 import reuse.chat.repository.ChatRoomRepository;
 import reuse.domain.User;
@@ -14,7 +15,7 @@ public class ChatRoomService {
         this.chatRoomRepository = chatRoomRepository;
     }
 
-    public ChatRoom create(String roomName, User loginUser) {
+    public ChatRoom create(CreateChatRequestView roomName, User loginUser) {
         return chatRoomRepository.save(ChatRoom.toEntity(roomName, loginUser));
     }
 

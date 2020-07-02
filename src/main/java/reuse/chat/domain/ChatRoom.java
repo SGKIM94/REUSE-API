@@ -2,6 +2,7 @@ package reuse.chat.domain;
 
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import reuse.chat.dto.CreateChatRequestView;
 import reuse.domain.AbstractEntity;
 import reuse.domain.User;
 
@@ -30,9 +31,9 @@ public class ChatRoom extends AbstractEntity {
         this.owner = owner;
     }
 
-    public static ChatRoom toEntity(String name, User user) {
+    public static ChatRoom toEntity(CreateChatRequestView chat, User user) {
         return ChatRoom.builder()
-                .name(name)
+                .name(chat.getName())
                 .owner(user)
                 .build();
     }

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.web.bind.annotation.*;
 import reuse.chat.domain.ChatMessage;
+import reuse.chat.dto.CreateChatRequestView;
 import reuse.chat.service.ChatMessageService;
 import reuse.chat.service.ChatRoomService;
 import reuse.domain.User;
@@ -22,7 +23,7 @@ public class ChatController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody String name, @LoginUser User loginUser) {
+    public ResponseEntity create(@RequestBody CreateChatRequestView name, @LoginUser User loginUser) {
         return ResponseEntity.ok().body(chatRoomService.create(name, loginUser));
     }
 
