@@ -1,5 +1,6 @@
 package reuse.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import reuse.dto.board.ModifyBoardRequestView;
@@ -96,6 +97,7 @@ public class Board extends AbstractEntity {
         this.buyerReview = buyerReview;
     }
 
+    @JsonIgnore
     public long getBuyerReviewId() {
         return this.buyerReview.getId();
     }
