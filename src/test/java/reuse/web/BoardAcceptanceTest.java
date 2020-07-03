@@ -9,6 +9,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import reuse.AbstractAcceptanceTest;
+import reuse.domain.Board;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.dto.board.FindWithProductResponseView;
 import reuse.dto.board.ListBoardResponseView;
@@ -75,8 +76,15 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
 
         //when
-        restWebClientTest.putMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/" + board.getId(), MODIFY_BOARD_REQUEST_DTO, Void.class, getJwt());
+        EntityExchangeResult<Board> exchangeResponse = restWebClientTest.putMethodWithAuthAcceptance
+                (BOARD_BASE_URL + "/" + board.getId(), MODIFY_BOARD_REQUEST_DTO, Board.class, getJwt());
+
+        HttpStatus status = exchangeResponse.getStatus();
+        assertThat(status).isEqualByComparingTo(HttpStatus.OK);
+
+        Board modifiedBoard = exchangeResponse.getResponseBody();
+
+        assertThat(modifiedBoard.getTitle()).isEqualTo(TEST_MODIFY_BOARD_TITLE);
     }
 
     @DisplayName("Board 가 삭제가 되는지")
