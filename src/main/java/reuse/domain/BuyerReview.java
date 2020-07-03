@@ -31,6 +31,7 @@ public class BuyerReview extends AbstractEntity {
         this.content = content;
     }
 
+    @Builder(builderMethodName = "TestBuilder")
     public BuyerReview(Long id, User buyer, String rating, String title, String content) {
         super(id);
         this.buyer = buyer;
@@ -55,13 +56,15 @@ public class BuyerReview extends AbstractEntity {
         return content;
     }
 
-    public void modify(BuyerReview buyerReview) {
+    public BuyerReview modify(BuyerReview buyerReview) {
         if (buyerReview == null) {
-            return;
+            return new BuyerReview();
         }
 
         this.rating = buyerReview.getRating();
         this.title = buyerReview.getTitle();
         this.content = buyerReview.getContent();
+
+        return this;
     }
 }
