@@ -3,6 +3,7 @@ package reuse.web;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reuse.domain.Board;
 import reuse.domain.User;
 import reuse.dto.board.CreateBoardRequestView;
 import reuse.dto.board.CreateBoardResponseView;
@@ -20,7 +21,7 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity create(@RequestBody CreateBoardRequestView board, @LoginUser User seller) {
         CreateBoardResponseView savedBoard = boardService.create(board, seller);
         return ResponseEntity.ok().body(savedBoard);
@@ -41,10 +42,10 @@ public class BoardController {
         return ResponseEntity.ok().body(boardService.listByCategory(category));
     }
 
-    @PutMapping
-    public ResponseEntity modify(@RequestBody ModifyBoardRequestView modify) {
-        boardService.modify(modify);
-        return ResponseEntity.ok().build();
+    @PutMapping("/{id}")
+    public ResponseEntity modify(@RequestBody ModifyBoardRequestView modify, @PathVariable Long id) {
+        Board modifiedBoard = boardService.modify(modify, id);
+        return ResponseEntity.ok().body(modifiedBoard);
     }
 
     @PostMapping("/{id}")
