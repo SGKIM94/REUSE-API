@@ -36,8 +36,9 @@ public class BuyerReviewController {
         return ResponseEntity.ok().body(buyerReviewService.list());
     }
 
-    @PutMapping
-    public ResponseEntity modify(@RequestBody BuyerReview buyerReview) {
-        return ResponseEntity.ok().build();
+    @PutMapping("{id}")
+    public ResponseEntity modify(@PathVariable Long id, @RequestBody BuyerReview buyerReview) {
+        BuyerReview modifiedBuyerReview = buyerReviewService.modify(buyerReview, id);
+        return ResponseEntity.ok().body(modifiedBuyerReview);
     }
 }
