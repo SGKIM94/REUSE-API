@@ -1,7 +1,6 @@
 package reuse.service;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import reuse.domain.BuyerReview;
@@ -17,6 +16,7 @@ import static reuse.fixture.BuyerReviewFixture.*;
 import static reuse.fixture.CommonFixture.DEFAULT_ID;
 import static reuse.fixture.UserFixture.TEST_USER;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BuyerReviewServiceTest extends AbstractServiceTest {
     @Mock
     private BuyerReviewRepository buyerReviewRepository;
@@ -56,6 +56,22 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
         assertThat(buyerReviews.getSize()).isEqualTo(2);
     }
 
+    @DisplayName("구매후기를 해당 ID 로 조회 가능한지")
+    @Test
+    @Order(1)
+    public void retrieve() {
+        //given
+        when(buyerReviewRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_BUYER_REVIEW));
+
+        //when
+        BuyerReview buyerReview = buyerReviewService.retrieve(DEFAULT_ID);
+
+        //then
+        assertThat(buyerReview.getContent()).isEqualTo(TEST_CONTENT);
+        assertThat(buyerReview.getRating()).isEqualTo(TEST_RATING);
+        assertThat(buyerReview.getTitle()).isEqualTo(TEST_TITLE);
+    }
+
     @DisplayName("모든 구매후기를 조회 가능한지")
     @Test
     public void list() {
@@ -69,26 +85,18 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
         assertThat(buyerReviews.getSize()).isEqualTo(3);
     }
 
-    @DisplayName("구매후기를 저장 가능한지")
+    @DisplayName("구매후기를 수정 가능한지")
     @Test
+    @Order(2)
     public void modify() {
-        buyerReviewService.modify(TEST_BUYER_REVIEW);
-        //TODO : 검증 필요
-    }
-
-    @DisplayName("구매후기를 해당 ID 로 조회 가능한지")
-    @Test
-    public void retrieve() {
         //given
         when(buyerReviewRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_BUYER_REVIEW));
 
-        //when
-        BuyerReview buyerReview = buyerReviewService.retrieve(DEFAULT_ID);
+        BuyerReview modifiedBuyerReview = buyerReviewService.modify(TEST_SECOND_BUYER_REVIEW, DEFAULT_ID);
 
-        //then
-        assertThat(buyerReview.getContent()).isEqualTo(TEST_CONTENT);
-        assertThat(buyerReview.getRating()).isEqualTo(TEST_RATING);
-        assertThat(buyerReview.getTitle()).isEqualTo(TEST_TITLE);
+        assertThat(modifiedBuyerReview.getTitle()).isEqualTo(TEST_SECOND_TITLE);
+        assertThat(modifiedBuyerReview.getContent()).isEqualTo(TEST_SECOND_CONTENT);
+        assertThat(modifiedBuyerReview.getRating()).isEqualTo(TEST_SECOND_RATING);
     }
 
     @DisplayName("구매후기가 존재하지 않는 것을 조회 시 예외를 처리하는지")
