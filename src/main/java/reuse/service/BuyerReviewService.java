@@ -38,4 +38,9 @@ public class BuyerReviewService {
     public void modify(BuyerReview buyerReview) {
 
     }
+
+    public BuyerReview retrieve(Long id) {
+        return buyerReviewRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 구매후기가 존재하지 않습니다. : " + id));
+    }
 }
