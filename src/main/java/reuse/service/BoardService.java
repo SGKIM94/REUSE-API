@@ -1,6 +1,7 @@
 package reuse.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import reuse.domain.Board;
 import reuse.domain.Product;
 import reuse.domain.User;
@@ -17,6 +18,7 @@ public class BoardService {
         this.productService = productService;
     }
 
+    @Transactional
     public CreateBoardResponseView create(CreateBoardRequestView board, User seller) {
         Product product = productService.findById(board.getProductId());
         Board savedBoard = boardRepository.save(CreateBoardRequestView.toEntity(board, product, seller));
@@ -31,7 +33,8 @@ public class BoardService {
         return boardRepository.findAllByCategory(category.toEntity());
     }
 
-    public Board modify(ModifyBoardRequestView modify) {
+    @Transactional
+    public Board modify(ModifyBoardRequestView modify, Long id) {
         Board board = modify.toEntity();
         board.modify(modify);
         return board;
@@ -46,6 +49,7 @@ public class BoardService {
         return FindBoardResponseView.toDto(findById(id));
     }
 
+    @Transactional
     public void delete(Long id) {
         Board board = findById(id);
         board.delete();
