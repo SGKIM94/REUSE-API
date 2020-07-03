@@ -1,6 +1,7 @@
 package reuse.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import reuse.domain.Board;
 import reuse.domain.BuyerReview;
 import reuse.domain.User;
@@ -18,6 +19,7 @@ public class BuyerReviewService {
         this.boardService = boardService;
     }
 
+    @Transactional
     public BuyerReview create(CreateBuyerReviewRequestView buyerReview, User buyer) {
         BuyerReview savedBuyerReview = buyerReviewRepository.save(buyerReview.toEntity(buyer));
 
@@ -35,8 +37,11 @@ public class BuyerReviewService {
         return ListBuyerReviewResponseView.toDtoByEntity(buyerReviewRepository.findAll());
     }
 
-    public void modify(BuyerReview buyerReview) {
+    @Transactional
+    public BuyerReview modify(BuyerReview buyerReview, Long id) {
+        BuyerReview originalBuyerReview = retrieve(id);
 
+        return originalBuyerReview.modify(buyerReview);
     }
 
     public BuyerReview retrieve(Long id) {
