@@ -77,8 +77,8 @@ public class BoardServiceTest extends AbstractServiceTest {
 
     @DisplayName("게시물 수정이 가능한지")
     @Test
-    public void update() {
-        Board modifiedBoard = boardService.modify(MODIFY_BOARD_REQUEST_DTO);
+    public void modify() {
+        Board modifiedBoard = boardService.modify(MODIFY_BOARD_REQUEST_DTO, DEFAULT_ID);
 
         assertThat(modifiedBoard.getTitle()).isEqualTo(TEST_MODIFY_BOARD_TITLE);
     }
