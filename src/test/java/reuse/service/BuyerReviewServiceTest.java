@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static reuse.fixture.BoardFixture.TEST_BOARD;
+import static reuse.fixture.BoardFixture.TEST_FIRST_BOARD_ID;
 import static reuse.fixture.BuyerReviewFixture.*;
 import static reuse.fixture.CommonFixture.DEFAULT_ID;
 import static reuse.fixture.UserFixture.TEST_USER;
@@ -61,7 +62,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     @Order(1)
     public void retrieve() {
         //given
-        when(buyerReviewRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_BUYER_REVIEW));
+        when(buyerReviewRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_BUYER_REVIEW1));
 
         //when
         BuyerReview buyerReview = buyerReviewService.retrieve(DEFAULT_ID);
@@ -109,5 +110,19 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
 
         //then
         assertThat(errorMessage).isEqualTo("해당 구매후기가 존재하지 않습니다. : " + DEFAULT_ID);
+    }
+
+    @DisplayName("구매후기를 작성하는 사용자와 게시글의 구매자와 같지 않은 경우 예외를 처리하는지")
+    @Test
+    public void verifyBuyer() {
+        //given
+        when(boardService.findById(any())).thenReturn(TEST_BOARD);
+
+        String errorMessage = assertThrows(IllegalArgumentException.class, () -> {
+            buyerReviewService.verifyBuyer(getCreateBuyerReviewRequestView(TEST_FIRST_BOARD_ID), TEST_USER);
+        }).getMessage();
+
+        //then
+        assertThat(errorMessage).isEqualTo("게시글의 구매자와 사용자의 ID 가 일치하지 않습니다.");
     }
 }
