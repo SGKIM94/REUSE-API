@@ -134,6 +134,7 @@ public class Board extends AbstractEntity {
         return SalesStatusType.COMPLETE.equals(this.salesStatus);
     }
 
+    @JsonIgnore
     public Long getBuyerId() {
         return this.buyer.getId();
     }
