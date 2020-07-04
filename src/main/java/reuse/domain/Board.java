@@ -11,6 +11,10 @@ import javax.validation.constraints.Size;
 @Entity
 @NoArgsConstructor
 public class Board extends AbstractEntity {
+    public enum SalesStatusType {
+        SALE, BOOKING, COMPLETE, STOP
+    }
+
     @Size(min = 1, max = 100)
     private String title;
 
@@ -22,8 +26,12 @@ public class Board extends AbstractEntity {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="seller_id")
     private User seller;
+
+    @ManyToOne
+    @JoinColumn(name="buyer_id")
+    private User buyer;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="buyer_review_id")
@@ -31,20 +39,24 @@ public class Board extends AbstractEntity {
 
     private String sellerAddress;
 
+    private SalesStatusType salesStatus;
+
     private Boolean isDeleted = false;
 
     @Builder
-    public Board(String title, String content, Product product, User seller, String sellerAddress, BuyerReview buyerReview) {
+    public Board(String title, String content, Product product, User seller, String sellerAddress, BuyerReview buyerReview, SalesStatusType salesStatus, User buyer) {
         this.title = title;
         this.content = content;
         this.product = product;
         this.seller = seller;
         this.sellerAddress = sellerAddress;
         this.buyerReview = buyerReview;
+        this.salesStatus = salesStatus;
+        this.buyer = buyer;
     }
 
     @Builder
-    public Board(Long id, String title, String content, Product product, User seller, String sellerAddress, BuyerReview buyerReview) {
+    public Board(Long id, String title, String content, Product product, User seller, String sellerAddress, BuyerReview buyerReview, SalesStatusType salesStatus, User buyer) {
         super(id);
         this.title = title;
         this.content = content;
@@ -52,6 +64,8 @@ public class Board extends AbstractEntity {
         this.seller = seller;
         this.sellerAddress = sellerAddress;
         this.buyerReview = buyerReview;
+        this.salesStatus = salesStatus;
+        this.buyer = buyer;
     }
 
     public String getTitle() {
@@ -76,6 +90,10 @@ public class Board extends AbstractEntity {
 
     public Boolean getIsDeleted() {
         return isDeleted;
+    }
+
+    public SalesStatusType getSalesStatus() {
+        return salesStatus;
     }
 
     public Board modify(ModifyBoardRequestView modify) {
@@ -110,5 +128,13 @@ public class Board extends AbstractEntity {
 
     public BuyerReview getBuyerReview() {
         return this.buyerReview;
+    }
+
+    public boolean isCompleteSalesStatus() {
+        return SalesStatusType.COMPLETE.equals(this.salesStatus);
+    }
+
+    public Long getBuyerId() {
+        return this.buyer.getId();
     }
 }
