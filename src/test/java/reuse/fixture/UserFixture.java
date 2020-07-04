@@ -30,5 +30,6 @@ public class UserFixture extends CommonFixture {
     }
 
     public static final User TEST_USER = new User(DEFAULT_ID, TEST_SOCIAL_TOKEN_ID, TEST_USER_NAME, TEST_NAVER_SOCIAL_TYPE);
+    public static final User TEST_SECOND_USER = new User(SECOND_ID, TEST_SOCIAL_TOKEN_ID, TEST_USER_NAME, TEST_NAVER_SOCIAL_TYPE);
     public static final User LOGIN_USER = User.builder().socialTokenId(TEST_SOCIAL_TOKEN_ID).socialType(TEST_NAVER_SOCIAL_TYPE).build();
 }
