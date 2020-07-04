@@ -9,6 +9,7 @@ import java.util.List;
 import static reuse.fixture.CategoryFixture.*;
 import static reuse.fixture.ProductFixture.TEST_PRODUCT;
 import static reuse.fixture.ProductFixture.TEST_PRODUCT_ID;
+import static reuse.fixture.UserFixture.TEST_SECOND_USER;
 import static reuse.fixture.UserFixture.TEST_USER;
 
 public class BoardFixture extends CommonFixture {
@@ -25,11 +26,12 @@ public class BoardFixture extends CommonFixture {
 
     public static final Board TEST_BOARD
             = Board.builder().id(TEST_FIRST_BOARD_ID).title(TEST_BOARD_TITLE).content(TEST_BOARD_CONTENT)
-            .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).build();
+            .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).buyer(TEST_SECOND_USER)
+            .salesStatus(Board.SalesStatusType.BOOKING).build();
 
     public static final Board TEST_SECOND_BOARD
             = Board.builder().title(TEST_BOARD_TITLE).content(TEST_BOARD_CONTENT)
-            .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).build();
+            .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).salesStatus(Board.SalesStatusType.COMPLETE).build();
 
     public static final Board MODIFY_TEST_BOARD
             = Board.builder().title(TEST_MODIFY_BOARD_TITLE).content(TEST_BOARD_CONTENT)
