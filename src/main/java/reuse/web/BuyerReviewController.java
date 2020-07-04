@@ -3,6 +3,7 @@ package reuse.web;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reuse.domain.Board;
 import reuse.domain.BuyerReview;
 import reuse.domain.User;
 import reuse.dto.review.buyer.CreateBuyerReviewRequestView;
@@ -21,6 +22,8 @@ public class BuyerReviewController {
 
     @PostMapping("")
     public ResponseEntity create(@RequestBody CreateBuyerReviewRequestView board, @LoginUser User buyer) {
+        Board savedBoard = buyerReviewService.verifyBuyer(board, buyer);
+        buyerReviewService.verifyBoardStatus(savedBoard);
         BuyerReview buyerReview = buyerReviewService.create(board, buyer);
         return ResponseEntity.ok().body(buyerReview);
     }
