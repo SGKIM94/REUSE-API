@@ -125,4 +125,20 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
         //then
         assertThat(errorMessage).isEqualTo("게시글의 구매자와 사용자의 ID 가 일치하지 않습니다.");
     }
+
+    @DisplayName("구매후기를 작성하는 사용자와 게시글이 거래 완료 상태가 아닌 경우 예외를 처리하는지")
+    @Test
+    public void verifySalesStatus() {
+        //given
+        when(boardService.findById(any())).thenReturn(TEST_BOARD);
+
+        //when
+        String errorMessage = assertThrows(IllegalArgumentException.class, () -> {
+            buyerReviewService.verifyBoardStatus(getCreateBuyerReviewRequestView(TEST_FIRST_BOARD_ID));
+        }).getMessage();
+
+        //then
+        assertThat(errorMessage).isEqualTo("거래완료가 되지 않은 게시글입니다. : 1");
+    }
+
 }
