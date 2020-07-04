@@ -13,14 +13,21 @@ public class BoardTest {
     @DisplayName("게시물을 수정 가능한지")
     @Test
     public void modify() {
-        //given
-        Board board = TEST_BOARD;
-
         //when
-        board.modify(MODIFY_BOARD_REQUEST_DTO);
+        Board modifiedBoard = TEST_BOARD.modify(MODIFY_BOARD_REQUEST_DTO);
 
         //then
-        assertThat(board.getTitle()).isEqualTo(TEST_MODIFY_BOARD_TITLE);
+        assertThat(modifiedBoard.getTitle()).isEqualTo(TEST_MODIFY_BOARD_TITLE);
+    }
+
+    @DisplayName("게시물을 수정 파라미터의 Board 가 비었을 때 빈 Board 를 리턴하는지")
+    @Test
+    public void modifyWhenEmpty() {
+        //when
+        Board modifiedBoard = TEST_BOARD.modify(null);
+
+        //then
+        assertThat(modifiedBoard.getTitle()).isNull();
     }
 
     @DisplayName("게시글이 삭제가 되는지")
