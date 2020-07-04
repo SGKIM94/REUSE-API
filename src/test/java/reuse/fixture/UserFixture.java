@@ -19,7 +19,6 @@ public class UserFixture extends CommonFixture {
     public static final LoginUserRequestView USER_LOGIN_REQUEST_DTO = LoginUserRequestView.builder().id(TEST_USER_ID)
             .socialTokenId(TEST_SOCIAL_TOKEN_ID).socialType(TEST_NAVER_SOCIAL_TYPE).build();
     public static final FindByIdResponseView FIND_BY_EMAIL_RESPONSE_VIEW = new FindByIdResponseView(TEST_USER_ID, TEST_USER_EMAIL, TEST_USER_PASSWORD);
-    public static final FindBySocialTokenIdResponseView FIND_BY_SOCIAL_TOKEN_ID_RESPONSE_VIEW = new FindBySocialTokenIdResponseView(TEST_USER_ID, TEST_SOCIAL_TOKEN_ID, TEST_NAVER_SOCIAL_TYPE);
 
     public static CreateUserRequestView getCreateUserRequestView(User user) {
         return CreateUserRequestView.builder().name(user.getName()).socialTokenId(user.getSocialTokenId()).build();
