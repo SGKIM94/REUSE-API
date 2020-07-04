@@ -35,9 +35,9 @@ public class BoardService {
 
     @Transactional
     public Board modify(ModifyBoardRequestView modify, Long id) {
-        Board board = modify.toEntity();
-        board.modify(modify);
-        return board;
+        Board board = findById(id);
+
+        return board.modify(modify);
     }
 
     public Board findById(Long id) {
