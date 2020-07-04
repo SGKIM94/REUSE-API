@@ -1,12 +1,14 @@
 package reuse.chat.domain;
 
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import reuse.domain.AbstractEntity;
 import reuse.domain.User;
 
 import javax.persistence.*;
 
 @Entity
+@NoArgsConstructor
 public class ChatMessage extends AbstractEntity {
     public enum MessageType {
         CHAT, JOIN, LEAVE
