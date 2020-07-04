@@ -72,7 +72,7 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     @DisplayName("게시판 수정이 가능한지")
     @Test
     @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
-    public void updateBoard() {
+    public void modifyBoard() {
         CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
 
         //when
