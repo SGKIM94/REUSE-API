@@ -58,7 +58,7 @@ public class BuyerReview extends AbstractEntity {
 
     public BuyerReview modify(BuyerReview buyerReview) {
         if (buyerReview == null) {
-            return new BuyerReview();
+            return this;
         }
 
         this.rating = buyerReview.getRating();

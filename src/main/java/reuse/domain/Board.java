@@ -78,15 +78,17 @@ public class Board extends AbstractEntity {
         return isDeleted;
     }
 
-    public void modify(ModifyBoardRequestView modify) {
+    public Board modify(ModifyBoardRequestView modify) {
         if (modify == null) {
-            return;
+            return this;
         }
 
         this.title = modify.getTitle();
         this.content = modify.getContent();
         this.product = modify.getProduct();
         this.sellerAddress = modify.getSellerAddress();
+
+        return this;
     }
 
     public void mappingBuyerReview(BuyerReview buyerReview) {
