@@ -14,14 +14,16 @@ public class CreateBuyerReviewRequestView {
     private String title;
     private String content;
     private String rating;
+    private User buyer;
     private Long boardId;
 
     @Builder
-    public CreateBuyerReviewRequestView(String title, String content, String rating, Long boardId) {
+    public CreateBuyerReviewRequestView(String title, String content, String rating, Long boardId, User buyer) {
         this.title = title;
         this.content = content;
         this.rating = rating;
         this.boardId = boardId;
+        this.buyer = buyer;
     }
 
     public BuyerReview toEntity(User buyer) {
