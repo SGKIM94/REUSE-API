@@ -47,6 +47,7 @@ public class BuyerReviewFixture extends CommonFixture {
                 .content(TEST_CONTENT)
                 .rating(TEST_RATING)
                 .title(TEST_TITLE)
+                .buyer(TEST_USER)
                 .build();
     }
 }
