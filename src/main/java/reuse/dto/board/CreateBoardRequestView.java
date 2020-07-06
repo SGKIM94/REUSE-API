@@ -34,7 +34,7 @@ public class CreateBoardRequestView {
                 .product(product)
                 .seller(seller)
                 .sellerAddress(board.getSellerAddress())
-                .salesStatus(board.getSalesStatus())
+                .salesStatus(Board.SalesStatusType.SALE)
                 .build();
     }
 }
