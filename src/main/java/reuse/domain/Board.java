@@ -11,6 +11,7 @@ import javax.validation.constraints.Size;
 @Entity
 @NoArgsConstructor
 public class Board extends AbstractEntity {
+    // TODO: 일급 콜렉션으로 추출 필요
     public enum SalesStatusType {
         SALE, BOOKING, COMPLETE, STOP
     }
@@ -39,6 +40,7 @@ public class Board extends AbstractEntity {
 
     private String sellerAddress;
 
+    @Enumerated(EnumType.ORDINAL)
     private SalesStatusType salesStatus;
 
     private Boolean isDeleted = false;
