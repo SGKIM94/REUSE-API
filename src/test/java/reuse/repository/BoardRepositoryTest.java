@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import reuse.domain.Board;
 import reuse.dto.board.FindWithProductResponseView;
 import reuse.dto.board.ListBoardWithProductResponseView;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static reuse.fixture.BoardFixture.TEST_FIRST_BOARD_ID;
-import static reuse.fixture.BoardFixture.TEST_SIXTH_BOARD_ID;
+import static reuse.fixture.BoardFixture.*;
 import static reuse.fixture.CategoryFixture.TEST_CATEGORY;
 
 @ExtendWith(SpringExtension.class)
@@ -33,5 +33,17 @@ public class BoardRepositoryTest {
         //then
         assertThat(firstBoard.getId()).isEqualTo(TEST_FIRST_BOARD_ID);
         assertThat(secondBoard.getId()).isEqualTo(TEST_SIXTH_BOARD_ID);
+    }
+
+    @DisplayName("게시글 생성이 되는지")
+    @Test
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql", "/insert-users.sql"})
+    public void create() {
+        //when
+        Board savedBoard = boardRepository.save(TEST_BOARD);
+
+        //then
+        assertThat(savedBoard.getId()).isEqualTo(TEST_FIRST_BOARD_ID);
+        assertThat(savedBoard.getSalesStatus()).isEqualTo(Board.SalesStatusType.SALE);
     }
 }
