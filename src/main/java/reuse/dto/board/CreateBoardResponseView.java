@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import reuse.domain.Board;
-import reuse.domain.Product;
 
 @Getter
 @Setter
