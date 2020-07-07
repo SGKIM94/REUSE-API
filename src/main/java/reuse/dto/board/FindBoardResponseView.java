@@ -18,15 +18,17 @@ public class FindBoardResponseView {
     private Product product;
     private User seller;
     private String sellerAddress;
+    private Board.SalesStatusType salesStatus;
 
     @Builder
-    public FindBoardResponseView(Long id, String title, String content, Product product, User seller, String sellerAddress) {
+    public FindBoardResponseView(Long id, String title, String content, Product product, User seller, String sellerAddress, Board.SalesStatusType salesStatus) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.product = product;
         this.seller = seller;
         this.sellerAddress = sellerAddress;
+        this.salesStatus = salesStatus;
     }
 
     public static FindBoardResponseView toDto(Board board) {
@@ -37,6 +39,7 @@ public class FindBoardResponseView {
                 .product(board.getProduct())
                 .seller(board.getSeller())
                 .sellerAddress(board.getSellerAddress())
+                .salesStatus(board.getSalesStatus())
                 .build();
     }
 }
