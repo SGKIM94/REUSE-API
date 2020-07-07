@@ -6,12 +6,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import reuse.domain.User;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 @Setter
 @NoArgsConstructor
 public class LoginUserRequestView {
     private Long id;
+    @NotBlank(message = "socialTokenId 는 필수 값입니다.")
     private String socialTokenId;
+    @NotBlank(message = "socialType 은 필수 값입니다.")
     private String socialType;
 
     @Builder
