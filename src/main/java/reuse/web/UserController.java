@@ -8,6 +8,7 @@ import reuse.dto.user.CreateUserResponseView;
 import reuse.dto.user.LoginUserRequestView;
 import reuse.service.UserService;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -26,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginUserRequestView loginUser) {
+    public ResponseEntity login(@Valid @RequestBody LoginUserRequestView loginUser) {
         return ResponseEntity.ok().body(userService.login(loginUser));
     }
 
