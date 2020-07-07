@@ -11,6 +11,8 @@ import reuse.domain.Board;
 import reuse.dto.board.FindWithProductResponseView;
 import reuse.dto.board.ListBoardWithProductResponseView;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.BoardFixture.*;
 import static reuse.fixture.CategoryFixture.TEST_CATEGORY;
@@ -45,5 +47,20 @@ public class BoardRepositoryTest {
         //then
         assertThat(savedBoard.getId()).isEqualTo(TEST_FIRST_BOARD_ID);
         assertThat(savedBoard.getSalesStatus()).isEqualTo(Board.SalesStatusType.SALE);
+    }
+
+    @DisplayName("게시글 조회 시 SalesStatusType 이 정상적으로 조회되는지")
+    @Test
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql", "/insert-users.sql"})
+    public void findAll() {
+        //given
+        boardRepository.save(TEST_BOARD);
+
+        //when
+        List<Board> boards = boardRepository.findAll();
+        Board board = boards.get(0);
+
+        //then
+        assertThat(board.getSalesStatus()).isEqualTo(Board.SalesStatusType.SALE);
     }
 }
