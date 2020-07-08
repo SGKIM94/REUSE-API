@@ -7,6 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static reuse.fixture.BoardFixture.*;
 import static reuse.fixture.BuyerReviewFixture.TEST_BUYER_REVIEW;
+import static reuse.fixture.UserFixture.TEST_USER;
 
 public class BoardTest {
 
@@ -67,6 +68,16 @@ public class BoardTest {
 
         assertThat(errorMessage).isEqualTo("Empty buyerReview when mapping to the Board!");
     }
+
+    @DisplayName("Board 에 BuyerReview 를 연결시키기위한 외래키를 저장 시 존재하지 않을 경우 예외처리하는지")
+    @Test
+    public void reserve() {
+        //given
+        Board board = TEST_BOARD;
+
+        //when
+        board.reserve(TEST_USER);
+
+        assertThat(board.getSalesStatus()).isEqualTo(Board.SalesStatusType.RESERVE);
+    }
 }
-
-
