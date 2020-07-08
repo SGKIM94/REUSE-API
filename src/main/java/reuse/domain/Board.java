@@ -140,4 +140,14 @@ public class Board extends AbstractEntity {
     public Long getBuyerId() {
         return this.buyer.getId();
     }
+
+    public Board reserve(User seller) {
+        if (!seller.getSocialTokenId().equals(this.seller.getSocialTokenId())) {
+            throw new IllegalArgumentException("판매자와 예약 신청한 사용자가 다릅니다.");
+        }
+
+        this.salesStatus = SalesStatusType.RESERVE;
+
+        return this;
+    }
 }
