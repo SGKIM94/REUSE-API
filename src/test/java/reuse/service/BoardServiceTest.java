@@ -94,4 +94,15 @@ public class BoardServiceTest extends AbstractServiceTest {
 
         assertThat(boards.getSize()).isEqualTo(2);
     }
+
+    @DisplayName("게시글 예약 신청 시 해당 게시글을 가져와 상태값을 예약으로 변경시키는지")
+    @Test
+    public void reserve() {
+        when(boardRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_BOARD));
+
+        Board board = boardService.reserve(DEFAULT_ID, TEST_USER);
+
+        assertThat(board.getSalesStatus()).isEqualTo(Board.SalesStatusType.RESERVE);
+    }
+
 }
