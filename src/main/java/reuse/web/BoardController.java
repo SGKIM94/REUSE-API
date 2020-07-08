@@ -49,8 +49,13 @@ public class BoardController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity delete(@PathVariable long id) {
+    public ResponseEntity delete(@PathVariable Long id) {
         boardService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/reservation")
+    public ResponseEntity reserve(@RequestBody Long id, @LoginUser User seller) {
         return ResponseEntity.ok().build();
     }
 }
