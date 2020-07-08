@@ -124,6 +124,21 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(secondBoard.getId()).isEqualTo(TEST_SIXTH_BOARD_ID);
     }
 
+    @DisplayName("게시글의 상태를 예약 중으로 변경이 가능한지")
+    @Test
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
+    public void reserve() {
+        //given
+        restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
+
+        //when
+        EntityExchangeResult<Void> exchangeResponse = restWebClientTest.postMethodWithAuthAcceptance
+                (BOARD_BASE_URL + "/reservation", MODIFY_BOARD_REQUEST_DTO, Void.class, getJwt());
+
+        HttpStatus status = exchangeResponse.getStatus();
+        assertThat(status).isEqualByComparingTo(HttpStatus.OK);
+    }
+
 
     public String getJwt() {
         return tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
