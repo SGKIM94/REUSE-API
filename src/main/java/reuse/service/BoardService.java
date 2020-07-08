@@ -53,4 +53,11 @@ public class BoardService {
         Board board = findById(id);
         board.delete();
     }
+
+    @Transactional
+    public Board reserve(Long id, User testUser) {
+        Board board = findById(id);
+
+        return board.reserve(testUser);
+    }
 }
