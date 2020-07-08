@@ -15,8 +15,9 @@ public class CreateUserRequestView {
     private String name;
 
     @Builder
-    public CreateUserRequestView(String socialTokenId, String name) {
+    public CreateUserRequestView(String socialTokenId, String socialType, String name) {
         this.socialTokenId = socialTokenId;
+        this.socialType = socialType;
         this.name = name;
     }
 
