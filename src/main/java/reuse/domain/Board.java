@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 public class Board extends AbstractEntity {
     // TODO: 일급 콜렉션으로 추출 필요
     public enum SalesStatusType {
-        SALE, BOOKING, COMPLETE, STOP
+        SALE, RESERVE, COMPLETE, STOP
     }
 
     @Size(min = 1, max = 100)
