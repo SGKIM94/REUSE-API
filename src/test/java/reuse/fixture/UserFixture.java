@@ -11,6 +11,7 @@ public class UserFixture extends CommonFixture {
     public static final String TEST_USER_EMAIL = "sgkim94@github.com";
     public static final String TEST_USER_PASSWORD = "password";
     public static final String TEST_SOCIAL_TOKEN_ID = "tokenId";
+    public static final String TEST_SECOND_SOCIAL_TOKEN_ID = "secondTokenId";
     public static final String TEST_NAVER_SOCIAL_TYPE = "naver";
 
     public static final CreateUserRequestView USER_SIGH_UP_REQUEST_DTO = CreateUserRequestView.builder()
@@ -28,6 +29,6 @@ public class UserFixture extends CommonFixture {
     }
 
     public static final User TEST_USER = new User(DEFAULT_ID, TEST_SOCIAL_TOKEN_ID, TEST_USER_NAME, TEST_NAVER_SOCIAL_TYPE);
-    public static final User TEST_SECOND_USER = new User(SECOND_ID, TEST_SOCIAL_TOKEN_ID, TEST_USER_NAME, TEST_NAVER_SOCIAL_TYPE);
+    public static final User TEST_SECOND_USER = new User(SECOND_ID, TEST_SECOND_SOCIAL_TOKEN_ID, TEST_USER_NAME, TEST_NAVER_SOCIAL_TYPE);
     public static final User LOGIN_USER = User.builder().socialTokenId(TEST_SOCIAL_TOKEN_ID).socialType(TEST_NAVER_SOCIAL_TYPE).build();
 }
