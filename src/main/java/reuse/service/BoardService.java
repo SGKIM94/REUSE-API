@@ -60,4 +60,9 @@ public class BoardService {
 
         return board.reserve(testUser);
     }
+
+    @Transactional
+    public Board complete(Long id, User testUser) {
+        return new Board();
+    }
 }
