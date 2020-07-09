@@ -105,4 +105,14 @@ public class BoardServiceTest extends AbstractServiceTest {
         assertThat(board.getSalesStatus()).isEqualTo(Board.SalesStatusType.RESERVE);
     }
 
+    @DisplayName("게시글 판매 완료 시")
+    @Test
+    public void complete() {
+        when(boardRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_BOARD));
+
+        Board board = boardService.reserve(DEFAULT_ID, TEST_USER);
+
+        assertThat(board.getSalesStatus()).isEqualTo(Board.SalesStatusType.RESERVE);
+    }
+
 }
