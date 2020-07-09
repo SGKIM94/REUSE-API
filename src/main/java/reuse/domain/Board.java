@@ -3,6 +3,7 @@ package reuse.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import reuse.dto.board.ModifyBoardRequestView;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @NoArgsConstructor
+@Slf4j
 public class Board extends AbstractEntity {
     // TODO: 일급 콜렉션으로 추출 필요
     public enum SalesStatusType {
@@ -142,12 +144,21 @@ public class Board extends AbstractEntity {
     }
 
     public Board reserve(User seller) {
-        if (!seller.getSocialTokenId().equals(this.seller.getSocialTokenId())) {
+        String userSocialTokenId = seller.getSocialTokenId();
+        String boardSellerSocialTokenId = this.seller.getSocialTokenId();
+
+        if (!userSocialTokenId.equals(boardSellerSocialTokenId)) {
+            log.error("#### seller 의 SocialTokenId : " + boardSellerSocialTokenId);
+            log.error("#### User 의 SocialTokenId : " + userSocialTokenId);
             throw new IllegalArgumentException("판매자와 예약 신청한 사용자가 다릅니다.");
         }
 
-        this.salesStatus = SalesStatusType.RESERVE;
+        if (!this.salesStatus.equals(SalesStatusType.SALE)) {
+            log.error("#### 현재 게시글의 상태 : " + this.salesStatus);
+            throw new IllegalArgumentException("판매 중 상태인 경우에만 에약이 가능합니다.");
+        }
 
+        this.salesStatus = SalesStatusType.RESERVE;
         return this;
     }
 }
