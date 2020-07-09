@@ -56,6 +56,7 @@ public class BoardController {
 
     @PostMapping("/reservation")
     public ResponseEntity reserve(@RequestBody Long id, @LoginUser User seller) {
-        return ResponseEntity.ok().build();
+        Board reserve = boardService.reserve(id, seller);
+        return ResponseEntity.ok().body(reserve);
     }
 }
