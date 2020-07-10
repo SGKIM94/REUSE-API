@@ -143,22 +143,39 @@ public class Board extends AbstractEntity {
         return this.buyer.getId();
     }
 
-    public Board reserve(User seller) {
-        String userSocialTokenId = seller.getSocialTokenId();
-        String boardSellerSocialTokenId = this.seller.getSocialTokenId();
-
-        if (!userSocialTokenId.equals(boardSellerSocialTokenId)) {
-            log.error("#### seller 의 SocialTokenId : " + boardSellerSocialTokenId);
-            log.error("#### User 의 SocialTokenId : " + userSocialTokenId);
-            throw new IllegalArgumentException("판매자와 예약 신청한 사용자가 다릅니다.");
-        }
-
-        if (!this.salesStatus.equals(SalesStatusType.SALE)) {
-            log.error("#### 현재 게시글의 상태 : " + this.salesStatus);
-            throw new IllegalArgumentException("판매 중 상태인 경우에만 에약이 가능합니다.");
-        }
+    public Board reserve(User requester) {
+        verifyThatUserAndRequester(requester, SalesStatusType.SALE);
 
         this.salesStatus = SalesStatusType.RESERVE;
         return this;
+    }
+
+    public Board complete(User requester) {
+        verifyThatUserAndRequester(requester, SalesStatusType.RESERVE);
+
+        this.salesStatus = SalesStatusType.COMPLETE;
+        return this;
+    }
+
+    void verifyThatUserAndRequester(User requester, SalesStatusType requiredStatus) {
+        String requesterSocialTokenId = requester.getSocialTokenId();
+        String boardSellerSocialTokenId = this.seller.getSocialTokenId();
+
+        verifyThatSellerAndRequestAretheSame(requesterSocialTokenId, boardSellerSocialTokenId);
+        verifyThatBoardCanChangeStatus(requiredStatus);
+    }
+
+    void verifyThatBoardCanChangeStatus(SalesStatusType sale) {
+        if (!this.salesStatus.equals(sale)) {
+            throw new IllegalArgumentException("현재 " + this.salesStatus + " 상태이므로 " + sale + " 상태로 변경이 불가능합니다.");
+        }
+    }
+
+    private void verifyThatSellerAndRequestAretheSame(String requesterSocialTokenId, String boardSellerSocialTokenId) {
+        if (!requesterSocialTokenId.equals(boardSellerSocialTokenId)) {
+            log.error("#### seller 의 SocialTokenId : " + boardSellerSocialTokenId);
+            log.error("#### User 의 SocialTokenId : " + requesterSocialTokenId);
+            throw new IllegalArgumentException("판매자와 예약 신청한 사용자가 다릅니다.");
+        }
     }
 }
