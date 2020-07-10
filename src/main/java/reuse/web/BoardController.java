@@ -59,4 +59,10 @@ public class BoardController {
         Board reserve = boardService.reserve(id, seller);
         return ResponseEntity.ok().body(reserve);
     }
+
+    @PostMapping("/complete")
+    public ResponseEntity complete(@RequestBody Long id, @LoginUser User seller) {
+        Board reserve = boardService.complete(id, seller);
+        return ResponseEntity.ok().body(reserve);
+    }
 }
