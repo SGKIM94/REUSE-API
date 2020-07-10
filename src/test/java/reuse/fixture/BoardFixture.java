@@ -34,6 +34,11 @@ public class BoardFixture extends CommonFixture {
             .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).salesStatus(Board.SalesStatusType.COMPLETE)
             .seller(TEST_USER).build();
 
+    public static final Board TEST_THIRD_BOARD
+            = Board.builder().title(TEST_BOARD_TITLE).content(TEST_BOARD_CONTENT)
+            .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).salesStatus(Board.SalesStatusType.RESERVE)
+            .seller(TEST_USER).build();
+
     public static final Board MODIFY_TEST_BOARD
             = Board.builder().title(TEST_MODIFY_BOARD_TITLE).content(TEST_BOARD_CONTENT)
             .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).build();
