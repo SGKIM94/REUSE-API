@@ -23,7 +23,7 @@ public class BoardTest {
         assertThat(errorMessage).isEqualTo("Empty buyerReview when mapping to the Board!");
     }
 
-    @DisplayName("Board 에 BuyerReview 를 연결시키기위한 외래키를 저장 시 존재하지 않을 경우 예외처리하는지")
+    @DisplayName("게시판을 예약 시 SalesStatus 값을 RESERVE 로 변경시키는지")
     @Test
     @Order(2)
     public void reserve() {
@@ -36,33 +36,49 @@ public class BoardTest {
         assertThat(board.getSalesStatus()).isEqualTo(Board.SalesStatusType.RESERVE);
     }
 
-    @DisplayName("예약 요청을 한 로그인 사용자와 게시글에 등록되어있는 판매자가 다른 경우 예외를 처리하는지")
+    @DisplayName("게시판을 예약 시 SalesStatus 값을 COMPLETE 로 변경시키는지")
     @Test
     @Order(3)
-    public void reserveFailWhenUserDifferenceBetweenBoardAndLogin() {
+    public void complete() {
+        //given
+        Board board = TEST_THIRD_BOARD;
+
+        //when
+        board.complete(TEST_USER);
+
+        //then
+        assertThat(board.getSalesStatus()).isEqualTo(Board.SalesStatusType.COMPLETE);
+    }
+
+    @DisplayName("예약 요청을 한 로그인 사용자와 게시글에 등록되어있는 판매자가 다른 경우 예외를 처리하는지")
+    @Test
+    @Order(4)
+    public void verifyThatUserAndRequester() {
         //given
         String errorMessage = assertThrows(IllegalArgumentException.class, () -> {
-            TEST_BOARD.reserve(TEST_SECOND_USER);
+            TEST_BOARD.verifyThatUserAndRequester(TEST_SECOND_USER, Board.SalesStatusType.SALE);
         }).getMessage();
 
+        //then
         assertThat(errorMessage).isEqualTo("판매자와 예약 신청한 사용자가 다릅니다.");
     }
 
     @DisplayName("예약 신청 시 게시글이 판매 중인 상태 값이 아닐 때 예외를 처리하는지")
     @Test
-    @Order(4)
-    public void reserveFailWhenNotSalesStatus() {
+    @Order(5)
+    public void verifyThatBoardCanChangeStatus() {
         //given
         String errorMessage = assertThrows(IllegalArgumentException.class, () -> {
-            TEST_SECOND_BOARD.reserve(TEST_USER);
+            TEST_SECOND_BOARD.verifyThatBoardCanChangeStatus(Board.SalesStatusType.SALE);
         }).getMessage();
 
-        assertThat(errorMessage).isEqualTo("판매 중 상태인 경우에만 에약이 가능합니다.");
+        //then
+        assertThat(errorMessage).isEqualTo("현재 COMPLETE 상태이므로 SALE 상태로 변경이 불가능합니다.");
     }
 
     @DisplayName("Board 에 BuyerReview 를 연결시키기위한 외래키를 저장하는지")
     @Test
-    @Order(5)
+    @Order(6)
     public void mappingBuyerReview() {
         //given
         BuyerReview buyerReview = TEST_BUYER_REVIEW;
@@ -77,7 +93,7 @@ public class BoardTest {
 
     @DisplayName("게시글이 삭제가 되는지")
     @Test
-    @Order(6)
+    @Order(7)
     public void delete() {
         //given
         Board board = TEST_BOARD;
@@ -91,7 +107,7 @@ public class BoardTest {
 
     @DisplayName("게시물을 수정 파라미터의 Board 가 비었을 때 빈 Board 를 리턴하는지")
     @Test
-    @Order(7)
+    @Order(8)
     public void modifyWhenEmpty() {
         //when
         Board modifiedBoard = TEST_BOARD.modify(null);
@@ -102,7 +118,7 @@ public class BoardTest {
 
     @DisplayName("게시물을 수정 가능한지")
     @Test
-    @Order(8)
+    @Order(9)
     public void modify() {
         //when
         Board modifiedBoard = TEST_BOARD.modify(MODIFY_BOARD_REQUEST_DTO);
