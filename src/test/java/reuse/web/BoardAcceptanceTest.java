@@ -139,6 +139,21 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
     }
 
+    @DisplayName("게시글의 상태를 판매완료 상태로 변경이 가능한지")
+    @Test
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
+    public void complete() {
+        //given
+        restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
+
+        //when
+        EntityExchangeResult<Void> exchangeResponse = restWebClientTest.postMethodWithAuthAcceptance
+                (BOARD_BASE_URL + "/complete", MODIFY_BOARD_REQUEST_DTO, Void.class, getJwt());
+
+        HttpStatus status = exchangeResponse.getStatus();
+        assertThat(status).isEqualByComparingTo(HttpStatus.OK);
+    }
+
 
     public String getJwt() {
         return tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
