@@ -79,4 +79,7 @@ public class BoardFixture extends CommonFixture {
     public static final ListBoardByCategoryRequestView LIST_BOARD_BY_CATEGORY_REQUEST_VIEW
              = ListBoardByCategoryRequestView.builder().manufacturer(TEST_MANUFACTURER).model(TEST_MODEL)
             .teleco(TEST_TELECO).build();
+
+    public static final ModifyBoardStatusRequestView MODIFY_BOARD_STATUS_REQUEST_VIEW
+            = ModifyBoardStatusRequestView.builder().id(DEFAULT_ID).build();
 }
