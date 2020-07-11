@@ -55,15 +55,15 @@ public class BoardService {
     }
 
     @Transactional
-    public Board reserve(Long id, User requester) {
-        Board board = findById(id);
+    public Board reserve(ModifyBoardStatusRequestView boardId, User requester) {
+        Board board = findById(boardId.getId());
 
         return board.reserve(requester);
     }
 
     @Transactional
-    public Board complete(Long id, User requester) {
-        Board board = findById(id);
+    public Board complete(ModifyBoardStatusRequestView boardId, User requester) {
+        Board board = findById(boardId.getId());
 
         return board.complete(requester);
     }
