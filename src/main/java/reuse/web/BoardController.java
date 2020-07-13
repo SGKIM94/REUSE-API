@@ -5,10 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reuse.domain.Board;
 import reuse.domain.User;
-import reuse.dto.board.CreateBoardRequestView;
-import reuse.dto.board.CreateBoardResponseView;
-import reuse.dto.board.ListBoardByCategoryRequestView;
-import reuse.dto.board.ModifyBoardRequestView;
+import reuse.dto.board.*;
 import reuse.security.LoginUser;
 import reuse.service.BoardService;
 
@@ -55,14 +52,14 @@ public class BoardController {
     }
 
     @PostMapping("/reservation")
-    public ResponseEntity reserve(@RequestBody Long id, @LoginUser User seller) {
-        Board reserve = boardService.reserve(id, seller);
+    public ResponseEntity reserve(@RequestBody ModifyBoardStatusRequestView boardId, @LoginUser User seller) {
+        Board reserve = boardService.reserve(boardId, seller);
         return ResponseEntity.ok().body(reserve);
     }
 
     @PostMapping("/complete")
-    public ResponseEntity complete(@RequestBody Long id, @LoginUser User seller) {
-        Board reserve = boardService.complete(id, seller);
+    public ResponseEntity complete(@RequestBody ModifyBoardStatusRequestView boardId, @LoginUser User seller) {
+        Board reserve = boardService.complete(boardId, seller);
         return ResponseEntity.ok().body(reserve);
     }
 }

@@ -101,7 +101,7 @@ public class BoardServiceTest extends AbstractServiceTest {
     public void reserve() {
         when(boardRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_BOARD));
 
-        Board board = boardService.reserve(DEFAULT_ID, TEST_USER);
+        Board board = boardService.reserve(MODIFY_BOARD_STATUS_REQUEST_VIEW, TEST_USER);
 
         assertThat(board.getSalesStatus()).isEqualTo(SalesStatusType.RESERVE);
     }
@@ -111,7 +111,7 @@ public class BoardServiceTest extends AbstractServiceTest {
     public void complete() {
         when(boardRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_BOARD));
 
-        Board board = boardService.reserve(DEFAULT_ID, TEST_USER);
+        Board board = boardService.reserve(MODIFY_BOARD_STATUS_REQUEST_VIEW, TEST_USER);
 
         assertThat(board.getSalesStatus()).isEqualTo(SalesStatusType.RESERVE);
     }
