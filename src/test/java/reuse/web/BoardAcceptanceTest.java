@@ -93,11 +93,12 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     @Order(4)
     public void reserve() {
         //given
-        restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
+        CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
+        ModifyBoardStatusRequestView request = ModifyBoardStatusRequestView.toDto(board.getId());
 
         //when
         EntityExchangeResult<Void> exchangeResponse = restWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/reservation", MODIFY_BOARD_REQUEST_DTO, Void.class, getJwt());
+                (BOARD_BASE_URL + "/reservation", request, Void.class, getJwt());
 
         HttpStatus status = exchangeResponse.getStatus();
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
@@ -111,10 +112,11 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         //given
         CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
         reserveBoard(new ModifyBoardStatusRequestView(board.getId()));
+        ModifyBoardStatusRequestView request = ModifyBoardStatusRequestView.toDto(board.getId());
 
         //when
         EntityExchangeResult<Void> exchangeResponse = restWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/complete", MODIFY_BOARD_REQUEST_DTO, Void.class, getJwt());
+                (BOARD_BASE_URL + "/complete", request, Void.class, getJwt());
 
         HttpStatus status = exchangeResponse.getStatus();
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
