@@ -13,11 +13,6 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Slf4j
 public class Board extends AbstractEntity {
-    // TODO: 일급 콜렉션으로 추출 필요
-    public enum SalesStatusType {
-        SALE, RESERVE, COMPLETE, STOP
-    }
-
     @Size(min = 1, max = 100)
     private String title;
 

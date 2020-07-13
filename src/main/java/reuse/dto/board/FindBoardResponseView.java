@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import reuse.domain.Board;
 import reuse.domain.Product;
+import reuse.domain.SalesStatusType;
 import reuse.domain.User;
 
 @Getter
@@ -18,10 +19,10 @@ public class FindBoardResponseView {
     private Product product;
     private User seller;
     private String sellerAddress;
-    private Board.SalesStatusType salesStatus;
+    private SalesStatusType salesStatus;
 
     @Builder
-    public FindBoardResponseView(Long id, String title, String content, Product product, User seller, String sellerAddress, Board.SalesStatusType salesStatus) {
+    public FindBoardResponseView(Long id, String title, String content, Product product, User seller, String sellerAddress, SalesStatusType salesStatus) {
         this.id = id;
         this.title = title;
         this.content = content;
