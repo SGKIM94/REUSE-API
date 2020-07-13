@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reuse.domain.Board;
+import reuse.domain.SalesStatusType;
 import reuse.dto.board.FindWithProductResponseView;
 import reuse.dto.board.ListBoardWithProductResponseView;
 
@@ -46,7 +47,7 @@ public class BoardRepositoryTest {
 
         //then
         assertThat(savedBoard.getId()).isEqualTo(TEST_FIRST_BOARD_ID);
-        assertThat(savedBoard.getSalesStatus()).isEqualTo(Board.SalesStatusType.SALE);
+        assertThat(savedBoard.getSalesStatus()).isEqualTo(SalesStatusType.SALE);
     }
 
     @DisplayName("게시글 조회 시 SalesStatusType 이 정상적으로 조회되는지")
@@ -61,6 +62,6 @@ public class BoardRepositoryTest {
         Board board = boards.get(0);
 
         //then
-        assertThat(board.getSalesStatus()).isEqualTo(Board.SalesStatusType.SALE);
+        assertThat(board.getSalesStatus()).isEqualTo(SalesStatusType.SALE);
     }
 }

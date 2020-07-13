@@ -33,7 +33,7 @@ public class BoardTest {
         //when
         board.reserve(TEST_USER);
 
-        assertThat(board.getSalesStatus()).isEqualTo(Board.SalesStatusType.RESERVE);
+        assertThat(board.getSalesStatus()).isEqualTo(SalesStatusType.RESERVE);
     }
 
     @DisplayName("게시판을 예약 시 SalesStatus 값을 COMPLETE 로 변경시키는지")
@@ -47,7 +47,7 @@ public class BoardTest {
         board.complete(TEST_USER);
 
         //then
-        assertThat(board.getSalesStatus()).isEqualTo(Board.SalesStatusType.COMPLETE);
+        assertThat(board.getSalesStatus()).isEqualTo(SalesStatusType.COMPLETE);
     }
 
     @DisplayName("예약 요청을 한 로그인 사용자와 게시글에 등록되어있는 판매자가 다른 경우 예외를 처리하는지")
@@ -56,7 +56,7 @@ public class BoardTest {
     public void verifyThatUserAndRequester() {
         //given
         String errorMessage = assertThrows(IllegalArgumentException.class, () -> {
-            TEST_BOARD.verifyThatUserAndRequester(TEST_SECOND_USER, Board.SalesStatusType.SALE);
+            TEST_BOARD.verifyThatUserAndRequester(TEST_SECOND_USER, SalesStatusType.SALE);
         }).getMessage();
 
         //then
@@ -69,7 +69,7 @@ public class BoardTest {
     public void verifyThatBoardCanChangeStatus() {
         //given
         String errorMessage = assertThrows(IllegalArgumentException.class, () -> {
-            TEST_SECOND_BOARD.verifyThatBoardCanChangeStatus(Board.SalesStatusType.SALE);
+            TEST_SECOND_BOARD.verifyThatBoardCanChangeStatus(SalesStatusType.SALE);
         }).getMessage();
 
         //then

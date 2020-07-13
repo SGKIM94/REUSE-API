@@ -148,7 +148,7 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
 
         //when
         EntityExchangeResult<Void> exchangeResponse = restWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/complete", MODIFY_BOARD_REQUEST_DTO, Void.class, getJwt());
+                (BOARD_BASE_URL + "/complete", DEFAULT_ID, Void.class, getJwt());
 
         HttpStatus status = exchangeResponse.getStatus();
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);

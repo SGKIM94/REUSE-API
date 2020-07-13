@@ -1,6 +1,7 @@
 package reuse.fixture;
 
 import reuse.domain.Board;
+import reuse.domain.SalesStatusType;
 import reuse.dto.board.*;
 
 import java.util.Arrays;
@@ -27,16 +28,16 @@ public class BoardFixture extends CommonFixture {
     public static final Board TEST_BOARD
             = Board.builder().id(TEST_FIRST_BOARD_ID).title(TEST_BOARD_TITLE).content(TEST_BOARD_CONTENT)
             .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).buyer(TEST_SECOND_USER).seller(TEST_USER)
-            .salesStatus(Board.SalesStatusType.SALE).build();
+            .salesStatus(SalesStatusType.SALE).build();
 
     public static final Board TEST_SECOND_BOARD
             = Board.builder().title(TEST_BOARD_TITLE).content(TEST_BOARD_CONTENT)
-            .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).salesStatus(Board.SalesStatusType.COMPLETE)
+            .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).salesStatus(SalesStatusType.COMPLETE)
             .seller(TEST_USER).build();
 
     public static final Board TEST_THIRD_BOARD
             = Board.builder().title(TEST_BOARD_TITLE).content(TEST_BOARD_CONTENT)
-            .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).salesStatus(Board.SalesStatusType.RESERVE)
+            .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).salesStatus(SalesStatusType.RESERVE)
             .seller(TEST_USER).build();
 
     public static final Board MODIFY_TEST_BOARD

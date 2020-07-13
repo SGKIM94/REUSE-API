@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import reuse.domain.Board;
+import reuse.domain.SalesStatusType;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.dto.board.FindBoardResponseView;
 import reuse.dto.board.ListBoardResponseView;
@@ -102,7 +103,7 @@ public class BoardServiceTest extends AbstractServiceTest {
 
         Board board = boardService.reserve(DEFAULT_ID, TEST_USER);
 
-        assertThat(board.getSalesStatus()).isEqualTo(Board.SalesStatusType.RESERVE);
+        assertThat(board.getSalesStatus()).isEqualTo(SalesStatusType.RESERVE);
     }
 
     @DisplayName("게시글 판매 완료 시")
@@ -112,7 +113,7 @@ public class BoardServiceTest extends AbstractServiceTest {
 
         Board board = boardService.reserve(DEFAULT_ID, TEST_USER);
 
-        assertThat(board.getSalesStatus()).isEqualTo(Board.SalesStatusType.RESERVE);
+        assertThat(board.getSalesStatus()).isEqualTo(SalesStatusType.RESERVE);
     }
 
 }
