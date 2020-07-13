@@ -15,4 +15,10 @@ public class ModifyBoardStatusRequestView {
     public ModifyBoardStatusRequestView(Long id) {
         this.id = id;
     }
+
+    public static ModifyBoardStatusRequestView toDto(Long id) {
+        return ModifyBoardStatusRequestView.builder()
+                .id(id)
+                .build();
+    }
 }
