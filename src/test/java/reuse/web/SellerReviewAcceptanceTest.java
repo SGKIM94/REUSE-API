@@ -18,7 +18,7 @@ import static reuse.fixture.BuyerReviewFixture.getCreateBuyerReviewRequestView;
 import static reuse.web.BoardAcceptanceTest.BOARD_BASE_URL;
 
 public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
-    public static final String BUYER_REVIEW_BASE_URL = "/review/buyer";
+    public static final String SELLER_REVIEW_BASE_URL = "/review/seller";
 
     private CreateWebClientTest createWebClientTest;
     private TokenAuthenticationService tokenAuthenticationService;
@@ -31,10 +31,10 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
         socialTokenId = createWebClientTest.createUser();
     }
 
-    @DisplayName("판매자가 구매한 게시판에 구매평을 남기는지")
+    @DisplayName("판매자가 구매자에 대한 후기를 남길 수 있는지")
     @Test
     @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
-    public void createBuyerReview() {
+    public void createSellerReview() {
         //given
         CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
         Long boardId = board.getId();
@@ -42,7 +42,7 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
         //when
         EntityExchangeResult<BuyerReview> expectResponse
                 = createWebClientTest.postMethodWithAuthAcceptance
-                (BUYER_REVIEW_BASE_URL, getCreateBuyerReviewRequestView(boardId), BuyerReview.class, getJwt());
+                (SELLER_REVIEW_BASE_URL, getCreateBuyerReviewRequestView(boardId), BuyerReview.class, getJwt());
 
         //then
         Board foundBoard = findBoardById(boardId);
