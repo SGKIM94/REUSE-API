@@ -8,13 +8,13 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
 import reuse.domain.Board;
-import reuse.domain.BuyerReview;
+import reuse.domain.SellerReview;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.BoardFixture.CREATE_BOARD_REQUEST_VIEW;
-import static reuse.fixture.BuyerReviewFixture.getCreateBuyerReviewRequestView;
+import static reuse.fixture.SellerReviewFixture.getCreateSellerReviewRequestView;
 import static reuse.web.BoardAcceptanceTest.BOARD_BASE_URL;
 
 public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
@@ -40,9 +40,9 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
         Long boardId = board.getId();
 
         //when
-        EntityExchangeResult<BuyerReview> expectResponse
+        EntityExchangeResult<SellerReview> expectResponse
                 = createWebClientTest.postMethodWithAuthAcceptance
-                (SELLER_REVIEW_BASE_URL, getCreateBuyerReviewRequestView(boardId), BuyerReview.class, getJwt());
+                (SELLER_REVIEW_BASE_URL, getCreateSellerReviewRequestView(boardId), SellerReview.class, getJwt());
 
         //then
         Board foundBoard = findBoardById(boardId);
