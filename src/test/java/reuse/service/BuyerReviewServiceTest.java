@@ -12,6 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static reuse.fixture.BoardFixture.SECOND_ID;
 import static reuse.fixture.BoardFixture.*;
 import static reuse.fixture.BuyerReviewFixture.*;
 import static reuse.fixture.CommonFixture.DEFAULT_ID;
@@ -30,7 +31,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     private BuyerReviewService buyerReviewService;
 
 
-    @DisplayName("게시물이 생성되는지")
+    @DisplayName("게시물에 대한 후기가 생성되는지")
     @Test
     public void create() {
         //given
