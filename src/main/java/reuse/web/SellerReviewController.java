@@ -13,7 +13,8 @@ import reuse.security.LoginUser;
 @RestController
 @RequestMapping("/review/buyer")
 public class SellerReviewController {
-    @PostMapping("")
+
+    @PostMapping
     public ResponseEntity create(@RequestBody CreateSellerReviewRequestView review, @LoginUser User buyer) {
         return ResponseEntity.ok().build();
     }

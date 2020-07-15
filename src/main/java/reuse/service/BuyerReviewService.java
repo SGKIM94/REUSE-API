@@ -23,6 +23,7 @@ public class BuyerReviewService {
 
     @Transactional
     public BuyerReview create(CreateBuyerReviewRequestView buyerReview, User buyer) {
+        //TODO: CASCADE 인데 mapping 을 따로 해야되는지 한번 확인해보기
         BuyerReview savedBuyerReview = buyerReviewRepository.save(buyerReview.toEntity(buyer));
 
         Board board = boardService.findById(buyerReview.getBoardId());
