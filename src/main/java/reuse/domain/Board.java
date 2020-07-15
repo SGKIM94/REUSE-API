@@ -35,6 +35,10 @@ public class Board extends AbstractEntity {
     @JoinColumn(name="buyer_review_id")
     private BuyerReview buyerReview;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="seller_review_id")
+    private SellerReview sellerReview;
+
     private String sellerAddress;
 
     @Enumerated(EnumType.ORDINAL)
@@ -43,19 +47,20 @@ public class Board extends AbstractEntity {
     private Boolean isDeleted = false;
 
     @Builder
-    public Board(String title, String content, Product product, User seller, String sellerAddress, BuyerReview buyerReview, SalesStatusType salesStatus, User buyer) {
+    public Board(String title, String content, Product product, User seller, String sellerAddress, BuyerReview buyerReview, SellerReview sellerReview, SalesStatusType salesStatus, User buyer) {
         this.title = title;
         this.content = content;
         this.product = product;
         this.seller = seller;
         this.sellerAddress = sellerAddress;
         this.buyerReview = buyerReview;
+        this.sellerReview = sellerReview;
         this.salesStatus = salesStatus;
         this.buyer = buyer;
     }
 
     @Builder
-    public Board(Long id, String title, String content, Product product, User seller, String sellerAddress, BuyerReview buyerReview, SalesStatusType salesStatus, User buyer) {
+    public Board(Long id, String title, String content, Product product, User seller, String sellerAddress, BuyerReview buyerReview, SellerReview sellerReview, SalesStatusType salesStatus, User buyer) {
         super(id);
         this.title = title;
         this.content = content;
@@ -63,6 +68,7 @@ public class Board extends AbstractEntity {
         this.seller = seller;
         this.sellerAddress = sellerAddress;
         this.buyerReview = buyerReview;
+        this.sellerReview = sellerReview;
         this.salesStatus = salesStatus;
         this.buyer = buyer;
     }
