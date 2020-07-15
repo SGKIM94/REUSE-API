@@ -13,8 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static reuse.fixture.BoardFixture.TEST_BOARD;
-import static reuse.fixture.BuyerReviewFixture.CREATE_BUYER_REVIEW_REQUEST_VIEW;
 import static reuse.fixture.BuyerReviewFixture.TEST_BUYER_REVIEW;
+import static reuse.fixture.SellerReviewFixture.CREATE_SELLER_REVIEW_REQUEST_VIEW;
 import static reuse.fixture.UserFixture.TEST_USER;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -37,9 +37,8 @@ public class SellerReviewServiceTest extends AbstractServiceTest {
         when(boardService.findById(any())).thenReturn(TEST_BOARD);
 
         //when
-        BuyerReview buyerReview = sellerReviewService.create(CREATE_BUYER_REVIEW_REQUEST_VIEW, TEST_USER);
+        BuyerReview buyerReview = sellerReviewService.create(CREATE_SELLER_REVIEW_REQUEST_VIEW, TEST_USER);
 
-        // TODO: 해당 게시글을 조회해서 해당 게시글에 리뷰에 대한 key 가 저장되는지 확인 필요
         //then
         assertThat(buyerReview.getId()).isNotNull();
     }
