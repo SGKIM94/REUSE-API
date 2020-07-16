@@ -30,4 +30,14 @@ public class SellerReview extends AbstractEntity {
         this.title = title;
         this.content = content;
     }
+
+    @Builder
+    public SellerReview(Long id, User seller, String rating, String title, String content) {
+        super(id);
+        this.seller = seller;
+        this.rating = rating;
+        this.title = title;
+        this.content = content;
+    }
+
 }
