@@ -10,11 +10,14 @@ import reuse.domain.SellerReview;
 import reuse.repository.SellerReviewRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static reuse.fixture.BoardFixture.TEST_BOARD;
 import static reuse.fixture.BoardFixture.TEST_SECOND_BOARD;
 import static reuse.fixture.SellerReviewFixture.CREATE_SELLER_REVIEW_REQUEST_VIEW;
 import static reuse.fixture.SellerReviewFixture.TEST_SELLER_REVIEW;
+import static reuse.fixture.UserFixture.TEST_SECOND_USER;
 import static reuse.fixture.UserFixture.TEST_USER;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -41,5 +44,35 @@ public class SellerReviewServiceTest extends AbstractServiceTest {
 
         //then
         assertThat(sellerReview.getId()).isNotNull();
+    }
+
+    @DisplayName("게시물 생성 시 게시글 판매자와 후기 요청자의 아이디가 다른 경우 예외를 처리하는지")
+    @Test
+    public void createFailWhenDifferenceRequestAndSeller() {
+        //given
+        when(boardService.findById(any())).thenReturn(TEST_SECOND_BOARD);
+
+        //when
+        String errorMessage = assertThrows(IllegalArgumentException.class, () -> {
+            sellerReviewService.create(CREATE_SELLER_REVIEW_REQUEST_VIEW, TEST_SECOND_USER);
+        }).getMessage();
+
+        //then
+        assertThat(errorMessage).isEqualTo("판매자와 예약 신청한 사용자가 다릅니다.");
+    }
+
+    @DisplayName("게시물 생성 시 게시글의 상태가 거래완료 상태가 아닌 경우 예외를 처리하는지")
+    @Test
+    public void createFailWhenNotCompleteStatus() {
+        //given
+        when(boardService.findById(any())).thenReturn(TEST_BOARD);
+
+        //when
+        String errorMessage = assertThrows(IllegalArgumentException.class, () -> {
+            sellerReviewService.create(CREATE_SELLER_REVIEW_REQUEST_VIEW, TEST_USER);
+        }).getMessage();
+
+        //then
+        assertThat(errorMessage).isEqualTo("현재 SALE 상태이므로 COMPLETE 상태로 변경이 불가능합니다.");
     }
 }
