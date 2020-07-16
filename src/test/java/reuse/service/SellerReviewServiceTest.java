@@ -6,15 +6,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import reuse.domain.BuyerReview;
+import reuse.domain.SellerReview;
 import reuse.repository.SellerReviewRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static reuse.fixture.BoardFixture.TEST_BOARD;
-import static reuse.fixture.BuyerReviewFixture.TEST_BUYER_REVIEW;
+import static reuse.fixture.BoardFixture.TEST_SECOND_BOARD;
 import static reuse.fixture.SellerReviewFixture.CREATE_SELLER_REVIEW_REQUEST_VIEW;
+import static reuse.fixture.SellerReviewFixture.TEST_SELLER_REVIEW;
 import static reuse.fixture.UserFixture.TEST_USER;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -33,13 +33,13 @@ public class SellerReviewServiceTest extends AbstractServiceTest {
     @Test
     public void create() {
         //given
-        when(sellerReviewRepository.save(any())).thenReturn(TEST_BUYER_REVIEW);
-        when(boardService.findById(any())).thenReturn(TEST_BOARD);
+        when(boardService.findById(any())).thenReturn(TEST_SECOND_BOARD);
+        when(sellerReviewRepository.save(any())).thenReturn(TEST_SELLER_REVIEW);
 
         //when
-        BuyerReview buyerReview = sellerReviewService.create(CREATE_SELLER_REVIEW_REQUEST_VIEW, TEST_USER);
+        SellerReview sellerReview = sellerReviewService.create(CREATE_SELLER_REVIEW_REQUEST_VIEW, TEST_USER);
 
         //then
-        assertThat(buyerReview.getId()).isNotNull();
+        assertThat(sellerReview.getId()).isNotNull();
     }
 }
