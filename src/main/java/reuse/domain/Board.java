@@ -158,24 +158,25 @@ public class Board extends AbstractEntity {
         return this;
     }
 
-    void verifyThatUserAndRequester(User requester, SalesStatusType requiredStatus) {
+    public void verifyThatUserAndRequester(User requester, SalesStatusType requiredStatus) {
         String requesterSocialTokenId = requester.getSocialTokenId();
-        String boardSellerSocialTokenId = this.seller.getSocialTokenId();
 
-        verifyThatSellerAndRequestAretheSame(requesterSocialTokenId, boardSellerSocialTokenId);
+        verifyThatSellerAndRequestAreTheSame(requesterSocialTokenId);
         verifyThatBoardCanChangeStatus(requiredStatus);
     }
 
-    void verifyThatBoardCanChangeStatus(SalesStatusType sale) {
+    public void verifyThatBoardCanChangeStatus(SalesStatusType sale) {
         if (!this.salesStatus.equals(sale)) {
             throw new IllegalArgumentException("현재 " + this.salesStatus + " 상태이므로 " + sale + " 상태로 변경이 불가능합니다.");
         }
     }
 
-    private void verifyThatSellerAndRequestAretheSame(String requesterSocialTokenId, String boardSellerSocialTokenId) {
-        if (!requesterSocialTokenId.equals(boardSellerSocialTokenId)) {
-            log.error("#### seller 의 SocialTokenId : " + boardSellerSocialTokenId);
+    public void verifyThatSellerAndRequestAreTheSame(String requesterSocialTokenId) {
+        if (!requesterSocialTokenId.equals(this.seller.getSocialTokenId())) {
+
+            log.error("#### seller 의 SocialTokenId : " + this.seller.getSocialTokenId());
             log.error("#### User 의 SocialTokenId : " + requesterSocialTokenId);
+
             throw new IllegalArgumentException("판매자와 예약 신청한 사용자가 다릅니다.");
         }
     }
