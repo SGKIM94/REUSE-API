@@ -1,5 +1,6 @@
 package reuse.service;
 
+import org.springframework.stereotype.Service;
 import reuse.domain.Board;
 import reuse.domain.SalesStatusType;
 import reuse.domain.SellerReview;
@@ -7,6 +8,7 @@ import reuse.domain.User;
 import reuse.dto.review.seller.CreateSellerReviewRequestView;
 import reuse.repository.SellerReviewRepository;
 
+@Service
 public class SellerReviewService {
     private SellerReviewRepository sellerReviewRepository;
     private BoardService boardService;
