@@ -16,6 +16,10 @@ import reuse.service.SellerReviewService;
 public class SellerReviewController {
     private SellerReviewService sellerReviewService;
 
+    public SellerReviewController(SellerReviewService sellerReviewService) {
+        this.sellerReviewService = sellerReviewService;
+    }
+
     @PostMapping
     public ResponseEntity create(@RequestBody CreateSellerReviewRequestView review, @LoginUser User seller) {
         sellerReviewService.create(review, seller);
