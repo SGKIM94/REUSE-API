@@ -26,13 +26,15 @@ public class User extends AbstractEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<FavoriteBoard> favoriteBoards = new ArrayList<>();
 
+    private int score = 0;
 
     @Builder
-    public User(String socialTokenId, String name, String socialType, List<FavoriteBoard> favoriteBoards) {
+    public User(String socialTokenId, String name, String socialType, List<FavoriteBoard> favoriteBoards, int score) {
         this.socialTokenId = socialTokenId;
         this.name = name;
         this.socialType = socialType;
         this.favoriteBoards = favoriteBoards;
+        this.score = score;
     }
 
     public User(String socialTokenId, String name, String socialType) {
