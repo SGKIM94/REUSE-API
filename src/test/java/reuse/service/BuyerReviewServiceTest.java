@@ -3,7 +3,6 @@ package reuse.service;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import reuse.domain.Board;
 import reuse.domain.BuyerReview;
 import reuse.dto.review.buyer.ListBuyerReviewResponseView;
 import reuse.repository.BuyerReviewRepository;
@@ -12,11 +11,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static reuse.fixture.BoardFixture.SECOND_ID;
-import static reuse.fixture.BoardFixture.*;
+import static reuse.fixture.BoardFixture.TEST_BOARD;
+import static reuse.fixture.BoardFixture.TEST_FIRST_BOARD_ID;
 import static reuse.fixture.BuyerReviewFixture.*;
 import static reuse.fixture.CommonFixture.DEFAULT_ID;
-import static reuse.fixture.UserFixture.TEST_SECOND_USER;
 import static reuse.fixture.UserFixture.TEST_USER;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -121,23 +119,11 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
         when(boardService.findById(any())).thenReturn(TEST_BOARD);
 
         String errorMessage = assertThrows(IllegalArgumentException.class, () -> {
-            buyerReviewService.verifyBuyer(getCreateBuyerReviewRequestView(TEST_FIRST_BOARD_ID), TEST_USER);
+            buyerReviewService.create(getCreateBuyerReviewRequestView(TEST_FIRST_BOARD_ID), TEST_USER);
         }).getMessage();
 
         //then
         assertThat(errorMessage).isEqualTo("해당 게시글의 구매자와 로그인 사용자와 일치하지 않습니다.");
-    }
-
-    @DisplayName("구매후기를 작성하는 사용자와 게시글의 구매자와 같은 경우 해당 게시글을 리턴하는지")
-    @Test
-    public void verifyBuyerThenReturnBoard() {
-        //given
-        when(boardService.findById(any())).thenReturn(TEST_BOARD);
-
-        Board board = buyerReviewService.verifyBuyer(CREATE_BUYER_REVIEW_REQUEST_VIEW, TEST_SECOND_USER);
-
-        //then
-        assertThat(board.getBuyerId()).isEqualTo(SECOND_ID);
     }
 
     @DisplayName("구매후기를 작성하는 사용자와 게시글이 거래 완료 상태가 아닌 경우 예외를 처리하는지")
@@ -145,17 +131,10 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     public void verifySalesStatus() {
         //when
         String errorMessage = assertThrows(IllegalArgumentException.class, () -> {
-            buyerReviewService.verifyBoardStatus(TEST_BOARD);
+            buyerReviewService.create(getCreateBuyerReviewRequestView(TEST_FIRST_BOARD_ID), TEST_USER);
         }).getMessage();
 
         //then
         assertThat(errorMessage).isEqualTo("거래 완료 상태가 아니기 때문에 후기를 작성할 수 없습니다. : BOOKING");
-    }
-
-    @DisplayName("구매후기를 작성하는 사용자와 게시글이 거래 완료이여서 작성이 가능한지")
-    @Test
-    public void verifySalesStatusWhenComplete() {
-        //when
-        buyerReviewService.verifyBoardStatus(TEST_SECOND_BOARD);
     }
 }
