@@ -26,27 +26,14 @@ public class CreateProductRequestView {
     private String quality;
     private String createAt;
     private String updateAt;
+
     @JsonIgnore
-    private MultipartFile firstImage;
-    @JsonIgnore
-    private MultipartFile secondImage;
-    @JsonIgnore
-    private MultipartFile thirdImage;
-    @JsonIgnore
-    private MultipartFile fourthImage;
-    @JsonIgnore
-    private MultipartFile fifthImage;
-    @JsonIgnore
-    private MultipartFile sixthImage;
-    @JsonIgnore
-    private MultipartFile thumbnailImage;
+    private List<MultipartFile> images;
 
     @Builder
     public CreateProductRequestView(Long id, String name, String explanation, String price, String tax, Boolean isUsed,
                                     Boolean isSold, String categoryId, String createAt, String updateAt, String quality,
-                                    MultipartFile firstImage, MultipartFile secondImage, MultipartFile thirdImage,
-                                    MultipartFile fourthImage, MultipartFile fifthImage, MultipartFile sixthImage,
-                                    MultipartFile thumbnailImage) {
+                                    List<MultipartFile> images) {
         this.id = id;
         this.name = name;
         this.explanation = explanation;
@@ -58,16 +45,10 @@ public class CreateProductRequestView {
         this.quality = quality;
         this.createAt = createAt;
         this.updateAt = updateAt;
-        this.firstImage = firstImage;
-        this.secondImage = secondImage;
-        this.thirdImage = thirdImage;
-        this.fourthImage = fourthImage;
-        this.fifthImage = fifthImage;
-        this.sixthImage = sixthImage;
-        this.thumbnailImage = thumbnailImage;
+        this.images = images;
     }
 
-    public Product toEntity(CreateProductRequestView product, String thumbnailImage, List<String> imageUrls) {
+    public Product toEntity(CreateProductRequestView product, List<String> imageUrls) {
         ProductImages productImages = ProductImages.toEntity(imageUrls);
 
         //TODO : 카테고리 넣어주는 로직 추가필요
@@ -78,7 +59,6 @@ public class CreateProductRequestView {
                 .name(product.getName())
                 .price(product.getPrice())
                 .tax(product.getTax())
-                .thumbnailImage(thumbnailImage)
                 .quality(product.getQuality())
                 .productImages(productImages)
                 .build();
