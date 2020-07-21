@@ -32,13 +32,14 @@ public class ProductImagesView {
     }
 
     public static ProductImagesView toDtoByCreate(CreateProductRequestView product) {
+        List<MultipartFile> images = product.getImages();
         return ProductImagesView.builder()
-                .firstImage(product.getFirstImage())
-                .secondImage(product.getSecondImage())
-                .thirdImage(product.getThirdImage())
-                .fourthImage(product.getFourthImage())
-                .fifthImage(product.getFifthImage())
-                .sixthImage(product.getSixthImage())
+                .firstImage(images.get(0))
+                .secondImage(images.get(1))
+                .thirdImage(images.get(2))
+                .fourthImage(images.get(3))
+                .fifthImage(images.get(4))
+                .sixthImage(images.get(5))
                 .build();
     }
 
