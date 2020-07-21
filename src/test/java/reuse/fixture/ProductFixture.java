@@ -5,7 +5,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
 import reuse.domain.Product;
 import reuse.dto.product.CreateProductRequestView;
-import reuse.dto.product.ProductImagesView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,13 +30,8 @@ public class ProductFixture extends CommonFixture {
 
     public static final List<MultipartFile> TEST_IMAGES = Arrays.asList(TEST_IMAGE1, TEST_IMAGE2);
 
-    public static final ProductImagesView TEST_PRODUCT_IMAGES_VIEW = ProductImagesView.builder()
-            .firstImage(TEST_IMAGE1).secondImage(TEST_IMAGE2).thirdImage(TEST_IMAGE3).fourthImage(TEST_IMAGE4)
-            .fifthImage(TEST_IMAGE5).sixthImage(TEST_IMAGE6).build();
-
     public static final CreateProductRequestView CREATE_PRODUCT_REQUEST_DTO = CreateProductRequestView.builder()
-            .firstImage(TEST_IMAGE1).secondImage(TEST_IMAGE2).thirdImage(TEST_IMAGE3).fourthImage(TEST_IMAGE4)
-            .fifthImage(TEST_IMAGE5).sixthImage(TEST_IMAGE6).thumbnailImage(TEST_IMAGE1).build();
+            .images(TEST_IMAGES).build();
 
     public static final List<Product> LIST_PRODUCT_RESPONSE_VIEW
             = Arrays.asList(TEST_PRODUCT, SECOND_TEST_PRODUCT);

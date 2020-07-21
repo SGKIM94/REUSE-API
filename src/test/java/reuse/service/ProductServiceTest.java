@@ -14,7 +14,6 @@ import reuse.dto.product.ListProductResponseView;
 import reuse.repository.CategoryRepository;
 import reuse.repository.ProductImagesRepository;
 import reuse.repository.ProductRepository;
-import reuse.security.TokenAuthenticationService;
 import reuse.storage.S3Uploader;
 
 import java.util.List;
@@ -115,16 +114,6 @@ public class ProductServiceTest {
     public void storeProductImage() {
         String imageUrl = productService.storeProductImage
                 (TEST_IMAGE1, S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME + 3L);
-
-        //then
-        assertThat(imageUrl).isNotBlank();
-    }
-
-    @DisplayName("품목의 섬네일 이미지를 저장하는지")
-    @Test
-    public void storeThumbnailImage() {
-        String imageUrl = productService.storeThumbnailImage
-                (CREATE_PRODUCT_REQUEST_DTO, S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME);
 
         //then
         assertThat(imageUrl).isNotBlank();
