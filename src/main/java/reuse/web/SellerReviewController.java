@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reuse.domain.SellerReview;
 import reuse.domain.User;
 import reuse.dto.review.seller.CreateSellerReviewRequestView;
 import reuse.security.LoginUser;
@@ -22,7 +23,7 @@ public class SellerReviewController {
 
     @PostMapping
     public ResponseEntity create(@RequestBody CreateSellerReviewRequestView review, @LoginUser User seller) {
-        sellerReviewService.create(review, seller);
-        return ResponseEntity.ok().build();
+        SellerReview sellerReview = sellerReviewService.create(review, seller);
+        return ResponseEntity.ok().body(sellerReview.getId());
     }
 }
