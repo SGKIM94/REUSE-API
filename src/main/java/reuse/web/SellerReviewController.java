@@ -13,7 +13,7 @@ import reuse.security.LoginUser;
 import reuse.service.SellerReviewService;
 
 @RestController
-@RequestMapping("/review/buyer")
+@RequestMapping("/review/seller")
 public class SellerReviewController {
     private SellerReviewService sellerReviewService;
 
