@@ -4,6 +4,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import reuse.domain.BuyerReview;
+import reuse.domain.User;
 import reuse.dto.review.buyer.ListBuyerReviewResponseView;
 import reuse.repository.BuyerReviewRepository;
 
@@ -25,6 +26,9 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     @Mock
     private BoardService boardService;
 
+    @Mock
+    private UserService userService;
+
     @InjectMocks
     private BuyerReviewService buyerReviewService;
 
@@ -33,14 +37,18 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     @Test
     public void create() {
         //given
+        User seller = TEST_USER;
         when(buyerReviewRepository.save(any())).thenReturn(TEST_BUYER_REVIEW);
         when(boardService.findById(any())).thenReturn(TEST_BOARD);
+        when(userService.retrieve(any())).thenReturn(seller);
 
         //when
         BuyerReview buyerReview = buyerReviewService.create(CREATE_BUYER_REVIEW_REQUEST_VIEW, TEST_USER);
 
+
         // TODO: 해당 게시글을 조회해서 해당 게시글에 리뷰에 대한 key 가 저장되는지 확인 필요
         //then
+        assertThat(seller.getScore()).isEqualTo(10);
         assertThat(buyerReview.getId()).isNotNull();
     }
 
@@ -69,7 +77,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
 
         //then
         assertThat(buyerReview.getContent()).isEqualTo(TEST_CONTENT);
-        assertThat(buyerReview.getRating()).isEqualTo(TEST_RATING);
+        assertThat(buyerReview.getScore()).isEqualTo(TEST_RATING);
         assertThat(buyerReview.getTitle()).isEqualTo(TEST_TITLE);
     }
 
@@ -97,7 +105,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
 
         assertThat(modifiedBuyerReview.getTitle()).isEqualTo(TEST_SECOND_TITLE);
         assertThat(modifiedBuyerReview.getContent()).isEqualTo(TEST_SECOND_CONTENT);
-        assertThat(modifiedBuyerReview.getRating()).isEqualTo(TEST_SECOND_RATING);
+        assertThat(modifiedBuyerReview.getScore()).isEqualTo(TEST_SECOND_RATING);
     }
 
     @DisplayName("구매후기가 존재하지 않는 것을 조회 시 예외를 처리하는지")
