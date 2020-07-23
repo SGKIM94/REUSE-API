@@ -70,4 +70,13 @@ public class User extends AbstractEntity {
     public String getSocialType() {
         return socialType;
     }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int addScore(int score) {
+        this.score += score;
+        return score;
+    }
 }
