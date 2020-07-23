@@ -28,6 +28,8 @@ public class BuyerReviewService {
 
         board.verifyThatUserAndRequester(requester, SalesStatusType.COMPLETE);
 
+        buyerReview.getBuyer().addScore(buyerReview.getScore());
+
         return buyerReviewRepository.save(buyerReview.toEntity(requester));
     }
 
