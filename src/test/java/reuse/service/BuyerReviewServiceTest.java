@@ -26,9 +26,6 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     @Mock
     private BoardService boardService;
 
-    @Mock
-    private UserService userService;
-
     @InjectMocks
     private BuyerReviewService buyerReviewService;
 
@@ -37,18 +34,16 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     @Test
     public void create() {
         //given
-        User seller = TEST_USER;
+        User buyer = TEST_USER;
         when(buyerReviewRepository.save(any())).thenReturn(TEST_BUYER_REVIEW);
         when(boardService.findById(any())).thenReturn(TEST_BOARD);
-        when(userService.retrieve(any())).thenReturn(seller);
 
         //when
         BuyerReview buyerReview = buyerReviewService.create(CREATE_BUYER_REVIEW_REQUEST_VIEW, TEST_USER);
 
-
         // TODO: 해당 게시글을 조회해서 해당 게시글에 리뷰에 대한 key 가 저장되는지 확인 필요
         //then
-        assertThat(seller.getScore()).isEqualTo(10);
+        assertThat(buyer.getScore()).isEqualTo(10);
         assertThat(buyerReview.getId()).isNotNull();
     }
 
