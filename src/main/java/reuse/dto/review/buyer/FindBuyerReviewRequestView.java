@@ -13,15 +13,15 @@ import reuse.domain.User;
 @NoArgsConstructor
 public class FindBuyerReviewRequestView {
     private User buyer;
-    private String rating;
+    private int score;
     private String title;
     private String content;
     private Board board;
 
     @Builder
-    public FindBuyerReviewRequestView(User buyer, String rating, String title, String content, Board board) {
+    public FindBuyerReviewRequestView(User buyer, int score, String title, String content, Board board) {
         this.buyer = buyer;
-        this.rating = rating;
+        this.score = score;
         this.title = title;
         this.content = content;
         this.board = board;
@@ -31,7 +31,7 @@ public class FindBuyerReviewRequestView {
         return FindBuyerReviewRequestView.builder()
                 .buyer(buyerReview.getBuyer())
                 .content(buyerReview.getContent())
-                .rating(buyerReview.getRating())
+                .score(buyerReview.getScore())
                 .title(buyerReview.getTitle())
                 .build();
     }

@@ -15,26 +15,26 @@ public class BuyerReviewFixture extends CommonFixture {
     public static final String TEST_CONTENT = "리뷰입니다.";
     public static final String TEST_SECOND_CONTENT = "두번째 리뷰입니다.";
 
-    public static final String TEST_RATING = "10";
-    public static final String TEST_SECOND_RATING = "5";
+    public static final int TEST_RATING = 10;
+    public static final int TEST_SECOND_RATING = 5;
 
     public static final String TEST_TITLE = "제목입니다.";
     public static final String TEST_SECOND_TITLE = "두번째 제목입니다.";
 
     public static final CreateBuyerReviewRequestView CREATE_BUYER_REVIEW_REQUEST_VIEW = CreateBuyerReviewRequestView.builder()
-            .content(TEST_CONTENT).rating(TEST_RATING).title(TEST_TITLE).boardId(DEFAULT_ID).build();
+            .content(TEST_CONTENT).score(TEST_RATING).title(TEST_TITLE).boardId(DEFAULT_ID).build();
 
     public static final BuyerReview TEST_BUYER_REVIEW = BuyerReview.builder()
-            .id(DEFAULT_ID).content(TEST_CONTENT).rating(TEST_RATING).title(TEST_TITLE).buyer(TEST_USER).build();
+            .id(DEFAULT_ID).content(TEST_CONTENT).score(TEST_RATING).title(TEST_TITLE).buyer(TEST_USER).build();
 
     public static final BuyerReview TEST_SECOND_BUYER_REVIEW = BuyerReview.TestBuilder()
-            .content(TEST_SECOND_CONTENT).rating(TEST_SECOND_RATING).title(TEST_SECOND_TITLE).buyer(TEST_USER).build();
+            .content(TEST_SECOND_CONTENT).score(TEST_SECOND_RATING).title(TEST_SECOND_TITLE).buyer(TEST_USER).build();
 
     public static final FindBuyerReviewRequestView FIND_BUYER_REVIEW_REQUEST_VIEW = FindBuyerReviewRequestView.builder()
-            .buyer(TEST_USER).board(TEST_BOARD).content(TEST_CONTENT).rating(TEST_RATING).title(TEST_TITLE).build();
+            .buyer(TEST_USER).board(TEST_BOARD).content(TEST_CONTENT).score(TEST_RATING).title(TEST_TITLE).build();
 
     public static final FindBuyerReviewRequestView FIND_SECOND_BUYER_REVIEW_REQUEST_VIEW = FindBuyerReviewRequestView.builder()
-            .buyer(TEST_USER).board(TEST_BOARD).content(TEST_CONTENT).rating(TEST_RATING).title(TEST_TITLE).build();
+            .buyer(TEST_USER).board(TEST_BOARD).content(TEST_CONTENT).score(TEST_RATING).title(TEST_TITLE).build();
 
     public static final ListBuyerReviewResponseView LIST_BUYER_REVIEW_REQUEST_VIEW = ListBuyerReviewResponseView.builder()
             .buyerReview(Arrays.asList(FIND_BUYER_REVIEW_REQUEST_VIEW, FIND_SECOND_BUYER_REVIEW_REQUEST_VIEW)).build();
@@ -45,7 +45,7 @@ public class BuyerReviewFixture extends CommonFixture {
         return CreateBuyerReviewRequestView.builder()
                 .boardId(boardId)
                 .content(TEST_CONTENT)
-                .rating(TEST_RATING)
+                .score(TEST_RATING)
                 .title(TEST_TITLE)
                 .buyer(TEST_USER)
                 .build();

@@ -13,15 +13,15 @@ import reuse.domain.User;
 public class CreateBuyerReviewRequestView {
     private String title;
     private String content;
-    private String rating;
+    private int score;
     private User buyer;
     private Long boardId;
 
     @Builder
-    public CreateBuyerReviewRequestView(String title, String content, String rating, Long boardId, User buyer) {
+    public CreateBuyerReviewRequestView(String title, String content, int score, Long boardId, User buyer) {
         this.title = title;
         this.content = content;
-        this.rating = rating;
+        this.score = score;
         this.boardId = boardId;
         this.buyer = buyer;
     }
@@ -29,7 +29,7 @@ public class CreateBuyerReviewRequestView {
     public BuyerReview toEntity(User buyer) {
         return BuyerReview.builder()
                 .content(content)
-                .rating(rating)
+                .score(score)
                 .title(title)
                 .buyer(buyer)
                 .build();
