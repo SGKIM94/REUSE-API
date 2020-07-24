@@ -26,6 +26,10 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	implementation 'com.querydsl:querydsl-jpa'
 
+    // For redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    compile group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
+
 	compile('org.springframework.boot:spring-boot-starter-websocket')
 
 	implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.228')
