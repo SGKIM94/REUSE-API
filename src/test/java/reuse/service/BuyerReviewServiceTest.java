@@ -35,13 +35,13 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     public void create() {
         //given
         User buyer = TEST_USER;
+
         when(buyerReviewRepository.save(any())).thenReturn(TEST_BUYER_REVIEW);
         when(boardService.findById(any())).thenReturn(TEST_BOARD);
 
         //when
-        BuyerReview buyerReview = buyerReviewService.create(CREATE_BUYER_REVIEW_REQUEST_VIEW, TEST_USER);
+        BuyerReview buyerReview = buyerReviewService.create(CREATE_BUYER_REVIEW_REQUEST_VIEW, buyer);
 
-        // TODO: 해당 게시글을 조회해서 해당 게시글에 리뷰에 대한 key 가 저장되는지 확인 필요
         //then
         assertThat(buyer.getScore()).isEqualTo(10);
         assertThat(buyerReview.getId()).isNotNull();
@@ -72,7 +72,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
 
         //then
         assertThat(buyerReview.getContent()).isEqualTo(TEST_CONTENT);
-        assertThat(buyerReview.getScore()).isEqualTo(TEST_RATING);
+        assertThat(buyerReview.getScore()).isEqualTo(TEST_SCORE);
         assertThat(buyerReview.getTitle()).isEqualTo(TEST_TITLE);
     }
 
