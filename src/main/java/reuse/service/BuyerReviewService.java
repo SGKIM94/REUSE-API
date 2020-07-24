@@ -26,9 +26,9 @@ public class BuyerReviewService {
     public BuyerReview create(CreateBuyerReviewRequestView buyerReview, User requester) {
         Board board = boardService.findById(buyerReview.getBoardId());
 
-        board.verifyThatUserAndRequester(requester, SalesStatusType.COMPLETE);
+        board.verifyThatUserAndRequester(requester, SalesStatusType.SALE);
 
-        buyerReview.getBuyer().addScore(buyerReview.getScore());
+        board.addScoreFromBuyerToSeller(buyerReview.getScore());
 
         return buyerReviewRepository.save(buyerReview.toEntity(requester));
     }
