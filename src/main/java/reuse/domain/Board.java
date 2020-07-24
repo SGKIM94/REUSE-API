@@ -180,4 +180,8 @@ public class Board extends AbstractEntity {
             throw new IllegalArgumentException("판매자와 예약 신청한 사용자가 다릅니다.");
         }
     }
+
+    public int addScoreFromBuyerToSeller(int score) {
+        return seller.addScore(score);
+    }
 }
