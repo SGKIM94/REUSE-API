@@ -135,10 +135,6 @@ public class Board extends AbstractEntity {
         return this.buyerReview;
     }
 
-    public boolean isCompleteSalesStatus() {
-        return SalesStatusType.COMPLETE.equals(this.salesStatus);
-    }
-
     @JsonIgnore
     public Long getBuyerId() {
         return this.buyer.getId();
@@ -171,7 +167,7 @@ public class Board extends AbstractEntity {
         }
     }
 
-    public void verifyThatSellerAndRequestAreTheSame(String requesterSocialTokenId) {
+    private void verifyThatSellerAndRequestAreTheSame(String requesterSocialTokenId) {
         if (!requesterSocialTokenId.equals(this.seller.getSocialTokenId())) {
 
             log.error("#### seller 의 SocialTokenId : " + this.seller.getSocialTokenId());
