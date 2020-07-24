@@ -39,5 +39,4 @@ public class SellerReview extends AbstractEntity {
         this.title = title;
         this.content = content;
     }
-
 }
