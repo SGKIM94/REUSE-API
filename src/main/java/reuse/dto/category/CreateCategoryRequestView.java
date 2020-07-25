@@ -13,12 +13,14 @@ public class CreateCategoryRequestView {
     private String teleco;
     private String manufacturer;
     private String model;
+    private String deviceChange;
 
     @Builder
-    public CreateCategoryRequestView(String teleco, String manufacturer, String model) {
+    public CreateCategoryRequestView(String teleco, String manufacturer, String model, String deviceChange) {
         this.teleco = teleco;
         this.manufacturer = manufacturer;
         this.model = model;
+        this.deviceChange = deviceChange;
     }
 
     public Category toEntity() {
@@ -26,6 +28,7 @@ public class CreateCategoryRequestView {
                 .teleco(teleco)
                 .manufacturer(manufacturer)
                 .model(model)
+                .deviceChange(deviceChange)
                 .build();
     }
 }
