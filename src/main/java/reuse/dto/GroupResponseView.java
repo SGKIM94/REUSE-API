@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import reuse.domain.DeviceChangeGroup;
 import reuse.domain.ManufacturerGroup;
 import reuse.domain.ModelGroup;
 import reuse.domain.TelecoGroup;
@@ -39,6 +40,13 @@ public class GroupResponseView {
         return GroupResponseView.builder()
                 .value(teleco.getValue())
                 .name(teleco.getName())
+                .build();
+    }
+
+    public static GroupResponseView toDtoByDeviceChange(DeviceChangeGroup deviceChange) {
+        return GroupResponseView.builder()
+                .value(deviceChange.getValue())
+                .name(deviceChange.getName())
                 .build();
     }
 }
