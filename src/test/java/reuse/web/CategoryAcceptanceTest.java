@@ -63,6 +63,7 @@ public class CategoryAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(responseBody.getManufacturer()).isEqualTo(TEST_MANUFACTURER);
         assertThat(responseBody.getModel()).isEqualTo(TEST_MODEL);
         assertThat(responseBody.getTelco()).isEqualTo(TEST_TELECO);
+        assertThat(responseBody.getDeviceChange()).isEqualTo(TEST_DEVICE_CHANGE);
     }
 
 
