@@ -43,6 +43,7 @@ public class SellerReviewServiceTest extends AbstractServiceTest {
         SellerReview sellerReview = sellerReviewService.create(CREATE_SELLER_REVIEW_REQUEST_VIEW, TEST_USER);
 
         //then
+        assertThat(sellerReview.getScore()).isEqualTo(10);
         assertThat(sellerReview.getId()).isNotNull();
     }
 
