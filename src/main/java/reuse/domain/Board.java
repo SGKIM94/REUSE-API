@@ -180,4 +180,8 @@ public class Board extends AbstractEntity {
     public int addScoreFromBuyerToSeller(int score) {
         return seller.addScore(score);
     }
+
+    public int addScoreFromSellerToBuyer(int score) {
+        return buyer.addScore(score);
+    }
 }
