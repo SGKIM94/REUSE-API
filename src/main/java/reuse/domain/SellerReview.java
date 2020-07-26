@@ -39,4 +39,8 @@ public class SellerReview extends AbstractEntity {
         this.title = title;
         this.content = content;
     }
+
+    public int getScore() {
+        return score;
+    }
 }
