@@ -23,6 +23,8 @@ public class SellerReviewService {
 
         board.verifyThatUserAndRequester(requester, SalesStatusType.COMPLETE);
 
+        board.addScoreFromSellerToBuyer(sellerReview.getScore());
+
         return sellerReviewRepository.save(sellerReview.toEntity());
     }
 }
