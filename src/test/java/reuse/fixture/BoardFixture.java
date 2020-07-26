@@ -33,7 +33,7 @@ public class BoardFixture extends CommonFixture {
     public static final Board TEST_SECOND_BOARD
             = Board.builder().title(TEST_BOARD_TITLE).content(TEST_BOARD_CONTENT)
             .product(TEST_PRODUCT).sellerAddress(TEST_SELLER_ADDRESS).salesStatus(SalesStatusType.COMPLETE)
-            .seller(TEST_USER).build();
+            .seller(TEST_USER).buyer(TEST_SECOND_USER).build();
 
     public static final Board TEST_THIRD_BOARD
             = Board.builder().title(TEST_BOARD_TITLE).content(TEST_BOARD_CONTENT)
