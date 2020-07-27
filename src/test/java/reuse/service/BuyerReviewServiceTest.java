@@ -100,7 +100,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
 
         assertThat(modifiedBuyerReview.getTitle()).isEqualTo(TEST_SECOND_TITLE);
         assertThat(modifiedBuyerReview.getContent()).isEqualTo(TEST_SECOND_CONTENT);
-        assertThat(modifiedBuyerReview.getScore()).isEqualTo(TEST_SECOND_RATING);
+        assertThat(modifiedBuyerReview.getScore()).isEqualTo(TEST_SECOND_SCORE);
     }
 
     @DisplayName("구매후기가 존재하지 않는 것을 조회 시 예외를 처리하는지")

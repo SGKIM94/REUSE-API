@@ -177,11 +177,11 @@ public class Board extends AbstractEntity {
         }
     }
 
-    public int addScoreFromBuyerToSeller(int score) {
+    public int addScoreFromBuyerToSeller(Integer score) {
         return seller.addScore(score);
     }
 
-    public int addScoreFromSellerToBuyer(int score) {
+    public int addScoreFromSellerToBuyer(Integer score) {
         return buyer.addScore(score);
     }
 }

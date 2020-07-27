@@ -26,10 +26,10 @@ public class User extends AbstractEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<FavoriteBoard> favoriteBoards = new ArrayList<>();
 
-    private int score = 0;
+    private Integer score = 0;
 
     @Builder
-    public User(String socialTokenId, String name, String socialType, List<FavoriteBoard> favoriteBoards, int score) {
+    public User(String socialTokenId, String name, String socialType, List<FavoriteBoard> favoriteBoards, Integer score) {
         this.socialTokenId = socialTokenId;
         this.name = name;
         this.socialType = socialType;
@@ -42,6 +42,7 @@ public class User extends AbstractEntity {
         this.name = name;
         this.socialType = socialType;
         this.favoriteBoards = new ArrayList<>();
+        this.score = 0;
     }
 
     public User(Long id, String socialTokenId, String name, String socialType) {
@@ -50,6 +51,7 @@ public class User extends AbstractEntity {
         this.name = name;
         this.socialType = socialType;
         this.favoriteBoards = new ArrayList<>();
+        this.score = 0;
     }
 
     public static String getRandomUserName() {
@@ -71,11 +73,11 @@ public class User extends AbstractEntity {
         return socialType;
     }
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public int addScore(int score) {
+    public int addScore(Integer score) {
         this.score += score;
         return score;
     }

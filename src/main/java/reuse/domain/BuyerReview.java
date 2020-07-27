@@ -15,7 +15,7 @@ public class BuyerReview extends AbstractEntity {
     @JoinColumn(name="buyer_id")
     private User buyer;
 
-    private int score;
+    private Integer score;
 
     @Size(min = 1, max = 100)
     private String title;
@@ -24,7 +24,7 @@ public class BuyerReview extends AbstractEntity {
     private String content;
 
     @Builder
-    public BuyerReview(User buyer, int score, String title, String content) {
+    public BuyerReview(User buyer, Integer score, String title, String content) {
         this.buyer = buyer;
         this.score = score;
         this.title = title;
@@ -32,7 +32,7 @@ public class BuyerReview extends AbstractEntity {
     }
 
     @Builder(builderMethodName = "TestBuilder")
-    public BuyerReview(Long id, User buyer, int score, String title, String content) {
+    public BuyerReview(Long id, User buyer, Integer score, String title, String content) {
         super(id);
         this.buyer = buyer;
         this.score = score;

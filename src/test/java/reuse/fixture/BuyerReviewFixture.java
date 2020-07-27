@@ -15,8 +15,8 @@ public class BuyerReviewFixture extends CommonFixture {
     public static final String TEST_CONTENT = "리뷰입니다.";
     public static final String TEST_SECOND_CONTENT = "두번째 리뷰입니다.";
 
-    public static final int TEST_SCORE = 10;
-    public static final int TEST_SECOND_RATING = 5;
+    public static final Integer TEST_SCORE = 10;
+    public static final Integer TEST_SECOND_SCORE = 5;
 
     public static final String TEST_TITLE = "제목입니다.";
     public static final String TEST_SECOND_TITLE = "두번째 제목입니다.";
@@ -28,7 +28,7 @@ public class BuyerReviewFixture extends CommonFixture {
             .id(DEFAULT_ID).content(TEST_CONTENT).score(TEST_SCORE).title(TEST_TITLE).buyer(TEST_USER).build();
 
     public static final BuyerReview TEST_SECOND_BUYER_REVIEW = BuyerReview.TestBuilder()
-            .content(TEST_SECOND_CONTENT).score(TEST_SECOND_RATING).title(TEST_SECOND_TITLE).buyer(TEST_USER).build();
+            .content(TEST_SECOND_CONTENT).score(TEST_SECOND_SCORE).title(TEST_SECOND_TITLE).buyer(TEST_USER).build();
 
     public static final FindBuyerReviewRequestView FIND_BUYER_REVIEW_REQUEST_VIEW = FindBuyerReviewRequestView.builder()
             .buyer(TEST_USER).board(TEST_BOARD).content(TEST_CONTENT).score(TEST_SCORE).title(TEST_TITLE).build();

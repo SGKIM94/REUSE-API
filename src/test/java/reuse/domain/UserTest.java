@@ -10,7 +10,7 @@ public class UserTest {
     @DisplayName("후기에 작성된 평가 점수가 사용자에게 더해지는지")
     @Test
     public void addScore() {
-        int score = 10;
+        Integer score = 10;
 
         int addedScore = TEST_USER.addScore(score);
         assertThat(addedScore).isEqualTo(10);

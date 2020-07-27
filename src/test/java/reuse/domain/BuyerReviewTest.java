@@ -19,7 +19,7 @@ public class BuyerReviewTest {
 
         //then
         assertThat(buyerReview.getContent()).isEqualTo(TEST_SECOND_CONTENT);
-        assertThat(buyerReview.getScore()).isEqualTo(TEST_SECOND_RATING);
+        assertThat(buyerReview.getScore()).isEqualTo(TEST_SECOND_SCORE);
         assertThat(buyerReview.getTitle()).isEqualTo(TEST_SECOND_TITLE);
     }
 }
