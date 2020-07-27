@@ -13,12 +13,12 @@ import reuse.domain.User;
 public class CreateBuyerReviewRequestView {
     private String title;
     private String content;
-    private int score;
+    private Integer score;
     private User buyer;
     private Long boardId;
 
     @Builder
-    public CreateBuyerReviewRequestView(String title, String content, int score, Long boardId, User buyer) {
+    public CreateBuyerReviewRequestView(String title, String content, Integer score, Long boardId, User buyer) {
         this.title = title;
         this.content = content;
         this.score = score;
