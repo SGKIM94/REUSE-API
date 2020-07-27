@@ -122,11 +122,15 @@ public class ProductServiceTest {
     @DisplayName("품목의 이미지들을 저장하는지")
     @Test
     public void storeProductImagesTest() {
-        List<String> imageUrl = productService.storeProductImages
+        ProductImages productImages = productService.storeProductImages
                 (CREATE_PRODUCT_REQUEST_DTO, S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME);
 
         //then
-        assertThat(imageUrl.size()).isGreaterThan(4);
+        assertThat(productImages.getFirstImage()).isNotBlank();
+        assertThat(productImages.getSecondImage()).isNotBlank();
+        assertThat(productImages.getThirdImage()).isNotBlank();
+        assertThat(productImages.getFourthImage()).isNotBlank();
+        assertThat(productImages.getFifthImage()).isNotBlank();
     }
 
     @DisplayName("ProductResponseView 를 이미지 url 들과 같이 생성하는지")
