@@ -14,7 +14,6 @@ import reuse.repository.ProductRepository;
 import reuse.storage.S3Uploader;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,10 +35,9 @@ public class ProductService {
     public CreateProductResponseView create(CreateProductRequestView product) {
         String imageDirectory = getImageDirectory();
 
-        List<String> imagesUrl = storeProductImages(product, imageDirectory);
+        ProductImages productImages = storeProductImages(product, imageDirectory);
 
-        productImagesRepository.save(ProductImages.toEntity(imagesUrl));
-        Product savedProduct = productRepository.save(product.toEntity(product, imagesUrl));
+        Product savedProduct = productRepository.save(product.toEntity(product, productImages));
 
         return CreateProductResponseView.toDto(savedProduct);
     }
@@ -58,13 +56,15 @@ public class ProductService {
         return FindProductResponseView.toDto(findById(id));
     }
 
-    public List<String> storeProductImages(CreateProductRequestView product, String directory) {
+    public ProductImages storeProductImages(CreateProductRequestView product, String directory) {
         List<MultipartFile> images = product.getImages();
         if (images == null) {
-            return new ArrayList<>();
+            return new ProductImages();
         }
 
-        return storeProductImageByProductImagesView(images, directory);
+        List<String> imageUrls = storeProductImageByProductImagesView(images, directory);
+
+        return productImagesRepository.save(ProductImages.toEntity(imageUrls));
     }
 
     public List<String> storeProductImageByProductImagesView(List<MultipartFile> productImages, String directory) {
