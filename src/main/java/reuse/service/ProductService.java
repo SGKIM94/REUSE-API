@@ -58,6 +58,7 @@ public class ProductService {
 
     public ProductImages storeProductImages(CreateProductRequestView product, String directory) {
         List<MultipartFile> images = product.getImages();
+
         if (images == null) {
             return new ProductImages();
         }
@@ -77,7 +78,6 @@ public class ProductService {
     private String getImageDirectory() {
         return S3_PRODUCT_IMAGES_DIRECTORY_NAME + getNowDateTime();
     }
-
 
     private LocalDateTime getNowDateTime() {
         return LocalDateTime.now();

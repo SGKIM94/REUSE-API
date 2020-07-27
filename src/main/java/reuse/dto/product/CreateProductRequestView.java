@@ -48,10 +48,7 @@ public class CreateProductRequestView {
         this.images = images;
     }
 
-    public Product toEntity(CreateProductRequestView product, List<String> imageUrls) {
-        ProductImages productImages = ProductImages.toEntity(imageUrls);
-
-        //TODO : 카테고리 넣어주는 로직 추가필요
+    public Product toEntity(CreateProductRequestView product, ProductImages productImages) {
         return Product.builder()
                 .explanation(product.getExplanation())
                 .isSold(product.getIsSold())

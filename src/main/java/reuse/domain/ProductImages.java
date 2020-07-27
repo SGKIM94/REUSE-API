@@ -36,6 +36,7 @@ public class ProductImages extends AbstractEntity {
     }
 
     public static ProductImages toEntity(List<String> imageUrls) {
+        //TODO: 상품 이미지가 5개 이하일 경우에 대한 오류 처리 필요
         return ProductImages.builder()
                 .firstImage(imageUrls.get(0))
                 .secondImage(imageUrls.get(1))
