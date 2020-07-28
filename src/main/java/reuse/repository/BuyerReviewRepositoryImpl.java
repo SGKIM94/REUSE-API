@@ -24,7 +24,7 @@ public class BuyerReviewRepositoryImpl implements BuyerReviewRepositoryCustom {
                         Projections.constructor(
                                 FindBuyerReviewRequestView.class,
                                 buyerReview.buyer,
-                                buyerReview.rating,
+                                buyerReview.score,
                                 buyerReview.title,
                                 buyerReview.content,
                                 board
