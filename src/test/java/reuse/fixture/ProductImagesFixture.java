@@ -3,7 +3,13 @@ package reuse.fixture;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
+import reuse.domain.Image;
 import reuse.domain.ProductImages;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static reuse.fixture.ProductFixture.TEST_PRODUCT;
 
 public class ProductImagesFixture extends CommonFixture {
     public static final String TEST_IMAGE_FILE_NAME1 = "foo1.txt";
@@ -35,7 +41,21 @@ public class ProductImagesFixture extends CommonFixture {
     public static final String FIFTH_IMAGE_URL = "https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo5";
     public static final String SIX_IMAGE_URL = "https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo6";
 
-    public static final ProductImages TEST_PRODUCT_IMAGES = ProductImages.builder()
-            .firstImage(FIRST_IMAGE_URL).secondImage(SECOND_IMAGE_URL).thirdImage(THIRD_IMAGE_URL)
-            .fourthImage(FOURTH_IMAGE_URL).fifthImage(FIFTH_IMAGE_URL).sixthImage(SIX_IMAGE_URL).build();
+    public static final Image TEST_FIRST_IMAGE = new Image(TEST_PRODUCT, FIRST_IMAGE_URL);
+    public static final Image TEST_SECOND_IMAGE = new Image(TEST_PRODUCT, SECOND_IMAGE_URL);
+    public static final Image TEST_THIRD_IMAGE = new Image(TEST_PRODUCT, THIRD_IMAGE_URL);
+    public static final Image TEST_FOURTH_IMAGE = new Image(TEST_PRODUCT, FOURTH_IMAGE_URL);
+    public static final Image TEST_FIFTH_IMAGE = new Image(TEST_PRODUCT, FIFTH_IMAGE_URL);
+    public static final Image TEST_SIX_IMAGE = new Image(TEST_PRODUCT, SIX_IMAGE_URL);
+
+
+    public static final List<String> TEST_IMAGE_URLS
+            = Arrays.asList(FIRST_IMAGE_URL, SECOND_IMAGE_URL, THIRD_IMAGE_URL, FOURTH_IMAGE_URL, FIFTH_IMAGE_URL);
+
+    public static final ProductImages TEST_PRODUCT_IMAGES =
+            new ProductImages(Arrays.asList(TEST_FIRST_IMAGE, TEST_SECOND_IMAGE, TEST_THIRD_IMAGE, TEST_FOURTH_IMAGE,
+                    TEST_FIFTH_IMAGE, TEST_SIX_IMAGE));
+
+    public static final ProductImages TEST_SECOND_PRODUCT_IMAGES =
+            new ProductImages(Arrays.asList(TEST_FIRST_IMAGE, TEST_SECOND_IMAGE, TEST_THIRD_IMAGE));
 }
