@@ -32,8 +32,7 @@ public class Product extends AbstractEntity {
 
     private String quality;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_images_id")
+    @Embedded
     private ProductImages productImages;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -70,5 +69,4 @@ public class Product extends AbstractEntity {
         this.quality = quality;
         this.productImages = productImages;
     }
-
 }
