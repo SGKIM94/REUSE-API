@@ -35,9 +35,9 @@ public class ProductService {
     public CreateProductResponseView create(CreateProductRequestView product) {
         String imageDirectory = getImageDirectory();
 
-        ProductImages productImages = storeProductImages(product, imageDirectory);
+        Product savedProduct = productRepository.save(product.toEntity(product));
 
-        Product savedProduct = productRepository.save(product.toEntity(product, productImages));
+        storeProductImages(product, imageDirectory, savedProduct);
 
         return CreateProductResponseView.toDto(savedProduct);
     }
@@ -56,7 +56,7 @@ public class ProductService {
         return FindProductResponseView.toDto(findById(id));
     }
 
-    public ProductImages storeProductImages(CreateProductRequestView product, String directory) {
+    public ProductImages storeProductImages(CreateProductRequestView product, String directory, Product savedProduct) {
         List<MultipartFile> images = product.getImages();
 
         if (images == null) {
@@ -65,7 +65,7 @@ public class ProductService {
 
         List<String> imageUrls = storeProductImageByProductImagesView(images, directory);
 
-        return productImagesRepository.save(ProductImages.toEntity(imageUrls));
+        return productImagesRepository.save(ProductImages.toEntity(imageUrls, savedProduct));
     }
 
     public List<String> storeProductImageByProductImagesView(List<MultipartFile> productImages, String directory) {
