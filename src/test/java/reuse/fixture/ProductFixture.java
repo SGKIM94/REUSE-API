@@ -33,8 +33,7 @@ public class ProductFixture extends CommonFixture {
     public static final CreateProductRequestView CREATE_PRODUCT_REQUEST_DTO = CreateProductRequestView.builder()
             .images(TEST_IMAGES).build();
 
-    public static final List<Product> LIST_PRODUCT_RESPONSE_VIEW
-            = Arrays.asList(TEST_PRODUCT, SECOND_TEST_PRODUCT);
+    public static final List<Product> LIST_PRODUCT_RESPONSE_VIEW = Arrays.asList(TEST_PRODUCT, SECOND_TEST_PRODUCT);
 
     public static MultiValueMap<String, Object> getCreateProductMap(Long categoryId) {
         MultiValueMap<String, Object> product = new LinkedMultiValueMap<>();

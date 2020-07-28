@@ -71,10 +71,10 @@ public class ProductServiceTest {
 
         List<FindProductResponseView> findProductResponseViews = products.getProducts();
         FindProductResponseView findProductResponseView = findProductResponseViews.get(0);
-        ProductImages productImages = findProductResponseView.getProductImages();
+        List<String> productImages = findProductResponseView.getProductImages();
 
         assertThat(products.getSize()).isGreaterThan(1);
-        assertThat(productImages.getFirstImage()).isNotBlank();
+        assertThat(productImages.size()).isEqualTo(5);
         verify(productRepository).findAll();
     }
 
@@ -88,7 +88,7 @@ public class ProductServiceTest {
         String thumbnailImage = product.getThumbnailImage();
 
         assertThat(product.getName()).isEqualTo(TEST_PRODUCT_NAME);
-        assertThat(productImages.getFirstImage()).isEqualTo(FIRST_IMAGE_URL);
+        assertThat(productImages.getIndexImage(0)).isEqualTo(FIRST_IMAGE_URL);
         assertThat(thumbnailImage).isNotBlank();
 
         verify(productRepository).findById(any());
@@ -100,8 +100,8 @@ public class ProductServiceTest {
         when(productRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_PRODUCT));
 
         FindProductResponseView product = productService.findByIdWithImages(DEFAULT_ID);
-        ProductImages productImages = product.getProductImages();
-        String productImage = productImages.getFirstImage();
+        List<String> productImages = product.getProductImages();
+        String productImage = productImages.get(0);
 
         assertThat(product.getName()).isEqualTo(TEST_PRODUCT_NAME);
         assertThat(productImage).isNotBlank();
@@ -123,25 +123,25 @@ public class ProductServiceTest {
     @Test
     public void storeProductImagesTest() {
         ProductImages productImages = productService.storeProductImages
-                (CREATE_PRODUCT_REQUEST_DTO, S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME);
+                (CREATE_PRODUCT_REQUEST_DTO, S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME, TEST_PRODUCT);
 
         //then
-        assertThat(productImages.getFirstImage()).isNotBlank();
-        assertThat(productImages.getSecondImage()).isNotBlank();
-        assertThat(productImages.getThirdImage()).isNotBlank();
-        assertThat(productImages.getFourthImage()).isNotBlank();
-        assertThat(productImages.getFifthImage()).isNotBlank();
+        assertThat(productImages.getIndexImage(0)).isNotBlank();
+        assertThat(productImages.getIndexImage(1)).isNotBlank();
+        assertThat(productImages.getIndexImage(2)).isNotBlank();
+        assertThat(productImages.getIndexImage(3)).isNotBlank();
+        assertThat(productImages.getIndexImage(4)).isNotBlank();
     }
 
     @DisplayName("ProductResponseView 를 이미지 url 들과 같이 생성하는지")
     @Test
     public void toFindProductResponseViewWithFiles() {
         FindProductResponseView response = ListProductResponseView.toFindProductResponseViewWithFiles(TEST_PRODUCT);
-        ProductImages productImages = response.getProductImages();
+        List<String> productImages = response.getProductImages();
 
         //then
         assertThat(response.getName()).isEqualTo(TEST_PRODUCT_NAME);
         assertThat(response.getThumbnailImage()).isNotBlank();
-        assertThat(productImages.getFirstImage()).isEqualTo(FIRST_IMAGE_URL);
+        assertThat(productImages.get(0)).isEqualTo(FIRST_IMAGE_URL);
     }
 }
