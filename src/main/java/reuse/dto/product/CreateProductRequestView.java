@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 import reuse.domain.Product;
-import reuse.domain.ProductImages;
 
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class CreateProductRequestView {
         this.images = images;
     }
 
-    public Product toEntity(CreateProductRequestView product, ProductImages productImages) {
+    public Product toEntity(CreateProductRequestView product) {
         return Product.builder()
                 .explanation(product.getExplanation())
                 .isSold(product.getIsSold())
@@ -57,7 +56,6 @@ public class CreateProductRequestView {
                 .price(product.getPrice())
                 .tax(product.getTax())
                 .quality(product.getQuality())
-                .productImages(productImages)
                 .build();
     }
 }
