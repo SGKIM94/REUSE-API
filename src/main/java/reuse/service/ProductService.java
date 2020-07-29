@@ -3,13 +3,14 @@ package reuse.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import reuse.domain.Image;
 import reuse.domain.Product;
 import reuse.domain.ProductImages;
 import reuse.dto.product.CreateProductRequestView;
 import reuse.dto.product.CreateProductResponseView;
 import reuse.dto.product.FindProductResponseView;
 import reuse.dto.product.ListProductResponseView;
-import reuse.repository.ProductImagesRepository;
+import reuse.repository.ImageRepository;
 import reuse.repository.ProductRepository;
 import reuse.storage.S3Uploader;
 
@@ -22,12 +23,12 @@ public class ProductService {
     public static final String S3_PRODUCT_IMAGES_DIRECTORY_NAME = "products/";
 
     private final ProductRepository productRepository;
-    private final ProductImagesRepository productImagesRepository;
+    private final ImageRepository imageRepository;
     private final S3Uploader s3Uploader;
 
-    public ProductService(ProductRepository productRepository, ProductImagesRepository productImagesRepository, S3Uploader s3Uploader) {
+    public ProductService(ProductRepository productRepository, ImageRepository imageRepository, S3Uploader s3Uploader) {
         this.productRepository = productRepository;
-        this.productImagesRepository = productImagesRepository;
+        this.imageRepository = imageRepository;
         this.s3Uploader = s3Uploader;
     }
 
@@ -65,7 +66,13 @@ public class ProductService {
 
         List<String> imageUrls = storeProductImageByProductImagesView(images, directory);
 
-        return productImagesRepository.save(ProductImages.toEntity(imageUrls, savedProduct));
+        List<Image> savedImages = imageUrls.stream()
+                .map(url -> imageRepository.save(Image.toEntity(url, savedProduct)))
+                .collect(Collectors.toList());
+
+        return ProductImages.builder().images(savedImages).build();
+
+
     }
 
     public List<String> storeProductImageByProductImagesView(List<MultipartFile> productImages, String directory) {
