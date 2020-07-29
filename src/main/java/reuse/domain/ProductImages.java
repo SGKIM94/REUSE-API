@@ -1,13 +1,14 @@
 package reuse.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,9 +16,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Slf4j
 public class ProductImages {
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id")
-    private List<Image> images;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Image> images = new ArrayList<>();
 
     @Builder
     public ProductImages(List<Image> images) {
@@ -32,10 +32,12 @@ public class ProductImages {
         return new ProductImages(images);
     }
 
+    @JsonIgnore
     public int getSize() {
         return this.images.size();
     }
 
+    @JsonIgnore
     public String getIndexImage(int index) {
         if (this.images.get(index) == null) {
             log.error("해당 Images : " + images.toString());
