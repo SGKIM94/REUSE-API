@@ -29,4 +29,11 @@ public class Image extends AbstractEntity {
         this.product = product;
         this.url = url;
     }
+
+    public static Image toEntity(String url, Product savedProduct) {
+        return Image.builder()
+                .product(savedProduct)
+                .url(url)
+                .build();
+    }
 }
