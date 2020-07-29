@@ -12,7 +12,7 @@ import reuse.dto.product.CreateProductResponseView;
 import reuse.dto.product.FindProductResponseView;
 import reuse.dto.product.ListProductResponseView;
 import reuse.repository.CategoryRepository;
-import reuse.repository.ProductImagesRepository;
+import reuse.repository.ImageRepository;
 import reuse.repository.ProductRepository;
 import reuse.storage.S3Uploader;
 
@@ -39,27 +39,27 @@ public class ProductServiceTest {
     private CategoryRepository categoryRepository;
 
     @MockBean
-    private ProductImagesRepository productImagesRepository;
+    private ImageRepository imageRepository;
 
     @SpyBean
     private S3Uploader s3Uploader;
 
     @BeforeEach
     void setUp() {
-        this.productService = new ProductService(productRepository, productImagesRepository, s3Uploader);
+        this.productService = new ProductService(productRepository, imageRepository, s3Uploader);
     }
 
     @DisplayName("품목이 생성되는지")
     @Test
     public void create() {
         when(productRepository.save(any())).thenReturn(TEST_PRODUCT);
-        when(productImagesRepository.save(any())).thenReturn(TEST_PRODUCT_IMAGES);
+        when(imageRepository.save(any())).thenReturn(TEST_PRODUCT_IMAGES);
 
         CreateProductResponseView product = productService.create(CREATE_PRODUCT_REQUEST_DTO);
         assertThat(product.getId()).isNotNull();
 
         verify(productRepository).save(any());
-        verify(productImagesRepository).save(any());
+        verify(imageRepository).save(any());
     }
 
     @DisplayName("품목들이 조회되는지")
@@ -126,11 +126,10 @@ public class ProductServiceTest {
                 (CREATE_PRODUCT_REQUEST_DTO, S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME, TEST_PRODUCT);
 
         //then
+        assertThat(productImages.getSize()).isEqualTo(2);
+
         assertThat(productImages.getIndexImage(0)).isNotBlank();
         assertThat(productImages.getIndexImage(1)).isNotBlank();
-        assertThat(productImages.getIndexImage(2)).isNotBlank();
-        assertThat(productImages.getIndexImage(3)).isNotBlank();
-        assertThat(productImages.getIndexImage(4)).isNotBlank();
     }
 
     @DisplayName("ProductResponseView 를 이미지 url 들과 같이 생성하는지")
