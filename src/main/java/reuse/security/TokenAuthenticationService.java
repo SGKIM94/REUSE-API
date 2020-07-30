@@ -30,7 +30,7 @@ public class TokenAuthenticationService {
 
     public String getSocialTokenByJwt(String jwt) {
         try {
-            Jws<Claims> claims =  getJwtClaim(jwt);
+            Jws<Claims> claims = getJwtClaim(jwt);
             return getSocialTokenIdByClaims(claims);
 
         } catch (ExpiredJwtException e) {
