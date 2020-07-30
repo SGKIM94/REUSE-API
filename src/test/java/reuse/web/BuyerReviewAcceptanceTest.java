@@ -97,7 +97,7 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
         ListBuyerReviewResponseView buyerReviews = expectResponse.getResponseBody();
 
         assertThat(status).isEqualTo(HttpStatus.OK);
-        assertThat(buyerReviews.getSize()).isEqualTo(2);
+        assertThat(buyerReviews.getSize()).isEqualTo(1);
     }
 
     @DisplayName("구매후기를 수정 가능한지")
@@ -107,12 +107,12 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
         //given
         CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
         Long boardId = board.getId();
-        createWebClientTest.createBuyerReview(boardId, getJwt());
+        BuyerReview buyerReview = createWebClientTest.createBuyerReview(boardId, getJwt());
 
         //when
         EntityExchangeResult<Void> expectResponse
                 = createWebClientTest.putMethodWithAuthAcceptance
-                (BUYER_REVIEW_BASE_URL, TEST_BUYER_REVIEW, Void.class, getJwt());
+                (BUYER_REVIEW_BASE_URL + "/" + buyerReview.getId(), TEST_BUYER_REVIEW, Void.class, getJwt());
 
         //then
         HttpStatus status = expectResponse.getStatus();
