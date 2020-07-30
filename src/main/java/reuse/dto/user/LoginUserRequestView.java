@@ -30,6 +30,7 @@ public class LoginUserRequestView {
                 .socialTokenId(newUser.getSocialTokenId())
                 .socialType(newUser.getSocialType())
                 .name(randomName)
+                .score(0)
                 .build();
     }
 }

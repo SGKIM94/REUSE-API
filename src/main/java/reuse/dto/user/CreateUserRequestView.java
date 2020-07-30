@@ -26,6 +26,7 @@ public class CreateUserRequestView {
                 .socialType(newUser.getSocialType())
                 .socialTokenId(newUser.getSocialTokenId())
                 .name(newUser.getName())
+                .score(0)
                 .build();
     }
 }
