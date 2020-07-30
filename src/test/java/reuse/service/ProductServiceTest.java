@@ -20,8 +20,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static reuse.fixture.ProductFixture.DEFAULT_ID;
 import static reuse.fixture.ProductFixture.*;
 import static reuse.fixture.ProductImagesFixture.*;
@@ -53,13 +52,13 @@ public class ProductServiceTest {
     @Test
     public void create() {
         when(productRepository.save(any())).thenReturn(TEST_PRODUCT);
-        when(imageRepository.save(any())).thenReturn(TEST_PRODUCT_IMAGES);
+        when(imageRepository.save(any())).thenReturn(TEST_FIRST_IMAGE);
 
         CreateProductResponseView product = productService.create(CREATE_PRODUCT_REQUEST_DTO);
         assertThat(product.getId()).isNotNull();
 
         verify(productRepository).save(any());
-        verify(imageRepository).save(any());
+        verify(imageRepository, times(2)).save(any());
     }
 
     @DisplayName("품목들이 조회되는지")
@@ -74,7 +73,7 @@ public class ProductServiceTest {
         ProductImages productImages = findProductResponseView.getProductImages();
 
         assertThat(products.getSize()).isGreaterThan(1);
-        assertThat(productImages.getSize()).isEqualTo(5);
+        assertThat(productImages.getSize()).isEqualTo(6);
         verify(productRepository).findAll();
     }
 
@@ -85,11 +84,9 @@ public class ProductServiceTest {
 
         Product product = productService.findById(DEFAULT_ID);
         ProductImages productImages = product.getProductImages();
-        String thumbnailImage = product.getThumbnailImage();
 
         assertThat(product.getName()).isEqualTo(TEST_PRODUCT_NAME);
         assertThat(productImages.getIndexImage(0)).isEqualTo(FIRST_IMAGE_URL);
-        assertThat(thumbnailImage).isNotBlank();
 
         verify(productRepository).findById(any());
     }
@@ -122,6 +119,9 @@ public class ProductServiceTest {
     @DisplayName("품목의 이미지들을 저장하는지")
     @Test
     public void storeProductImagesTest() {
+        when(imageRepository.save(any())).thenReturn(TEST_FIRST_IMAGE);
+        when(imageRepository.save(any())).thenReturn(TEST_SECOND_IMAGE);
+
         ProductImages productImages = productService.storeProductImages
                 (CREATE_PRODUCT_REQUEST_DTO, S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME, TEST_PRODUCT);
 
@@ -140,7 +140,6 @@ public class ProductServiceTest {
 
         //then
         assertThat(response.getName()).isEqualTo(TEST_PRODUCT_NAME);
-        assertThat(response.getThumbnailImage()).isNotBlank();
         assertThat(productImages.getIndexImage(0)).isEqualTo(FIRST_IMAGE_URL);
     }
 }

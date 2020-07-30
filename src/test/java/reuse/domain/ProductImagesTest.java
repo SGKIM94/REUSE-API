@@ -15,16 +15,14 @@ public class ProductImagesTest {
     public void toEntity() {
         ProductImages productImages = ProductImages.toEntity(TEST_IMAGE_URLS, TEST_PRODUCT);
 
-        assertThat(productImages.getSize()).isEqualTo(6);
+        assertThat(productImages.getSize()).isEqualTo(5);
     }
 
     @DisplayName("product image ")
     @Test
     public void getIndexImage() {
-        String message = assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
             TEST_PRODUCT_IMAGES.getIndexImage(7);
-        }).getMessage();
-
-        assertThat(message).isEqualTo("해당 Index 에 Product Image 가 존재하지 않습니다. : 7");
+        });
     }
 }

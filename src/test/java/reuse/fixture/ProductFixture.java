@@ -22,7 +22,7 @@ public class ProductFixture extends CommonFixture {
     public static final Product TEST_PRODUCT = Product.testBuilder()
             .id(TEST_PRODUCT_ID).name(TEST_PRODUCT_NAME).explanation(TEST_PRODUCT_EXPLANATION)
             .price(TEST_PRICE).tax(TEST_TAX).isSold(false).isUsed(true).productImages(TEST_PRODUCT_IMAGES)
-            .thumbnailImage(FIRST_IMAGE_URL).build();
+            .build();
 
     public static final Product SECOND_TEST_PRODUCT = Product.builder()
             .name(TEST_PRODUCT_NAME).explanation(TEST_PRODUCT_EXPLANATION)
