@@ -32,6 +32,14 @@ public class ProductImages {
         return new ProductImages(images);
     }
 
+    public String retrieveMainImage() {
+        if (this.images.isEmpty()) {
+            return "";
+        }
+
+        return retrieveMainUrl();
+    }
+
     @JsonIgnore
     public int getSize() {
         return this.images.size();
@@ -45,5 +53,9 @@ public class ProductImages {
         }
 
         return this.images.get(index).getUrl();
+    }
+
+    public String retrieveMainUrl() {
+        return images.get(0).getUrl();
     }
 }

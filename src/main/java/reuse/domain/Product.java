@@ -65,4 +65,8 @@ public class Product extends AbstractEntity {
         this.quality = quality;
         this.productImages = productImages;
     }
+
+    public String retrieveMainImage() {
+        return this.productImages.retrieveMainImage();
+    }
 }
