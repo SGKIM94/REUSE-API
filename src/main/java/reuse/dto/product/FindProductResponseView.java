@@ -22,6 +22,7 @@ public class FindProductResponseView {
     private String quality;
     private String createAt;
     private String updateAt;
+    private String mainImage;
     private ProductImages productImages;
 
     @Builder
@@ -35,6 +36,7 @@ public class FindProductResponseView {
         this.isSold = product.getIsSold();
         this.quality = product.getQuality();
 //        this.categoryId = product.getCategoryId();
+        this.mainImage = product.retrieveMainImage();
         this.createAt = product.getFormattedCreateDate();
         this.updateAt = product.getFormattedModifyDate();
         this.productImages = product.getProductImages();
