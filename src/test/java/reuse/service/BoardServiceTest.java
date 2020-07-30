@@ -20,6 +20,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static reuse.fixture.BoardFixture.*;
 import static reuse.fixture.ProductFixture.TEST_PRODUCT;
+import static reuse.fixture.ProductImagesFixture.FIRST_IMAGE_URL;
 import static reuse.fixture.UserFixture.TEST_USER;
 
 public class BoardServiceTest extends AbstractServiceTest {
@@ -62,6 +63,7 @@ public class BoardServiceTest extends AbstractServiceTest {
         FindBoardResponseView board = boardService.retrieve(DEFAULT_ID);
 
         assertThat(board.getContent()).isEqualTo(TEST_BOARD_CONTENT);
+        assertThat(board.getProduct().getMainImage()).isEqualTo(FIRST_IMAGE_URL);
         verify(boardRepository).findById(any());
     }
 
