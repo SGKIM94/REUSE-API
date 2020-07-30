@@ -28,8 +28,6 @@ public class Product extends AbstractEntity {
     @Column(nullable = false)
     private Boolean isSold;
 
-    private String thumbnailImage;
-
     private String quality;
 
     @Embedded
@@ -41,7 +39,7 @@ public class Product extends AbstractEntity {
 
     @Builder
     public Product(String name, String explanation, String price, String tax, Boolean isUsed, Boolean isSold,
-                   Category category, String thumbnailImage, String quality, ProductImages productImages) {
+                   Category category, String quality, ProductImages productImages) {
         this.name = name;
         this.explanation = explanation;
         this.price = price;
@@ -49,14 +47,13 @@ public class Product extends AbstractEntity {
         this.isUsed = isUsed;
         this.isSold = isSold;
         this.category = category;
-        this.thumbnailImage = thumbnailImage;
         this.quality = quality;
         this.productImages = productImages;
     }
 
     @Builder(builderMethodName = "testBuilder")
     public Product(Long id, String name, String explanation, String price, String tax, Boolean isUsed, Boolean isSold,
-                   Category category, String thumbnailImage, String quality, ProductImages productImages) {
+                   Category category, String quality, ProductImages productImages) {
         super(id);
         this.name = name;
         this.explanation = explanation;
@@ -65,7 +62,6 @@ public class Product extends AbstractEntity {
         this.isUsed = isUsed;
         this.isSold = isSold;
         this.category = category;
-        this.thumbnailImage = thumbnailImage;
         this.quality = quality;
         this.productImages = productImages;
     }

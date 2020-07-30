@@ -31,7 +31,8 @@ public class BoardController {
 
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable Long id) {
-        return ResponseEntity.ok().body(boardService.findById(id));
+        Board board = boardService.findById(id);
+        return ResponseEntity.ok().body(board);
     }
 
     @PostMapping("/category")

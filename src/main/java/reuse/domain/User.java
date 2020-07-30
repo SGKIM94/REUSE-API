@@ -26,7 +26,7 @@ public class User extends AbstractEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<FavoriteBoard> favoriteBoards = new ArrayList<>();
 
-    private Integer score = 0;
+    private Integer score;
 
     @Builder
     public User(String socialTokenId, String name, String socialType, List<FavoriteBoard> favoriteBoards, Integer score) {

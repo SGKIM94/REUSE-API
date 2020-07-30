@@ -32,7 +32,6 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                                 board.updateAt,
                                 board.seller,
                                 board.sellerAddress,
-                                product.thumbnailImage,
                                 product.isSold,
                                 product.isUsed,
                                 product.price,

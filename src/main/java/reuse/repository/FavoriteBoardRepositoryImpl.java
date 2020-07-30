@@ -31,7 +31,6 @@ public class FavoriteBoardRepositoryImpl implements FavoriteBoardRepositoryCusto
                                 board.updateAt,
                                 board.seller,
                                 board.sellerAddress,
-                                product.thumbnailImage,
                                 product.isSold,
                                 product.isUsed,
                                 product.price,

@@ -19,7 +19,7 @@ public class Board extends AbstractEntity {
     @Size(min = 1, max = 1000)
     private String content;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="product_id")
     private Product product;
 

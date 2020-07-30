@@ -22,7 +22,6 @@ public class FindWithProductResponseView {
     private LocalDateTime updateAt;
     private User seller;
     private String sellerAddress;
-    private String thumbnailImage;
     private Boolean isSold;
     private Boolean isUsed;
     private String price;
@@ -31,8 +30,8 @@ public class FindWithProductResponseView {
 
     @QueryProjection
     public FindWithProductResponseView(Long id, String content, String title, LocalDateTime createAt,
-                                       LocalDateTime updateAt, User seller, String sellerAddress, String thumbnailImage,
-                                       Boolean isSold, Boolean isUsed, String price, String name, String quality) {
+                                       LocalDateTime updateAt, User seller, String sellerAddress, Boolean isSold,
+                                       Boolean isUsed, String price, String name, String quality) {
         this.id = id;
         this.content = content;
         this.title = title;
@@ -40,7 +39,6 @@ public class FindWithProductResponseView {
         this.updateAt = updateAt;
         this.seller = seller;
         this.sellerAddress = sellerAddress;
-        this.thumbnailImage = thumbnailImage;
         this.isSold = isSold;
         this.isUsed = isUsed;
         this.price = price;
@@ -59,7 +57,6 @@ public class FindWithProductResponseView {
         this.updateAt = board.getUpdateAt();
         this.seller = board.getSeller();
         this.sellerAddress = board.getSellerAddress();
-        this.thumbnailImage = product.getThumbnailImage();
         this.isSold = product.getIsSold();
         this.isUsed = product.getIsUsed();
         this.price = product.getPrice();

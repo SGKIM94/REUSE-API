@@ -22,7 +22,6 @@ public class FindProductResponseView {
     private String quality;
     private String createAt;
     private String updateAt;
-    private String thumbnailImage;
     private ProductImages productImages;
 
     @Builder
@@ -38,7 +37,6 @@ public class FindProductResponseView {
 //        this.categoryId = product.getCategoryId();
         this.createAt = product.getFormattedCreateDate();
         this.updateAt = product.getFormattedModifyDate();
-        this.thumbnailImage = product.getThumbnailImage();
         this.productImages = product.getProductImages();
     }
 
