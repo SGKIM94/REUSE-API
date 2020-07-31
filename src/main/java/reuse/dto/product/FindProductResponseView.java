@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import reuse.domain.Product;
-import reuse.domain.ProductImages;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,7 +24,7 @@ public class FindProductResponseView {
     private String createAt;
     private String updateAt;
     private String mainImage;
-    private ProductImages productImages;
+    private List<String> productImages;
 
     @Builder
     public FindProductResponseView(Product product) {
@@ -39,7 +40,7 @@ public class FindProductResponseView {
         this.mainImage = product.retrieveMainImage();
         this.createAt = product.getFormattedCreateDate();
         this.updateAt = product.getFormattedModifyDate();
-        this.productImages = product.getProductImages();
+        this.productImages = product.retrieveImages();
     }
 
     public static FindProductResponseView toDto(Product product) {
