@@ -55,7 +55,14 @@ public class ProductImages {
         return this.images.get(index).getUrl();
     }
 
-    public String retrieveMainUrl() {
+    private String retrieveMainUrl() {
         return images.get(0).getUrl();
+    }
+
+    public List<String> retrieveImages() {
+        return this.images.stream()
+                .map(Image::getUrl)
+                .collect(Collectors.toList());
+
     }
 }

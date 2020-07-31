@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -69,4 +70,9 @@ public class Product extends AbstractEntity {
     public String retrieveMainImage() {
         return this.productImages.retrieveMainImage();
     }
+
+    public List<String> retrieveImages() {
+        return this.productImages.retrieveImages();
+    }
+
 }
