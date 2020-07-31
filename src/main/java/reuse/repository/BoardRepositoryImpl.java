@@ -5,6 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import reuse.domain.Category;
 import reuse.domain.QCategory;
+import reuse.domain.QImage;
 import reuse.domain.QProduct;
 import reuse.dto.board.FindWithProductResponseView;
 import reuse.dto.board.ListBoardWithProductResponseView;
@@ -20,6 +21,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
     public ListBoardWithProductResponseView findAllByCategory(Category requestCategory) {
         QProduct product = QProduct.product;
         QCategory category = QCategory.category;
+        QImage image = QImage.image;
 
         List<FindWithProductResponseView> findAll = jpaQueryFactory
                 .select(
@@ -36,12 +38,14 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                                 product.isUsed,
                                 product.price,
                                 product.name,
-                                product.quality
+                                product.quality,
+                                image.url
                         )
                 )
-                .from(board)
+                .from(board, image)
                 .innerJoin(board.product, product)
                 .innerJoin(product.category, category)
+                .leftJoin(board.product, image.product)
                 .where(
                         category.teleco.eq(requestCategory.getTeleco())
                                 .or(category.manufacturer.eq(requestCategory.getManufacturer()))
