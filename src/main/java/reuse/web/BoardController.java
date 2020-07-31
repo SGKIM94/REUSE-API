@@ -26,12 +26,13 @@ public class BoardController {
 
     @GetMapping("")
     public ResponseEntity list() {
-        return ResponseEntity.ok().body(boardService.list());
+        ListBoardResponseView boards = boardService.list();
+        return ResponseEntity.ok().body(boards);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity findById(@PathVariable Long id) {
-        Board board = boardService.findById(id);
+    public ResponseEntity retrieve(@PathVariable Long id) {
+        FindBoardResponseView board = boardService.retrieve(id);
         return ResponseEntity.ok().body(board);
     }
 
