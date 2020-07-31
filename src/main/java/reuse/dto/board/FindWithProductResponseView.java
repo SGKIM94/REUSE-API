@@ -27,11 +27,12 @@ public class FindWithProductResponseView {
     private String price;
     private String name;
     private String quality;
+    private String mainImage;
 
     @QueryProjection
     public FindWithProductResponseView(Long id, String content, String title, LocalDateTime createAt,
                                        LocalDateTime updateAt, User seller, String sellerAddress, Boolean isSold,
-                                       Boolean isUsed, String price, String name, String quality) {
+                                       Boolean isUsed, String price, String name, String quality, String url) {
         this.id = id;
         this.content = content;
         this.title = title;
@@ -44,6 +45,7 @@ public class FindWithProductResponseView {
         this.price = price;
         this.name = name;
         this.quality = quality;
+        this.mainImage = url;
     }
 
     @Builder
@@ -62,5 +64,6 @@ public class FindWithProductResponseView {
         this.price = product.getPrice();
         this.name = product.getName();
         this.quality = product.getQuality();
+        this.mainImage = product.retrieveMainImage();
     }
 }
