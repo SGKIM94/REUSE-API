@@ -17,6 +17,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.BoardFixture.*;
 import static reuse.fixture.CategoryFixture.TEST_CATEGORY;
+import static reuse.fixture.ProductImagesFixture.FIRST_IMAGE_URL;
+import static reuse.fixture.ProductImagesFixture.SECOND_IMAGE_URL;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -35,7 +37,9 @@ public class BoardRepositoryTest {
 
         //then
         assertThat(firstBoard.getId()).isEqualTo(TEST_FIRST_BOARD_ID);
+        assertThat(firstBoard.getMainImage()).isEqualTo(FIRST_IMAGE_URL);
         assertThat(secondBoard.getId()).isEqualTo(TEST_SIXTH_BOARD_ID);
+        assertThat(secondBoard.getMainImage()).isEqualTo(SECOND_IMAGE_URL);
     }
 
     @DisplayName("게시글 생성이 되는지")
