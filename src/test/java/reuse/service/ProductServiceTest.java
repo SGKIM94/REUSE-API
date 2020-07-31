@@ -70,10 +70,10 @@ public class ProductServiceTest {
 
         List<FindProductResponseView> findProductResponseViews = products.getProducts();
         FindProductResponseView findProductResponseView = findProductResponseViews.get(0);
-        ProductImages productImages = findProductResponseView.getProductImages();
+        List<String> productImages = findProductResponseView.getProductImages();
 
         assertThat(products.getSize()).isGreaterThan(1);
-        assertThat(productImages.getSize()).isEqualTo(6);
+        assertThat(productImages.size()).isEqualTo(6);
         verify(productRepository).findAll();
     }
 
@@ -97,8 +97,8 @@ public class ProductServiceTest {
         when(productRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_PRODUCT));
 
         FindProductResponseView product = productService.findByIdWithImages(DEFAULT_ID);
-        ProductImages productImages = product.getProductImages();
-        String productImage = productImages.getIndexImage(0);
+        List<String> productImages = product.getProductImages();
+        String productImage = productImages.get(0);
 
         assertThat(product.getName()).isEqualTo(TEST_PRODUCT_NAME);
         assertThat(productImage).isNotBlank();
@@ -136,10 +136,10 @@ public class ProductServiceTest {
     @Test
     public void toFindProductResponseViewWithFiles() {
         FindProductResponseView response = ListProductResponseView.toFindProductResponseViewWithFiles(TEST_PRODUCT);
-        ProductImages productImages = response.getProductImages();
+        List<String> productImages = response.getProductImages();
 
         //then
         assertThat(response.getName()).isEqualTo(TEST_PRODUCT_NAME);
-        assertThat(productImages.getIndexImage(0)).isEqualTo(FIRST_IMAGE_URL);
+        assertThat(productImages.get(0)).isEqualTo(FIRST_IMAGE_URL);
     }
 }
