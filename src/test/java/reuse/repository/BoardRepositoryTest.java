@@ -39,7 +39,7 @@ public class BoardRepositoryTest {
         assertThat(firstBoard.getId()).isEqualTo(TEST_FIRST_BOARD_ID);
         assertThat(firstBoard.getMainImage()).isEqualTo(FIRST_IMAGE_URL);
         assertThat(secondBoard.getId()).isEqualTo(TEST_SIXTH_BOARD_ID);
-        assertThat(secondBoard.getMainImage()).isEqualTo(SECOND_IMAGE_URL);
+        assertThat(secondBoard.getMainImage()).isEqualTo(FIRST_IMAGE_URL);
     }
 
     @DisplayName("게시글 생성이 되는지")
