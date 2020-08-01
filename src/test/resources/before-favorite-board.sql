@@ -49,38 +49,38 @@ VALUES ('9999999999', '테스트 설명2', true, false, '테스트 품목2', '50
 
 
 INSERT INTO image (id, url, product_id, update_at, create_at)
-VALUES ('1', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/products/2020-05-29T09%3A57%3A51.887/1590713808682', '9999999998', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
+VALUES ('1', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '9999999998', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
 
 INSERT INTO image (id, url, product_id, update_at, create_at)
-VALUES ('2', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/products/2020-05-29T09%3A57%3A51.887/1590713808682', '9999999998', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
+VALUES ('2', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '9999999998', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
 
 INSERT INTO image (id, url, product_id, update_at, create_at)
-VALUES ('3', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/products/2020-05-29T09%3A57%3A51.887/1590713808682', '9999999998', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
+VALUES ('3', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '9999999998', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
 
 INSERT INTO image (id, url, product_id, update_at, create_at)
-VALUES ('4', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/products/2020-05-29T09%3A57%3A51.887/1590713808682', '9999999998', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
+VALUES ('4', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '9999999998', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
 
 INSERT INTO image (id, url, product_id, update_at, create_at)
-VALUES ('5', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/products/2020-05-29T09%3A57%3A51.887/1590713808682', '9999999998', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
+VALUES ('5', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '9999999998', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
 
 INSERT INTO image (id, url, product_id, update_at, create_at)
-VALUES ('6', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/products/2020-05-29T09%3A57%3A51.887/1590713808682', '9999999998', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
+VALUES ('6', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '9999999998', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
 
 
 INSERT INTO image (id, url, product_id, update_at, create_at)
-VALUES ('7', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/products/2020-05-29T09%3A57%3A51.887/1590713808682', '9999999999', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
+VALUES ('7', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '9999999999', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
 
 INSERT INTO image (id, url, product_id, update_at, create_at)
-VALUES ('8', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/products/2020-05-29T09%3A57%3A51.887/1590713808682', '9999999999', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
+VALUES ('8', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '9999999999', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
 
 INSERT INTO image (id, url, product_id, update_at, create_at)
-VALUES ('9', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/products/2020-05-29T09%3A57%3A51.887/1590713808682', '9999999999', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
+VALUES ('9', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '9999999999', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
 
 INSERT INTO image (id, url, product_id, update_at, create_at)
-VALUES ('10', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/products/2020-05-29T09%3A57%3A51.887/1590713808682', '9999999999', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
+VALUES ('10', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '9999999999', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
 
 INSERT INTO image (id, url, product_id, update_at, create_at)
-VALUES ('11', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/products/2020-05-29T09%3A57%3A51.887/1590713808682', '9999999999', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
+VALUES ('11', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '9999999999', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
 
 
 INSERT INTO product (id, category_id, explanation, is_sold, is_used, name, price, quality, create_at, update_at)
@@ -101,6 +101,24 @@ VALUES ('5', '5', '다섯번 째 상품', false, false, '첫번째', '1000', 'S'
 INSERT INTO product (id, category_id, explanation, is_sold, is_used, name, price, quality, create_at, update_at)
 VALUES ('6', '6', '다섯번 째 상품', false, false, '첫번째', '1000', 'S', '2020-05-29 10:25:49', '2020-05-29 10:25:49');
 
+
+INSERT INTO image (id, url, product_id, update_at, create_at)
+VALUES ('12', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '1', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
+
+INSERT INTO image (id, url, product_id, update_at, create_at)
+VALUES ('13', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '2', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
+
+INSERT INTO image (id, url, product_id, update_at, create_at)
+VALUES ('14', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '3', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
+
+INSERT INTO image (id, url, product_id, update_at, create_at)
+VALUES ('15', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '4', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
+
+INSERT INTO image (id, url, product_id, update_at, create_at)
+VALUES ('16', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '5', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
+
+INSERT INTO image (id, url, product_id, update_at, create_at)
+VALUES ('17', 'https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1', '6', '2020-05-29 09:57:52', '2020-05-29 09:57:52');
 
 
 -- insert boards
