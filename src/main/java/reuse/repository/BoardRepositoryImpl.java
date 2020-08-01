@@ -42,10 +42,10 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                                 image.url
                         )
                 )
-                .from(board, image)
+                .from(board)
                 .innerJoin(board.product, product)
                 .innerJoin(product.category, category)
-                .leftJoin(board.product, image.product)
+                .leftJoin(product.productImages.images, image)
                 .where(
                         category.teleco.eq(requestCategory.getTeleco())
                                 .or(category.manufacturer.eq(requestCategory.getManufacturer()))
