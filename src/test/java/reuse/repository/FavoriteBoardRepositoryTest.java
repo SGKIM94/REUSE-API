@@ -13,6 +13,7 @@ import reuse.dto.board.ListBoardWithProductResponseView;
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.BoardFixture.TEST_FIRST_BOARD_ID;
 import static reuse.fixture.BoardFixture.TEST_SECOND_BOARD_ID;
+import static reuse.fixture.ProductImagesFixture.FIRST_IMAGE_URL;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -33,6 +34,8 @@ public class FavoriteBoardRepositoryTest {
         //then
         assertThat(size).isEqualTo(4);
         assertThat(firstBoard.getId()).isEqualTo(TEST_FIRST_BOARD_ID);
+        assertThat(firstBoard.getMainImage()).isEqualTo(FIRST_IMAGE_URL);
         assertThat(secondBoard.getId()).isEqualTo(TEST_SECOND_BOARD_ID);
+        assertThat(secondBoard.getMainImage()).isEqualTo(FIRST_IMAGE_URL);
     }
 }
