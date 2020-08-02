@@ -58,19 +58,19 @@ public class ProductService {
     }
 
     public ProductImages storeProductImages(CreateProductRequestView product, String directory, Product savedProduct) {
-        List<MultipartFile> images = product.getImages();
+        List<MultipartFile> imageFiles = product.getImages();
 
-        if (images == null) {
+        if (imageFiles == null) {
             return new ProductImages();
         }
 
-        List<String> imageUrls = storeProductImageByProductImagesView(images, directory);
+        List<String> imageUrls = storeProductImageByProductImagesView(imageFiles, directory);
 
-        List<Image> savedImages = imageUrls.stream()
-                .map(url -> imageRepository.save(Image.toEntity(url, savedProduct)))
-                .collect(Collectors.toList());
+        List<Image> images = Image.convertUrlsToImages(savedProduct, imageUrls);
 
-        return ProductImages.builder().images(savedImages).build();
+        imageRepository.saveAll(images);
+
+        return ProductImages.toEntity(images);
     }
 
     public List<String> storeProductImageByProductImagesView(List<MultipartFile> productImages, String directory) {
