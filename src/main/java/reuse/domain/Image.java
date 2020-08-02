@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor
@@ -35,5 +37,11 @@ public class Image extends AbstractEntity {
                 .product(savedProduct)
                 .url(url)
                 .build();
+    }
+
+    public static List<Image> convertUrlsToImages(Product savedProduct, List<String> imageUrls) {
+        return imageUrls.stream()
+                .map(url -> Image.toEntity(url, savedProduct))
+                .collect(Collectors.toList());
     }
 }
