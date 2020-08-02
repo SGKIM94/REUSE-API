@@ -63,6 +63,9 @@ public class ProductImages {
         return this.images.stream()
                 .map(Image::getUrl)
                 .collect(Collectors.toList());
+    }
 
+    public static ProductImages toEntity(List<Image> images) {
+        return ProductImages.builder().images(images).build();
     }
 }
