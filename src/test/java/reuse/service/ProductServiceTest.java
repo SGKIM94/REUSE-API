@@ -24,6 +24,7 @@ import static org.mockito.Mockito.*;
 import static reuse.fixture.ProductFixture.DEFAULT_ID;
 import static reuse.fixture.ProductFixture.*;
 import static reuse.fixture.ProductImagesFixture.*;
+import static reuse.service.ProductService.S3_PRODUCT_IMAGES_DIRECTORY_NAME;
 
 @SpringBootTest
 public class ProductServiceTest {
@@ -141,5 +142,15 @@ public class ProductServiceTest {
         //then
         assertThat(response.getName()).isEqualTo(TEST_PRODUCT_NAME);
         assertThat(productImages.get(0)).isEqualTo(FIRST_IMAGE_URL);
+    }
+
+    @DisplayName("product image 를 ProductImagesView 로 부터 가져올 수 있는지")
+    @Test
+    public void storeProductImageByProductImagesView() {
+        List<String> imageUrls
+                = productService.storeProductImageByProductImagesView(TEST_MULTIPART_FILES, S3_PRODUCT_IMAGES_DIRECTORY_NAME);
+
+        //then
+        assertThat(imageUrls.size()).isEqualTo(4);
     }
 }
