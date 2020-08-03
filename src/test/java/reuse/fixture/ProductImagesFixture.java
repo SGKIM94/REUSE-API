@@ -34,6 +34,8 @@ public class ProductImagesFixture extends CommonFixture {
     public static final MultipartFile TEST_IMAGE6
             = new MockMultipartFile("foo6", TEST_IMAGE_FILE_NAME6, MediaType.TEXT_PLAIN_VALUE, TEST_FILE_CONTENT.getBytes());
 
+    public static final List<MultipartFile> TEST_MULTIPART_FILES = Arrays.asList(TEST_IMAGE1, TEST_IMAGE2, TEST_IMAGE3, TEST_IMAGE4);
+
     public static final String FIRST_IMAGE_URL = "https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo1";
     public static final String SECOND_IMAGE_URL = "https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo2";
     public static final String THIRD_IMAGE_URL = "https://reuse-s3.s3.ap-northeast-2.amazonaws.com/1/foo3";
