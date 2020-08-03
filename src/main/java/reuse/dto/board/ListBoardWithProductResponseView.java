@@ -23,6 +23,7 @@ public class ListBoardWithProductResponseView {
         return new ListBoardWithProductResponseView(boards);
     }
 
+    @JsonIgnore
     public int getSize() {
         return boards.size();
     }
