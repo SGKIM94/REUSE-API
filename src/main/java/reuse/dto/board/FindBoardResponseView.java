@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import reuse.domain.Board;
+import reuse.domain.BuyerReview;
 import reuse.domain.SalesStatusType;
 import reuse.domain.User;
 import reuse.dto.product.FindProductResponseView;
@@ -20,9 +21,11 @@ public class FindBoardResponseView {
     private User seller;
     private String sellerAddress;
     private SalesStatusType salesStatus;
+    private BuyerReview buyerReview;
 
     @Builder
-    public FindBoardResponseView(Long id, String title, String content, FindProductResponseView product, User seller, String sellerAddress, SalesStatusType salesStatus) {
+    public FindBoardResponseView(Long id, String title, String content, FindProductResponseView product, User seller,
+                                 String sellerAddress, SalesStatusType salesStatus, BuyerReview buyerReview) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -30,6 +33,7 @@ public class FindBoardResponseView {
         this.seller = seller;
         this.sellerAddress = sellerAddress;
         this.salesStatus = salesStatus;
+        this.buyerReview = buyerReview;
     }
 
     public static FindBoardResponseView toDto(Board board) {
@@ -41,6 +45,7 @@ public class FindBoardResponseView {
                 .seller(board.getSeller())
                 .sellerAddress(board.getSellerAddress())
                 .salesStatus(board.getSalesStatus())
+                .buyerReview(board.getBuyerReview())
                 .build();
     }
 }
