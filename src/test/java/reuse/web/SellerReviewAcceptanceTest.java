@@ -7,9 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
-import reuse.domain.Board;
 import reuse.domain.SellerReview;
 import reuse.dto.board.CreateBoardResponseView;
+import reuse.dto.board.FindBoardResponseView;
+import reuse.dto.board.ModifyBoardStatusRequestView;
 import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,13 +40,19 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
         CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
         Long boardId = board.getId();
 
+        createWebClientTest.postMethodWithAuthAcceptance
+                (BOARD_BASE_URL + "/complete", new ModifyBoardStatusRequestView(boardId), Void.class, getJwt());
+
+
+        // TODO: 게시판 상태를 COMPLETE 로 변경하는 부분이 필요
         //when
         EntityExchangeResult<SellerReview> expectResponse
                 = createWebClientTest.postMethodWithAuthAcceptance
                 (SELLER_REVIEW_BASE_URL, getCreateSellerReviewRequestView(boardId), SellerReview.class, getJwt());
 
+
         //then
-        Board foundBoard = findBoardById(boardId);
+        FindBoardResponseView foundBoard = findBoardById(boardId);
 
         HttpStatus status = expectResponse.getStatus();
 
@@ -53,8 +60,8 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(foundBoard.getBuyerReview()).isNotNull();
     }
 
-    public Board findBoardById(Long boardId) {
-        return createWebClientTest.getMethodWithAuthAcceptance(BOARD_BASE_URL + "/" + boardId, Board.class, getJwt())
+    public FindBoardResponseView findBoardById(Long boardId) {
+        return createWebClientTest.getMethodWithAuthAcceptance(BOARD_BASE_URL + "/" + boardId, FindBoardResponseView.class, getJwt())
                 .getResponseBody();
     }
 
