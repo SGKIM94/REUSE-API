@@ -41,15 +41,16 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
         Long boardId = board.getId();
 
         createWebClientTest.postMethodWithAuthAcceptance
+                (BOARD_BASE_URL + "/reservation", new ModifyBoardStatusRequestView(boardId), Void.class, getJwt());
+
+        createWebClientTest.postMethodWithAuthAcceptance
                 (BOARD_BASE_URL + "/complete", new ModifyBoardStatusRequestView(boardId), Void.class, getJwt());
 
 
-        // TODO: 게시판 상태를 COMPLETE 로 변경하는 부분이 필요
         //when
         EntityExchangeResult<SellerReview> expectResponse
                 = createWebClientTest.postMethodWithAuthAcceptance
                 (SELLER_REVIEW_BASE_URL, getCreateSellerReviewRequestView(boardId), SellerReview.class, getJwt());
-
 
         //then
         FindBoardResponseView foundBoard = findBoardById(boardId);
@@ -57,7 +58,7 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
         HttpStatus status = expectResponse.getStatus();
 
         assertThat(status).isEqualTo(HttpStatus.OK);
-        assertThat(foundBoard.getBuyerReview()).isNotNull();
+        assertThat(foundBoard.getSellerReview()).isNotNull();
     }
 
     public FindBoardResponseView findBoardById(Long boardId) {
