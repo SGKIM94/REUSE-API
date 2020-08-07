@@ -1,6 +1,7 @@
 package reuse.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import reuse.domain.Board;
 import reuse.domain.SalesStatusType;
 import reuse.domain.SellerReview;
@@ -18,13 +19,16 @@ public class SellerReviewService {
         this.boardService = boardService;
     }
 
+    @Transactional
     public SellerReview create(CreateSellerReviewRequestView sellerReview, User requester) {
         Board board = boardService.findById(sellerReview.getBoardId());
 
         board.verifyThatUserAndRequester(requester, SalesStatusType.COMPLETE);
-
         board.addScoreFromSellerToBuyer(sellerReview.getScore());
 
-        return sellerReviewRepository.save(sellerReview.toEntity());
+        SellerReview review = sellerReviewRepository.save(sellerReview.toEntity());
+        board.registerSellerReview(review);
+
+        return review;
     }
 }
