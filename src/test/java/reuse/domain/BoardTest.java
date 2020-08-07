@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static reuse.fixture.BoardFixture.*;
 import static reuse.fixture.BuyerReviewFixture.TEST_BUYER_REVIEW;
+import static reuse.fixture.SellerReviewFixture.TEST_SELLER_REVIEW;
 import static reuse.fixture.UserFixture.TEST_SECOND_USER;
 import static reuse.fixture.UserFixture.TEST_USER;
 
@@ -129,13 +130,24 @@ public class BoardTest {
 
     @DisplayName("게시물에 구매자를 등록 가능한지")
     @Test
-    @Order(9)
+    @Order(10)
     public void registerBuyer() {
         //when
         Board modifiedBoard = TEST_BOARD.registerBuyer(TEST_USER);
 
         //then
         assertThat(modifiedBoard.getBuyerId()).isEqualTo(DEFAULT_ID);
+    }
+
+    @DisplayName("게시물에 판매자의 후기를 등록 가능한지")
+    @Test
+    @Order(11)
+    public void registerSellerReview() {
+        //when
+        Board modifiedBoard = TEST_BOARD.registerSellerReview(TEST_SELLER_REVIEW);
+
+        //then
+        assertThat(modifiedBoard.getSellerReview().getId()).isEqualTo(TEST_SELLER_REVIEW.getId());
     }
 
 }
