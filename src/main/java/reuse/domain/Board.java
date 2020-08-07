@@ -135,6 +135,10 @@ public class Board extends AbstractEntity {
         return this.buyerReview;
     }
 
+    public SellerReview getSellerReview() {
+        return this.sellerReview;
+    }
+
     @JsonIgnore
     public Long getBuyerId() {
         return this.buyer.getId();
@@ -163,7 +167,7 @@ public class Board extends AbstractEntity {
 
     public void verifyThatBoardCanChangeStatus(SalesStatusType sale) {
         if (!this.salesStatus.equals(sale)) {
-            throw new IllegalArgumentException("현재 " + this.salesStatus + " 상태이므로 " + sale + " 상태로 변경이 불가능합니다.");
+            throw new IllegalArgumentException("현재 상태 :  " + this.salesStatus + " | 요구되는 상태 " + sale);
         }
     }
 
@@ -183,5 +187,17 @@ public class Board extends AbstractEntity {
 
     public int addScoreFromSellerToBuyer(Integer score) {
         return buyer.addScore(score);
+    }
+
+    public Board registerBuyer(User requester) {
+        this.buyer = requester;
+
+        return this;
+    }
+
+    public Board registerSellerReview(SellerReview sellerReview) {
+        this.sellerReview = sellerReview;
+
+        return this;
     }
 }
