@@ -58,7 +58,9 @@ public class BoardService {
     public Board reserve(ModifyBoardStatusRequestView boardId, User requester) {
         Board board = findById(boardId.getId());
 
-        return board.reserve(requester);
+        Board modifiedBoard = board.registerBuyer(requester);
+
+        return modifiedBoard.reserve(requester);
     }
 
     @Transactional
