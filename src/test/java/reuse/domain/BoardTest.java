@@ -126,4 +126,16 @@ public class BoardTest {
         //then
         assertThat(modifiedBoard.getTitle()).isEqualTo(TEST_MODIFY_BOARD_TITLE);
     }
+
+    @DisplayName("게시물에 구매자를 등록 가능한지")
+    @Test
+    @Order(9)
+    public void registerBuyer() {
+        //when
+        Board modifiedBoard = TEST_BOARD.registerBuyer(TEST_USER);
+
+        //then
+        assertThat(modifiedBoard.getBuyerId()).isEqualTo(DEFAULT_ID);
+    }
+
 }
