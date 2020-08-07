@@ -24,6 +24,6 @@ public class SellerReviewController {
     @PostMapping
     public ResponseEntity create(@RequestBody CreateSellerReviewRequestView review, @LoginUser User seller) {
         SellerReview sellerReview = sellerReviewService.create(review, seller);
-        return ResponseEntity.ok().body(sellerReview.getId());
+        return ResponseEntity.ok().body(sellerReview);
     }
 }
