@@ -40,12 +40,8 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
         CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
         Long boardId = board.getId();
 
-        createWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/reservation", new ModifyBoardStatusRequestView(boardId), Void.class, getJwt());
-
-        createWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/complete", new ModifyBoardStatusRequestView(boardId), Void.class, getJwt());
-
+        modifyBoardStatus(boardId, "/reservation");
+        modifyBoardStatus(boardId, "/complete");
 
         //when
         EntityExchangeResult<SellerReview> expectResponse
@@ -59,6 +55,11 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
 
         assertThat(status).isEqualTo(HttpStatus.OK);
         assertThat(foundBoard.getSellerReview()).isNotNull();
+    }
+
+    private void modifyBoardStatus(Long boardId, String endPoint) {
+        createWebClientTest.postMethodWithAuthAcceptance
+                (BOARD_BASE_URL + endPoint, new ModifyBoardStatusRequestView(boardId), Void.class, getJwt());
     }
 
     public FindBoardResponseView findBoardById(Long boardId) {
