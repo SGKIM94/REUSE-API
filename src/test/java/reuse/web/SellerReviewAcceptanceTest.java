@@ -20,6 +20,8 @@ import static reuse.web.BoardAcceptanceTest.BOARD_BASE_URL;
 
 public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
     public static final String SELLER_REVIEW_BASE_URL = "/review/seller";
+    public static final String RESERVATION_ENDPOINT = "/reservation";
+    public static final String COMPLETE_ENDPOINT = "/complete";
 
     private CreateWebClientTest createWebClientTest;
     private TokenAuthenticationService tokenAuthenticationService;
@@ -40,8 +42,8 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
         CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
         Long boardId = board.getId();
 
-        modifyBoardStatus(boardId, "/reservation");
-        modifyBoardStatus(boardId, "/complete");
+        modifyBoardStatus(boardId, RESERVATION_ENDPOINT);
+        modifyBoardStatus(boardId, COMPLETE_ENDPOINT);
 
         //when
         EntityExchangeResult<SellerReview> expectResponse
