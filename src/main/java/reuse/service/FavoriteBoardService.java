@@ -1,6 +1,7 @@
 package reuse.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import reuse.domain.Board;
 import reuse.domain.FavoriteBoard;
 import reuse.domain.User;
@@ -18,6 +19,7 @@ public class FavoriteBoardService {
         this.boardService = boardService;
     }
 
+    @Transactional
     public FavoriteBoard create(CreateFavoriteBoardRequestView favorite, User loginUser) {
         Board board = boardService.findById(favorite.getBoardId());
         return favoriteBoardRepository.save(FavoriteBoard.toEntity(board, loginUser));
