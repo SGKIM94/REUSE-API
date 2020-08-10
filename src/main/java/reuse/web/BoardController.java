@@ -56,12 +56,12 @@ public class BoardController {
     @PostMapping("/reservation")
     public ResponseEntity reserve(@RequestBody ModifyBoardStatusRequestView boardId, @LoginUser User seller) {
         Board reserve = boardService.reserve(boardId, seller);
-        return ResponseEntity.ok().body(reserve);
+        return ResponseEntity.ok().body(reserve.getId());
     }
 
     @PostMapping("/complete")
     public ResponseEntity complete(@RequestBody ModifyBoardStatusRequestView boardId, @LoginUser User seller) {
-        Board reserve = boardService.complete(boardId, seller);
-        return ResponseEntity.ok().body(reserve);
+        Board complete = boardService.complete(boardId, seller);
+        return ResponseEntity.ok().body(complete.getId());
     }
 }
