@@ -1,6 +1,7 @@
 package reuse.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import reuse.domain.Category;
 import reuse.dto.category.CreateCategoryRequestView;
 import reuse.dto.category.CreateCategoryResponseView;
@@ -15,6 +16,7 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
+    @Transactional
     public CreateCategoryResponseView create(CreateCategoryRequestView category) {
         Category savedCategory = categoryRepository.save(category.toEntity());
         return CreateCategoryResponseView.toDto(savedCategory);

@@ -57,6 +57,7 @@ public class ProductService {
         return FindProductResponseView.toDto(findById(id));
     }
 
+    @Transactional
     public ProductImages storeProductImages(CreateProductRequestView product, String directory, Product savedProduct) {
         List<MultipartFile> imageFiles = product.getImages();
 
@@ -73,6 +74,7 @@ public class ProductService {
         return ProductImages.toEntity(images);
     }
 
+    @Transactional
     public List<String> storeProductImageByProductImagesView(List<MultipartFile> productImages, String directory) {
         return productImages.stream()
                 .map(image -> storeProductImage(image, directory))

@@ -2,6 +2,7 @@ package reuse.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import reuse.domain.User;
 import reuse.dto.user.*;
 import reuse.repository.UserRepository;
@@ -18,11 +19,13 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public CreateUserResponseView singUp(CreateUserRequestView newUser) {
         User save = userRepository.save(CreateUserRequestView.toEntity(newUser));
         return CreateUserResponseView.toDto(save);
     }
 
+    @Transactional
     public LoginUserResponseView login(LoginUserRequestView newUser) {
         User user = userRepository.findBySocialTokenId(newUser.getSocialTokenId());
 
