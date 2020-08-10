@@ -39,6 +39,7 @@ public class BoardService {
         return board.modify(modify);
     }
 
+    @Transactional(readOnly = true)
     public Board findById(Long id) {
         return boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("게시물이 존재하지 않습니다."));
