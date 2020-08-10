@@ -69,7 +69,7 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
 
     @DisplayName("게시판 리스트가 카테고리별로 조회가 가능한지")
     @Test
-    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql","/insert-products.sql", "/insert-boards.sql"})
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql","/insert-products.sql", "/insert-users.sql","/insert-boards.sql"})
     @Order(3)
     public void listBoardByCategory() {
         //when
@@ -97,8 +97,8 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         ModifyBoardStatusRequestView request = ModifyBoardStatusRequestView.toDto(board.getId());
 
         //when
-        EntityExchangeResult<Void> exchangeResponse = restWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/reservation", request, Void.class, getJwt());
+        EntityExchangeResult<Long> exchangeResponse = restWebClientTest.postMethodWithAuthAcceptance
+                (BOARD_BASE_URL + "/reservation", request, Long.class, getJwt());
 
         HttpStatus status = exchangeResponse.getStatus();
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
@@ -115,8 +115,8 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         ModifyBoardStatusRequestView request = ModifyBoardStatusRequestView.toDto(board.getId());
 
         //when
-        EntityExchangeResult<Void> exchangeResponse = restWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/complete", request, Void.class, getJwt());
+        EntityExchangeResult<Long> exchangeResponse = restWebClientTest.postMethodWithAuthAcceptance
+                (BOARD_BASE_URL + "/complete", request, Long.class, getJwt());
 
         HttpStatus status = exchangeResponse.getStatus();
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
