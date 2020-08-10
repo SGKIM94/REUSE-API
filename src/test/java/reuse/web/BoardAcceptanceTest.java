@@ -130,15 +130,15 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
 
         //when
-        EntityExchangeResult<Board> exchangeResponse = restWebClientTest.putMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/" + board.getId(), MODIFY_BOARD_REQUEST_DTO, Board.class, getJwt());
+        EntityExchangeResult<Long> exchangeResponse = restWebClientTest.putMethodWithAuthAcceptance
+                (BOARD_BASE_URL + "/" + board.getId(), MODIFY_BOARD_REQUEST_DTO, Long.class, getJwt());
 
         HttpStatus status = exchangeResponse.getStatus();
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
 
-        Board modifiedBoard = exchangeResponse.getResponseBody();
+        Long boardId = exchangeResponse.getResponseBody();
 
-        assertThat(modifiedBoard.getTitle()).isEqualTo(TEST_MODIFY_BOARD_TITLE);
+        assertThat(boardId).isNotNull();
     }
 
     @DisplayName("Board 가 삭제가 되는지")

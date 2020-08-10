@@ -44,7 +44,7 @@ public class BoardController {
     @PutMapping("/{id}")
     public ResponseEntity modify(@RequestBody ModifyBoardRequestView modify, @PathVariable Long id) {
         Board modifiedBoard = boardService.modify(modify, id);
-        return ResponseEntity.ok().body(modifiedBoard);
+        return ResponseEntity.ok().body(modifiedBoard.getId());
     }
 
     @PostMapping("/{id}")
