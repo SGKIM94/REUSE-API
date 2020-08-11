@@ -34,7 +34,7 @@ public class Product extends AbstractEntity {
     @Embedded
     private ProductImages productImages;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "category_id")
     private Category category;
 
