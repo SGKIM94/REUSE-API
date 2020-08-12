@@ -20,9 +20,11 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static reuse.fixture.ProductFixture.DEFAULT_ID;
 import static reuse.fixture.ProductFixture.*;
+import static reuse.fixture.ProductImagesFixture.TEST_IMAGES;
 import static reuse.fixture.ProductImagesFixture.*;
 import static reuse.service.ProductService.S3_PRODUCT_IMAGES_DIRECTORY_NAME;
 
@@ -53,13 +55,13 @@ public class ProductServiceTest {
     @Test
     public void create() {
         when(productRepository.save(any())).thenReturn(TEST_PRODUCT);
-        when(imageRepository.save(any())).thenReturn(TEST_FIRST_IMAGE);
+        when(imageRepository.saveAll(any())).thenReturn(TEST_IMAGES);
 
         CreateProductResponseView product = productService.create(CREATE_PRODUCT_REQUEST_DTO);
         assertThat(product.getId()).isNotNull();
 
         verify(productRepository).save(any());
-        verify(imageRepository, times(2)).save(any());
+        verify(imageRepository).saveAll(any());
     }
 
     @DisplayName("품목들이 조회되는지")
