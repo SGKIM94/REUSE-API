@@ -26,7 +26,7 @@ public class ProductFixture extends CommonFixture {
 
     public static final Product SECOND_TEST_PRODUCT = Product.builder()
             .name(TEST_PRODUCT_NAME).explanation(TEST_PRODUCT_EXPLANATION)
-            .price(TEST_PRICE).tax(TEST_TAX).isSold(false).isUsed(true).build();
+            .price(TEST_PRICE).tax(TEST_TAX).isSold(false).isUsed(true).productImages(TEST_PRODUCT_IMAGES).build();
 
     public static final List<MultipartFile> TEST_IMAGES = Arrays.asList(TEST_IMAGE1, TEST_IMAGE2);
 
