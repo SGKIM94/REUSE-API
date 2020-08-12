@@ -58,6 +58,10 @@ public class ProductImagesFixture extends CommonFixture {
             new ProductImages(Arrays.asList(TEST_FIRST_IMAGE, TEST_SECOND_IMAGE, TEST_THIRD_IMAGE, TEST_FOURTH_IMAGE,
                     TEST_FIFTH_IMAGE, TEST_SIX_IMAGE));
 
+    public static final List<Image> TEST_IMAGES =
+            Arrays.asList(TEST_FIRST_IMAGE, TEST_SECOND_IMAGE, TEST_THIRD_IMAGE, TEST_FOURTH_IMAGE,
+                    TEST_FIFTH_IMAGE, TEST_SIX_IMAGE);
+
     public static final ProductImages TEST_SECOND_PRODUCT_IMAGES =
             new ProductImages(Arrays.asList(TEST_FIRST_IMAGE, TEST_SECOND_IMAGE, TEST_THIRD_IMAGE));
 }
