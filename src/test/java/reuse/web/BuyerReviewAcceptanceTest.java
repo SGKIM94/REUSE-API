@@ -7,9 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
-import reuse.domain.Board;
 import reuse.domain.BuyerReview;
 import reuse.dto.board.CreateBoardResponseView;
+import reuse.dto.board.FindBoardResponseView;
 import reuse.dto.review.buyer.ListBuyerReviewResponseView;
 import reuse.security.TokenAuthenticationService;
 
@@ -48,7 +48,7 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
                 (BUYER_REVIEW_BASE_URL, getCreateBuyerReviewRequestView(boardId), BuyerReview.class, getJwt());
 
         //then
-        Board foundBoard = findBoardById(boardId);
+        FindBoardResponseView foundBoard = findBoardById(boardId);
 
         HttpStatus status = expectResponse.getStatus();
 
@@ -121,8 +121,8 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
     }
 
 
-    public Board findBoardById(Long boardId) {
-        return createWebClientTest.getMethodWithAuthAcceptance(BOARD_BASE_URL + "/" + boardId, Board.class, getJwt())
+    public FindBoardResponseView findBoardById(Long boardId) {
+        return createWebClientTest.getMethodWithAuthAcceptance(BOARD_BASE_URL + "/" + boardId, FindBoardResponseView.class, getJwt())
                 .getResponseBody();
     }
 
