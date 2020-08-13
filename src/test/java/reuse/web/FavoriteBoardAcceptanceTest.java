@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
+import reuse.domain.User;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.dto.board.ListBoardResponseView;
 import reuse.dto.favorite.CreateFavoriteBoardRequestView;
@@ -22,14 +23,14 @@ public class FavoriteBoardAcceptanceTest extends AbstractAcceptanceTest {
 
     private CreateWebClientTest restWebClientTest;
     private TokenAuthenticationService tokenAuthenticationService;
-    private String socialTokenId;
+    private User loginUser;
 
     @BeforeEach
     void setUp() {
         this.restWebClientTest = new CreateWebClientTest(this.webTestClient);
         this.tokenAuthenticationService = new TokenAuthenticationService();
 
-        socialTokenId = restWebClientTest.createUser();
+        loginUser = restWebClientTest.createUser();
         restWebClientTest.createCategory(CREATE_CATEGORY_REQUEST_VIEW, getJwt());
     }
 
@@ -71,6 +72,6 @@ public class FavoriteBoardAcceptanceTest extends AbstractAcceptanceTest {
     }
 
     public String getJwt() {
-        return tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
+        return tokenAuthenticationService.toJwtBySocialTokenId(loginUser.getSocialTokenId());
     }
 }

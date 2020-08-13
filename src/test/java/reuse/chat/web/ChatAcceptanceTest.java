@@ -10,6 +10,7 @@ import reuse.AbstractAcceptanceTest;
 import reuse.chat.domain.ChatRoom;
 import reuse.chat.dto.CreateChatRequestView;
 import reuse.chat.dto.ListChatRoomsResponseView;
+import reuse.domain.User;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.security.TokenAuthenticationService;
 import reuse.web.CreateWebClientTest;
@@ -23,14 +24,14 @@ public class ChatAcceptanceTest extends AbstractAcceptanceTest {
 
     private CreateWebClientTest restWebClientTest;
     private TokenAuthenticationService tokenAuthenticationService;
-    private String socialTokenId;
+    private User loginUser;
 
     @BeforeEach
     void setUp() {
         this.restWebClientTest = new CreateWebClientTest(this.webTestClient);
         this.tokenAuthenticationService = new TokenAuthenticationService();
 
-        socialTokenId = restWebClientTest.createUser();
+        loginUser = restWebClientTest.createUser();
         restWebClientTest.createCategory(CREATE_CATEGORY_REQUEST_VIEW, getJwt());
     }
 
@@ -105,6 +106,6 @@ public class ChatAcceptanceTest extends AbstractAcceptanceTest {
     }
 
     public String getJwt() {
-        return tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
+        return tokenAuthenticationService.toJwtBySocialTokenId(loginUser.getSocialTokenId());
     }
 }

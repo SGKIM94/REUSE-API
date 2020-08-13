@@ -8,6 +8,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
 import reuse.domain.BuyerReview;
+import reuse.domain.User;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.dto.board.FindBoardResponseView;
 import reuse.dto.review.buyer.ListBuyerReviewResponseView;
@@ -25,13 +26,13 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
 
     private CreateWebClientTest createWebClientTest;
     private TokenAuthenticationService tokenAuthenticationService;
-    private String socialTokenId;
+    private User loginUser;
 
     @BeforeEach
     void setUp() {
         this.createWebClientTest = new CreateWebClientTest(this.webTestClient);
         this.tokenAuthenticationService = new TokenAuthenticationService();
-        socialTokenId = createWebClientTest.createUser();
+        loginUser = createWebClientTest.createUser();
     }
 
     @DisplayName("구매자가 구매한 게시판에 구매평을 남기는지")
@@ -127,6 +128,6 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
     }
 
     public String getJwt() {
-        return tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
+        return tokenAuthenticationService.toJwtBySocialTokenId(loginUser.getSocialTokenId());
     }
 }

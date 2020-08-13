@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
+import reuse.domain.User;
 import reuse.dto.category.CreateCategoryResponseView;
 import reuse.dto.product.CreateProductResponseView;
 import reuse.dto.product.FindProductResponseView;
@@ -24,13 +25,13 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
 
     private CreateWebClientTest createWebClientTest;
     private TokenAuthenticationService tokenAuthenticationService;
-    private String socialTokenId;
+    private User loginUser;
 
     @BeforeEach
     void setUp() {
         this.createWebClientTest = new CreateWebClientTest(this.webTestClient);
         this.tokenAuthenticationService = new TokenAuthenticationService();
-        socialTokenId = createWebClientTest.createUser();
+        loginUser = createWebClientTest.createUser();
     }
 
     @DisplayName("품목을 추가가 가능한지")
@@ -87,6 +88,6 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
     }
 
     public String getJwt() {
-        return tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
+        return tokenAuthenticationService.toJwtBySocialTokenId(loginUser.getSocialTokenId());
     }
 }

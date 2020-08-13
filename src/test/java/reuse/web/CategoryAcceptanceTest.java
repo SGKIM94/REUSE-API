@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
+import reuse.domain.User;
 import reuse.dto.GroupResponseView;
 import reuse.dto.category.CreateCategoryRequestView;
 import reuse.dto.category.CreateCategoryResponseView;
@@ -23,13 +24,13 @@ public class CategoryAcceptanceTest extends AbstractAcceptanceTest {
 
     private CreateWebClientTest createWebClientTest;
     private TokenAuthenticationService tokenAuthenticationService;
-    private String socialTokenId;
+    private User loginUser;
 
     @BeforeEach
     void setUp() {
         this.createWebClientTest = new CreateWebClientTest(this.webTestClient);
         this.tokenAuthenticationService = new TokenAuthenticationService();
-        socialTokenId = createWebClientTest.createUser();
+        loginUser = createWebClientTest.createUser();
     }
 
     @DisplayName("카테고리 추가가 가능한지")
@@ -89,6 +90,6 @@ public class CategoryAcceptanceTest extends AbstractAcceptanceTest {
     }
 
     public String getJwt() {
-        return tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
+        return tokenAuthenticationService.toJwtBySocialTokenId(loginUser.getSocialTokenId());
     }
 }

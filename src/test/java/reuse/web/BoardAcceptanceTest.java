@@ -7,7 +7,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import reuse.AbstractAcceptanceTest;
-import reuse.domain.Board;
+import reuse.domain.User;
 import reuse.dto.board.*;
 import reuse.security.TokenAuthenticationService;
 
@@ -20,13 +20,13 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
 
     private CreateWebClientTest restWebClientTest;
     private TokenAuthenticationService tokenAuthenticationService;
-    private String socialTokenId;
+    private User loginUser;
 
     @BeforeEach
     void setUp() {
         this.restWebClientTest = new CreateWebClientTest(this.webTestClient);
         this.tokenAuthenticationService = new TokenAuthenticationService();
-        socialTokenId = restWebClientTest.createUser();
+        loginUser = restWebClientTest.createUser();
     }
 
     @DisplayName("게사판 추가가 가능한지")
@@ -165,6 +165,6 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     }
 
     public String getJwt() {
-        return tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
+        return tokenAuthenticationService.toJwtBySocialTokenId(loginUser.getSocialTokenId());
     }
 }
