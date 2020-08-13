@@ -30,11 +30,10 @@ public class CreateWebClientTest extends RestWebClientTest {
         super(webTestClient);
     }
 
-    public String createUser() {
+    public User createUser() {
         return Objects.requireNonNull(
                 postMethodAcceptance(USER_BASE_URL + LOGIN_API_URL, USER_SIGH_UP_REQUEST_DTO, User.class)
-                .getResponseBody()
-                .getSocialTokenId());
+                .getResponseBody());
     }
 
     String createProduct(MultiValueMap<String, Object> product, String jwt) {
