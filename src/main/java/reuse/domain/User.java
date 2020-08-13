@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.apache.commons.text.RandomStringGenerator;
 
+import javax.jdo.annotations.Unique;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class User extends AbstractEntity {
     @Size(min = 1, max = 40)
+    @Unique
     private String socialTokenId;
 
     @Size(min = 1, max = 20)
