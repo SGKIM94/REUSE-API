@@ -1,6 +1,7 @@
 package reuse.fixture;
 
 import reuse.domain.SellerReview;
+import reuse.domain.User;
 import reuse.dto.review.seller.CreateSellerReviewRequestView;
 
 import static reuse.fixture.UserFixture.TEST_USER;
@@ -16,13 +17,13 @@ public class SellerReviewFixture extends CommonFixture {
     public static final SellerReview TEST_SELLER_REVIEW = SellerReview.builder()
             .id(DEFAULT_ID).content(TEST_CONTENT).score(TEST_SCORE).title(TEST_TITLE).seller(TEST_USER).build();
 
-    public static CreateSellerReviewRequestView getCreateSellerReviewRequestView(Long boardId) {
+    public static CreateSellerReviewRequestView getCreateSellerReviewRequestView(Long boardId, User loginUser) {
         return CreateSellerReviewRequestView.builder()
                 .boardId(boardId)
                 .content(TEST_CONTENT)
                 .score(TEST_SCORE)
                 .title(TEST_TITLE)
-                .seller(TEST_USER)
+                .seller(loginUser)
                 .build();
     }
 }

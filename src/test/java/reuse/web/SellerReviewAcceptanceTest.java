@@ -8,6 +8,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
 import reuse.domain.SellerReview;
+import reuse.domain.User;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.dto.board.FindBoardResponseView;
 import reuse.dto.board.ModifyBoardStatusRequestView;
@@ -25,13 +26,13 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
 
     private CreateWebClientTest createWebClientTest;
     private TokenAuthenticationService tokenAuthenticationService;
-    private String socialTokenId;
+    private User loginUser;
 
     @BeforeEach
     void setUp() {
         this.createWebClientTest = new CreateWebClientTest(this.webTestClient);
         this.tokenAuthenticationService = new TokenAuthenticationService();
-        socialTokenId = createWebClientTest.createUser();
+        loginUser = createWebClientTest.createUser();
     }
 
     @DisplayName("판매자가 구매자에 대한 후기를 남길 수 있는지")
@@ -48,7 +49,7 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
         //when
         EntityExchangeResult<SellerReview> expectResponse
                 = createWebClientTest.postMethodWithAuthAcceptance
-                (SELLER_REVIEW_BASE_URL, getCreateSellerReviewRequestView(boardId), SellerReview.class, getJwt());
+                (SELLER_REVIEW_BASE_URL, getCreateSellerReviewRequestView(boardId, loginUser), SellerReview.class, getJwt());
 
         //then
         FindBoardResponseView foundBoard = findBoardById(boardId);
@@ -70,6 +71,6 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
     }
 
     public String getJwt() {
-        return tokenAuthenticationService.toJwtBySocialTokenId(socialTokenId);
+        return tokenAuthenticationService.toJwtBySocialTokenId(loginUser.getSocialTokenId());
     }
 }
