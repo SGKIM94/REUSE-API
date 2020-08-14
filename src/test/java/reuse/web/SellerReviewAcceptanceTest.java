@@ -17,6 +17,8 @@ import reuse.security.TokenAuthenticationService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.BoardFixture.CREATE_BOARD_REQUEST_VIEW;
 import static reuse.fixture.SellerReviewFixture.getCreateSellerReviewRequestView;
+import static reuse.fixture.UserFixture.TEST_SECOND_USER;
+import static reuse.fixture.UserFixture.getCreateUserRequestView;
 import static reuse.web.BoardAcceptanceTest.BOARD_BASE_URL;
 
 public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
@@ -40,6 +42,8 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
     @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     public void createSellerReview() {
         //given
+        createWebClientTest.createUser(getCreateUserRequestView(TEST_SECOND_USER));
+
         CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
         Long boardId = board.getId();
 
@@ -49,7 +53,7 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
         //when
         EntityExchangeResult<SellerReview> expectResponse
                 = createWebClientTest.postMethodWithAuthAcceptance
-                (SELLER_REVIEW_BASE_URL, getCreateSellerReviewRequestView(boardId, loginUser), SellerReview.class, getJwt());
+                (SELLER_REVIEW_BASE_URL, getCreateSellerReviewRequestView(boardId, TEST_SECOND_USER), SellerReview.class, getJwt());
 
         //then
         FindBoardResponseView foundBoard = findBoardById(boardId);
