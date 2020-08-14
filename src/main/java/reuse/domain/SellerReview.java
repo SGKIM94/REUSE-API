@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 @Entity
 @NoArgsConstructor
 public class SellerReview extends AbstractEntity {
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name="seller_id")
     private User seller;
 
