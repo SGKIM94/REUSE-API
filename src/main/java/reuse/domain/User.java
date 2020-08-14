@@ -4,11 +4,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.apache.commons.text.RandomStringGenerator;
 
-import javax.jdo.annotations.Unique;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class User extends AbstractEntity {
     @Size(min = 1, max = 40)
-    @Unique
+    @Column(unique = true)
     private String socialTokenId;
 
     @Size(min = 1, max = 20)
