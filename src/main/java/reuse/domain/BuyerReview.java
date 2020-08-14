@@ -3,13 +3,16 @@ package reuse.domain;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
 
 @Entity
 @NoArgsConstructor
 public class BuyerReview extends AbstractEntity {
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="buyer_id")
     private User buyer;
 
