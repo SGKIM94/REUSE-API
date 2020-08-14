@@ -10,6 +10,7 @@ import reuse.dto.category.CreateCategoryRequestView;
 import reuse.dto.category.CreateCategoryResponseView;
 import reuse.dto.favorite.CreateFavoriteBoardRequestView;
 import reuse.dto.product.CreateProductResponseView;
+import reuse.dto.user.CreateUserRequestView;
 
 import java.util.Objects;
 
@@ -34,6 +35,12 @@ public class CreateWebClientTest extends RestWebClientTest {
         return Objects.requireNonNull(
                 postMethodAcceptance(USER_BASE_URL + LOGIN_API_URL, USER_SIGH_UP_REQUEST_DTO, User.class)
                 .getResponseBody());
+    }
+
+    public User createUser(CreateUserRequestView user) {
+        return Objects.requireNonNull(
+                postMethodAcceptance(USER_BASE_URL + LOGIN_API_URL, user, User.class)
+                        .getResponseBody());
     }
 
     String createProduct(MultiValueMap<String, Object> product, String jwt) {
