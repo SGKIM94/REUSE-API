@@ -14,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static reuse.fixture.ProductImagesFixture.TEST_IMAGE1;
 
+@Disabled("파일 업로드 사용 S3 로 변경")
 public class FileSystemStorageServiceTest {
     public static final String REUSE_LOCATION = "/Users/kimsang-gu/Workspace/sanggu/toy-project/reuse/reuse-api/";
 
