@@ -74,6 +74,6 @@ public class SellerReviewServiceTest extends AbstractServiceTest {
         }).getMessage();
 
         //then
-        assertThat(errorMessage).isEqualTo("현재 SALE 상태이므로 COMPLETE 상태로 변경이 불가능합니다.");
+        assertThat(errorMessage).isEqualTo("현재 상태 :  RESERVE | 요구되는 상태 COMPLETE");
     }
 }
