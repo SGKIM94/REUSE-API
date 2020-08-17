@@ -42,18 +42,20 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
     @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     public void createSellerReview() {
         //given
-        createWebClientTest.createUser(getCreateUserRequestView(TEST_SECOND_USER));
+        User buyer = createWebClientTest.createUser(getCreateUserRequestView(TEST_SECOND_USER));
 
-        CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
+        CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt(loginUser));
         Long boardId = board.getId();
 
-        modifyBoardStatus(boardId, RESERVATION_ENDPOINT);
-        modifyBoardStatus(boardId, COMPLETE_ENDPOINT);
+        // 구매자가 예약 신청을 하면 판매자가 예약 확정을 해야되는 것인가?
+        modifyBoardStatus(boardId, RESERVATION_ENDPOINT, getJwt(buyer));
+        modifyBoardStatus(boardId, COMPLETE_ENDPOINT, getJwt(loginUser));
 
         //when
         EntityExchangeResult<SellerReview> expectResponse
                 = createWebClientTest.postMethodWithAuthAcceptance
-                (SELLER_REVIEW_BASE_URL, getCreateSellerReviewRequestView(boardId, TEST_SECOND_USER), SellerReview.class, getJwt());
+                (SELLER_REVIEW_BASE_URL, getCreateSellerReviewRequestView(boardId, TEST_SECOND_USER),
+                        SellerReview.class, getJwt(loginUser));
 
         //then
         FindBoardResponseView foundBoard = findBoardById(boardId);
@@ -64,17 +66,19 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(foundBoard.getSellerReview()).isNotNull();
     }
 
-    private void modifyBoardStatus(Long boardId, String endPoint) {
+    private void modifyBoardStatus(Long boardId, String endPoint, String jwt) {
         createWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL + endPoint, new ModifyBoardStatusRequestView(boardId), Void.class, getJwt());
+                (BOARD_BASE_URL + endPoint, new ModifyBoardStatusRequestView(boardId), Void.class, jwt);
     }
 
     public FindBoardResponseView findBoardById(Long boardId) {
-        return createWebClientTest.getMethodWithAuthAcceptance(BOARD_BASE_URL + "/" + boardId, FindBoardResponseView.class, getJwt())
+        return createWebClientTest
+                .getMethodWithAuthAcceptance
+                        (BOARD_BASE_URL + "/" + boardId, FindBoardResponseView.class, getJwt(loginUser))
                 .getResponseBody();
     }
 
-    public String getJwt() {
-        return tokenAuthenticationService.toJwtBySocialTokenId(loginUser.getSocialTokenId());
+    public String getJwt(User user) {
+        return tokenAuthenticationService.toJwtBySocialTokenId(user.getSocialTokenId());
     }
 }
