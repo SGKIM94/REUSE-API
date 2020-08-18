@@ -171,8 +171,12 @@ public class Board extends AbstractEntity {
         }
     }
 
+    // TODO : 판매자가 예약확정을 하는 구조면 같이 써도 됨.
+    // 만약 구매자가 예약을 예약을 하는 구조라면 별도로 만들어야됨
+    // 구매자가 예약 신청을 한다 -> 판매자가 예약 확정 처리를 한다.
     private void verifyThatSellerAndRequestAreTheSame(String requesterSocialTokenId) {
-        if (!requesterSocialTokenId.equals(this.seller.getSocialTokenId())) {
+        if (!requesterSocialTokenId.equals(this.seller.getSocialTokenId())
+                && this.salesStatus.equals(SalesStatusType.COMPLETE)) {
 
             log.error("#### seller 의 SocialTokenId : " + this.seller.getSocialTokenId());
             log.error("#### User 의 SocialTokenId : " + requesterSocialTokenId);
@@ -197,6 +201,12 @@ public class Board extends AbstractEntity {
 
     public Board registerSellerReview(SellerReview sellerReview) {
         this.sellerReview = sellerReview;
+
+        return this;
+    }
+
+    public Board registerBuyerReview(BuyerReview buyerReview) {
+        this.buyerReview = buyerReview;
 
         return this;
     }
