@@ -23,14 +23,16 @@ public class BuyerReviewService {
     }
 
     @Transactional
-    public BuyerReview create(CreateBuyerReviewRequestView buyerReview, User requester) {
+    public BuyerReview create(CreateBuyerReviewRequestView buyerReview, User buyer) {
         Board board = boardService.findById(buyerReview.getBoardId());
 
-        board.verifyThatUserAndRequester(requester, SalesStatusType.SALE);
-
+        board.verifyThatUserAndRequester(buyer, SalesStatusType.SALE);
         board.addScoreFromBuyerToSeller(buyerReview.getScore());
 
-        return buyerReviewRepository.save(buyerReview.toEntity(requester));
+        BuyerReview review = buyerReviewRepository.save(buyerReview.toEntity(buyer));
+        board.registerBuyerReview(review);
+
+        return review;
     }
 
     public ListBuyerReviewResponseView findBySeller(Long sellerId) {
