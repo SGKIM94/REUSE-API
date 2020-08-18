@@ -37,7 +37,7 @@ public class CreateWebClientTest extends RestWebClientTest {
                 .getResponseBody());
     }
 
-    public User createUser(CreateUserRequestView user) {
+    User createUser(CreateUserRequestView user) {
         return Objects.requireNonNull(
                 postMethodAcceptance(USER_BASE_URL + LOGIN_API_URL, user, User.class)
                         .getResponseBody());
