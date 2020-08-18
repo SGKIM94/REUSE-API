@@ -99,7 +99,7 @@ public class ProductServiceTest {
     public void findWithImages() {
         when(productRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_PRODUCT));
 
-        FindProductResponseView product = productService.findByIdWithImages(DEFAULT_ID);
+        FindProductResponseView product = productService.reteive(DEFAULT_ID);
         List<String> productImages = product.getProductImages();
         String productImage = productImages.get(0);
 
