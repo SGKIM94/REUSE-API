@@ -3,8 +3,8 @@ package reuse.web;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import reuse.domain.Product;
 import reuse.dto.product.CreateProductRequestView;
+import reuse.dto.product.FindProductResponseView;
 import reuse.service.ProductService;
 
 @RestController
@@ -28,7 +28,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable long id) {
-        Product product = productService.findById(id);
+        FindProductResponseView product = productService.retrieve(id);
         return ResponseEntity.ok().body(product);
     }
 }
