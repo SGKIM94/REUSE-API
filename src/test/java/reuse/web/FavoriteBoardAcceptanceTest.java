@@ -22,29 +22,29 @@ public class FavoriteBoardAcceptanceTest extends AbstractAcceptanceTest {
     public static final String FAVORITE_BASE_URL = "/favorites/board";
 
     private CreateWebClientTest restWebClientTest;
-    private TokenAuthenticationService tokenAuthenticationService;
-    private User loginUser;
+    private String jwt;
 
     @BeforeEach
     void setUp() {
         this.restWebClientTest = new CreateWebClientTest(this.webTestClient);
-        this.tokenAuthenticationService = new TokenAuthenticationService();
+        TokenAuthenticationCreator tokenAuthenticationCreator = new TokenAuthenticationCreator();
 
-        loginUser = restWebClientTest.createUser();
-        restWebClientTest.createCategory(CREATE_CATEGORY_REQUEST_VIEW, getJwt());
+        User loginUser = restWebClientTest.createUser();
+        jwt = tokenAuthenticationCreator.getJwt(loginUser);
+        restWebClientTest.createCategory(CREATE_CATEGORY_REQUEST_VIEW, jwt);
     }
 
     @DisplayName("게사판 추가가 가능한지")
     @Test
     @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     public void createFavoriteBoard() {
-        CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
+        CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, jwt);
         CreateFavoriteBoardRequestView favorite = getCreateFavoriteBoardRequestView(board.getId());
 
         //when
         EntityExchangeResult<CreateBoardResponseView> expectResponse
                 = restWebClientTest.postMethodWithAuthAcceptance
-                (FAVORITE_BASE_URL, favorite, CreateBoardResponseView.class, getJwt());
+                (FAVORITE_BASE_URL, favorite, CreateBoardResponseView.class, jwt);
 
         //then
         HttpStatus status = expectResponse.getStatus();
@@ -59,19 +59,15 @@ public class FavoriteBoardAcceptanceTest extends AbstractAcceptanceTest {
     @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     public void listByUser() {
         //given
-        restWebClientTest.createFavoriteBoard(getJwt());
+        restWebClientTest.createFavoriteBoard(jwt);
 
         //when
         EntityExchangeResult<ListBoardResponseView> expectResponse = restWebClientTest.getMethodWithAuthAcceptance
-                (FAVORITE_BASE_URL, ListBoardResponseView.class, getJwt());
+                (FAVORITE_BASE_URL, ListBoardResponseView.class, jwt);
 
         //then
         HttpStatus status = expectResponse.getStatus();
 
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
-    }
-
-    public String getJwt() {
-        return tokenAuthenticationService.toJwtBySocialTokenId(loginUser.getSocialTokenId());
     }
 }
