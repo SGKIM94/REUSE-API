@@ -43,11 +43,13 @@ public class ProductService {
         return CreateProductResponseView.toDto(savedProduct);
     }
 
+    @Transactional(readOnly = true)
     public ListProductResponseView list() {
         List<Product> products = productRepository.findAll();
         return ListProductResponseView.toDtoByProducts(products);
     }
 
+    @Transactional(readOnly = true)
     public Product findById(long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 품목이 존재하지 않습니다."));

@@ -35,10 +35,12 @@ public class BuyerReviewService {
         return review;
     }
 
+    @Transactional(readOnly = true)
     public ListBuyerReviewResponseView findBySeller(Long sellerId) {
         return buyerReviewRepository.findBySeller(sellerId);
     }
 
+    @Transactional(readOnly = true)
     public ListBuyerReviewResponseView list() {
         return ListBuyerReviewResponseView.toDtoByEntity(buyerReviewRepository.findAll());
     }
@@ -50,6 +52,7 @@ public class BuyerReviewService {
         return originalBuyerReview.modify(buyerReview);
     }
 
+    @Transactional(readOnly = true)
     public BuyerReview retrieve(Long id) {
         return buyerReviewRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 구매후기가 존재하지 않습니다. : " + id));
