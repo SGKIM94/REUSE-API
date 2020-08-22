@@ -50,7 +50,7 @@ public class BoardRepositoryTest {
         Board savedBoard = boardRepository.save(TEST_BOARD);
 
         //then
-        assertThat(savedBoard.getId()).isEqualTo(TEST_FIRST_BOARD_ID);
+        assertThat(savedBoard.getId()).isNotNull();
         assertThat(savedBoard.getSalesStatus()).isEqualTo(SalesStatusType.SALE);
     }
 
