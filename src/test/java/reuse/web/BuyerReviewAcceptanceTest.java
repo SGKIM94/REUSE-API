@@ -25,7 +25,6 @@ import static reuse.web.BoardAcceptanceTest.BOARD_BASE_URL;
 
 public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
     public static final String BUYER_REVIEW_BASE_URL = "/review/buyer";
-    public static final String BUYER_REVIEW_INSERT_QUERY = "\"/clean-all.sql\", \"/insert-categories.sql\", \"/insert-products.sql\"";
 
     private CreateWebClientTest createWebClientTest;
     private TokenAuthenticationService tokenAuthenticationService;
@@ -40,7 +39,7 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
 
     @DisplayName("구매자가 구매한 게시판에 구매평을 남기는지")
     @Test
-    @Sql(scripts = {BUYER_REVIEW_INSERT_QUERY})
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     public void createBuyerReview() {
         //given
         User buyer = createWebClientTest.createUser(getCreateUserRequestView(TEST_SECOND_USER));
@@ -64,7 +63,7 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
 
     @DisplayName("판매자에 연결된 모든 리뷰가 조회되는지")
     @Test
-    @Sql(scripts = {BUYER_REVIEW_INSERT_QUERY})
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     public void findBySeller() {
         //given
         CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt(loginUser));
@@ -86,7 +85,7 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
 
     @DisplayName("모든 구매후기를 가져오는지")
     @Test
-    @Sql(scripts = {BUYER_REVIEW_INSERT_QUERY})
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     public void list() {
         //given
         CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt(loginUser));
@@ -108,7 +107,7 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
 
     @DisplayName("구매후기를 수정 가능한지")
     @Test
-    @Sql(scripts = {BUYER_REVIEW_INSERT_QUERY})
+    @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     public void modify() {
         //given
         CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt(loginUser));

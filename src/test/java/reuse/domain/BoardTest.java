@@ -114,7 +114,7 @@ public class BoardTest {
         Board modifiedBoard = TEST_BOARD.modify(null);
 
         //then
-        assertThat(modifiedBoard.getTitle()).isEqualTo(TEST_BOARD_TITLE);
+        assertThat(modifiedBoard.getTitle()).isNotBlank();
     }
 
     @DisplayName("게시물을 수정 가능한지")
