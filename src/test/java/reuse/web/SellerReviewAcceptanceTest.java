@@ -20,6 +20,7 @@ import static reuse.fixture.SellerReviewFixture.getCreateSellerReviewRequestView
 import static reuse.fixture.UserFixture.TEST_SECOND_USER;
 import static reuse.fixture.UserFixture.getCreateUserRequestView;
 import static reuse.web.BoardAcceptanceTest.BOARD_BASE_URL;
+import static reuse.web.TokenAuthenticationCreator.getJwt;
 
 public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
     public static final String SELLER_REVIEW_BASE_URL = "/review/seller";
@@ -27,14 +28,13 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
     public static final String COMPLETE_ENDPOINT = "/complete";
 
     private CreateWebClientTest createWebClientTest;
-    private TokenAuthenticationService tokenAuthenticationService;
-    private User loginUser;
+    private String jwt;
 
     @BeforeEach
     void setUp() {
         this.createWebClientTest = new CreateWebClientTest(this.webTestClient);
-        this.tokenAuthenticationService = new TokenAuthenticationService();
-        loginUser = createWebClientTest.createUser();
+
+        jwt = getJwt(createWebClientTest.createUser());
     }
 
     @DisplayName("판매자가 구매자에 대한 후기를 남길 수 있는지")
@@ -44,18 +44,18 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
         //given
         User buyer = createWebClientTest.createUser(getCreateUserRequestView(TEST_SECOND_USER));
 
-        CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt(loginUser));
+        CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, jwt);
         Long boardId = board.getId();
 
         // 구매자가 예약 신청을 하면 판매자가 예약 확정을 해야되는 것인가?
         modifyBoardStatus(boardId, RESERVATION_ENDPOINT, getJwt(buyer));
-        modifyBoardStatus(boardId, COMPLETE_ENDPOINT, getJwt(loginUser));
+        modifyBoardStatus(boardId, COMPLETE_ENDPOINT, jwt);
 
         //when
         EntityExchangeResult<SellerReview> expectResponse
                 = createWebClientTest.postMethodWithAuthAcceptance
                 (SELLER_REVIEW_BASE_URL, getCreateSellerReviewRequestView(boardId, TEST_SECOND_USER),
-                        SellerReview.class, getJwt(loginUser));
+                        SellerReview.class, jwt);
 
         //then
         FindBoardResponseView foundBoard = findBoardById(boardId);
@@ -74,11 +74,7 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
     public FindBoardResponseView findBoardById(Long boardId) {
         return createWebClientTest
                 .getMethodWithAuthAcceptance
-                        (BOARD_BASE_URL + "/" + boardId, FindBoardResponseView.class, getJwt(loginUser))
+                        (BOARD_BASE_URL + "/" + boardId, FindBoardResponseView.class, jwt)
                 .getResponseBody();
-    }
-
-    public String getJwt(User user) {
-        return tokenAuthenticationService.toJwtBySocialTokenId(user.getSocialTokenId());
     }
 }
