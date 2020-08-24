@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
-import reuse.domain.User;
 import reuse.dto.category.CreateCategoryResponseView;
 import reuse.dto.product.CreateProductResponseView;
 import reuse.dto.product.FindProductResponseView;
@@ -19,19 +18,19 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.CategoryFixture.CREATE_CATEGORY_REQUEST_VIEW;
 import static reuse.fixture.ProductFixture.*;
+import static reuse.web.TokenAuthenticationCreator.getJwt;
 
 public class ProductAcceptanceTest extends AbstractAcceptanceTest {
     public static final String PRODUCT_BASE_URL = "/products";
 
     private CreateWebClientTest createWebClientTest;
-    private TokenAuthenticationService tokenAuthenticationService;
-    private User loginUser;
+    private String jwt;
 
     @BeforeEach
     void setUp() {
         this.createWebClientTest = new CreateWebClientTest(this.webTestClient);
-        this.tokenAuthenticationService = new TokenAuthenticationService();
-        loginUser = createWebClientTest.createUser();
+
+        jwt = getJwt(createWebClientTest.createUser());
     }
 
     @DisplayName("품목을 추가가 가능한지")
@@ -39,11 +38,11 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
     // TODO : 이미지를 넣어서 테스트해볼 수 있는 환경 필요
     public void createProduct() {
         //given
-        CreateCategoryResponseView category = createWebClientTest.createCategory(CREATE_CATEGORY_REQUEST_VIEW, getJwt());
+        CreateCategoryResponseView category = createWebClientTest.createCategory(CREATE_CATEGORY_REQUEST_VIEW, jwt);
 
         //when
         EntityExchangeResult<CreateProductResponseView> expectResponse = createWebClientTest.postMethodWithFormData
-                (PRODUCT_BASE_URL, getCreateProductMap(category.getId()), CreateProductResponseView.class, getJwt());
+                (PRODUCT_BASE_URL, getCreateProductMap(category.getId()), CreateProductResponseView.class, jwt);
 
         //then
         CreateProductResponseView product = expectResponse.getResponseBody();
@@ -58,7 +57,7 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
     public void listProduct() {
         //when
         EntityExchangeResult<ListProductResponseView> response = createWebClientTest.getMethodWithAuthAcceptance
-                (PRODUCT_BASE_URL, ListProductResponseView.class, getJwt());
+                (PRODUCT_BASE_URL, ListProductResponseView.class, jwt);
 
         //then
         HttpStatus status = response.getStatus();
@@ -77,7 +76,7 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
     public void findProduct() {
         //when
         EntityExchangeResult<FindProductResponseView> response = createWebClientTest.getMethodWithAuthAcceptance
-                (PRODUCT_BASE_URL + "/" + TEST_PRODUCT_ID, FindProductResponseView.class, getJwt());
+                (PRODUCT_BASE_URL + "/" + TEST_PRODUCT_ID, FindProductResponseView.class, jwt);
 
         //then
         HttpStatus status = response.getStatus();
@@ -85,9 +84,5 @@ public class ProductAcceptanceTest extends AbstractAcceptanceTest {
 
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
         assertThat(responseBody.getName()).isEqualTo(TEST_SECOND_PRODUCT_NAME);
-    }
-
-    public String getJwt() {
-        return tokenAuthenticationService.toJwtBySocialTokenId(loginUser.getSocialTokenId());
     }
 }
