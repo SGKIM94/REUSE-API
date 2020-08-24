@@ -18,19 +18,19 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.CategoryFixture.*;
+import static reuse.web.TokenAuthenticationCreator.getJwt;
 
 public class CategoryAcceptanceTest extends AbstractAcceptanceTest {
     public static final String CATEGORY_BASE_URL = "/categories";
 
     private CreateWebClientTest createWebClientTest;
-    private TokenAuthenticationService tokenAuthenticationService;
-    private User loginUser;
+    private String jwt;
 
     @BeforeEach
     void setUp() {
         this.createWebClientTest = new CreateWebClientTest(this.webTestClient);
-        this.tokenAuthenticationService = new TokenAuthenticationService();
-        loginUser = createWebClientTest.createUser();
+
+        jwt = getJwt(createWebClientTest.createUser());
     }
 
     @DisplayName("카테고리 추가가 가능한지")
@@ -38,7 +38,7 @@ public class CategoryAcceptanceTest extends AbstractAcceptanceTest {
     public void createCategory() {
         //when
         EntityExchangeResult<CreateCategoryRequestView> expectResponse = createWebClientTest.postMethodWithAuthAcceptance
-                (CATEGORY_BASE_URL, CREATE_CATEGORY_REQUEST_VIEW, CreateCategoryRequestView.class, getJwt());
+                (CATEGORY_BASE_URL, CREATE_CATEGORY_REQUEST_VIEW, CreateCategoryRequestView.class, jwt);
 
         HttpStatus status = expectResponse.getStatus();
 
@@ -48,12 +48,12 @@ public class CategoryAcceptanceTest extends AbstractAcceptanceTest {
     @DisplayName("카테고리 상세 조회 가능한지")
     @Test
     public void retrieveCategory() {
-        CreateCategoryResponseView category = createWebClientTest.createCategory(CREATE_CATEGORY_REQUEST_VIEW, getJwt());
+        CreateCategoryResponseView category = createWebClientTest.createCategory(CREATE_CATEGORY_REQUEST_VIEW, jwt);
 
         //when
         EntityExchangeResult<FindCategoryResponseView> response
                 = createWebClientTest.getMethodWithAuthAcceptance
-                (CATEGORY_BASE_URL + "/" + category.getId(), FindCategoryResponseView.class, getJwt());
+                (CATEGORY_BASE_URL + "/" + category.getId(), FindCategoryResponseView.class, jwt);
 
         //then
         HttpStatus status = response.getStatus();
@@ -73,7 +73,7 @@ public class CategoryAcceptanceTest extends AbstractAcceptanceTest {
     public void  listCategory() {
         //when
         EntityExchangeResult<ListCategoryView> response = createWebClientTest.getMethodWithAuthAcceptance
-                (CATEGORY_BASE_URL, ListCategoryView.class, getJwt());
+                (CATEGORY_BASE_URL, ListCategoryView.class, jwt);
 
         //then
         HttpStatus status = response.getStatus();
@@ -87,9 +87,5 @@ public class CategoryAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(manufacturers.size()).isEqualTo(5);
         assertThat(models.size()).isEqualTo(11);
         assertThat(telecos.size()).isEqualTo(6);
-    }
-
-    public String getJwt() {
-        return tokenAuthenticationService.toJwtBySocialTokenId(loginUser.getSocialTokenId());
     }
 }

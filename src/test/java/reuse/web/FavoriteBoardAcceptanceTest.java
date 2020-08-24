@@ -27,10 +27,9 @@ public class FavoriteBoardAcceptanceTest extends AbstractAcceptanceTest {
     @BeforeEach
     void setUp() {
         this.restWebClientTest = new CreateWebClientTest(this.webTestClient);
-        TokenAuthenticationCreator tokenAuthenticationCreator = new TokenAuthenticationCreator();
 
         User loginUser = restWebClientTest.createUser();
-        jwt = tokenAuthenticationCreator.getJwt(loginUser);
+        jwt = TokenAuthenticationCreator.getJwt(loginUser);
         restWebClientTest.createCategory(CREATE_CATEGORY_REQUEST_VIEW, jwt);
     }
 
