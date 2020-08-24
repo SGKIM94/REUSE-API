@@ -1,18 +1,11 @@
 package reuse.web;
 
-import org.junit.jupiter.api.BeforeEach;
 import reuse.domain.User;
 import reuse.security.TokenAuthenticationService;
 
 public class TokenAuthenticationCreator {
-    private TokenAuthenticationService tokenAuthenticationService;
-
-    @BeforeEach
-    void setUp() {
-        this.tokenAuthenticationService = new TokenAuthenticationService();
-    }
-
-    public String getJwt(User loginUser) {
+    public static String getJwt(User loginUser) {
+        TokenAuthenticationService tokenAuthenticationService = new TokenAuthenticationService();
         return tokenAuthenticationService.toJwtBySocialTokenId(loginUser.getSocialTokenId());
     }
 }
