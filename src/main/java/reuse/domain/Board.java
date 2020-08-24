@@ -19,7 +19,7 @@ public class Board extends AbstractEntity {
     @Size(min = 1, max = 1000)
     private String content;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name="product_id")
     private Product product;
 
