@@ -19,14 +19,13 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     public static final String BOARD_BASE_URL = "/boards";
 
     private CreateWebClientTest restWebClientTest;
-    private TokenAuthenticationService tokenAuthenticationService;
-    private User loginUser;
+    private String jwt;
 
     @BeforeEach
     void setUp() {
         this.restWebClientTest = new CreateWebClientTest(this.webTestClient);
-        this.tokenAuthenticationService = new TokenAuthenticationService();
-        loginUser = restWebClientTest.createUser();
+
+        jwt = TokenAuthenticationCreator.getJwt(restWebClientTest.createUser());
     }
 
     @DisplayName("게사판 추가가 가능한지")
@@ -37,7 +36,7 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         //when
         EntityExchangeResult<CreateBoardResponseView> expectResponse
                 = restWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL, CREATE_BOARD_REQUEST_VIEW, CreateBoardResponseView.class, getJwt());
+                (BOARD_BASE_URL, CREATE_BOARD_REQUEST_VIEW, CreateBoardResponseView.class, jwt);
 
         //then
         CreateBoardResponseView responseBody = expectResponse.getResponseBody();
@@ -51,14 +50,13 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     @Order(2)
     public void listBoard() {
-        String jwt = getJwt();
         restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, jwt);
         restWebClientTest.createBoard(CREATE_SECOND_BOARD_REQUEST_VIEW, jwt);
 
         //when
         EntityExchangeResult<ListBoardResponseView> expectResponse
                 = restWebClientTest.getMethodWithAuthAcceptance
-                (BOARD_BASE_URL, ListBoardResponseView.class, getJwt());
+                (BOARD_BASE_URL, ListBoardResponseView.class, jwt);
 
         //then
         ListBoardResponseView boards = expectResponse.getResponseBody();
@@ -75,7 +73,7 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
         //when
         EntityExchangeResult<ListBoardWithProductResponseView> expectResponse
                 = restWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/category", LIST_BOARD_BY_CATEGORY_REQUEST_VIEW, ListBoardWithProductResponseView.class, getJwt());
+                (BOARD_BASE_URL + "/category", LIST_BOARD_BY_CATEGORY_REQUEST_VIEW, ListBoardWithProductResponseView.class, jwt);
 
         //then
         ListBoardWithProductResponseView boards = expectResponse.getResponseBody();
@@ -93,12 +91,12 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     @Order(4)
     public void reserve() {
         //given
-        CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
+        CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, jwt);
         ModifyBoardStatusRequestView request = ModifyBoardStatusRequestView.toDto(board.getId());
 
         //when
         EntityExchangeResult<Long> exchangeResponse = restWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/reservation", request, Long.class, getJwt());
+                (BOARD_BASE_URL + "/reservation", request, Long.class, jwt);
 
         HttpStatus status = exchangeResponse.getStatus();
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
@@ -110,13 +108,13 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     @Order(5)
     public void complete() {
         //given
-        CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
+        CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, jwt);
         reserveBoard(new ModifyBoardStatusRequestView(board.getId()));
         ModifyBoardStatusRequestView request = ModifyBoardStatusRequestView.toDto(board.getId());
 
         //when
         EntityExchangeResult<Long> exchangeResponse = restWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/complete", request, Long.class, getJwt());
+                (BOARD_BASE_URL + "/complete", request, Long.class, jwt);
 
         HttpStatus status = exchangeResponse.getStatus();
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
@@ -127,11 +125,11 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     @Order(6)
     public void modifyBoard() {
-        CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
+        CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, jwt);
 
         //when
         EntityExchangeResult<Long> exchangeResponse = restWebClientTest.putMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/" + board.getId(), MODIFY_BOARD_REQUEST_DTO, Long.class, getJwt());
+                (BOARD_BASE_URL + "/" + board.getId(), MODIFY_BOARD_REQUEST_DTO, Long.class, jwt);
 
         HttpStatus status = exchangeResponse.getStatus();
         assertThat(status).isEqualByComparingTo(HttpStatus.OK);
@@ -146,11 +144,11 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
     @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     @Order(7)
     public void deleteBoard() {
-        CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, getJwt());
+        CreateBoardResponseView board = restWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, jwt);
 
         //when
         FluxExchangeResult<Void> response = this.webTestClient.post().uri(BOARD_BASE_URL + "/" + board.getId())
-                .header(HttpHeaders.AUTHORIZATION, getJwt())
+                .header(HttpHeaders.AUTHORIZATION, jwt)
                 .exchange()
                 .expectStatus().isOk()
                 .returnResult(Void.class);
@@ -161,10 +159,6 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
 
     public void reserveBoard(ModifyBoardStatusRequestView board) {
         restWebClientTest.postMethodWithAuthAcceptance
-                (BOARD_BASE_URL + "/reservation", board, Void.class, getJwt()).getResponseBody();
-    }
-
-    public String getJwt() {
-        return tokenAuthenticationService.toJwtBySocialTokenId(loginUser.getSocialTokenId());
+                (BOARD_BASE_URL + "/reservation", board, Void.class, jwt).getResponseBody();
     }
 }
