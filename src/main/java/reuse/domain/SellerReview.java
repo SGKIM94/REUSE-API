@@ -41,4 +41,16 @@ public class SellerReview extends AbstractEntity {
     public int getScore() {
         return score;
     }
+
+    public User getSeller() {
+        return seller;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
 }
