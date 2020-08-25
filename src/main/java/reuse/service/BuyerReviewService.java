@@ -8,6 +8,7 @@ import reuse.domain.BuyerReview;
 import reuse.domain.SalesStatusType;
 import reuse.domain.User;
 import reuse.dto.review.buyer.CreateBuyerReviewRequestView;
+import reuse.dto.review.buyer.FindBuyerReviewResponseView;
 import reuse.dto.review.buyer.ListBuyerReviewResponseView;
 import reuse.repository.BuyerReviewRepository;
 
@@ -47,14 +48,19 @@ public class BuyerReviewService {
 
     @Transactional
     public BuyerReview modify(BuyerReview buyerReview, Long id) {
-        BuyerReview originalBuyerReview = retrieve(id);
+        BuyerReview originalBuyerReview = findById(id);
 
         return originalBuyerReview.modify(buyerReview);
     }
 
-    @Transactional(readOnly = true)
-    public BuyerReview retrieve(Long id) {
+    public BuyerReview findById(Long id) {
         return buyerReviewRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 구매후기가 존재하지 않습니다. : " + id));
+    }
+
+    @Transactional(readOnly = true)
+    public FindBuyerReviewResponseView retrieve(Long id) {
+        BuyerReview buyerReview = findById(id);
+        return FindBuyerReviewResponseView.toDto(buyerReview);
     }
 }
