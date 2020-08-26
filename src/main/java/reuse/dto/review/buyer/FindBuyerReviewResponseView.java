@@ -27,6 +27,10 @@ public class FindBuyerReviewResponseView {
     }
 
     public static FindBuyerReviewResponseView toDto(BuyerReview buyerReview) {
+        if (buyerReview == null) {
+            return new FindBuyerReviewResponseView();
+        }
+
         return FindBuyerReviewResponseView.builder()
                 .id(buyerReview.getId())
                 .buyer(buyerReview.getBuyer())
