@@ -5,20 +5,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import reuse.domain.BuyerReview;
-import reuse.domain.User;
+import reuse.dto.user.FindByIdResponseView;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class FindBuyerReviewResponseView {
     private Long id;
-    private User buyer;
+    private FindByIdResponseView buyer;
     private Integer score;
     private String title;
     private String content;
 
     @Builder
-    public FindBuyerReviewResponseView(Long id, User buyer, Integer score, String title, String content) {
+    public FindBuyerReviewResponseView(Long id, FindByIdResponseView buyer, Integer score, String title, String content) {
         this.id = id;
         this.buyer = buyer;
         this.score = score;
@@ -33,7 +33,7 @@ public class FindBuyerReviewResponseView {
 
         return FindBuyerReviewResponseView.builder()
                 .id(buyerReview.getId())
-                .buyer(buyerReview.getBuyer())
+                .buyer(FindByIdResponseView.toDto(buyerReview.getBuyer()))
                 .score(buyerReview.getScore())
                 .title(buyerReview.getTitle())
                 .content(buyerReview.getContent())
