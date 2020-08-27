@@ -20,7 +20,7 @@ public class FindByIdResponseView {
         this.name = name;
     }
 
-    public static FindByIdResponseView toDtoEntity(User user) {
+    public static FindByIdResponseView toDto(User user) {
         return FindByIdResponseView.builder()
                 .id(user.getId())
                 .name(user.getName())
