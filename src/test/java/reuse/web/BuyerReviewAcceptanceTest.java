@@ -7,12 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reuse.AbstractAcceptanceTest;
-import reuse.domain.BuyerReview;
 import reuse.domain.User;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.dto.board.FindBoardResponseView;
 import reuse.dto.review.buyer.ListBuyerReviewResponseView;
-import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.BoardFixture.CREATE_BOARD_REQUEST_VIEW;
@@ -112,12 +110,12 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
         //given
         CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, jwt);
         Long boardId = board.getId();
-        BuyerReview buyerReview = createWebClientTest.createBuyerReview(boardId, jwt);
+        Long buyerReviewId = createWebClientTest.createBuyerReview(boardId, jwt);
 
         //when
         EntityExchangeResult<Void> expectResponse
                 = createWebClientTest.putMethodWithAuthAcceptance
-                (BUYER_REVIEW_BASE_URL + "/" + buyerReview.getId(), TEST_BUYER_REVIEW, Void.class, jwt);
+                (BUYER_REVIEW_BASE_URL + "/" + buyerReviewId, TEST_BUYER_REVIEW, Void.class, jwt);
 
         //then
         HttpStatus status = expectResponse.getStatus();
