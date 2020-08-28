@@ -53,6 +53,6 @@ public class UserService {
     }
 
     public FindByIdResponseView findById(Long id) {
-        return FindByIdResponseView.toDtoEntity(retrieve(id));
+        return FindByIdResponseView.toDto(retrieve(id));
     }
 }
