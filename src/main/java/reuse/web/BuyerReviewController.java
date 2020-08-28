@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import reuse.domain.BuyerReview;
 import reuse.domain.User;
 import reuse.dto.review.buyer.CreateBuyerReviewRequestView;
+import reuse.dto.review.buyer.FindBuyerReviewResponseView;
 import reuse.dto.review.buyer.ListBuyerReviewResponseView;
 import reuse.security.LoginUser;
 import reuse.service.BuyerReviewService;
@@ -39,6 +40,6 @@ public class BuyerReviewController {
     @PutMapping("{id}")
     public ResponseEntity modify(@PathVariable Long id, @RequestBody BuyerReview buyerReview) {
         BuyerReview modifiedBuyerReview = buyerReviewService.modify(buyerReview, id);
-        return ResponseEntity.ok().body(modifiedBuyerReview);
+        return ResponseEntity.ok().body(FindBuyerReviewResponseView.toDto(modifiedBuyerReview));
     }
 }
