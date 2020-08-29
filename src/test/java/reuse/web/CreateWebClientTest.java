@@ -2,7 +2,6 @@ package reuse.web;
 
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.MultiValueMap;
-import reuse.domain.BuyerReview;
 import reuse.domain.User;
 import reuse.dto.board.CreateBoardRequestView;
 import reuse.dto.board.CreateBoardResponseView;
@@ -72,9 +71,9 @@ public class CreateWebClientTest extends RestWebClientTest {
                 .getResponseBody();
     }
 
-    public BuyerReview createBuyerReview(Long boardId, String jwt) {
+    public Long createBuyerReview(Long boardId, String jwt) {
         return postMethodWithAuthAcceptance
-                (BUYER_REVIEW_BASE_URL, getCreateBuyerReviewRequestView(boardId), BuyerReview.class, jwt)
+                (BUYER_REVIEW_BASE_URL, getCreateBuyerReviewRequestView(boardId), Long.class, jwt)
                 .getResponseBody();
 
     }
