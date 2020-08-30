@@ -3,7 +3,6 @@ package reuse.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reuse.domain.Board;
-import reuse.domain.Product;
 import reuse.domain.User;
 import reuse.dto.board.*;
 import reuse.repository.BoardRepository;
@@ -11,17 +10,14 @@ import reuse.repository.BoardRepository;
 @Service
 public class BoardService {
     private BoardRepository boardRepository;
-    private ProductService productService;
 
-    public BoardService(BoardRepository boardRepository, ProductService productService) {
+    public BoardService(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
-        this.productService = productService;
     }
 
     @Transactional
     public CreateBoardResponseView create(CreateBoardRequestView board, User seller) {
-        Product product = productService.findById(board.getProductId());
-        Board savedBoard = boardRepository.save(CreateBoardRequestView.toEntity(board, product, seller));
+        Board savedBoard = boardRepository.save(CreateBoardRequestView.toEntity(board, seller));
         return CreateBoardResponseView.toDto(savedBoard);
     }
 
