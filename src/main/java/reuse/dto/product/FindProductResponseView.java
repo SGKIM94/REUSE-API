@@ -44,6 +44,10 @@ public class FindProductResponseView {
     }
 
     public static FindProductResponseView toDto(Product product) {
+        if (product == null) {
+            return new FindProductResponseView();
+        }
+
         return FindProductResponseView.builder()
                 .product(product)
                 .build();
