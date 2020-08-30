@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import reuse.domain.Board;
-import reuse.domain.Product;
 import reuse.domain.SalesStatusType;
 import reuse.domain.User;
 
@@ -28,11 +27,10 @@ public class CreateBoardRequestView {
         this.salesStatus = SalesStatusType.SALE;
     }
 
-    public static Board toEntity(CreateBoardRequestView board, Product product, User seller) {
+    public static Board toEntity(CreateBoardRequestView board, User seller) {
         return Board.builder()
                 .title(board.getTitle())
                 .content(board.getContent())
-                .product(product)
                 .seller(seller)
                 .sellerAddress(board.getSellerAddress())
                 .salesStatus(SalesStatusType.SALE)
