@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static reuse.fixture.BoardFixture.TEST_BOARD;
+import static reuse.fixture.UserFixture.FIND_BY_EMAIL_RESPONSE_VIEW;
 import static reuse.fixture.UserFixture.TEST_USER;
 
 public class BuyerReviewFixture extends CommonFixture {
@@ -31,10 +32,10 @@ public class BuyerReviewFixture extends CommonFixture {
             .content(TEST_SECOND_CONTENT).score(TEST_SECOND_SCORE).title(TEST_SECOND_TITLE).buyer(TEST_USER).build();
 
     public static final FindBuyerReviewRequestView FIND_BUYER_REVIEW_REQUEST_VIEW = FindBuyerReviewRequestView.builder()
-            .buyer(TEST_USER).board(TEST_BOARD).content(TEST_CONTENT).score(TEST_SCORE).title(TEST_TITLE).build();
+            .buyer(FIND_BY_EMAIL_RESPONSE_VIEW).board(TEST_BOARD).content(TEST_CONTENT).score(TEST_SCORE).title(TEST_TITLE).build();
 
     public static final FindBuyerReviewRequestView FIND_SECOND_BUYER_REVIEW_REQUEST_VIEW = FindBuyerReviewRequestView.builder()
-            .buyer(TEST_USER).board(TEST_BOARD).content(TEST_CONTENT).score(TEST_SCORE).title(TEST_TITLE).build();
+            .buyer(FIND_BY_EMAIL_RESPONSE_VIEW).board(TEST_BOARD).content(TEST_CONTENT).score(TEST_SCORE).title(TEST_TITLE).build();
 
     public static final ListBuyerReviewResponseView LIST_BUYER_REVIEW_REQUEST_VIEW = ListBuyerReviewResponseView.builder()
             .buyerReview(Arrays.asList(FIND_BUYER_REVIEW_REQUEST_VIEW, FIND_SECOND_BUYER_REVIEW_REQUEST_VIEW)).build();
