@@ -35,7 +35,7 @@ public class Board extends AbstractEntity {
     @JoinColumn(name="buyer_review_id")
     private BuyerReview buyerReview;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name="seller_review_id")
     private SellerReview sellerReview;
 
