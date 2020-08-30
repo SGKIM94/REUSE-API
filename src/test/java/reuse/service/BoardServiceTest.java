@@ -14,7 +14,6 @@ import reuse.repository.BoardRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static reuse.fixture.BoardFixture.*;
@@ -27,9 +26,6 @@ import static reuse.fixture.UserFixture.TEST_USER;
 public class BoardServiceTest extends AbstractServiceTest {
     @Mock
     private BoardRepository boardRepository;
-
-    @Mock
-    private ProductService productService;
 
     @InjectMocks
     private BoardService boardService;
@@ -47,7 +43,6 @@ public class BoardServiceTest extends AbstractServiceTest {
     @Test
     @Order(1)
     public void create() {
-        when(productService.findById(anyLong())).thenReturn(TEST_PRODUCT);
         when(boardRepository.save(any())).thenReturn(testBoard);
 
         CreateBoardResponseView board = boardService.create(CREATE_BOARD_REQUEST_VIEW, TEST_USER);
