@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import reuse.domain.Board;
 import reuse.domain.BuyerReview;
+import reuse.domain.User;
 import reuse.dto.user.FindByIdResponseView;
 
 @Getter
@@ -19,17 +20,18 @@ public class FindBuyerReviewRequestView {
     private Board board;
 
     @Builder
-    public FindBuyerReviewRequestView(FindByIdResponseView buyer, Integer score, String title, String content, Board board) {
-        this.buyer = buyer;
+    public FindBuyerReviewRequestView(User buyer, Integer score, String title, String content, Board board) {
+        this.buyer = FindByIdResponseView.toDto(buyer);
         this.score = score;
         this.title = title;
         this.content = content;
         this.board = board;
     }
 
+
     public static FindBuyerReviewRequestView toDto(BuyerReview buyerReview) {
         return FindBuyerReviewRequestView.builder()
-                .buyer(FindByIdResponseView.toDto(buyerReview.getBuyer()))
+                .buyer(buyerReview.getBuyer())
                 .content(buyerReview.getContent())
                 .score(buyerReview.getScore())
                 .title(buyerReview.getTitle())
