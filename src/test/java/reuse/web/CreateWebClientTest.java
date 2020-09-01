@@ -5,6 +5,7 @@ import org.springframework.util.MultiValueMap;
 import reuse.domain.User;
 import reuse.dto.board.CreateBoardRequestView;
 import reuse.dto.board.CreateBoardResponseView;
+import reuse.dto.board.ModifyBoardStatusRequestView;
 import reuse.dto.category.CreateCategoryRequestView;
 import reuse.dto.category.CreateCategoryResponseView;
 import reuse.dto.favorite.CreateFavoriteBoardRequestView;
@@ -72,9 +73,22 @@ public class CreateWebClientTest extends RestWebClientTest {
     }
 
     public Long createBuyerReview(Long boardId, String jwt) {
+        reserveBoard(new ModifyBoardStatusRequestView(boardId), jwt);
+        completeBoard(new ModifyBoardStatusRequestView(boardId), jwt);
+
         return postMethodWithAuthAcceptance
                 (BUYER_REVIEW_BASE_URL, getCreateBuyerReviewRequestView(boardId), Long.class, jwt)
                 .getResponseBody();
 
+    }
+
+    public void reserveBoard(ModifyBoardStatusRequestView board, String jwt) {
+        postMethodWithAuthAcceptance
+                (BOARD_BASE_URL + "/reservation", board, Void.class, jwt).getResponseBody();
+    }
+
+    public void completeBoard(ModifyBoardStatusRequestView board, String jwt) {
+        postMethodWithAuthAcceptance
+                (BOARD_BASE_URL + "/complete", board, Void.class, jwt).getResponseBody();
     }
 }
