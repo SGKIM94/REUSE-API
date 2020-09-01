@@ -10,6 +10,7 @@ import reuse.AbstractAcceptanceTest;
 import reuse.domain.User;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.dto.board.FindBoardResponseView;
+import reuse.dto.board.ModifyBoardStatusRequestView;
 import reuse.dto.review.buyer.ListBuyerReviewResponseView;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,7 +18,7 @@ import static reuse.fixture.BoardFixture.CREATE_BOARD_REQUEST_VIEW;
 import static reuse.fixture.BuyerReviewFixture.TEST_BUYER_REVIEW;
 import static reuse.fixture.BuyerReviewFixture.getCreateBuyerReviewRequestView;
 import static reuse.fixture.CommonFixture.DEFAULT_ID;
-import static reuse.fixture.UserFixture.TEST_SECOND_USER;
+import static reuse.fixture.UserFixture.TEST_USER;
 import static reuse.fixture.UserFixture.getCreateUserRequestView;
 import static reuse.web.BoardAcceptanceTest.BOARD_BASE_URL;
 import static reuse.web.TokenAuthenticationCreator.getJwt;
@@ -40,10 +41,13 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
     @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     public void createBuyerReview() {
         //given
-        User buyer = createWebClientTest.createUser(getCreateUserRequestView(TEST_SECOND_USER));
+        User buyer = createWebClientTest.createUser(getCreateUserRequestView(TEST_USER));
 
         CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, jwt);
         Long boardId = board.getId();
+
+        createWebClientTest.reserveBoard(new ModifyBoardStatusRequestView(board.getId()), jwt);
+        createWebClientTest.completeBoard(new ModifyBoardStatusRequestView(board.getId()), jwt);
 
         //when
         EntityExchangeResult<Long> expectResponse
@@ -66,6 +70,7 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
         //given
         CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, jwt);
         Long boardId = board.getId();
+
         createWebClientTest.createBuyerReview(boardId, jwt);
 
         //when
@@ -88,6 +93,7 @@ public class BuyerReviewAcceptanceTest extends AbstractAcceptanceTest {
         //given
         CreateBoardResponseView board = createWebClientTest.createBoard(CREATE_BOARD_REQUEST_VIEW, jwt);
         Long boardId = board.getId();
+
         createWebClientTest.createBuyerReview(boardId, jwt);
 
         //when
