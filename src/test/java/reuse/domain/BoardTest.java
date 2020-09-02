@@ -57,7 +57,7 @@ public class BoardTest {
     public void verifyThatUserAndRequester() {
         //given
         String errorMessage = assertThrows(IllegalArgumentException.class, () -> {
-            TEST_BOARD.verifyThatUserAndRequester(TEST_SECOND_USER, SalesStatusType.SALE);
+            TEST_SECOND_BOARD.verifyThatUserAndRequester(TEST_SECOND_USER, SalesStatusType.COMPLETE);
         }).getMessage();
 
         //then
@@ -74,7 +74,7 @@ public class BoardTest {
         }).getMessage();
 
         //then
-        assertThat(errorMessage).isEqualTo("현재 COMPLETE 상태이므로 SALE 상태로 변경이 불가능합니다.");
+        assertThat(errorMessage).isEqualTo("현재 상태 :  COMPLETE | 요구되는 상태 SALE");
     }
 
     @DisplayName("Board 에 BuyerReview 를 연결시키기위한 외래키를 저장하는지")
