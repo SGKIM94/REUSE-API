@@ -12,13 +12,11 @@ import reuse.domain.User;
 import reuse.dto.board.CreateBoardResponseView;
 import reuse.dto.board.FindBoardResponseView;
 import reuse.dto.board.ModifyBoardStatusRequestView;
-import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.BoardFixture.CREATE_BOARD_REQUEST_VIEW;
 import static reuse.fixture.SellerReviewFixture.getCreateSellerReviewRequestView;
-import static reuse.fixture.UserFixture.TEST_SECOND_USER;
-import static reuse.fixture.UserFixture.getCreateUserRequestView;
+import static reuse.fixture.UserFixture.*;
 import static reuse.web.BoardAcceptanceTest.BOARD_BASE_URL;
 import static reuse.web.TokenAuthenticationCreator.getJwt;
 
@@ -54,7 +52,7 @@ public class SellerReviewAcceptanceTest extends AbstractAcceptanceTest {
         //when
         EntityExchangeResult<SellerReview> expectResponse
                 = createWebClientTest.postMethodWithAuthAcceptance
-                (SELLER_REVIEW_BASE_URL, getCreateSellerReviewRequestView(boardId, TEST_SECOND_USER),
+                (SELLER_REVIEW_BASE_URL, getCreateSellerReviewRequestView(boardId, TEST_USER),
                         SellerReview.class, jwt);
 
         //then
