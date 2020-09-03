@@ -74,6 +74,6 @@ public class SellerReviewServiceTest extends AbstractServiceTest {
         }).getMessage();
 
         //then
-        assertThat(errorMessage).isEqualTo("현재 상태 :  RESERVE | 요구되는 상태 COMPLETE");
+        assertThat(errorMessage).isEqualTo("현재 상태 :  SALE | 요구되는 상태 COMPLETE");
     }
 }
