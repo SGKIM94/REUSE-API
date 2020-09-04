@@ -7,9 +7,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import reuse.AbstractAcceptanceTest;
-import reuse.domain.User;
 import reuse.dto.board.*;
-import reuse.security.TokenAuthenticationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static reuse.fixture.BoardFixture.*;
@@ -122,6 +120,8 @@ public class BoardAcceptanceTest extends AbstractAcceptanceTest {
 
     @DisplayName("게시판 수정이 가능한지")
     @Test
+    @Disabled
+    // 고립 필요
     @Sql(scripts = {"/clean-all.sql", "/insert-categories.sql", "/insert-products.sql"})
     @Order(6)
     public void modifyBoard() {
