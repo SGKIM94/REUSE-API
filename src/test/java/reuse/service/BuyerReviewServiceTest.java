@@ -30,6 +30,14 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     @InjectMocks
     private BuyerReviewService buyerReviewService;
 
+    private BuyerReview testBuyerReview;
+
+    @BeforeEach
+    void setUp() {
+        // 전체 테스트 돌렸을 때 발생하는 오류로 인해 고민 필요
+         testBuyerReview = BuyerReview.builder()
+                .id(DEFAULT_ID).content(TEST_CONTENT).score(TEST_SCORE).title(TEST_TITLE).buyer(TEST_USER).build();
+    }
 
     @DisplayName("게시물에 대한 후기가 생성되는지")
     @Test
@@ -38,7 +46,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
         //given
         User buyer = TEST_USER;
 
-        when(buyerReviewRepository.save(any())).thenReturn(TEST_BUYER_REVIEW);
+        when(buyerReviewRepository.save(any())).thenReturn(testBuyerReview);
         when(boardService.findById(any())).thenReturn(TEST_SECOND_BOARD);
 
         //when
@@ -68,7 +76,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     @Order(3)
     public void findById() {
         //given
-        when(buyerReviewRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_BUYER_REVIEW));
+        when(buyerReviewRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(testBuyerReview));
 
         //when
         BuyerReview buyerReview = buyerReviewService.findById(DEFAULT_ID);
@@ -84,7 +92,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     @Order(4)
     public void retrieve() {
         //given
-        when(buyerReviewRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_BUYER_REVIEW));
+        when(buyerReviewRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(testBuyerReview));
 
         //when
         FindBuyerReviewResponseView buyerReview = buyerReviewService.retrieve(DEFAULT_ID);
@@ -115,7 +123,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     @Order(6)
     public void modify() {
         //given
-        when(buyerReviewRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(TEST_BUYER_REVIEW));
+        when(buyerReviewRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(testBuyerReview));
 
         BuyerReview modifiedBuyerReview = buyerReviewService.modify(TEST_SECOND_BUYER_REVIEW, DEFAULT_ID);
 
