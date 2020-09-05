@@ -23,7 +23,8 @@ public class SellerReviewService {
     public SellerReview create(CreateSellerReviewRequestView sellerReview, User requester) {
         Board board = boardService.findById(sellerReview.getBoardId());
 
-        board.verifyThatUserAndRequester(requester, SalesStatusType.COMPLETE);
+        board.verifyThatBoardCanChangeStatus(SalesStatusType.COMPLETE);
+        board.verifyThatSellerAndRequestAreTheSame(requester.getSocialTokenId());
         board.addScoreFromSellerToBuyer(sellerReview.getScore());
 
         SellerReview review = sellerReviewRepository.save(sellerReview.toEntity());
