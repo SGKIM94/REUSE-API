@@ -29,7 +29,7 @@ public class BuyerReviewService {
 
         board.verifyThatBoardCanChangeStatus(SalesStatusType.COMPLETE);
         board.verifyThatBuyerAndRequestAreTheSame(buyer.getSocialTokenId());
-        board.addScoreFromBuyerToSeller(buyerReview.getScore());
+        board.addScoreFromSellerToBuyer(buyerReview.getScore());
 
         BuyerReview review = buyerReviewRepository.save(buyerReview.toEntity(buyer));
         board.registerBuyerReview(review);
