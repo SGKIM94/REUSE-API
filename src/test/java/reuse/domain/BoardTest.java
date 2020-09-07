@@ -4,11 +4,11 @@ import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static reuse.fixture.BoardFixture.DEFAULT_ID;
 import static reuse.fixture.BoardFixture.*;
 import static reuse.fixture.BuyerReviewFixture.TEST_BUYER_REVIEW;
 import static reuse.fixture.SellerReviewFixture.TEST_SELLER_REVIEW;
-import static reuse.fixture.UserFixture.*;
+import static reuse.fixture.UserFixture.TEST_SOCIAL_TOKEN_ID;
+import static reuse.fixture.UserFixture.TEST_USER;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BoardTest {
@@ -49,19 +49,6 @@ public class BoardTest {
 
         //then
         assertThat(board.getSalesStatus()).isEqualTo(SalesStatusType.COMPLETE);
-    }
-
-    @DisplayName("예약 요청을 한 로그인 사용자와 게시글에 등록되어있는 판매자가 다른 경우 예외를 처리하는지")
-    @Test
-    @Order(4)
-    public void verifyThatUserAndRequester() {
-        //given
-        String errorMessage = assertThrows(IllegalArgumentException.class, () -> {
-            TEST_SECOND_BOARD.verifyThatUserAndRequester(TEST_SECOND_USER, SalesStatusType.COMPLETE);
-        }).getMessage();
-
-        //then
-        assertThat(errorMessage).isEqualTo("판매자와 예약 신청한 사용자가 다릅니다.");
     }
 
     @DisplayName("구매 예약 요청을 한 로그인 사용자와 게시글에 등록되어있는 판매자가 다른 경우 예외를 처리하는지")
