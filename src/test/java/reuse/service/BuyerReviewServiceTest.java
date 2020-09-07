@@ -44,7 +44,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     @Order(1)
     public void create() {
         //given
-        User buyer = TEST_USER;
+        User buyer = TEST_SECOND_USER;
 
         when(buyerReviewRepository.save(any())).thenReturn(testBuyerReview);
         when(boardService.findById(any())).thenReturn(TEST_SECOND_BOARD);
@@ -153,7 +153,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
         when(boardService.findById(any())).thenReturn(TEST_SECOND_BOARD);
 
         String errorMessage = assertThrows(IllegalArgumentException.class, () -> {
-            buyerReviewService.create(getCreateBuyerReviewRequestView(TEST_FIRST_BOARD_ID), TEST_SECOND_USER);
+            buyerReviewService.create(getCreateBuyerReviewRequestView(TEST_FIRST_BOARD_ID), TEST_USER);
         }).getMessage();
 
         //then
