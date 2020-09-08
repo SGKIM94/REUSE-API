@@ -31,10 +31,10 @@ public class BuyerReviewFixture extends CommonFixture {
             .content(TEST_SECOND_CONTENT).score(TEST_SECOND_SCORE).title(TEST_SECOND_TITLE).buyer(TEST_USER).build();
 
     public static final FindBuyerReviewRequestView FIND_BUYER_REVIEW_REQUEST_VIEW = FindBuyerReviewRequestView.builder()
-            .buyer(TEST_USER).board(TEST_BOARD).content(TEST_CONTENT).score(TEST_SCORE).title(TEST_TITLE).build();
+            .buyer(TEST_USER).boardId(DEFAULT_ID).content(TEST_CONTENT).score(TEST_SCORE).title(TEST_TITLE).build();
 
     public static final FindBuyerReviewRequestView FIND_SECOND_BUYER_REVIEW_REQUEST_VIEW = FindBuyerReviewRequestView.builder()
-            .buyer(TEST_USER).board(TEST_BOARD).content(TEST_CONTENT).score(TEST_SCORE).title(TEST_TITLE).build();
+            .buyer(TEST_USER).boardId(SECOND_ID).content(TEST_CONTENT).score(TEST_SCORE).title(TEST_TITLE).build();
 
     public static final ListBuyerReviewResponseView LIST_BUYER_REVIEW_REQUEST_VIEW = ListBuyerReviewResponseView.builder()
             .buyerReview(Arrays.asList(FIND_BUYER_REVIEW_REQUEST_VIEW, FIND_SECOND_BUYER_REVIEW_REQUEST_VIEW)).build();
