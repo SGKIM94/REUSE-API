@@ -3,6 +3,7 @@ package reuse.service;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import reuse.domain.Board;
 import reuse.domain.BuyerReview;
 import reuse.domain.User;
 import reuse.dto.review.buyer.FindBuyerReviewResponseView;
@@ -44,16 +45,17 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     @Order(1)
     public void create() {
         //given
-        User buyer = TEST_SECOND_USER;
+        Board board = TEST_SECOND_BOARD;
 
         when(buyerReviewRepository.save(any())).thenReturn(testBuyerReview);
-        when(boardService.findById(any())).thenReturn(TEST_SECOND_BOARD);
+        when(boardService.findById(any())).thenReturn(board);
 
         //when
-        BuyerReview buyerReview = buyerReviewService.create(CREATE_BUYER_REVIEW_REQUEST_VIEW, buyer);
+        BuyerReview buyerReview = buyerReviewService.create(CREATE_BUYER_REVIEW_REQUEST_VIEW, TEST_SECOND_USER);
+        User seller = board.getSeller();
 
         //then
-        assertThat(buyer.getScore()).isEqualTo(TEST_SCORE);
+        assertThat(seller.getScore()).isEqualTo(TEST_SCORE);
         assertThat(buyerReview.getId()).isNotNull();
     }
 
