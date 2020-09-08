@@ -17,15 +17,14 @@ public class FindBuyerReviewRequestView {
     private Integer score;
     private String title;
     private String content;
-    private Board board;
-
+    private Long boardId;
     @Builder
-    public FindBuyerReviewRequestView(User buyer, Integer score, String title, String content, Board board) {
+    public FindBuyerReviewRequestView(User buyer, Integer score, String title, String content, Long boardId) {
         this.buyer = FindByIdResponseView.toDto(buyer);
         this.score = score;
         this.title = title;
         this.content = content;
-        this.board = board;
+        this.boardId = boardId;
     }
 
 
