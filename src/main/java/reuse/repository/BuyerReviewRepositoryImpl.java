@@ -27,7 +27,7 @@ public class BuyerReviewRepositoryImpl implements BuyerReviewRepositoryCustom {
                                 buyerReview.score,
                                 buyerReview.title,
                                 buyerReview.content,
-                                board
+                                board.id
                         )
                 )
                 .from(board)
