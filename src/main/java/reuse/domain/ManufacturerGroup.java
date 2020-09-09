@@ -14,7 +14,8 @@ public enum ManufacturerGroup {
     LG("2", "LG"),
     APPLE("3", "애플"),
     BLACKBERRY("4", "블랙베리"),
-    HAWAY("5", "하웨이");
+    HAWAY("5", "하웨이"),
+    XIOMING("6", "샤오밍");
 
     ManufacturerGroup(String value, String name) {
         this.value = value;
