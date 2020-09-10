@@ -16,7 +16,7 @@ public class ChatMessage extends AbstractEntity {
 
     private MessageType type;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "user_id")
     private User sender;
 
