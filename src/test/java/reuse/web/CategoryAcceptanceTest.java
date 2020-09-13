@@ -84,7 +84,7 @@ public class CategoryAcceptanceTest extends AbstractAcceptanceTest {
         List<GroupResponseView> models = responseBody.getModels().getGroup();
         List<GroupResponseView> telecos = responseBody.getTelecos().getGroup();
 
-        assertThat(manufacturers.size()).isEqualTo(5);
+        assertThat(manufacturers.size()).isEqualTo(6);
         assertThat(models.size()).isEqualTo(11);
         assertThat(telecos.size()).isEqualTo(6);
     }
