@@ -70,4 +70,14 @@ public class UserHandlerMethodArgumentResolverTest {
 
         assertThat(isSupported).isTrue();
     }
+
+    @Test
+    public void LoginUser_parameter_가_존재하지_않는경우_false_를_리턴하는지() {
+        when(parameter.hasParameterAnnotation(LoginUser.class)).thenReturn(false);
+
+        boolean isSupported = userHandlerMethodArgumentResolver.supportsParameter(parameter);
+
+        assertThat(isSupported).isFalse();
+    }
+
 }
