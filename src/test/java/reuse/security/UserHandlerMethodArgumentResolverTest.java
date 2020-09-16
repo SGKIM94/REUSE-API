@@ -61,4 +61,13 @@ public class UserHandlerMethodArgumentResolverTest {
             userHandlerMethodArgumentResolver.resolveArgument(parameter, null, request, null);
         });
     }
+
+    @Test
+    public void LoginUser_parameter_가_존재하는경우_성공하는지() {
+        when(parameter.hasParameterAnnotation(LoginUser.class)).thenReturn(true);
+
+        boolean isSupported = userHandlerMethodArgumentResolver.supportsParameter(parameter);
+
+        assertThat(isSupported).isTrue();
+    }
 }
