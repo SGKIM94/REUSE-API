@@ -25,7 +25,7 @@ public class UserHandlerMethodArgumentResolver implements HandlerMethodArgumentR
 
         LoginUser loginUser = parameter.getParameterAnnotation(LoginUser.class);
 
-        if (loginUser == null || user == null) {
+        if (loginUser == null || loginUser.required() || user == null) {
             throw new IllegalArgumentException("사용자 정보가 존재하지 않습니다.");
         }
 
