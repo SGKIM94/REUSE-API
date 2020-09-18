@@ -16,12 +16,121 @@ Content-Type: application/json
 
 
 ###
-POST http://0.0.0.0:6000/users/login
+POST http://localhost:6000/users/login
 Content-Type: application/json
 
-{e
+{
 "socialTokenId": "aksldjfal123",
 "socialType": "naver"
+
 }
 
 ###
+
+
+###
+GET http://0.0.0.0:6000/products
+Authorization: eyJ0b2tlblR5cGUiOiJCZWFyZXIiLCJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxUb2tlbklkIjoiYWtzbGRqZmFsMTIzIiwic3ViIjoiYWtzbGRqZmFsMTIzIiwiaWF0IjoxNTkxMTQzNDE5fQ.XESuMPTOSwcDPkRFWgZBqB2wmUmSd20--sIrvLh3GiQ
+Content-Type: application/json
+
+###
+
+###
+GET http://ec2-15-165-90-183.ap-northeast-2.compute.amazonaws.com:6000/categories
+Authorization: eyJ0b2tlblR5cGUiOiJCZWFyZXIiLCJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxUb2tlbklkIjoidG9rZW5JZCIsInN1YiI6InRva2VuSWQiLCJpYXQiOjE1OTExMDY2MDN9.1993vqnVmRVJ7jLif5MhOa74IorgvriW8WHVHedM7oM
+Content-Type: application/json
+
+
+###
+GET http://localhost:6000/categories
+Authorization: eyJ0b2tlblR5cGUiOiJCZWFyZXIiLCJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxUb2tlbklkIjoiYWtzbGRqZmFsMTIzIiwic3ViIjoiYWtzbGRqZmFsMTIzIiwiaWF0IjoxNTkxMTQzNDE5fQ.XESuMPTOSwcDPkRFWgZBqB2wmUmSd20--sIrvLh3GiQ
+Content-Type: application/json
+
+###
+
+###
+POST http://localhost:6000/categories
+Authorization: eyJ0b2tlblR5cGUiOiJCZWFyZXIiLCJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxUb2tlbklkIjoiYWtzbGRqZmFsMTIzIiwic3ViIjoiYWtzbGRqZmFsMTIzIiwiaWF0IjoxNTkxMTQzNDE5fQ.XESuMPTOSwcDPkRFWgZBqB2wmUmSd20--sIrvLh3GiQ
+Content-Type: application/json
+
+{
+  "model" : "1",
+  "teleco" : "1",
+  "manufacturer" : "2"
+
+}
+
+###
+
+###
+POST http://0.0.0.0:6000/boards
+Authorization: eyJ0b2tlblR5cGUiOiJCZWFyZXIiLCJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxUb2tlbklkIjoiYXNkZmtsYWpzZGtsZiIsInN1YiI6ImFzZGZrbGFqc2RrbGYiLCJpYXQiOjE1OTQxMTAxMjB9.OnVq7giJnafOuekFHXfm49NHRlaWawPL_fJ1Lk0-0mM
+Content-Type: application/json
+
+{
+   "title":  "게시판테스트임당",
+   "content": "내용 임당",
+   "productId":  "10000000022",
+   "sellerAddress": "경기도 성남시"
+}
+
+###
+
+###
+POST http://localhost:6000/products
+Authorization: eyJ0b2tlblR5cGUiOiJCZWFyZXIiLCJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxUb2tlbklkIjoiYWtzbGRqZmFsMTIzIiwic3ViIjoiYWtzbGRqZmFsMTIzIiwiaWF0IjoxNTkxMTQzNDE5fQ.XESuMPTOSwcDPkRFWgZBqB2wmUmSd20--sIrvLh3GiQ
+Content-Type: application/json
+
+{
+  "name" : "아이폰323",
+  "explanation" : "새거임",
+  "price" : "20000",
+  "isUsed" : true,
+  "isSold" : true,
+  "firstImage": "https://~",
+  "secondImage": "https://~",
+  "thirdImage": "https://~",
+  "fourthImage": "https://~",
+  "fifthImage": "https://~",
+  "sixthImage": "https://~"
+
+}
+
+###
+
+
+###
+GET http://localhost:6000/boards
+Authorization: eyJ0b2tlblR5cGUiOiJCZWFyZXIiLCJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxUb2tlbklkIjoiYXNkZmtsYWpzZGtsZiIsInN1YiI6ImFzZGZrbGFqc2RrbGYiLCJpYXQiOjE1OTQxMTE3ODN9.FhGnUmibi-BO5D7s2qb5D1ch9eRrOlupTDhLfa6xsgs
+Content-Type: application/json
+
+###
+GET http://localhost:6000/boards/18
+Authorization: eyJ0b2tlblR5cGUiOiJCZWFyZXIiLCJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxUb2tlbklkIjoiYXNkZmtsYWpzZGtsZiIsInN1YiI6ImFzZGZrbGFqc2RrbGYiLCJpYXQiOjE1OTQxMTE3ODN9.FhGnUmibi-BO5D7s2qb5D1ch9eRrOlupTDhLfa6xsgs
+Content-Type: application/json
+
+###
+
+###
+POST http://0.0.0.0:6000/favorites/board
+Authorization: eyJ0b2tlblR5cGUiOiJCZWFyZXIiLCJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxUb2tlbklkIjoiYWtzbGRqZmFsMTIzIiwic3ViIjoiYWtzbGRqZmFsMTIzIiwiaWF0IjoxNTkxMTQzNDE5fQ.XESuMPTOSwcDPkRFWgZBqB2wmUmSd20--sIrvLh3GiQ
+Content-Type: application/json
+
+{
+  "boardId": 5
+}
+###
+
+###
+GET http://0.0.0.0:6000/favorites/board/
+Authorization: eyJ0b2tlblR5cGUiOiJCZWFyZXIiLCJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxUb2tlbklkIjoiYWtzbGRqZmFsMTIzIiwic3ViIjoiYWtzbGRqZmFsMTIzIiwiaWF0IjoxNTkxMTQzNDE5fQ.XESuMPTOSwcDPkRFWgZBqB2wmUmSd20--sIrvLh3GiQ
+Content-Type: application/json
+
+###
+
+GET http://ec2-15-165-90-183.ap-northeast-2.compute.amazonaws.com:6000/boards
+Authorization: eyJ0b2tlblR5cGUiOiJCZWFyZXIiLCJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxUb2tlbklkIjoiYXNkZmtsYWpzZGtsZiIsInN1YiI6ImFzZGZrbGFqc2RrbGYiLCJpYXQiOjE1OTQxMTE3ODN9.FhGnUmibi-BO5D7s2qb5D1ch9eRrOlupTDhLfa6xsgs
+Content-Type: application/json
+
+###
+

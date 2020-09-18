@@ -19,6 +19,20 @@ spring:
   profiles:
     active: local
 
+  redis:
+    port: 6100
+
+cloud:
+  aws:
+    s3:
+      bucket: reuse-s3
+      credentials:
+        accessKey: AKIAZ6GZJJKFO33CE5HR
+        secretKey: 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
+      region:
+        static: ap-northeast-2
+
+
 
 server:
   port: 6000
