@@ -21,5 +21,5 @@ notifications:
    - tkdrn8578@naver.com
 
 before_install:
- - openssl aes-256-cbc -K $encrypted_1116e8e6e492_key -iv $encrypted_1116e8e6e492_iv -in ./src/main/resources/application.yml.enc -out ./src/main/resources/application.yml -d
- - openssl aes-256-cbc -K $encrypted_1116e8e6e492_key -iv $encrypted_1116e8e6e492_iv -in ./src/test/resources/application.yml.enc -out ./src/test/resources/application.yml -d
+ - openssl aes-256-cbc -K $encrypted_b9ff7ce409b6_key -iv $encrypted_b9ff7ce409b6_iv -in ./configs.tar.enc -out ./configs.tar -d
+ - tar xvf configs.tar
