@@ -62,18 +62,6 @@ public class UserHandlerMethodArgumentResolverTest {
         });
     }
 
-    @Test
-    public void LoginUser_의_required_가_false_일때_예외를_처리하는지() {
-        when(parameter.getParameterAnnotation(LoginUser.class)).thenReturn(annotedLoginUser);
-        when(annotedLoginUser.required()).thenReturn(false);
-        when(request.getNativeRequest()).thenReturn(httpServletRequest);
-        when(httpServletRequest.getAttribute(AUTH_USER_KEY)).thenReturn(null);
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            userHandlerMethodArgumentResolver.resolveArgument(parameter, null, request, null);
-        });
-    }
-
 
     @Test
     public void LoginUser_parameter_가_존재하는경우_성공하는지() {
