@@ -5,7 +5,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import reuse.domain.Board;
 import reuse.domain.BuyerReview;
-import reuse.domain.SalesStatusType;
 import reuse.domain.User;
 import reuse.dto.review.buyer.FindBuyerReviewResponseView;
 import reuse.dto.review.buyer.ListBuyerReviewResponseView;
@@ -18,7 +17,6 @@ import static org.mockito.Mockito.when;
 import static reuse.fixture.BoardFixture.*;
 import static reuse.fixture.BuyerReviewFixture.*;
 import static reuse.fixture.CommonFixture.DEFAULT_ID;
-import static reuse.fixture.ProductFixture.TEST_PRODUCT;
 import static reuse.fixture.UserFixture.TEST_SECOND_USER;
 import static reuse.fixture.UserFixture.TEST_USER;
 
@@ -39,12 +37,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     void setUp() {
         // 전체 테스트 돌렸을 때 발생하는 오류로 인해 고민 필요
          testBuyerReview = BuyerReview.builder()
-                 .id(DEFAULT_ID)
-                 .content(TEST_CONTENT)
-                 .score(TEST_SCORE)
-                 .title(TEST_TITLE)
-                 .buyer(TEST_USER)
-                 .build();
+                .id(DEFAULT_ID).content(TEST_CONTENT).score(TEST_SCORE).title(TEST_TITLE).buyer(TEST_USER).build();
     }
 
     @DisplayName("게시물에 대한 후기가 생성되는지")
@@ -52,15 +45,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     @Order(1)
     public void create() {
         //given
-        Board board = Board.builder()
-                .title(TEST_BOARD_TITLE)
-                .content(TEST_BOARD_CONTENT)
-                .product(TEST_PRODUCT)
-                .sellerAddress(TEST_SELLER_ADDRESS)
-                .salesStatus(SalesStatusType.COMPLETE)
-                .seller(TEST_USER)
-                .buyer(TEST_SECOND_USER)
-                .build();
+        Board board = TEST_SECOND_BOARD;
 
         when(buyerReviewRepository.save(any())).thenReturn(testBuyerReview);
         when(boardService.findById(any())).thenReturn(board);
@@ -181,18 +166,7 @@ public class BuyerReviewServiceTest extends AbstractServiceTest {
     @Test
     @Order(9)
     public void verifySalesStatus() {
-        Board board = Board.builder()
-                .id(TEST_FIRST_BOARD_ID)
-                .title(TEST_BOARD_TITLE)
-                .content(TEST_BOARD_CONTENT)
-                .product(TEST_PRODUCT)
-                .sellerAddress(TEST_SELLER_ADDRESS)
-                .buyer(TEST_SECOND_USER)
-                .seller(TEST_USER)
-                .salesStatus(SalesStatusType.SALE)
-                .build();
-
-        when(boardService.findById(any())).thenReturn(board);
+        when(boardService.findById(any())).thenReturn(TEST_BOARD);
 
         //when
         String errorMessage = assertThrows(IllegalArgumentException.class, () -> {
