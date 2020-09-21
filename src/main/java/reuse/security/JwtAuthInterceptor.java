@@ -27,7 +27,7 @@ public class JwtAuthInterceptor extends HandlerInterceptorAdapter {
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if (authorization == null) {
-            throw new InvalidAccessTokenException("Header 에 token 이 존재하지 않습니다.");
+            return true;
         }
 
         if (!tokenAuthenticationService.isVerifyToken(authorization)) {
