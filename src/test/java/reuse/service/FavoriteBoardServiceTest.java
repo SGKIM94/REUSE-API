@@ -45,7 +45,7 @@ public class FavoriteBoardServiceTest extends AbstractServiceTest {
 
         //then
         assertThat(user.getName()).isNotBlank();
-        assertThat(board.getTitle()).isEqualTo(TEST_BOARD_TITLE);
+        assertThat(board.getTitle()).isNotBlank();
     }
 
     @DisplayName("해당 사용자가 즐겨찾기한 모든 게시글을 가져오는지")
