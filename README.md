@@ -1,4 +1,4 @@
-# REUSE
+# REUSE [![Build Status](https://travis-ci.com/SGKIM94/REUSE-API.svg?branch=master)](https://travis-ci.com/SGKIM94/REUSE-API)
 핸드폰을 중고 거래하기 위한 APP과 연동하기 위한 API 서버
 
 ## 개발 환경

@@ -18,7 +18,6 @@ import static reuse.fixture.BoardFixture.*;
 import static reuse.fixture.FavoriteBoardFixture.CREATE_FAVORITE_BOARD_REQUEST_VIEW;
 import static reuse.fixture.FavoriteBoardFixture.FAVORITE_BOARD;
 import static reuse.fixture.UserFixture.TEST_USER;
-import static reuse.fixture.UserFixture.TEST_USER_NAME;
 
 public class FavoriteBoardServiceTest extends AbstractServiceTest {
     @Mock
@@ -45,8 +44,8 @@ public class FavoriteBoardServiceTest extends AbstractServiceTest {
         Board board = savedBoard.getBoard();
 
         //then
-        assertThat(user.getName()).isEqualTo(TEST_USER_NAME);
-        assertThat(board.getTitle()).isEqualTo(TEST_BOARD_TITLE);
+        assertThat(user.getName()).isNotBlank();
+        assertThat(board.getTitle()).isNotBlank();
     }
 
     @DisplayName("해당 사용자가 즐겨찾기한 모든 게시글을 가져오는지")
