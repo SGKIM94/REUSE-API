@@ -4,6 +4,7 @@ package reuse.chat.web;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 import reuse.chat.domain.ChatMessage;
 import reuse.chat.dto.CreateChatRequestView;
@@ -40,6 +41,7 @@ public class ChatController {
     }
 
     @MessageMapping("/message")
+    @SendTo("/pub/message")
     public ResponseEntity message(ChatMessage message) {
         log.info("메시지를 보냈습니다.");
         log.info("message: " + message);
