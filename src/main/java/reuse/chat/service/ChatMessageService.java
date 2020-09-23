@@ -15,9 +15,9 @@ public class ChatMessageService {
     }
 
     public void publishMessage(PublishChatRequestView message) {
-//        if (message.isJoinMessageType()) {
-//            message.publishJoinMessage();
-//        }
+        if (message.isJoinMessageType()) {
+            message.publishJoinMessage();
+        }
 
         log.info("메시지가 들어왔습니다.");
 
