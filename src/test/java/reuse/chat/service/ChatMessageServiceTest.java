@@ -11,7 +11,8 @@ import reuse.chat.repository.ChatMessageRepository;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
-import static reuse.chat.fixture.ChatFixture.*;
+import static reuse.chat.fixture.ChatFixture.TEST_CHAT_MESSAGE;
+import static reuse.chat.fixture.ChatFixture.TEST_CHAT_MESSAGE_DTO;
 
 @ExtendWith(SpringExtension.class)
 public class ChatMessageServiceTest {
@@ -48,7 +49,7 @@ public class ChatMessageServiceTest {
     @Test
     public void create() {
         //when
-        chatMessageService.create(TEST_CHAT_MESSAGE_DTO);
+        chatMessageService.create(TEST_CHAT_MESSAGE);
 
         //then
         verify(chatMessageRepository).save(TEST_CHAT_MESSAGE);
