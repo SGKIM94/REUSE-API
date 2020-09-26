@@ -13,6 +13,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static reuse.chat.fixture.ChatFixture.TEST_CHAT_MESSAGE;
 import static reuse.chat.fixture.ChatFixture.TEST_CHAT_MESSAGE_DTO;
+import static reuse.fixture.UserFixture.TEST_USER;
 
 @ExtendWith(SpringExtension.class)
 public class ChatMessageServiceTest {
@@ -24,22 +25,25 @@ public class ChatMessageServiceTest {
     @MockBean
     private ChatMessageRepository chatMessageRepository;
 
+    @MockBean
+    private ChatRoomService chatRoomService;
+
     @BeforeEach
     void setUp() {
-        chatMessageService = new ChatMessageService(messageSendingOperations, chatMessageRepository);
+        chatMessageService = new ChatMessageService(messageSendingOperations, chatMessageRepository, chatRoomService);
     }
 
     @DisplayName("입장 시 입장 메시지가 발송되는지")
     @Test
     public void publishJoinMessage() {
-        chatMessageService.publishMessage(TEST_CHAT_MESSAGE_DTO);
+        chatMessageService.publishMessage(TEST_CHAT_MESSAGE_DTO, TEST_USER);
     }
 
     @DisplayName("채팅 메시지가 발송되는지")
     @Test
     public void publish() {
         //when
-        chatMessageService.publishMessage(TEST_CHAT_MESSAGE_DTO);
+        chatMessageService.publishMessage(TEST_CHAT_MESSAGE_DTO, TEST_USER);
 
         //then
         verify(messageSendingOperations).convertAndSend(any(), (Object) any());
