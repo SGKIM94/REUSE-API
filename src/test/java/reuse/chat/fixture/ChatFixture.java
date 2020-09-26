@@ -12,7 +12,7 @@ import java.util.List;
 import static reuse.fixture.UserFixture.TEST_USER;
 
 public class ChatFixture extends CommonFixture {
-    public static final Integer TEST_ROOM_ID = 1;
+    public static final Long TEST_ROOM_ID = 1L;
     public static final String TEST_CHAT_ROOM_NAME = "첫번째 채팅방";
     public static final String TEST_SECOND_CHAT_ROOM_NAME = "두번째 채팅방";
     public static final String TEST_THIRD_CHAT_ROOM_NAME = "세번째 채팅방";
