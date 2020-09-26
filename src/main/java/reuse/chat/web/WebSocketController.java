@@ -8,6 +8,8 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RestController;
 import reuse.chat.dto.PublishChatRequestView;
 import reuse.chat.service.ChatMessageService;
+import reuse.domain.User;
+import reuse.security.LoginUser;
 
 @Slf4j
 @RestController
@@ -20,11 +22,11 @@ public class WebSocketController {
 
     @MessageMapping("/message")
     @SendTo("/pub/message")
-    public ResponseEntity message(PublishChatRequestView message) {
+    public ResponseEntity message(PublishChatRequestView message, @LoginUser User sender) {
         log.info("메시지를 보냈습니다.");
         log.info("message: " + message);
 
-        chatMessageService.publishMessage(message);
+        chatMessageService.publishMessage(message, sender);
         return ResponseEntity.ok().build();
     }
 }
