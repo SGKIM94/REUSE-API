@@ -26,7 +26,9 @@ public class WebSocketController {
         log.info("메시지를 보냈습니다.");
         log.info("message: " + message);
 
-        chatMessageService.publishMessage(message, sender);
+        chatMessageService.createByPublishChatDto(message, sender);
+        chatMessageService.publishMessage(message);
+
         return ResponseEntity.ok().build();
     }
 }
