@@ -22,17 +22,19 @@ public class ChatMessageService {
         this.chatRoomService = chatRoomService;
     }
 
-    public void publishMessage(PublishChatRequestView message, User sender) {
+    public void publishMessage(PublishChatRequestView message) {
         if (message.isJoinMessageType()) {
             message.publishJoinMessage();
         }
 
         log.info("메시지가 들어왔습니다.");
 
+        messageSendingOperations.convertAndSend("/sub/chats/" + message.getRoomId(), message);
+    }
+
+    public void createByPublishChatDto(PublishChatRequestView message, User sender) {
         ChatRoom chatRoom = chatRoomService.findById(message.getRoomId());
         create(message.toEntity(chatRoom, sender));
-
-        messageSendingOperations.convertAndSend("/sub/chats/" + message.getRoomId(), message);
     }
 
     public ChatMessage create(ChatMessage chat) {
