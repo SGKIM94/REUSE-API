@@ -36,14 +36,14 @@ public class ChatMessageServiceTest {
     @DisplayName("입장 시 입장 메시지가 발송되는지")
     @Test
     public void publishJoinMessage() {
-        chatMessageService.publishMessage(TEST_CHAT_MESSAGE_DTO, TEST_USER);
+        chatMessageService.publishMessage(TEST_CHAT_MESSAGE_DTO);
     }
 
     @DisplayName("채팅 메시지가 발송되는지")
     @Test
     public void publish() {
         //when
-        chatMessageService.publishMessage(TEST_CHAT_MESSAGE_DTO, TEST_USER);
+        chatMessageService.publishMessage(TEST_CHAT_MESSAGE_DTO);
 
         //then
         verify(messageSendingOperations).convertAndSend(any(), (Object) any());
