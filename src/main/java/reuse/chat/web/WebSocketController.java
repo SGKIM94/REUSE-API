@@ -25,7 +25,6 @@ public class WebSocketController {
     @SendTo("/pub/message")
     public ResponseEntity message(PublishChatRequestView message, @LoginUser User sender) {
         log.info("메시지를 보냈습니다.");
-        log.info("message: " + message);
 
         chatMessageService.createByPublishChatDto(message, sender);
         ListChatMessageResponseView messages = chatMessageService.findByChatRoomId(message.getRoomId());
