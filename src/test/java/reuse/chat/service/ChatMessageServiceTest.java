@@ -13,6 +13,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static reuse.chat.fixture.ChatFixture.TEST_CHAT_MESSAGE;
 import static reuse.chat.fixture.ChatFixture.TEST_CHAT_MESSAGE_DTO;
+import static reuse.fixture.CommonFixture.DEFAULT_ID;
 import static reuse.fixture.UserFixture.TEST_USER;
 
 @ExtendWith(SpringExtension.class)
@@ -56,6 +57,17 @@ public class ChatMessageServiceTest {
         chatMessageService.create(TEST_CHAT_MESSAGE);
 
         //then
+        verify(chatMessageRepository).save(TEST_CHAT_MESSAGE);
+    }
+
+    @DisplayName("메시지를 publish 할 때 대화 내용을 저장하는지")
+    @Test
+    public void createByPublishChatDto() {
+        //when
+        chatMessageService.createByPublishChatDto(TEST_CHAT_MESSAGE_DTO, TEST_USER);
+
+        //then
+        verify(chatRoomService).findById(DEFAULT_ID);
         verify(chatMessageRepository).save(TEST_CHAT_MESSAGE);
     }
 }
