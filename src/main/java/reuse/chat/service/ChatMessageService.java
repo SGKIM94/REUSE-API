@@ -5,9 +5,12 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import reuse.chat.domain.ChatMessage;
 import reuse.chat.domain.ChatRoom;
+import reuse.chat.dto.ListChatMessageResponseView;
 import reuse.chat.dto.PublishChatRequestView;
 import reuse.chat.repository.ChatMessageRepository;
 import reuse.domain.User;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -39,5 +42,10 @@ public class ChatMessageService {
 
     public ChatMessage create(ChatMessage chat) {
         return chatMessageRepository.save(chat);
+    }
+
+    public ListChatMessageResponseView findAll() {
+        List<ChatMessage> messages = chatMessageRepository.findAll();
+        return ListChatMessageResponseView.toDto(messages);
     }
 }
