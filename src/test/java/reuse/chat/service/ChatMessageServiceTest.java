@@ -70,4 +70,14 @@ public class ChatMessageServiceTest {
         verify(chatRoomService).findById(DEFAULT_ID);
         verify(chatMessageRepository).save(TEST_CHAT_MESSAGE);
     }
+
+    @DisplayName("모든 저장된 메시지를 DTO 로 가져온느지")
+    @Test
+    public void findAll() {
+        //when
+        chatMessageService.findAll();
+
+        //then
+        verify(chatMessageRepository).findAll();
+    }
 }
