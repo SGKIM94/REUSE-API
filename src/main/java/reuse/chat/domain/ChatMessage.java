@@ -61,4 +61,8 @@ public class ChatMessage extends AbstractEntity {
     public Long getRoomId() {
         return chatRoom.getId();
     }
+
+    public Long getSenderId() {
+        return this.sender.getId();
+    }
 }
