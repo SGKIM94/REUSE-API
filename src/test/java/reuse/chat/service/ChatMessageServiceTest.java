@@ -84,7 +84,7 @@ public class ChatMessageServiceTest {
     @Test
     public void findByChatRoomId() {
         //when
-        chatMessageService.findByRoomId(DEFAULT_ID);
+        chatMessageService.findByChatRoomId(DEFAULT_ID);
 
         //then
         verify(chatMessageRepository).findByChatRoomId(DEFAULT_ID);
