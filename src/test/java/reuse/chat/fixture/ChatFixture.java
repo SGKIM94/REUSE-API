@@ -3,6 +3,8 @@ package reuse.chat.fixture;
 import reuse.chat.domain.ChatMessage;
 import reuse.chat.domain.ChatRoom;
 import reuse.chat.dto.CreateChatRequestView;
+import reuse.chat.dto.FindChatMessageResponseView;
+import reuse.chat.dto.ListChatMessageResponseView;
 import reuse.chat.dto.PublishChatRequestView;
 import reuse.fixture.CommonFixture;
 
@@ -48,4 +50,13 @@ public class ChatFixture extends CommonFixture {
 
     public static final PublishChatRequestView TEST_CHAT_MESSAGE_DTO = PublishChatRequestView.builder()
             .type(ChatMessage.MessageType.CHAT).message(TEST_MESSAGE).roomId(TEST_ROOM_ID).build();
+
+    public static final FindChatMessageResponseView FIRST_FIND_CHAT_MESSAGE_RESPONSE_VIEW = FindChatMessageResponseView
+            .builder().chatMessage(TEST_CHAT_MESSAGE).build();
+
+    public static final FindChatMessageResponseView SECOND_FIND_CHAT_MESSAGE_RESPONSE_VIEW = FindChatMessageResponseView
+            .builder().chatMessage(TEST_CHAT_MESSAGE).build();
+
+    public static final ListChatMessageResponseView LIST_CHAT_MESSAGE_RESPONSE_VIEW = ListChatMessageResponseView.builder()
+            .chatMessages(Arrays.asList(FIRST_FIND_CHAT_MESSAGE_RESPONSE_VIEW, SECOND_FIND_CHAT_MESSAGE_RESPONSE_VIEW)).build();
 }
