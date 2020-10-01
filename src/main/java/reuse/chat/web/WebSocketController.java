@@ -28,7 +28,7 @@ public class WebSocketController {
         log.info("message: " + message);
 
         chatMessageService.createByPublishChatDto(message, sender);
-        ListChatMessageResponseView messages = chatMessageService.findAll();
+        ListChatMessageResponseView messages = chatMessageService.findByChatRoomId(message.getRoomId());
         chatMessageService.publishMessage(message, messages);
 
         return ResponseEntity.ok().build();
