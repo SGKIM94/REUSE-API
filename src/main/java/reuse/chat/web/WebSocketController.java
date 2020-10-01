@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RestController;
+import reuse.chat.dto.ListChatMessageResponseView;
 import reuse.chat.dto.PublishChatRequestView;
 import reuse.chat.service.ChatMessageService;
 import reuse.domain.User;
@@ -27,7 +28,8 @@ public class WebSocketController {
         log.info("message: " + message);
 
         chatMessageService.createByPublishChatDto(message, sender);
-        chatMessageService.publishMessage(message);
+        ListChatMessageResponseView messages = chatMessageService.findAll();
+        chatMessageService.publishMessage(message, messages);
 
         return ResponseEntity.ok().build();
     }
