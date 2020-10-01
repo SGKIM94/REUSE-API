@@ -44,7 +44,7 @@ public class ChatMessageService {
         return chatMessageRepository.save(chat);
     }
 
-    public ListChatMessageResponseView findByRoomId(Long roomId) {
+    public ListChatMessageResponseView findByChatRoomId(Long roomId) {
         List<ChatMessage> messages = chatMessageRepository.findByChatRoomId(roomId);
         return ListChatMessageResponseView.toDto(messages);
     }
