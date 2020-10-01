@@ -25,14 +25,14 @@ public class ChatMessageService {
         this.chatRoomService = chatRoomService;
     }
 
-    public void publishMessage(PublishChatRequestView message) {
+    public void publishMessage(PublishChatRequestView message, ListChatMessageResponseView messages) {
         if (message.isJoinMessageType()) {
             message.publishJoinMessage();
         }
 
         log.info("메시지가 들어왔습니다.");
 
-        messageSendingOperations.convertAndSend("/sub/chats/" + message.getRoomId(), message);
+        messageSendingOperations.convertAndSend("/sub/chats/" + message.getRoomId(), messages);
     }
 
     public void createByPublishChatDto(PublishChatRequestView message, User sender) {
