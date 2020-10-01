@@ -11,8 +11,7 @@ import reuse.chat.repository.ChatMessageRepository;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
-import static reuse.chat.fixture.ChatFixture.TEST_CHAT_MESSAGE;
-import static reuse.chat.fixture.ChatFixture.TEST_CHAT_MESSAGE_DTO;
+import static reuse.chat.fixture.ChatFixture.*;
 import static reuse.fixture.CommonFixture.DEFAULT_ID;
 import static reuse.fixture.UserFixture.TEST_USER;
 
@@ -37,14 +36,14 @@ public class ChatMessageServiceTest {
     @DisplayName("입장 시 입장 메시지가 발송되는지")
     @Test
     public void publishJoinMessage() {
-        chatMessageService.publishMessage(TEST_CHAT_MESSAGE_DTO);
+        chatMessageService.publishMessage(TEST_CHAT_MESSAGE_DTO, LIST_CHAT_MESSAGE_RESPONSE_VIEW);
     }
 
     @DisplayName("채팅 메시지가 발송되는지")
     @Test
     public void publish() {
         //when
-        chatMessageService.publishMessage(TEST_CHAT_MESSAGE_DTO);
+        chatMessageService.publishMessage(TEST_CHAT_MESSAGE_DTO, LIST_CHAT_MESSAGE_RESPONSE_VIEW);
 
         //then
         verify(messageSendingOperations).convertAndSend(any(), (Object) any());
