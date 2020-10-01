@@ -79,4 +79,15 @@ public class ChatMessageServiceTest {
         //then
         verify(chatMessageRepository).findAll();
     }
+
+    @DisplayName("해당 방에 있는 모든 chatMessages 를 가져올 수 있는지")
+    @Test
+    public void findByChatRoomId() {
+        //when
+        chatMessageService.findByRoomId(DEFAULT_ID);
+
+        //then
+        verify(chatMessageRepository).findByChatRoomId(DEFAULT_ID);
+    }
+
 }
