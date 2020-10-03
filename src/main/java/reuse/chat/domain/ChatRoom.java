@@ -25,6 +25,7 @@ public class ChatRoom extends AbstractEntity {
         this.owner = owner;
     }
 
+    @Builder
     public ChatRoom(long id, String name, User owner) {
         super(id);
         this.name = name;
