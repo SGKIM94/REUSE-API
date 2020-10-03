@@ -31,7 +31,7 @@ public class ChatFixture extends CommonFixture {
             .name(TEST_THIRD_CHAT_ROOM_NAME).build();
 
     public static final ChatRoom TEST_CHAT_ROOM = ChatRoom.builder()
-            .name(TEST_CHAT_ROOM_NAME).owner(TEST_USER).build();
+            .id(DEFAULT_ID).name(TEST_CHAT_ROOM_NAME).owner(TEST_USER).build();
 
     public static final ChatRoom TEST_SECOND_CHAT_ROOM = ChatRoom.builder()
             .name(TEST_SECOND_CHAT_ROOM_NAME).owner(TEST_USER).build();
