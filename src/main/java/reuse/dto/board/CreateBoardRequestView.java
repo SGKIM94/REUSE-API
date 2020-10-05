@@ -8,13 +8,19 @@ import reuse.domain.Board;
 import reuse.domain.SalesStatusType;
 import reuse.domain.User;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 @Setter
 @NoArgsConstructor
 public class CreateBoardRequestView {
+    @NotBlank(message = "제목은 필수 값입니다.")
     private String title;
+    @NotBlank(message = "내용은 필수 값입니다.")
     private String content;
+    @NotBlank(message = "품목 ID는 필수 값입니다.")
     private Long productId;
+    @NotBlank(message = "판매자 주소는 필수 값입니다.")
     private String sellerAddress;
     private SalesStatusType salesStatus;
 
