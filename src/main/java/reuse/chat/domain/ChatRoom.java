@@ -6,16 +6,14 @@ import reuse.chat.dto.CreateChatRequestView;
 import reuse.domain.AbstractEntity;
 import reuse.domain.User;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
 public class ChatRoom extends AbstractEntity {
     private String name;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "user_id")
     private User owner;
 
