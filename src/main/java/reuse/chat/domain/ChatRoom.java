@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class ChatRoom extends AbstractEntity {
     private String name;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
 
