@@ -7,10 +7,13 @@ import lombok.Setter;
 import reuse.domain.Board;
 import reuse.domain.Product;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 @Setter
 @NoArgsConstructor
 public class ModifyBoardRequestView {
+    @NotBlank(message = "게시판 ID 필수 값입니다.")
     private Long id;
     private String title;
     private String content;
