@@ -12,6 +12,8 @@ import reuse.chat.service.ChatMessageService;
 import reuse.domain.User;
 import reuse.security.LoginUser;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RestController
 public class WebSocketController {
@@ -23,7 +25,7 @@ public class WebSocketController {
 
     @MessageMapping("/message")
     @SendTo("/pub/message")
-    public ResponseEntity message(PublishChatRequestView message, @LoginUser User sender) {
+    public ResponseEntity message(@Valid PublishChatRequestView message, @LoginUser User sender) {
         log.info("메시지를 보냈습니다.");
 
         chatMessageService.createByPublishChatDto(message, sender);
