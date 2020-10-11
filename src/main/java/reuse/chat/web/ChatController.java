@@ -9,6 +9,8 @@ import reuse.chat.service.ChatRoomService;
 import reuse.domain.User;
 import reuse.security.LoginUser;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RestController
 @RequestMapping("/chats")
@@ -20,7 +22,7 @@ public class ChatController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody CreateChatRequestView name, @LoginUser User loginUser) {
+    public ResponseEntity create(@Valid @RequestBody CreateChatRequestView name, @LoginUser User loginUser) {
         return ResponseEntity.ok().body(chatRoomService.create(name, loginUser));
     }
 
