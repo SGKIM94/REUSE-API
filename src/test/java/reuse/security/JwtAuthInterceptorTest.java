@@ -1,8 +1,6 @@
 package reuse.security;
 
-import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +10,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import reuse.domain.User;
 import reuse.repository.UserRepository;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static reuse.fixture.UserFixture.TEST_USER;
 import static reuse.fixture.UserFixture.TEST_USER_EMAIL;
@@ -31,10 +30,9 @@ public class JwtAuthInterceptorTest {
         this.jwtAuthInterceptor = new JwtAuthInterceptor(userRepository, tokenAuthenticationService);
     }
 
-    @Disabled
     @DisplayName("사용자 로그인 시 토큰 검증을 진행하는지")
     @Test
-    public void preHandle(SoftAssertions softly) throws Exception {
+    public void preHandle() {
         //given
         when(userRepository.findBySocialTokenId(TEST_USER_EMAIL)).thenReturn(TEST_USER);
         MockHttpServletRequest request = jwtAuthHttpRequest(TEST_USER_EMAIL);
@@ -43,8 +41,8 @@ public class JwtAuthInterceptorTest {
         boolean isAuthorization = jwtAuthInterceptor.preHandle(request, null, null);
 
         //then
-        softly.assertThat(isAuthorization).isTrue();
-        softly.assertThat(request.getAttribute(AUTH_USER_KEY).getClass()).isEqualTo(User.class);
+        assertThat(isAuthorization).isTrue();
+        assertThat(request.getAttribute(AUTH_USER_KEY).getClass()).isEqualTo(User.class);
     }
 
     private MockHttpServletRequest jwtAuthHttpRequest(String email) {
