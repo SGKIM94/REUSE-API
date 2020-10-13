@@ -158,7 +158,7 @@ public class Board extends AbstractEntity {
         return this;
     }
 
-    public void verifyThatUserAndRequester(User requester, SalesStatusType requiredStatus) {
+    private void verifyThatUserAndRequester(User requester, SalesStatusType requiredStatus) {
         verifyThatBoardCanChangeStatus(requiredStatus);
     }
 
