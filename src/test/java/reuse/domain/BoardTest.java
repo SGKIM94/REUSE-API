@@ -32,7 +32,7 @@ public class BoardTest {
         Board board = TEST_BOARD;
 
         //when
-        board.reserve(TEST_USER);
+        board.reserve();
 
         assertThat(board.getSalesStatus()).isEqualTo(SalesStatusType.RESERVE);
     }
@@ -45,7 +45,7 @@ public class BoardTest {
         Board board = TEST_THIRD_BOARD;
 
         //when
-        board.complete(TEST_USER);
+        board.complete();
 
         //then
         assertThat(board.getSalesStatus()).isEqualTo(SalesStatusType.COMPLETE);
