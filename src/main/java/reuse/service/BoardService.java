@@ -57,13 +57,13 @@ public class BoardService {
 
         Board modifiedBoard = board.registerBuyer(requester);
 
-        return modifiedBoard.reserve(requester);
+        return modifiedBoard.reserve();
     }
 
     @Transactional
     public Board complete(ModifyBoardStatusRequestView boardId, User requester) {
         Board board = findById(boardId.getId());
 
-        return board.complete(requester);
+        return board.complete();
     }
 }
