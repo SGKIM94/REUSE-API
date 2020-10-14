@@ -144,22 +144,19 @@ public class Board extends AbstractEntity {
         return this.buyer.getId();
     }
 
-    public Board reserve(User requester) {
-        verifyThatUserAndRequester(requester, SalesStatusType.SALE);
+    public Board reserve() {
+        verifyThatBoardCanChangeStatus(SalesStatusType.SALE);
+
 
         this.salesStatus = SalesStatusType.RESERVE;
         return this;
     }
 
-    public Board complete(User requester) {
-        verifyThatUserAndRequester(requester, SalesStatusType.RESERVE);
+    public Board complete() {
+        verifyThatBoardCanChangeStatus(SalesStatusType.RESERVE);
 
         this.salesStatus = SalesStatusType.COMPLETE;
         return this;
-    }
-
-    private void verifyThatUserAndRequester(User requester, SalesStatusType requiredStatus) {
-        verifyThatBoardCanChangeStatus(requiredStatus);
     }
 
     public void verifyThatBoardCanChangeStatus(SalesStatusType sale) {
