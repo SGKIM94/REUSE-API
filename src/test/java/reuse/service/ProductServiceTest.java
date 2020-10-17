@@ -16,6 +16,7 @@ import reuse.repository.ImageRepository;
 import reuse.repository.ProductRepository;
 import reuse.storage.S3Uploader;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -154,5 +155,15 @@ public class ProductServiceTest {
 
         //then
         assertThat(imageUrls.size()).isEqualTo(4);
+    }
+
+    @DisplayName("product image 저장 시 directory 이름을 넘긴 날짜에 맞게 성생하는지")
+    @Test
+    public void getImageDirectory() {
+        LocalDateTime now = LocalDateTime.now();
+        String imageDirectory = productService.getImageDirectory(now);
+
+        //then
+        assertThat(imageDirectory).isEqualTo(S3_PRODUCT_IMAGES_DIRECTORY_NAME + now);
     }
 }
