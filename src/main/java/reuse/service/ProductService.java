@@ -34,7 +34,7 @@ public class ProductService {
 
     @Transactional
     public CreateProductResponseView create(CreateProductRequestView product) {
-        String imageDirectory = getImageDirectory();
+        String imageDirectory = getImageDirectory(getNowDateTime());
 
         Product savedProduct = productRepository.save(product.toEntity(product));
 
@@ -83,9 +83,8 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    // TODO : need to write test code
-    private String getImageDirectory() {
-        return S3_PRODUCT_IMAGES_DIRECTORY_NAME + getNowDateTime();
+    String getImageDirectory(LocalDateTime date) {
+        return S3_PRODUCT_IMAGES_DIRECTORY_NAME + date;
     }
 
     private LocalDateTime getNowDateTime() {
