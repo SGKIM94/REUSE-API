@@ -92,7 +92,7 @@ public class ProductService {
     }
 
     String storeProductImage(MultipartFile productImage, String directory) {
-        if (productImage == null) {
+        if (productImage == null || directory == null) {
             return "";
         }
 
