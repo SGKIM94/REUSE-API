@@ -120,6 +120,16 @@ public class ProductServiceTest {
         assertThat(imageUrl).isNotBlank();
     }
 
+    @DisplayName("품목 이미지 저장 시 productImage 가 없을 때 empty 를 리턴하는지")
+    @Test
+    public void storeProductImageEmptyProductImage() {
+        String imageUrl = productService.storeProductImage
+                (null, S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME);
+
+        //then
+        assertThat(imageUrl).isEmpty();
+    }
+
     @DisplayName("품목의 이미지들을 저장하는지")
     @Test
     public void storeProductImagesTest() {
