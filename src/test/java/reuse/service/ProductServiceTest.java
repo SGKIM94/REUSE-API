@@ -11,7 +11,6 @@ import reuse.domain.ProductImages;
 import reuse.dto.product.CreateProductResponseView;
 import reuse.dto.product.FindProductResponseView;
 import reuse.dto.product.ListProductResponseView;
-import reuse.repository.CategoryRepository;
 import reuse.repository.ImageRepository;
 import reuse.repository.ProductRepository;
 import reuse.storage.S3Uploader;
@@ -37,9 +36,6 @@ public class ProductServiceTest {
 
     @MockBean
     private ProductRepository productRepository;
-
-    @MockBean
-    private CategoryRepository categoryRepository;
 
     @MockBean
     private ImageRepository imageRepository;
@@ -129,6 +125,17 @@ public class ProductServiceTest {
         //then
         assertThat(imageUrl).isEmpty();
     }
+
+    @DisplayName("품목 이미지 저장 시 directory 가 없을 때 empty 를 리턴하는지")
+    @Test
+    public void storeProductImageEmptyDirectory() {
+        String imageUrl = productService.storeProductImage
+                (TEST_IMAGE1, null);
+
+        //then
+        assertThat(imageUrl).isEmpty();
+    }
+
 
     @DisplayName("품목의 이미지들을 저장하는지")
     @Test
