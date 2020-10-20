@@ -8,6 +8,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import reuse.domain.Product;
 import reuse.domain.ProductImages;
+import reuse.dto.product.CreateProductRequestView;
 import reuse.dto.product.CreateProductResponseView;
 import reuse.dto.product.FindProductResponseView;
 import reuse.dto.product.ListProductResponseView;
@@ -152,6 +153,17 @@ public class ProductServiceTest {
         assertThat(productImages.getIndexImage(0)).isNotBlank();
         assertThat(productImages.getIndexImage(1)).isNotBlank();
     }
+
+    @DisplayName("품목의 이미지들을 저장 시 image file 이 없는 경우 예외처리하는지")
+    @Test
+    public void storeProductImagesTestNotImageFile() {
+        ProductImages productImages = productService.storeProductImages
+                (new CreateProductRequestView(), S3_TEST_PRODUCT_IMAGES_DIRECTORY_NAME, TEST_PRODUCT);
+
+        //then
+        assertThat(productImages.getSize()).isEqualTo(0);
+    }
+
 
     @DisplayName("ProductResponseView 를 이미지 url 들과 같이 생성하는지")
     @Test
