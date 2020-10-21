@@ -27,12 +27,6 @@ public class FileSystemStorageService {
         this.rootLocation = Paths.get(properties.getLocation());
     }
 
-    //TODO: Need refactoring
-    // properties 를 ENUM 으로 변경 및 동적으로 수정될 수 있도록 변경 필요
-    public void assignRootLocationToProductId(String productId) {
-        this.rootLocation = Paths.get("/Users/kimsang-gu/Workspace/kim/toyproject/REUSE-API/product-images" + "/" +productId);
-    }
-
     public Path load(String fileName) {
         return rootLocation.resolve(fileName);
     }
