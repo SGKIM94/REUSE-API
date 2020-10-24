@@ -39,8 +39,12 @@ public class JwtAuthInterceptor extends HandlerInterceptorAdapter {
         String socialToken = tokenAuthenticationService.getSocialTokenByJwt(jwtWithoutType);
 
         User user = userRepository.findBySocialTokenId(socialToken);
+        if (user == null) {
+            throw new InvalidAccessTokenException("토큰에 사용자가 존재하지 않습니다.!");
+        }
+
         request.setAttribute(AUTH_USER_KEY, user);
 
-        return user != null;
+        return true;
     }
 }
