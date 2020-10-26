@@ -60,6 +60,19 @@ public class JwtAuthInterceptorTest {
         });
     }
 
+    @DisplayName("사용자 로그인 시 토큰이 존재하지 않는 경우 예외처리하는지")
+    @Test
+    public void preHandleWithNotJwt() {
+        //given
+        when(userRepository.findBySocialTokenId(TEST_USER_EMAIL)).thenReturn(null);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader(HttpHeaders.AUTHORIZATION, "");
+
+        //then
+        assertThrows(InvalidAccessTokenException.class, () -> {
+            jwtAuthInterceptor.preHandle(request, null, null);
+        });
+    }
 
     private MockHttpServletRequest jwtAuthHttpRequest(String email) {
         String jwt = tokenAuthenticationService.toJwtBySocialTokenId(email);
