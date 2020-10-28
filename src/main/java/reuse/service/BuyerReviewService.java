@@ -28,7 +28,7 @@ public class BuyerReviewService {
         Board board = boardService.findById(buyerReview.getBoardId());
 
         board.verifyThatBoardCanChangeStatus(SalesStatusType.COMPLETE);
-        board.verifyThatBuyerAndRequestAreTheSame(buyer.getSocialTokenId());
+        board.verifyThatRequestAreTheSame(buyer.getSocialTokenId(), board.getBuyerTokenId());
         board.addScoreFromBuyerToSeller(buyerReview.getScore());
 
         BuyerReview review = buyerReviewRepository.save(buyerReview.toEntity(buyer));
