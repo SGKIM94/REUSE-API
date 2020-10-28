@@ -216,4 +216,8 @@ public class Board extends AbstractEntity {
 
         return this;
     }
+
+    public String getBuyerTokenId() {
+        return this.buyer.getSocialTokenId();
+    }
 }
