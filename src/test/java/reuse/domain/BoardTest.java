@@ -4,11 +4,11 @@ import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static reuse.fixture.BoardFixture.DEFAULT_ID;
 import static reuse.fixture.BoardFixture.*;
 import static reuse.fixture.BuyerReviewFixture.TEST_BUYER_REVIEW;
 import static reuse.fixture.SellerReviewFixture.TEST_SELLER_REVIEW;
-import static reuse.fixture.UserFixture.TEST_SOCIAL_TOKEN_ID;
-import static reuse.fixture.UserFixture.TEST_USER;
+import static reuse.fixture.UserFixture.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BoardTest {
@@ -151,4 +151,14 @@ public class BoardTest {
         assertThat(modifiedBoard.getSellerReview().getId()).isEqualTo(TEST_SELLER_REVIEW.getId());
     }
 
+    @DisplayName("게시글의 구매자의 SocialTokenId 를 가져오는지")
+    @Test
+    @Order(12)
+    public void getBuyerSocialTokenId() {
+        //when
+        String buyerTokenId = TEST_BOARD.getBuyerTokenId();
+
+        //then
+        assertThat(buyerTokenId).isEqualTo(TEST_SECOND_SOCIAL_TOKEN_ID);
+    }
 }
