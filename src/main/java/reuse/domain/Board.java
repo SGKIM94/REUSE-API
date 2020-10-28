@@ -168,28 +168,16 @@ public class Board extends AbstractEntity {
     // TODO : 판매자가 예약확정을 하는 구조면 같이 써도 됨.
     // 만약 구매자가 예약을 예약을 하는 구조라면 별도로 만들어야됨
     // 구매자가 예약 신청을 한다 -> 판매자가 예약 확정 처리를 한다.
-    public void verifyThatBuyerAndRequestAreTheSame(String requesterSocialTokenId) {
-        if (!requesterSocialTokenId.equals(this.buyer.getSocialTokenId())
+    public void verifyThatRequestAreTheSame(String requesterSocialTokenId, String socialTokenId) {
+        if (!requesterSocialTokenId.equals(socialTokenId)
                 && this.salesStatus.equals(SalesStatusType.COMPLETE)) {
 
-            log.error("#### buyer 의 SocialTokenId : " + this.buyer.getSocialTokenId());
-            log.error("#### User 의 SocialTokenId : " + requesterSocialTokenId);
+            log.error("#### SocialTokenId : " + socialTokenId);
+            log.error("#### requester 의 SocialTokenId : " + requesterSocialTokenId);
 
-            throw new IllegalArgumentException("판매자와 예약 신청한 사용자가 다릅니다.");
+            throw new IllegalArgumentException("예약 신청한 사용자가 다릅니다.");
         }
     }
-
-    public void verifyThatSellerAndRequestAreTheSame(String requesterSocialTokenId) {
-        if (!requesterSocialTokenId.equals(this.seller.getSocialTokenId())
-                && this.salesStatus.equals(SalesStatusType.COMPLETE)) {
-
-            log.error("#### seller 의 SocialTokenId : " + this.seller.getSocialTokenId());
-            log.error("#### User 의 SocialTokenId : " + requesterSocialTokenId);
-
-            throw new IllegalArgumentException("판매자와 예약 신청한 사용자가 다릅니다.");
-        }
-    }
-
 
     public int addScoreFromBuyerToSeller(Integer score) {
         return seller.addScore(score);
@@ -219,5 +207,9 @@ public class Board extends AbstractEntity {
 
     public String getBuyerTokenId() {
         return this.buyer.getSocialTokenId();
+    }
+
+    public String getSellerTokenId() {
+        return this.seller.getSocialTokenId();
     }
 }
