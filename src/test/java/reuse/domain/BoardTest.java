@@ -57,11 +57,11 @@ public class BoardTest {
     public void verifyThatBuyerAndRequestAreTheSame() {
         //given
         String errorMessage = assertThrows(IllegalArgumentException.class, () -> {
-            TEST_SECOND_BOARD.verifyThatBuyerAndRequestAreTheSame(TEST_SOCIAL_TOKEN_ID);
+            TEST_SECOND_BOARD.verifyThatRequestAreTheSame(TEST_SOCIAL_TOKEN_ID, TEST_SECOND_SOCIAL_TOKEN_ID);
         }).getMessage();
 
         //then
-        assertThat(errorMessage).isEqualTo("판매자와 예약 신청한 사용자가 다릅니다.");
+        assertThat(errorMessage).isEqualTo("예약 신청한 사용자가 다릅니다.");
     }
 
 
@@ -78,9 +78,31 @@ public class BoardTest {
         assertThat(errorMessage).isEqualTo("현재 상태 :  COMPLETE | 요구되는 상태 SALE");
     }
 
-    @DisplayName("Board 에 BuyerReview 를 연결시키기위한 외래키를 저장하는지")
+    @DisplayName("게시글의 구매자의 SocialTokenId 를 가져오는지")
     @Test
     @Order(6)
+    public void getBuyerSocialTokenId() {
+        //when
+        String buyerTokenId = TEST_BOARD.getBuyerTokenId();
+
+        //then
+        assertThat(buyerTokenId).isEqualTo(TEST_SECOND_SOCIAL_TOKEN_ID);
+    }
+
+    @DisplayName("게시글의 판매자의 SocialTokenId 를 가져오는지")
+    @Test
+    @Order(7)
+    public void getSellerSocialTokenId() {
+        //when
+        String sellerTokenId = TEST_BOARD.getSellerTokenId();
+
+        //then
+        assertThat(sellerTokenId).isEqualTo(TEST_SOCIAL_TOKEN_ID);
+    }
+
+    @DisplayName("Board 에 BuyerReview 를 연결시키기위한 외래키를 저장하는지")
+    @Test
+    @Order(8)
     public void mappingBuyerReview() {
         //given
         BuyerReview buyerReview = TEST_BUYER_REVIEW;
@@ -95,7 +117,7 @@ public class BoardTest {
 
     @DisplayName("게시글이 삭제가 되는지")
     @Test
-    @Order(7)
+    @Order(9)
     public void delete() {
         //given
         Board board = TEST_BOARD;
@@ -109,7 +131,7 @@ public class BoardTest {
 
     @DisplayName("게시물을 수정 파라미터의 Board 가 비었을 때 빈 Board 를 리턴하는지")
     @Test
-    @Order(8)
+    @Order(10)
     public void modifyWhenEmpty() {
         //when
         Board modifiedBoard = TEST_BOARD.modify(null);
@@ -120,7 +142,7 @@ public class BoardTest {
 
     @DisplayName("게시물을 수정 가능한지")
     @Test
-    @Order(9)
+    @Order(11)
     public void modify() {
         //when
         Board modifiedBoard = TEST_BOARD.modify(MODIFY_BOARD_REQUEST_DTO);
@@ -131,7 +153,7 @@ public class BoardTest {
 
     @DisplayName("게시물에 구매자를 등록 가능한지")
     @Test
-    @Order(10)
+    @Order(12)
     public void registerBuyer() {
         //when
         Board modifiedBoard = TEST_BOARD.registerBuyer(TEST_USER);
@@ -142,23 +164,12 @@ public class BoardTest {
 
     @DisplayName("게시물에 판매자의 후기를 등록 가능한지")
     @Test
-    @Order(11)
+    @Order(13)
     public void registerSellerReview() {
         //when
         Board modifiedBoard = TEST_BOARD.registerSellerReview(TEST_SELLER_REVIEW);
 
         //then
         assertThat(modifiedBoard.getSellerReview().getId()).isEqualTo(TEST_SELLER_REVIEW.getId());
-    }
-
-    @DisplayName("게시글의 구매자의 SocialTokenId 를 가져오는지")
-    @Test
-    @Order(12)
-    public void getBuyerSocialTokenId() {
-        //when
-        String buyerTokenId = TEST_BOARD.getBuyerTokenId();
-
-        //then
-        assertThat(buyerTokenId).isEqualTo(TEST_SECOND_SOCIAL_TOKEN_ID);
     }
 }
