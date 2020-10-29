@@ -59,7 +59,7 @@ public class SellerReviewServiceTest extends AbstractServiceTest {
         }).getMessage();
 
         //then
-        assertThat(errorMessage).isEqualTo("판매자와 예약 신청한 사용자가 다릅니다.");
+        assertThat(errorMessage).isEqualTo("예약 신청한 사용자가 다릅니다.");
     }
 
     @DisplayName("게시물 생성 시 게시글의 상태가 거래완료 상태가 아닌 경우 예외를 처리하는지")
