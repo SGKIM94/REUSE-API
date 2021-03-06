@@ -15,7 +15,7 @@
 ## 개발 목표
  - ATDD 기반으로 개발되어야 한다.
  - 객체 지향적 개발을 우선 시 한다.
- - Test Converage 100% 를 목표로 개발한다.
+ - Test Converage 80% 이상을 목표로 개발한다.
  - Java 8 의 Lamda & Stream 을 기반으로 개발한다.
 
 
