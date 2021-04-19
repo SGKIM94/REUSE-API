@@ -41,13 +41,14 @@ public class Board extends AbstractEntity {
 
     private String sellerAddress;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private SalesStatusType salesStatus;
 
     private Boolean isDeleted = false;
 
     @Builder
-    public Board(String title, String content, Product product, User seller, String sellerAddress, BuyerReview buyerReview, SellerReview sellerReview, SalesStatusType salesStatus, User buyer) {
+    public Board(String title, String content, Product product, User seller, String sellerAddress, BuyerReview buyerReview,
+                 SellerReview sellerReview, SalesStatusType salesStatus, User buyer) {
         this.title = title;
         this.content = content;
         this.product = product;
@@ -60,7 +61,8 @@ public class Board extends AbstractEntity {
     }
 
     @Builder
-    public Board(Long id, String title, String content, Product product, User seller, String sellerAddress, BuyerReview buyerReview, SellerReview sellerReview, SalesStatusType salesStatus, User buyer) {
+    public Board(Long id, String title, String content, Product product, User seller, String sellerAddress,
+                 BuyerReview buyerReview, SellerReview sellerReview, SalesStatusType salesStatus, User buyer) {
         super(id);
         this.title = title;
         this.content = content;
@@ -146,7 +148,6 @@ public class Board extends AbstractEntity {
 
     public Board reserve() {
         verifyThatBoardCanChangeStatus(SalesStatusType.SALE);
-
 
         this.salesStatus = SalesStatusType.RESERVE;
         return this;
