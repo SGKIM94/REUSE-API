@@ -4,7 +4,10 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.apache.commons.text.RandomStringGenerator;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +25,7 @@ public class User extends AbstractEntity {
     @Size(min = 1, max = 20)
     private String socialType;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<FavoriteBoard> favoriteBoards = new ArrayList<>();
 
     private Integer score;
