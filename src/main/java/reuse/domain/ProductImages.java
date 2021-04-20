@@ -49,7 +49,7 @@ public class ProductImages {
     @JsonIgnore
     public String getIndexImage(int index) {
         if (this.images.get(index) == null) {
-            log.error("해당 Images : " + images.toString());
+            log.error("해당 Images : " + images);
             throw new IllegalArgumentException("해당 Index 에 Product Image 가 존재하지 않습니다. : " + index);
         }
 
