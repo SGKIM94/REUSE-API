@@ -15,6 +15,9 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 public class User extends AbstractEntity {
+
+    private static final int NICK_NAME_SIZE = 10;
+
     @Size(min = 1, max = 40)
     @Column(unique = true)
     private String socialTokenId;
@@ -60,7 +63,7 @@ public class User extends AbstractEntity {
         return new RandomStringGenerator.Builder()
                 .withinRange('a', 'z')
                 .build()
-                .generate(10);
+                .generate(NICK_NAME_SIZE);
     }
 
     public String getName() {
