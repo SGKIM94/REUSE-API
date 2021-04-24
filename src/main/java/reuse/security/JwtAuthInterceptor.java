@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import static reuse.security.TokenAuthenticationService.BEARER_TOKEN_TYPE;
 
 public class JwtAuthInterceptor extends HandlerInterceptorAdapter {
-    private UserRepository userRepository;
-    private TokenAuthenticationService tokenAuthenticationService;
+    private final UserRepository userRepository;
+    private final TokenAuthenticationService tokenAuthenticationService;
 
     public static final String AUTH_USER_KEY = "user";
 
