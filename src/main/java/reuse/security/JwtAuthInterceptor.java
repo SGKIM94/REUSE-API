@@ -9,8 +9,6 @@ import reuse.repository.UserRepository;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static reuse.security.TokenAuthenticationService.BEARER_TOKEN_TYPE;
-
 public class JwtAuthInterceptor extends HandlerInterceptorAdapter {
     private final UserRepository userRepository;
     private final TokenAuthenticationService tokenAuthenticationService;
@@ -34,8 +32,7 @@ public class JwtAuthInterceptor extends HandlerInterceptorAdapter {
             throw new InvalidAccessTokenException("Not invalid Token!");
         }
 
-        String jwtWithoutType = authorization.replace(BEARER_TOKEN_TYPE + " ", "");
-
+        String jwtWithoutType = tokenAuthenticationService.extractJwtWithoutType(authorization);
         String socialToken = tokenAuthenticationService.getSocialTokenByJwt(jwtWithoutType);
 
         User user = userRepository.findBySocialTokenId(socialToken);

@@ -12,6 +12,8 @@ public class TokenAuthenticationService {
     public static final String BEARER_TOKEN_TYPE = "Bearer";
     private static final String TOKEN_TYPE_KEY = "tokenType";
     private static final String SOCIAL_TOKEN_ID = "socialTokenId";
+    public static final String WHITE_SPACE_BETWEEN_TYPE_AND_VALUE = " ";
+    public static final String STRING_SPLIT_DELIMITER = "";
 
 
     public byte[] generateKey(String salt) {
@@ -56,5 +58,9 @@ public class TokenAuthenticationService {
 
     public String getTokenTypeByJwt(String jwt) {
         return getJwtClaim(jwt).getHeader().get(TOKEN_TYPE_KEY).toString();
+    }
+
+    public String extractJwtWithoutType(String authorization) {
+        return authorization.replace(BEARER_TOKEN_TYPE + WHITE_SPACE_BETWEEN_TYPE_AND_VALUE, STRING_SPLIT_DELIMITER);
     }
 }
