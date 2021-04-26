@@ -42,7 +42,7 @@ public class Board extends AbstractEntity {
     private String sellerAddress;
 
     @Enumerated(EnumType.STRING)
-    private SalesStatusType salesStatus;
+    private SalesStatusType salesStatus = SalesStatusType.SALE;
 
     private Boolean isDeleted = false;
 
@@ -180,12 +180,12 @@ public class Board extends AbstractEntity {
         }
     }
 
-    public int addScoreFromBuyerToSeller(Integer score) {
-        return seller.addScore(score);
+    public void addScoreFromBuyerToSeller(Integer score) {
+        seller.addScore(score);
     }
 
-    public int addScoreFromSellerToBuyer(Integer score) {
-        return buyer.addScore(score);
+    public void addScoreFromSellerToBuyer(Integer score) {
+        buyer.addScore(score);
     }
 
     public Board registerBuyer(User requester) {
