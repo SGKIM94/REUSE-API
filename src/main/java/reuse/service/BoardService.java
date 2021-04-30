@@ -21,6 +21,7 @@ public class BoardService {
         return CreateBoardResponseView.toDto(savedBoard);
     }
 
+    @Transactional(readOnly = true)
     public ListBoardResponseView list() {
         return ListBoardResponseView.toDto(boardRepository.findAll());
     }
@@ -41,6 +42,7 @@ public class BoardService {
                 .orElseThrow(() -> new IllegalArgumentException("게시물이 존재하지 않습니다."));
     }
 
+    @Transactional(readOnly = true)
     public FindBoardResponseView retrieve(Long id) {
         return FindBoardResponseView.toDto(findById(id));
     }
