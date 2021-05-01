@@ -22,11 +22,13 @@ public class CategoryService {
         return CreateCategoryResponseView.toDto(savedCategory);
     }
 
+    @Transactional(readOnly = true)
     public Category findById(long id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다."));
     }
 
+    @Transactional(readOnly = true)
     public FindCategoryResponseView retrieve(long id) {
         return FindCategoryResponseView.toDto(findById(id));
     }

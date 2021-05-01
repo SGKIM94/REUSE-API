@@ -25,6 +25,7 @@ public class FavoriteBoardService {
         return favoriteBoardRepository.save(FavoriteBoard.toEntity(board, loginUser));
     }
 
+    @Transactional(readOnly = true)
     public ListBoardWithProductResponseView listByUser(User loginUser) {
         return favoriteBoardRepository.findAllByUserId(loginUser.getId());
     }
