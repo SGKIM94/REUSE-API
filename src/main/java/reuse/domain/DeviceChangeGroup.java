@@ -12,6 +12,6 @@ public enum DeviceChangeGroup {
         this.name = name;
     }
 
-    private String value;
-    private String name;
+    private final String value;
+    private final String name;
 }
