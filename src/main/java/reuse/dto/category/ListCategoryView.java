@@ -3,14 +3,12 @@ package reuse.dto.category;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import reuse.domain.ManufacturerGroup;
 import reuse.domain.ModelGroup;
 import reuse.domain.TelecoGroup;
 import reuse.dto.GroupResponsesView;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class ListCategoryView {
     private GroupResponsesView models;

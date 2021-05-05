@@ -3,14 +3,12 @@ package reuse.dto.product;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import reuse.domain.Product;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class ListProductResponseView {
     private List<FindProductResponseView> products;

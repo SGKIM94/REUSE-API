@@ -3,11 +3,9 @@ package reuse.dto.board;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import reuse.domain.Board;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class CreateBoardResponseView {
     private Long id;

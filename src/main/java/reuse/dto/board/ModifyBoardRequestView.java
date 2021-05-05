@@ -3,14 +3,12 @@ package reuse.dto.board;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import reuse.domain.Board;
 import reuse.domain.Product;
 
 import javax.validation.constraints.NotBlank;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class ModifyBoardRequestView {
     @NotBlank(message = "게시판 ID 필수 값입니다.")

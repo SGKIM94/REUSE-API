@@ -3,13 +3,11 @@ package reuse.dto.user;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import reuse.domain.User;
 
 import javax.validation.constraints.NotBlank;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class LoginUserRequestView {
     private Long id;

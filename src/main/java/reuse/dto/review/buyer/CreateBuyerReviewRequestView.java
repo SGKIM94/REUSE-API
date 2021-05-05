@@ -3,12 +3,10 @@ package reuse.dto.review.buyer;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import reuse.domain.BuyerReview;
 import reuse.domain.User;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class CreateBuyerReviewRequestView {
     private String title;

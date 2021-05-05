@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import reuse.domain.User;
 
 @Getter
-@Builder
 @NoArgsConstructor
 public class FindByIdResponseView {
     private Long id;

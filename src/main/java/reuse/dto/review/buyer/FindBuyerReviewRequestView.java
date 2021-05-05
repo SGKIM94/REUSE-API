@@ -3,14 +3,11 @@ package reuse.dto.review.buyer;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import reuse.domain.Board;
 import reuse.domain.BuyerReview;
 import reuse.domain.User;
 import reuse.dto.user.FindByIdResponseView;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class FindBuyerReviewRequestView {
     private FindByIdResponseView buyer;

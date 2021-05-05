@@ -3,14 +3,12 @@ package reuse.dto.review.buyer;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import reuse.domain.BuyerReview;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class ListBuyerReviewResponseView {
     private List<FindBuyerReviewRequestView> buyerReview;

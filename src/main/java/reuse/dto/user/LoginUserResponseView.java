@@ -3,11 +3,9 @@ package reuse.dto.user;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import reuse.domain.User;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class LoginUserResponseView {
     private String socialTokenId;

@@ -4,7 +4,6 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import reuse.domain.Board;
 import reuse.domain.Product;
 import reuse.domain.User;
@@ -12,7 +11,6 @@ import reuse.domain.User;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class FindWithProductResponseView {
     private Long id;

@@ -3,13 +3,11 @@ package reuse.dto.product;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import reuse.domain.Product;
 
 import java.util.List;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class FindProductResponseView {
     private Long id;

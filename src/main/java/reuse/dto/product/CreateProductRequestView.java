@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 import reuse.domain.Product;
 
 import java.util.List;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class CreateProductRequestView {
     private Long id;

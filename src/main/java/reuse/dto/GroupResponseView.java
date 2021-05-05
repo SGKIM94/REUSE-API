@@ -3,14 +3,12 @@ package reuse.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import reuse.domain.DeviceChangeGroup;
 import reuse.domain.ManufacturerGroup;
 import reuse.domain.ModelGroup;
 import reuse.domain.TelecoGroup;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class GroupResponseView {
     private String value;

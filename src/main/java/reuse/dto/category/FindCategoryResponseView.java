@@ -3,11 +3,9 @@ package reuse.dto.category;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import reuse.domain.Category;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class FindCategoryResponseView {
     private Long id;

@@ -3,7 +3,6 @@ package reuse.dto.board;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import reuse.domain.Board;
 import reuse.domain.SalesStatusType;
 import reuse.domain.User;
@@ -11,7 +10,6 @@ import reuse.domain.User;
 import javax.validation.constraints.NotBlank;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class CreateBoardRequestView {
     @NotBlank(message = "제목은 필수 값입니다.")

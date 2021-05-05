@@ -15,7 +15,6 @@ public class TokenAuthenticationService {
     public static final String WHITE_SPACE_BETWEEN_TYPE_AND_VALUE = " ";
     public static final String STRING_SPLIT_DELIMITER = "";
 
-
     public byte[] generateKey(String salt) {
         return salt.getBytes();
     }

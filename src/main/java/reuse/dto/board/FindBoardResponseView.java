@@ -3,7 +3,6 @@ package reuse.dto.board;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import reuse.domain.Board;
 import reuse.domain.SalesStatusType;
 import reuse.dto.product.FindProductResponseView;
@@ -12,7 +11,6 @@ import reuse.dto.review.seller.FindSellerReviewResponseView;
 import reuse.dto.user.FindByIdResponseView;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class FindBoardResponseView {
     private Long id;
