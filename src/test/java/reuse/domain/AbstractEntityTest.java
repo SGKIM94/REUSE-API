@@ -9,6 +9,7 @@ import reuse.repository.ProductRepository;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static reuse.fixture.ProductFixture.TEST_PRODUCT;
 
 @SpringBootTest
@@ -26,7 +27,9 @@ public class AbstractEntityTest {
         Product save = productRepository.save(TEST_PRODUCT);
 
         //then
-        assertThat(save.getCreateAt()).isAfter(now);
-        assertThat(save.getUpdateAt()).isAfter(now);
+        assertAll(
+                () -> assertThat(save.getCreateAt()).isAfter(now),
+                () -> assertThat(save.getUpdateAt()).isAfter(now)
+        );
     }
 }

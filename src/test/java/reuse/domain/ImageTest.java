@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static reuse.fixture.ProductFixture.TEST_PRODUCT;
 import static reuse.fixture.ProductFixture.TEST_PRODUCT_NAME;
 import static reuse.fixture.ProductImagesFixture.FIRST_IMAGE_URL;
@@ -27,7 +28,9 @@ public class ImageTest {
         //when
         Image image = Image.toEntity(FIRST_IMAGE_URL, TEST_PRODUCT);
 
-        assertThat(image.getUrl()).isEqualTo(FIRST_IMAGE_URL);
-        assertThat(image.getProduct().getName()).isEqualTo(TEST_PRODUCT_NAME);
+        assertAll(
+                () -> assertThat(image.getUrl()).isEqualTo(FIRST_IMAGE_URL),
+                () -> assertThat(image.getProduct().getName()).isEqualTo(TEST_PRODUCT_NAME)
+        );
     }
 }
