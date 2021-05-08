@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static reuse.fixture.BuyerReviewFixture.*;
 
 public class BuyerReviewTest {
@@ -18,9 +19,11 @@ public class BuyerReviewTest {
         buyerReview.modify(TEST_SECOND_BUYER_REVIEW);
 
         //then
-        assertThat(buyerReview.getContent()).isEqualTo(TEST_SECOND_CONTENT);
-        assertThat(buyerReview.getScore()).isEqualTo(TEST_SECOND_SCORE);
-        assertThat(buyerReview.getTitle()).isEqualTo(TEST_SECOND_TITLE);
+        assertAll(
+                () -> assertThat(buyerReview.getContent()).isEqualTo(TEST_SECOND_CONTENT),
+                () -> assertThat(buyerReview.getScore()).isEqualTo(TEST_SECOND_SCORE),
+                () -> assertThat(buyerReview.getTitle()).isEqualTo(TEST_SECOND_TITLE)
+        );
     }
 }
 
