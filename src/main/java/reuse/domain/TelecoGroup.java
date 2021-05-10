@@ -22,8 +22,8 @@ public enum TelecoGroup {
         this.name = name;
     }
 
-    private String value;
-    private String name;
+    private final String value;
+    private final String name;
 
     public static GroupResponsesView toGroupDto() {
         List<GroupResponseView> groups = Arrays.stream(TelecoGroup.values())
