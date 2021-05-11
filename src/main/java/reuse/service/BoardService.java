@@ -63,7 +63,7 @@ public class BoardService {
     }
 
     @Transactional
-    public Board complete(ModifyBoardStatusRequestView boardId, User requester) {
+    public Board complete(ModifyBoardStatusRequestView boardId) {
         Board board = findById(boardId.getId());
 
         return board.complete();

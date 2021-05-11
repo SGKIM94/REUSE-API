@@ -60,8 +60,8 @@ public class BoardController {
     }
 
     @PostMapping("/complete")
-    public ResponseEntity complete(@RequestBody ModifyBoardStatusRequestView boardId, @LoginUser User seller) {
-        Board complete = boardService.complete(boardId, seller);
+    public ResponseEntity complete(@RequestBody ModifyBoardStatusRequestView boardId) {
+        Board complete = boardService.complete(boardId);
         return ResponseEntity.ok().body(complete.getId());
     }
 }
