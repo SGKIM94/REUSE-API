@@ -12,7 +12,7 @@ import reuse.service.BoardService;
 @RestController
 @RequestMapping("/boards")
 public class BoardController {
-    private BoardService boardService;
+    private final BoardService boardService;
 
     public BoardController(BoardService boardService) {
         this.boardService = boardService;
