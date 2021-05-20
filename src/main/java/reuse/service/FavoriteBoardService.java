@@ -11,8 +11,8 @@ import reuse.repository.FavoriteBoardRepository;
 
 @Service
 public class FavoriteBoardService {
-    private FavoriteBoardRepository favoriteBoardRepository;
-    private BoardService boardService;
+    private final FavoriteBoardRepository favoriteBoardRepository;
+    private final BoardService boardService;
 
     public FavoriteBoardService(FavoriteBoardRepository favoriteBoardRepository, BoardService boardService) {
         this.favoriteBoardRepository = favoriteBoardRepository;

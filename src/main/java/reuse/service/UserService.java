@@ -11,8 +11,8 @@ import reuse.security.TokenAuthenticationService;
 @Slf4j
 @Service
 public class UserService {
-    private UserRepository userRepository;
-    private TokenAuthenticationService tokenAuthenticationService;
+    private final UserRepository userRepository;
+    private final TokenAuthenticationService tokenAuthenticationService;
 
     public UserService(TokenAuthenticationService tokenAuthenticationService, UserRepository userRepository) {
         this.tokenAuthenticationService = tokenAuthenticationService;

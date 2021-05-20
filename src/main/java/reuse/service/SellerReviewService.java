@@ -11,8 +11,8 @@ import reuse.repository.SellerReviewRepository;
 
 @Service
 public class SellerReviewService {
-    private SellerReviewRepository sellerReviewRepository;
-    private BoardService boardService;
+    private final SellerReviewRepository sellerReviewRepository;
+    private final BoardService boardService;
 
     public SellerReviewService(SellerReviewRepository sellerReviewRepository, BoardService boardService) {
         this.sellerReviewRepository = sellerReviewRepository;

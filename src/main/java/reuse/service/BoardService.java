@@ -9,7 +9,7 @@ import reuse.repository.BoardRepository;
 
 @Service
 public class BoardService {
-    private BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
 
     public BoardService(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
